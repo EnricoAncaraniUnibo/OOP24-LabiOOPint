@@ -5,6 +5,8 @@ public class Builder {
     
     public static void start(TurnManager tm) {
         int numberPlayer = setting.getNumberPlayer;
+        private final static int SmallLabyrint = 5;
+        private final static int BigLabyrint = 5;
         if(numberPlayer == 2) {
             Labyrinth = new Labyrinth(SmallLabyrint);
         } else if(numberPlayer == 4) {
@@ -18,7 +20,7 @@ public class Builder {
             tm.addPlayer(a);
         }
 
-        
+
         
     }
     
