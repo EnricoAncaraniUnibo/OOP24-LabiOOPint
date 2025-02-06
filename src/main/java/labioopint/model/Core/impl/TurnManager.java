@@ -17,4 +17,5 @@ public class TurnManager {
     public void addPlayer(Player p) {
         players.add(p);
     }
+    
 }
