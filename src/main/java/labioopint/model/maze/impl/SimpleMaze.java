@@ -1,9 +1,5 @@
 package labioopint.model.maze.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 import labioopint.model.maze.api.BlockType;
 
 public class SimpleMaze extends Maze{
@@ -15,9 +11,12 @@ public class SimpleMaze extends Maze{
         super(size);
     }
 
+    @Override
     public Block Generate() {
         this.fillDefaultBlocks();
-        return this.fillMaze();
+        MazeGenerator mg = new MazeGenerator(getListofBlocks());
+        setMaze(mg.fill(getSize()));
+        return mg.getOutsideBlock();
     }
     
     private void fillDefaultBlocks() {
@@ -31,8 +30,8 @@ public class SimpleMaze extends Maze{
             getListofBlocks().add(new Block(BlockType.CROSSING));
         }
     }
-
-    private Block fillMaze() {
+    /*
+     * private Block fillMaze() {
         Random r = new Random();
         final List<Block> tmp = new ArrayList<>();
         tmp.addAll(getListofBlocks());
@@ -52,4 +51,8 @@ public class SimpleMaze extends Maze{
         tmp.remove(b);
         return b;
     }
+    fillmaze potrebbe andare in una classe generator
+     * 
+     */
+    
 }

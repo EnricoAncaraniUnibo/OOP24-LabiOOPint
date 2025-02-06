@@ -32,6 +32,10 @@ public abstract class Maze {
         return grid;
     }
 
+    public void setMaze(final Map<Coordinate,Block> maze) {
+        grid.putAll(maze);
+    }
+
     public void ChangeCoordinate(final Coordinate oldC, final Block b, final Coordinate newC) {
         grid.remove(oldC);
         this.ChangeCoordinate(b, newC);
@@ -41,4 +45,6 @@ public abstract class Maze {
         grid.remove(newC);
         grid.put(newC, b);
     }
+
+    public abstract Block Generate();
 }

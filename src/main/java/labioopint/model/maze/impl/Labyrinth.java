@@ -1,14 +1,43 @@
 package labioopint.model.maze.impl;
 
+import java.util.List;
+
 import labioopint.model.maze.api.Direction;
 
 public class Labyrinth {
-    private final SimpleMaze grid;
+    private final Maze grid;
     private Block outsideBlock;
+    private DualMap<PowerUp> mapOfPowerUps;
+    private DualMap<Player> mapOfPlayers;
+    private DualMap<Enemy> mapOfEnemy;
 
     public Labyrinth(final Integer size) {
         grid = new SimpleMaze(size);
         outsideBlock=grid.Generate();
+        this.start();
+    }
+
+    public Labyrinth(final Integer size,final Integer corners, final Integer corridors, final Integer crossings) {
+        grid = new ComplexMaze(size,corners,corridors,crossings);
+        outsideBlock=grid.Generate();
+        this.start();
+    }
+
+    private void start() {
+        CoordinateGenerator cg = new CoordinateGenerator(grid.getSize());
+        List<PowerUp> ls = setting.getPowerUps();
+        for (PowerUp iterable_element : ls) {
+            mapOfPowerUps.addElemWithCoordinate(iterable_element,cg.getRandomCoordinate());
+        }
+        cg = new CoordinateGenerator(CoordinateGenerator.createBasicSpawnCoordinate(grid.getSize()));
+        List<Player> ls = setting.getPlayers();
+        for (Player iterable_element : ls) {
+            mapOfPlayers.addElemWithCoordinate(iterable_element,cg.getRandomCoordinate());
+        }
+    }
+
+    private void addPowerUps() {
+        CoordinateGenerator cg = new CoordinateGenerator(grid.getSize());
     }
 
     public Block getOutsideBlock() {
