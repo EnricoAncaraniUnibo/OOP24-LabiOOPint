@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class Maze {
-    private final Map<Coordinate,Block> grid;
+    private final Map<Coordinate, Block> grid;
     private final List<Block> blockSelection;
     private final Integer size;
 
-    public Maze(final Integer size){
+    public Maze(final Integer size) {
         this.size = size;
         this.blockSelection = new ArrayList<>();
         this.grid = new HashMap<>();
@@ -28,11 +28,11 @@ public abstract class Maze {
         return size;
     }
 
-    public Map<Coordinate,Block> getMaze() {
+    public Map<Coordinate, Block> getMaze() {
         return grid;
     }
 
-    public void setMaze(final Map<Coordinate,Block> maze) {
+    public void setMaze(final Map<Coordinate, Block> maze) {
         grid.putAll(maze);
     }
 

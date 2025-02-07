@@ -2,7 +2,7 @@ package labioopint.model.maze.impl;
 
 import labioopint.model.maze.api.BlockType;
 
-public class ComplexMaze extends Maze{
+public class ComplexMaze extends Maze {
     private final Integer corners;
     private final Integer corridors;
     private final Integer crossings;
@@ -23,13 +23,13 @@ public class ComplexMaze extends Maze{
     }
 
     private void fillBlocks() {
-        for(int i=0;i<corners;i++) {
+        for (int i = 0; i < corners; i++) {
             getListofBlocks().add(new Block(BlockType.CORNER));
         }
-        for(int i=0;i<corridors;i++) {
+        for (int i = 0; i < corridors; i++) {
             getListofBlocks().add(new Block(BlockType.CORRIDOR));
         }
-        for(int i=0;i<crossings;i++) {
+        for (int i = 0; i < crossings; i++) {
             getListofBlocks().add(new Block(BlockType.CROSSING));
         }
     }

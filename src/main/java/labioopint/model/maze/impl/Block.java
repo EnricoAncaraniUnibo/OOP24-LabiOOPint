@@ -25,7 +25,7 @@ public class Block {
 
     public void RandomRotation() {
         Random r = new Random();
-        Integer value = r.nextInt(0,4);
+        Integer value = r.nextInt(0, 4);
         switch (value) {
             case 0:
                 rotation = Rotation.ZERO;

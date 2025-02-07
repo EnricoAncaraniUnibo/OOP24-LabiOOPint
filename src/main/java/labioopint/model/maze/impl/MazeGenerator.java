@@ -16,14 +16,14 @@ public class MazeGenerator {
         r = new Random();
     }
 
-    public Map<Coordinate,Block> fill(final Integer size) {
-        Map<Coordinate,Block> map = new HashMap<>();
-        for(int i=0;i<size;i++) {
-            for(int j=0;j<size;j++) {
-                Block b = selectableBlocks.get(r.nextInt(0,selectableBlocks.size()));
+    public Map<Coordinate, Block> fill(final Integer size) {
+        Map<Coordinate, Block> map = new HashMap<>();
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                Block b = selectableBlocks.get(r.nextInt(0, selectableBlocks.size()));
                 selectableBlocks.remove(b);
                 Coordinate c = new Coordinate(i, j);
-                if(j%2==0 && i%2==0) {
+                if (j % 2 == 0 && i % 2 == 0) {
                     b.DisableMovement();
                 }
                 b.RandomRotation();
@@ -31,13 +31,13 @@ public class MazeGenerator {
             }
         }
         return map;
-        
+
     }
 
     public Block getOutsideBlock() {
-        Block b = selectableBlocks.get(r.nextInt(0,selectableBlocks.size()));
+        Block b = selectableBlocks.get(r.nextInt(0, selectableBlocks.size()));
         selectableBlocks.remove(b);
         return b;
     }
-    
+
 }
