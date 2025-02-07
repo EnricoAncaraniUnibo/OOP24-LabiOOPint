@@ -4,17 +4,17 @@ import java.util.*;
 
 public abstract class BaseEnemy {
 
-    public Point position;  
+    public Coordinate position;  
 
-    public BaseEnemy(Point startPosition) {
+    public BaseEnemy(Coordinate startPosition) {
         this.position = startPosition;
     }
 
-    public Point getPosition() {
+    public Coordinate getPosition() {
         return position;
     }
 
-    public void setPosition(Point position) {
+    public void setPosition(Coordinate position) {
         this.position = position;
     }
 
