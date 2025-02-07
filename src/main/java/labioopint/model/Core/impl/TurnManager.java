@@ -4,18 +4,29 @@ import java.util.*;
 
 public class TurnManager {
 
-    List<Player> players = new ArrayList<>();
+    private List<Player> players;
+    private Enemy enemy;
+    private Builder build;
+    private TurnEnemy te;
+    private Labyrinth maze;
+    private TurnPlayer tp;
 
     public TurnManager() {
-        Builder.start();
+        this.players = build.createPlayers();
+        this.maze = build.createMaze();
+        this.enemy = build.createEnemy();
     }
 
-    public void createEnemy() {
+    private void game() {
+        RandomTurnChooser randomic = new RandomTurnChooser(players);
+        List<Player> turnPlayer = randomic.randomOrder();
+        while (maze.isGameFinished == false) {
 
+        }
     }
 
-    public void addPlayer(Player p) {
-        players.add(p);
+    public Labyrinth getMaze() {
+        return maze;
     }
-    
+
 }
