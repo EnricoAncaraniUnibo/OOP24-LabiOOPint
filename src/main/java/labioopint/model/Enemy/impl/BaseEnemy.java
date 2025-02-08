@@ -2,9 +2,10 @@ package labioopint.model.Enemy.impl;
 
 import java.util.*;
 
-public abstract class BaseEnemy {
+import labioopint.commons.Coordinate;
+import labioopint.model.Enemy.api.Enemy;
 
-    public abstract void move(Labyrinth maze, List<Player> players);
+public abstract class BaseEnemy implements Enemy {
 
     /*
      * Quando un player viene mangiato dal nemico, il player perde il primo PowerUp

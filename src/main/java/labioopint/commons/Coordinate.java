@@ -1,4 +1,4 @@
-package labioopint.model.Enemy.impl;
+package labioopint.commons;
 
 public class Coordinate {
     private Integer row;

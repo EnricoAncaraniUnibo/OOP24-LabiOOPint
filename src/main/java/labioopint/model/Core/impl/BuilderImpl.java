@@ -6,30 +6,31 @@ import labioopint.model.Enemy.impl.BaseEnemy;
 import labioopint.model.Enemy.impl.EnemyAI;
 import labioopint.model.Enemy.impl.RandomEnemy;
 
-public class Builder {
+public class BuilderImpl {
 
-    public final static int SmallLabyrint = 5;
-    public final static int BigLabyrint = 7;
-    public static int definitiveDimension;
+    public final static int SMALL_LABYRINTH = 5;
+    public final static int BIG_LABYRINTH = 7;
+    public static int definitiveDimension; // NO USARE VAR PUBBLICHE USA METODO CON GETTER
     private int numberPlayer;
 
-    public Builder() {
+    // potrebbe avere bisogno di ricevere setting dal costruttore, se è vuoto, 
+    // setting va passato in qualche modo
+    public BuilderImpl() {
         numberPlayer = setting.getNumberPlayer;
     }
 
-    public Labyrint createMaze() {
+    public Labyrinth createMaze() {
         if (numberPlayer == 2) {
-            definitiveDimension = SmallLabyrint;
-            Labyrinth labyrint = new Labyrinth(SmallLabyrint);
+            definitiveDimension = SMALL_LABYRINTH;
+            Labyrinth labyrint = new Labyrinth(SMALL_LABYRINTH);
             return labyrint;
         } else if (numberPlayer == 4) {
-            definitiveDimension = BigLabyrint;
-            Labyrinth labyrint = new Labyrinth(BigLabyrint);
+            definitiveDimension = BIG_LABYRINTH;
+            Labyrinth labyrint = new Labyrinth(BIG_LABYRINTH);
             return labyrint;
         } else {
             throw new IllegalArgumentException();
         }
-
     }
 
     public List<Player> createPlayers() {

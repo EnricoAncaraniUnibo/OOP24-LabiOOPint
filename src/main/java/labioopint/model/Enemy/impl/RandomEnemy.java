@@ -3,7 +3,8 @@ package labioopint.model.Enemy.impl;
 import java.util.List;
 import java.util.Random;
 
-import labioopint.model.Core.impl.Builder;
+import labioopint.commons.Coordinate;
+import labioopint.model.Core.impl.BuilderImpl;
 
 public class RandomEnemy extends BaseEnemy {
 
