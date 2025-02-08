@@ -3,7 +3,10 @@ package labioopint.model.maze.impl;
 import java.util.List;
 
 import labioopint.controller.maze.LabyrinthController;
+import labioopint.model.api.Coordinate;
+import labioopint.model.api.CoordinateGenerator;
 import labioopint.model.maze.api.Direction;
+import labioopint.model.player.impl.Player;
 
 public class Labyrinth {
     private final Maze grid;
@@ -131,7 +134,7 @@ public class Labyrinth {
     public void updateCoordinate(final Object o, final Coordinate c) {
         if (o instanceof Player) {
             mapOfPlayers.remove((Player) o);
-            mapOfPlayers.addElemWithCoordinate((Enemy) o, c);
+            mapOfPlayers.addElemWithCoordinate((Player) o, c);
         }
         if (o instanceof Enemy) {
             mapOfEnemy.remove((Enemy) o);

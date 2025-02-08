@@ -1,4 +1,4 @@
-package labioopint.model.maze.impl;
+package labioopint.model.api;
 
 import java.util.HashMap;
 import java.util.Map;

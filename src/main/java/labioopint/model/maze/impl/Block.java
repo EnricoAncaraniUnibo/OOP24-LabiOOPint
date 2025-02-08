@@ -2,15 +2,16 @@ package labioopint.model.maze.impl;
 
 import java.util.Random;
 
+import labioopint.model.api.Movable;
 import labioopint.model.maze.api.BlockType;
 import labioopint.model.maze.api.Rotation;
 
-public class Block {
+public class Block extends Movable {
     private BlockType type;
     private Rotation rotation;
-    private Movable move;
 
     public Block(final BlockType ty) {
+        super();
         this.rotation = Rotation.ZERO;
         this.type = ty;
     }
@@ -40,13 +41,5 @@ public class Block {
                 rotation = Rotation.TWO_HUNDRED_SEVENTY;
                 break;
         }
-    }
-
-    public boolean IsMovable() {
-        return move.IsMovable();
-    }
-
-    public void DisableMovement() {
-        move.disable();
     }
 }

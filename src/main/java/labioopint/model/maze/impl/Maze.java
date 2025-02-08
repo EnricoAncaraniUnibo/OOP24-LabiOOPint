@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import labioopint.model.api.Coordinate;
+
 public abstract class Maze {
     private final Map<Coordinate, Block> grid;
     private final List<Block> blockSelection;

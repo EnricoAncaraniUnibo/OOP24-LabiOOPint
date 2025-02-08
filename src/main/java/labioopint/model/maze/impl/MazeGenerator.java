@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import labioopint.model.api.Coordinate;
+
 public class MazeGenerator {
     private final List<Block> selectableBlocks;
     private final Random r;
@@ -24,7 +26,7 @@ public class MazeGenerator {
                 selectableBlocks.remove(b);
                 Coordinate c = new Coordinate(i, j);
                 if (j % 2 == 0 && i % 2 == 0) {
-                    b.DisableMovement();
+                    b.disable();
                 }
                 b.RandomRotation();
                 map.put(c, b);
