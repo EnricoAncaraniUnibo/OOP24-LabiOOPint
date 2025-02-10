@@ -10,7 +10,7 @@ public class BuilderImpl {
 
     public final static int SMALL_LABYRINTH = 5;
     public final static int BIG_LABYRINTH = 7;
-    public static int definitiveDimension; // NO USARE VAR PUBBLICHE USA METODO CON GETTER
+    private int definitiveDimension; // NO USARE VAR PUBBLICHE USA METODO CON GETTER
     private int numberPlayer;
 
     // potrebbe avere bisogno di ricevere setting dal costruttore, se è vuoto, 
@@ -23,10 +23,12 @@ public class BuilderImpl {
         if (numberPlayer == 2) {
             definitiveDimension = SMALL_LABYRINTH;
             Labyrinth labyrint = new Labyrinth(SMALL_LABYRINTH);
+            getDimension(definitiveDimension);
             return labyrint;
         } else if (numberPlayer == 4) {
             definitiveDimension = BIG_LABYRINTH;
             Labyrinth labyrint = new Labyrinth(BIG_LABYRINTH);
+            getDimension(definitiveDimension);
             return labyrint;
         } else {
             throw new IllegalArgumentException();
@@ -52,6 +54,10 @@ public class BuilderImpl {
             return enemy;
         }
 
+    }
+
+    public int getDimension(int dim) {
+        return dim;
     }
 
 }

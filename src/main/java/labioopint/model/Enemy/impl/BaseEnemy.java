@@ -5,7 +5,7 @@ import java.util.*;
 import labioopint.commons.Coordinate;
 import labioopint.model.Enemy.api.Enemy;
 
-public abstract class BaseEnemy implements Enemy {
+public abstract class BaseEnemy extends Movable implements Enemy {
 
     /*
      * Quando un player viene mangiato dal nemico, il player perde il primo PowerUp

@@ -11,4 +11,6 @@ public interface Builder {
     List<Player> createPlayers();
 
     Enemy createEnemy();
+    
+    int getDimension(int dim);
 }
