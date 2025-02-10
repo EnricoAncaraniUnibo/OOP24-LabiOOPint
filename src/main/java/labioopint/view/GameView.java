@@ -6,7 +6,10 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.border.TitledBorder;
 
+import labioopint.model.maze.impl.SimpleMaze;
+
 public class GameView extends JFrame {
+    private DrawPanel dp;
 
     public GameView() {
         this.BuildBase();
@@ -23,9 +26,15 @@ public class GameView extends JFrame {
     }
 
     private void BuildPanels() {
-        DrawPanel dp = new DrawPanel();
+        dp = new DrawPanel(this.getSize());
         dp.setBorder(new TitledBorder("Game"));
         this.getContentPane().add(dp, BorderLayout.CENTER);
+    }
+
+    public void update() {
+        SimpleMaze prova = new SimpleMaze(7);
+        prova.Generate();
+        dp.update(prova);
     }
 
     private void Show() {

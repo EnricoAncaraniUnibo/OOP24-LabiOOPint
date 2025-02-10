@@ -19,7 +19,12 @@ public abstract class Maze {
     }
 
     public Block GetBlock(final Coordinate c) {
-        return grid.get(c);
+        for (Coordinate coor : grid.keySet()) {
+            if(c.getRow().equals(coor.getRow()) && c.getColumn().equals(coor.getColumn())) {
+                return grid.get(coor);
+            }
+        }
+        return null;
     }
 
     public List<Block> getListofBlocks() {

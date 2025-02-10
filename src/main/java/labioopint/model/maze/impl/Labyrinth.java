@@ -5,6 +5,7 @@ import java.util.List;
 import labioopint.controller.maze.LabyrinthController;
 import labioopint.model.api.Coordinate;
 import labioopint.model.api.CoordinateGenerator;
+import labioopint.model.api.DualMap;
 import labioopint.model.maze.api.Direction;
 import labioopint.model.player.impl.Player;
 
