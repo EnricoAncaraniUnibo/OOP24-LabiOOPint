@@ -3,15 +3,14 @@ package labioopint.view;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+
 import javax.swing.JFrame;
 import javax.swing.border.TitledBorder;
 
-import labioopint.model.maze.impl.SimpleMaze;
-
-public class GameView extends JFrame {
+public class GameTestView extends JFrame {
     private DrawPanel dp;
 
-    public GameView() {
+    public GameTestView() {
         this.BuildBase();
         this.BuildPanels();
         this.Show();
@@ -31,10 +30,16 @@ public class GameView extends JFrame {
         this.getContentPane().add(dp, BorderLayout.CENTER);
     }
 
-    public void update() {
-        SimpleMaze prova = new SimpleMaze(7);
-        prova.Generate();
-        dp.update(prova);
+    /*
+     * 
+     * public void update(final Maze grid, final Map<Coordinate,Player> mapPlayers, final Map<Coordinate,Enemy> mapEnemies, final Map<Coordinate,PowerUp> mapPowerUps) {
+        dp.draw(grid,mapPlayers,mapEnemies,mapPowerUps);
+    }
+     */
+    
+
+    public DrawPanel getGraphicsArea() {
+        return dp;
     }
 
     private void Show() {

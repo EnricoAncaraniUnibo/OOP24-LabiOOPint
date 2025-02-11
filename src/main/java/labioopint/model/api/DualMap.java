@@ -29,4 +29,8 @@ public class DualMap<X> {
         mapFromCoordinate.remove(mapFromElement.get(elem));
         mapFromElement.remove(elem);
     }
+
+    public Map<Coordinate,X> getMapFromCoordinate() {
+        return mapFromCoordinate;
+    }
 }

@@ -15,21 +15,21 @@ public class Labyrinth {
     private DualMap<PowerUp> mapOfPowerUps;
     private DualMap<Player> mapOfPlayers;
     private DualMap<Enemy> mapOfEnemy;
-    private final LabyrinthController lc;
+    private LabyrinthController labyController;
 
-    public Labyrinth() {
-        lc = new LabyrinthController();
+    public void Default() {
+        labyController = new LabyrinthController();
     }
 
     public Labyrinth(final Integer size) {
-        this();
+        this.Default();
         grid = new SimpleMaze(size);
         outsideBlock = grid.Generate();
         this.start();
     }
 
     public Labyrinth(final Integer size, final Integer corners, final Integer corridors, final Integer crossings) {
-        this();
+        this.Default();
         grid = new ComplexMaze(size, corners, corridors, crossings);
         outsideBlock = grid.Generate();
         this.start();
@@ -48,9 +48,9 @@ public class Labyrinth {
         }
         List<Enemy> enemyList = setting.getEnemy();
         for (Enemy en : enemyList) {
-            mapOfEnemy.addElemWithCoordinate(en, CoordinateGenerator.getCentralCoordinate(grid.getSize()));
+            mapOfEnemy.addElemWithCoordinate(en, CoordinateGenerator.getCentralabyControlleroordinate(grid.getSize()));
         }
-        lc.update();
+        labyController.updateGraphics();
     }
 
     private void addPowerUps() {
@@ -100,6 +100,7 @@ public class Labyrinth {
             grid.ChangeCoordinate(outsideBlock, new Coordinate(number, grid.getSize() - 1));
             return outside;
         }
+        labyController.updateGraphics();
     }
 
     private Block shiftColumn(final Integer number, final Direction d) {
@@ -118,6 +119,7 @@ public class Labyrinth {
             grid.ChangeCoordinate(outsideBlock, new Coordinate(0, number));
             return outside;
         }
+        labyController.updateGraphics();
     }
 
     public Coordinate getPlayerCoordinate(final Player p) {
@@ -144,6 +146,6 @@ public class Labyrinth {
         if (o instanceof PowerUp) {
             mapOfPowerUps.remove((PowerUp) o);
         }
-        lc.update();
+        labyController.updateGraphics();
     }
 }

@@ -1,10 +1,10 @@
 package labioopint;
 
-import labioopint.view.GameView;
+import labioopint.view.GameTestView;
 
 public class TestView {
     public static void main(String[] args) {
-        GameView a= new GameView();
+        GameTestView a= new GameTestView();
         a.update();
     }
 }
