@@ -15,15 +15,19 @@ public class RandomEnemy extends BaseEnemy {
     public void move(Labyrinth maze, List<Player> players) {
 
         int direction = rand.nextInt(4);
-        int steps = rand.nextInt(4) + 2;    // da 2 a 5
+        int steps = rand.nextInt(4) + 2; // da 2 a 5
         Coordinate current = maze.getCoordinateEnemy();
 
         for (int i = 0; i < steps; i++) {
-            Coordinate next = getNextCoordinate(current, direction);
-            if (maze.isValidPosition(next)) {
-                current = next;
-            } else {
-                direction = rand.nextInt(4);
+            Boolean success = false;
+            while (!success) {
+                Coordinate next = getNextCoordinate(current, direction);
+                if (ActionPredicate.isValidPosition(current, next)) {
+                    current = next;
+                    success = true;
+                } else {
+                    direction = rand.nextInt(4);
+                }
             }
         }
         maze.setCoordinateEnemy(current);
@@ -31,7 +35,7 @@ public class RandomEnemy extends BaseEnemy {
 
     private Coordinate getNextCoordinate(Coordinate c, int direction) {
         switch (direction) {
-            case 0: 
+            case 0:
                 return new Coordinate(c.getRow() - 1, c.getColumn());
             case 1:
                 return new Coordinate(c.getRow() + 1, c.getColumn());
@@ -51,21 +55,9 @@ public class RandomEnemy extends BaseEnemy {
     }
 }
 
-   
-
-    // int dx = rand.nextInt(3) - 1; // -1, 0, 1
-    // int dy = rand.nextInt(3) - 1; // -1, 0, 1
-
-    // Point newPosition = new Point(position.getRow() + dx, position.getColumn() +
-    // dy);
-
-    // if (maze.isValidPosition(newPosition)) {
-    // position = newPosition;
-    // }
 // il numero di step va nella classe turn, mentre la direzione in cui muoversi è
 // di questo metodo qui
 // turno dice che il nemico si muove (enemy.move) -> io gli restituisco dove si
 // deve muovere, le nuove coordinate
 // turn passa da action predicate (se posso farlo) e continuo a farlo per n step
-// (ogni volta che si incontra un muro,
-// si cambia direzione e si riprova).
+// (ogni volta che si incontra un muro, si cambia direzione e si riprova).
