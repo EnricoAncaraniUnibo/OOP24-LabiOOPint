@@ -1,7 +1,6 @@
 package labioopint.view;
 
 import javax.swing.*;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,17 +9,18 @@ public class GameView extends JFrame {
 
     private JLabel turnLabel;
     private JPanel labirintPanel;
-    // BISOGNA MODIFICARLI APPENA ARRIVANO GLI ID DEI PLAYER DAL
-    // PlayerInformationController
     private int currentPlayer = 1;
-    private int totalPlayers = 2;
+    private final int totalPlayers = 4;
 
     public GameView() {
         setTitle("LabiOPPint");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(800, 600);
+        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+        setSize((int) d.getWidth() * 4 / 5, (int) d.getHeight() * 4 / 5);
         setLayout(new BorderLayout());
         setResizable(false);
+        setLocationByPlatform(true);
+
         labirintPanel = new JPanel();
         labirintPanel.setBackground(Color.BLACK);
         add(labirintPanel, BorderLayout.CENTER);
@@ -57,30 +57,41 @@ public class GameView extends JFrame {
 
         controlPanel.add(movementPanel);
 
+        JButton rotation = new JButton("Rotation");
+        rotation.setAlignmentX(Component.CENTER_ALIGNMENT);
+        controlPanel.add(rotation);
+
         String[] options = { "Name_PowerUp1", "Name_PowerUp2", "Name_PowerUp3", "Name_PowerUp4", "Name_PowerUp5",
                 "Name_PowerUp6" };
         JComboBox<String> comboBox = new JComboBox<>(options);
         controlPanel.add(comboBox);
+
+        // Aggiunta un ActionListener alla ComboBox per gestire l'evento di selezione
         comboBox.addActionListener(
                 e -> JOptionPane.showMessageDialog(this, "Hai selezionato: " + (String) comboBox.getSelectedItem()));
 
         JButton powerUpButton = new JButton("Use PowerUp");
         powerUpButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         controlPanel.add(powerUpButton);
-        powerUpButton.addActionListener(e -> JOptionPane.showMessageDialog(this, "PowerUp usato!"));
 
         JButton endTurnButton = new JButton("End Turn");
         endTurnButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         controlPanel.add(endTurnButton);
+
+        powerUpButton.addActionListener(e -> JOptionPane.showMessageDialog(this, "PowerUp usato!"));
+
         endTurnButton.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 currentPlayer = (currentPlayer % totalPlayers) + 1; // Incrementa e resetta a 1 dopo Player 4
+                // currentPlayer = PlayerInformationController.getId();
                 turnLabel.setText("It's turn of Player " + currentPlayer);
             }
 
         });
+
+        rotation.addActionListener(e -> JOptionPane.showMessageDialog(this, "Rotation"));
 
         setVisible(true);
     }
@@ -95,5 +106,4 @@ public class GameView extends JFrame {
         });
         return button;
     }
-
 }
