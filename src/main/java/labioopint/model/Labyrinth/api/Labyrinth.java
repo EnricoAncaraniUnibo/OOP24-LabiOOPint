@@ -1,4 +1,4 @@
-package labioopint.model.Labyrinth;
+package labioopint.model.Labyrinth.api;
 
 import java.util.Map;
 

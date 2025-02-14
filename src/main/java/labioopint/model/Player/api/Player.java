@@ -1,4 +1,4 @@
-package labioopint.model.Player;
+package labioopint.model.Player.api;
 
 import labioopint.commons.Coordinate;
 
