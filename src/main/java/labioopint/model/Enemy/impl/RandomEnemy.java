@@ -6,6 +6,8 @@ import java.util.Random;
 
 import labioopint.commons.Coordinate;
 import labioopint.model.Core.impl.BuilderImpl;
+import labioopint.model.Labyrinth.api.Labyrinth;
+import labioopint.model.Player.api.Player;
 
 public class RandomEnemy extends BaseEnemy {
 

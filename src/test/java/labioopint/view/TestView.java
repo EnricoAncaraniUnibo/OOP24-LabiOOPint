@@ -1,6 +1,4 @@
-package labioopint;
-
-import labioopint.view.GameView;
+package labioopint.view;
 
 public class TestView {
     public static void main(String[] args) {

@@ -4,6 +4,8 @@ import java.util.*;
 
 import labioopint.commons.Coordinate;
 import labioopint.model.Enemy.api.Enemy;
+import labioopint.model.Labyrinth.api.Labyrinth;
+import labioopint.model.Player.api.Player;
 
 public abstract class BaseEnemy extends Movable implements Enemy {
 
@@ -17,7 +19,9 @@ public abstract class BaseEnemy extends Movable implements Enemy {
         }
     }
 
-    public Coordinate getPosition(Labyrinth maze) {
-        return maze.getEnemyCoordinate;
+    public Coordinate getPosition() {
+        // TODO 
+        // return maze.getEnemyCoordinate;
+        return null;
     }
 }

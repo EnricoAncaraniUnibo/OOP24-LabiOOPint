@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "TestView",
+            "request": "launch",
+            "mainClass": "labioopint.view.TestView",
+            "projectName": "LabiOOPint"
+        },
+        {
+            "type": "java",
             "request": "launch",
             "name": "Run TestView",
             "mainClass": "labioopint.TestView",
