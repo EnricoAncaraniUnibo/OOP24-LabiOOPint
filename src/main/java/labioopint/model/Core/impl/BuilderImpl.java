@@ -5,7 +5,13 @@ import java.util.*;
 import labioopint.model.Enemy.impl.BaseEnemy;
 import labioopint.model.Enemy.impl.EnemyAI;
 import labioopint.model.Enemy.impl.RandomEnemy;
+import labioopint.model.Labyrinth.api.Labyrinth;
+import labioopint.model.Player.api.Player;
 
+/**
+ * BuilderImpl is responsible for creating various game components such as 
+ * labyrinths, players, and enemies based on the game settings.
+ */
 public class BuilderImpl {
 
     public final static int SMALL_LABYRINTH = 5;
@@ -15,10 +21,20 @@ public class BuilderImpl {
 
     // potrebbe avere bisogno di ricevere setting dal costruttore, se è vuoto, 
     // setting va passato in qualche modo
+    /**
+     * Constructs a BuilderImpl instance. The number of players is retrieved 
+     * from the game settings.
+     */
     public BuilderImpl() {
         numberPlayer = setting.getNumberPlayer;
     }
 
+    /**
+     * Creates a labyrinth based on the number of players.
+     * 
+     * @return a Labyrinth instance with the appropriate dimension.
+     * @throws IllegalArgumentException if the number of players is not supported.
+     */
     public Labyrinth createMaze() {
         if (numberPlayer == 2) {
             definitiveDimension = SMALL_LABYRINTH;
@@ -35,6 +51,11 @@ public class BuilderImpl {
         }
     }
 
+    /**
+     * Creates a list of players based on the number of players.
+     * 
+     * @return a list of Player instances.
+     */
     public List<Player> createPlayers() {
         List<Player> tm = new ArrayList<>();
         for (int i = 1; i <= numberPlayer; i++) {
@@ -44,6 +65,11 @@ public class BuilderImpl {
         return tm;
     }
 
+    /**
+     * Creates an enemy based on the game settings.
+     * 
+     * @return a BaseEnemy instance.
+     */
     public BaseEnemy createEnemy() {
         int type = setting.getTypeEnemy;
         if (type == 0) {
@@ -56,6 +82,12 @@ public class BuilderImpl {
 
     }
 
+    /**
+     * Retrieves the dimension of the labyrinth.
+     * 
+     * @param dim the dimension to retrieve.
+     * @return the dimension of the labyrinth.
+     */
     public int getDimension(int dim) {
         return dim;
     }

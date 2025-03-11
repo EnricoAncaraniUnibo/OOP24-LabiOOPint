@@ -9,10 +9,19 @@ import labioopint.model.Core.impl.BuilderImpl;
 import labioopint.model.Labyrinth.api.Labyrinth;
 import labioopint.model.Player.api.Player;
 
+/**
+ * RandomEnemy represents an enemy that moves randomly within the labyrinth.
+ */
 public class RandomEnemy extends BaseEnemy {
 
     private final Random rand = new Random();
 
+    /**
+     * Moves the enemy in the labyrinth in a random direction.
+     * 
+     * @param maze    the labyrinth in which the enemy moves.
+     * @param players the list of players in the game.
+     */
     @Override
     public void move(Labyrinth maze, List<Player> players) {
 
@@ -35,6 +44,13 @@ public class RandomEnemy extends BaseEnemy {
         maze.setCoordinateEnemy(current);
     }
 
+    /**
+     * Determines the next coordinate based on the current position and direction.
+     * 
+     * @param c         the current coordinate.
+     * @param direction the direction to move (0: up, 1: down, 2: right, 3: left).
+     * @return the next coordinate after moving in the specified direction.
+     */
     private Coordinate getNextCoordinate(Coordinate c, int direction) {
         switch (direction) {
             case 0:
@@ -50,6 +66,12 @@ public class RandomEnemy extends BaseEnemy {
         }
     }
 
+    /**
+     * Determines if a player has been hit by the enemy.
+     * 
+     * @param players the list of players in the game.
+     * @return an optional player that has been hit.
+     */
     @Override
     public Optional<Player> playerHit(List<Player> players) {
         // TODO Auto-generated method stub

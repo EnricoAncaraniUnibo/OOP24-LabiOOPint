@@ -9,6 +9,13 @@
             "name": "TestView",
             "request": "launch",
             "mainClass": "labioopint.view.TestView",
+            "projectName": "sample-gradle-project-LabiOOPint"
+        },
+        {
+            "type": "java",
+            "name": "TestView",
+            "request": "launch",
+            "mainClass": "labioopint.view.TestView",
             "projectName": "LabiOOPint"
         },
         {

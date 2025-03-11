@@ -14,10 +14,20 @@ import labioopint.commons.Coordinate;
 import labioopint.model.Labyrinth.api.Labyrinth;
 import labioopint.model.Player.api.Player;
 
+/**
+ * EnemyAI represents an enemy with artificial intelligence that can move
+ * towards players in the labyrinth.
+ */
 public class EnemyAI extends BaseEnemy {
 
     private static final int STEPS = 5;
 
+    /**
+     * Moves the enemy in the labyrinth towards the players.
+     * 
+     * @param maze    the labyrinth in which the enemy moves.
+     * @param players the list of players in the game.
+     */
     @Override
     public void move(Labyrinth maze, List<Player> players) {
         List<Coordinate> walkableCells = maze.getLabyrinth()
@@ -33,6 +43,13 @@ public class EnemyAI extends BaseEnemy {
 
     // Optional perché potrebbe non esistere un percorso di coordinate, altrimenti
     // definisce un percorso dal nemico al player.
+    /**
+     * Finds a path from the enemy to one of the players.
+     * 
+     * @param walkableCells the list of walkable cells in the labyrinth.
+     * @param players       the list of players in the game.
+     * @return an optional list of coordinates representing the path to a player.
+     */
     private Optional<List<Coordinate>> getPath(List<Coordinate> walkableCells, List<Player> players) {
         List<Coordinate> playerPositions = players.stream()
                 .map(p -> p.getCoordinate())
@@ -83,6 +100,14 @@ public class EnemyAI extends BaseEnemy {
 
     }
 
+    /**
+     * Retrieves the neighboring cells of the current node that are walkable and not visited.
+     * 
+     * @param currentNode the current node.
+     * @param maze        the list of walkable cells in the labyrinth.
+     * @param visited     the list of visited cells.
+     * @return a list of neighboring coordinates.
+     */
     private List<Coordinate> neighbours(Coordinate currentNode, List<Coordinate> maze, List<Coordinate> visited) {
         List<Coordinate> neighbours = new ArrayList<>();
         for (int i = currentNode.getRow() - 1; i <= currentNode.getRow() + 1; i++) {
@@ -96,6 +121,12 @@ public class EnemyAI extends BaseEnemy {
         return neighbours;
     }
 
+    /**
+     * Determines if a player has been hit by the enemy.
+     * 
+     * @param players the list of players in the game.
+     * @return an optional player that has been hit.
+     */
     @Override
     public Optional<Player> playerHit(List<Player> players) {
         // TODO Auto-generated method stub
@@ -103,71 +134,3 @@ public class EnemyAI extends BaseEnemy {
     }
 
 }
-
-// import java.util.*;
-
-// class Labyrinth {
-// static class Position {
-// int x, y, steps;
-
-// Position(int x, int y, int steps) {
-// this.x = x;
-// this.y = y;
-// this.steps = steps;
-// }
-// }
-
-// public static Position moveEnemy(int startX, int startY, int targetX, int
-// targetY, char[][] grid) {
-// int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}}; // Su, Giù,
-// Sinistra, Destra
-// Queue<Position> queue = new LinkedList<>();
-// Set<String> visited = new HashSet<>();
-// queue.add(new Position(startX, startY, 0));
-// visited.add(startX + "," + startY);
-
-// List<Position> possibleMoves = new ArrayList<>();
-
-// while (!queue.isEmpty()) {
-// Position current = queue.poll();
-
-// if (current.steps == 3) {
-// possibleMoves.add(current); // Raggiunto il limite di 3 passi, aggiungo alla
-// lista delle possibili mosse
-// continue;
-// }
-
-// for (int[] dir : directions) {
-// int newX = current.x + dir[0];
-// int newY = current.y + dir[1];
-
-// if (isValidMove(newX, newY, grid, visited)) {
-// queue.add(new Position(newX, newY, current.steps + 1));
-// visited.add(newX + "," + newY);
-// }
-// }
-// }
-
-// // Se ci sono più posizioni valide, scegli la più vicina al giocatore
-// return chooseBestMove(possibleMoves, targetX, targetY, startX, startY);
-// }
-
-// private static boolean isValidMove(int x, int y, char[][] grid, Set<String>
-// visited) {
-// return x >= 0 && x < grid.length && y >= 0 && y < grid[0].length &&
-// grid[x][y] != '#' && !visited.contains(x + "," + y);
-// }
-
-// private static Position chooseBestMove(List<Position> possibleMoves, int
-// targetX, int targetY, int startX, int startY) {
-// if (possibleMoves.isEmpty()) {
-// return new Position(startX, startY, 0); // Se nessuna mossa è valida, resta
-// fermo
-// }
-
-// // Trova la posizione più vicina al target
-// return possibleMoves.stream()
-// .min(Comparator.comparingInt(pos -> Math.abs(pos.x - targetX) +
-// Math.abs(pos.y - targetY)))
-// .orElse(possibleMoves.get(0));
-// }
