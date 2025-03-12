@@ -1,10 +1,9 @@
 package labioopint;
 
-import labioopint.view.GameTestView;
+import labioopint.TempClass.TurnManager;
 
 public class TestView {
     public static void main(String[] args) {
-        GameTestView a= new GameTestView();
-        a.update();
+        TurnManager tm = new TurnManager();
     }
 }

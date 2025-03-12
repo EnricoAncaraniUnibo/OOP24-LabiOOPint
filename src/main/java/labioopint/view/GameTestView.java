@@ -3,9 +3,17 @@ package labioopint.view;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.Map;
 
 import javax.swing.JFrame;
 import javax.swing.border.TitledBorder;
+
+import labioopint.TempClass.Enemy;
+import labioopint.TempClass.PowerUp;
+import labioopint.model.api.Coordinate;
+import labioopint.model.maze.impl.Block;
+import labioopint.model.maze.impl.Maze;
+import labioopint.model.player.impl.Player;
 
 public class GameTestView extends JFrame {
     private DrawPanel dp;
@@ -30,12 +38,9 @@ public class GameTestView extends JFrame {
         this.getContentPane().add(dp, BorderLayout.CENTER);
     }
 
-    /*
-     * 
-     * public void update(final Maze grid, final Map<Coordinate,Player> mapPlayers, final Map<Coordinate,Enemy> mapEnemies, final Map<Coordinate,PowerUp> mapPowerUps) {
-        dp.draw(grid,mapPlayers,mapEnemies,mapPowerUps);
+    public void update(final Maze grid, final Map<Coordinate,Player> mapPlayers, final Map<Coordinate,Enemy> mapEnemies, final Map<Coordinate,PowerUp> mapPowerUps,Block outside) {
+        dp.draw(grid,mapPlayers,mapEnemies,mapPowerUps,outside);
     }
-     */
     
 
     public DrawPanel getGraphicsArea() {

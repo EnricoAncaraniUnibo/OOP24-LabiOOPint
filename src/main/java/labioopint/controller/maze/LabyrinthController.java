@@ -1,6 +1,9 @@
 package labioopint.controller.maze;
 
+import labioopint.TempClass.Enemy;
+import labioopint.TempClass.PowerUp;
 import labioopint.model.api.DualMap;
+import labioopint.model.maze.impl.Block;
 import labioopint.model.maze.impl.Maze;
 import labioopint.model.player.impl.Player;
 import labioopint.view.GameTestView;
@@ -13,8 +16,7 @@ public class LabyrinthController {
         gtv = new GameTestView();
     }
 
-    public void updateGraphics(final Maze grid, final DualMap<Player> mapPlayers, final DualMap<Enemy> mapEnemy, final DualMap<PowerUps> mapPowerUps ) {
-        gtv.getGraphicsArea().draw(grid,mapPlayers.getMapFromCoordinate() ,mapEnemy.getMapFromCoordinate(),mapPowerUps.getMapFromCoordinate());
+    public void updateGraphics(final Maze grid, final DualMap<Player> mapPlayers, final DualMap<Enemy> mapEnemy, final DualMap<PowerUp> mapPowerUps, Block outside) {
+        gtv.update(grid,mapPlayers.getMapFromCoordinate() ,mapEnemy.getMapFromCoordinate(),mapPowerUps.getMapFromCoordinate(),outside);
     }
-
 }

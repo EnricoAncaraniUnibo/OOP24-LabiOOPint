@@ -3,6 +3,7 @@ package labioopint.model.player.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import labioopint.TempClass.PowerUp;
 import labioopint.model.api.Coordinate;
 import labioopint.model.api.Movable;
 import labioopint.model.maze.api.Direction;
@@ -28,18 +29,15 @@ public class Player extends Movable {
             switch (d) {
                 case UP:
                     return getNewCoordinate(old, -1, 0);
-                    break;
                 case DOWN:
                     return getNewCoordinate(old, +1, 0);
-                    break;
                 case RIGHT:
                     return getNewCoordinate(old, 0, +1);
-                    break;
                 case LEFT:
                     return getNewCoordinate(old, 0, -1);
-                    break;
             }
         }
+        return old;
     }
 
     private Coordinate getNewCoordinate(final Coordinate coor, final Integer newRow, final Integer newColumn) {
@@ -49,12 +47,5 @@ public class Player extends Movable {
 
     public Integer getID() {
         return id;
-    }
-
-    public void usePowerUp(PowerUp p) {
-        if (usablePowerUps.contains(p)) {
-            p.use();
-            usablePowerUps.remove(p);
-        }
     }
 }

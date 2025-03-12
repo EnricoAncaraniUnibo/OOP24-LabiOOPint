@@ -1,15 +1,18 @@
 package labioopint.view;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.geom.AffineTransform;
 import java.io.File;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import labioopint.TempClass.Enemy;
+import labioopint.TempClass.PowerUp;
 import labioopint.model.api.Coordinate;
 import labioopint.model.maze.impl.Block;
 import labioopint.model.maze.impl.Maze;
@@ -22,11 +25,19 @@ public class DrawPanel extends JPanel {
         private Map<Coordinate, Enemy> coorEnemies;
         private Map<Coordinate, PowerUp> coorPowerUps;
         private Block outsideBlock;
-        private final static Color NO_STREET_COLOR = new Color(88, 57, 39);
-        private final static Color STREET_COLOR = new Color(255, 200, 0);
+        private Image CORRIDOR_IMAGE;
+        private Image CORNER_IMAGE;
+        private Image CROSSING_IMAGE;
 
         public DrawPanel(final Dimension size) {
-                pixelSize = (int) size.getWidth() / 17;
+                pixelSize = (int) size.getWidth() / 15;
+                try {
+                        CORRIDOR_IMAGE = ImageIO.read(new File("src/main/java/labioopint/resources/Tiles/Corridor.png"));
+                        CORNER_IMAGE = ImageIO.read(new File("src/main/java/labioopint/resources/Tiles/Corner.png"));
+                        CROSSING_IMAGE = ImageIO.read(new File("src/main/java/labioopint/resources/Tiles/Crossing.png"));
+                } catch (Exception e) {
+                        e.printStackTrace();
+                }
         }
 
         public void draw(final Maze m, final Map<Coordinate, Player> mapPlayers,
@@ -42,284 +53,80 @@ public class DrawPanel extends JPanel {
 
         protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                Block b;
-                boolean end = false;
-                for (int i = 0; i <= maze.getSize(); i++) {
-                        for (int j = 0; j < maze.getSize() && end==false; j++) {
-                                if(i == maze.getSize()) {
-                                        b = outsideBlock;
-                                        i = pixelSize*(maze.getSize()+2);
-                                        end=true;
-                                } else {
-                                        b = maze.GetBlock(new Coordinate(i, j));
-                                }
-                                switch (b.getType()) {
-                                        case CORNER:
-                                                switch (b.getRotation()) {
-                                                        case ZERO:
-                                                                g.setColor(NO_STREET_COLOR);
-                                                                g.fillRect(i * pixelSize + pixelSize,
-                                                                                j * pixelSize + pixelSize, pixelSize,
-                                                                                (pixelSize / 3));
-                                                                g.fillRect(i * pixelSize + pixelSize,
-                                                                                j * pixelSize + pixelSize,
-                                                                                (pixelSize / 3),
-                                                                                pixelSize);
-                                                                g.setColor(STREET_COLOR);
-                                                                g.fillRect(i * pixelSize + pixelSize + pixelSize / 3,
-                                                                                j * pixelSize + pixelSize
-                                                                                                + pixelSize / 3,
-                                                                                (pixelSize - pixelSize / 3),
-                                                                                (pixelSize / 3));
-                                                                g.fillRect(i * pixelSize + pixelSize + pixelSize / 3,
-                                                                                j * pixelSize + pixelSize
-                                                                                                + pixelSize / 3,
-                                                                                (pixelSize / 3),
-                                                                                (pixelSize - pixelSize / 3));
-                                                                g.setColor(NO_STREET_COLOR);
-                                                                g.fillRect(i * pixelSize + pixelSize
-                                                                                + (pixelSize - pixelSize / 3),
-                                                                                j * pixelSize + pixelSize
-                                                                                                + (pixelSize - pixelSize
-                                                                                                                / 3),
-                                                                                (pixelSize / 3),
-                                                                                (pixelSize / 3));
-                                                                break;
-                                                        case NINETY:
-                                                                g.setColor(NO_STREET_COLOR);
-                                                                g.fillRect(i * pixelSize + pixelSize,
-                                                                                j * pixelSize + pixelSize, pixelSize,
-                                                                                (pixelSize / 3));
-                                                                g.fillRect(i * pixelSize + pixelSize
-                                                                                + (pixelSize - pixelSize / 3),
-                                                                                j * pixelSize + pixelSize,
-                                                                                (pixelSize / 3),
-                                                                                pixelSize);
-                                                                g.setColor(STREET_COLOR);
-                                                                g.fillRect(i * pixelSize + pixelSize,
-                                                                                j * pixelSize + pixelSize
-                                                                                                + pixelSize / 3,
-                                                                                pixelSize - (pixelSize / 3),
-                                                                                (pixelSize / 3));
-                                                                g.fillRect(i * pixelSize + pixelSize + pixelSize / 3,
-                                                                                j * pixelSize + pixelSize
-                                                                                                + pixelSize / 3,
-                                                                                (pixelSize / 3),
-                                                                                (pixelSize - pixelSize / 3));
-                                                                g.setColor(NO_STREET_COLOR);
-                                                                g.fillRect(i * pixelSize + pixelSize,
-                                                                                j * pixelSize + pixelSize
-                                                                                                + (pixelSize - pixelSize
-                                                                                                                / 3),
-                                                                                (pixelSize / 3),
-                                                                                (pixelSize / 3));
-                                                                break;
-                                                        case ONE_HUNDRED_EIGHTY:
-                                                                g.setColor(NO_STREET_COLOR);
-                                                                g.fillRect(i * pixelSize + pixelSize
-                                                                                + (pixelSize - pixelSize / 3),
-                                                                                j * pixelSize + pixelSize,
-                                                                                pixelSize / 3,
-                                                                                pixelSize);
-                                                                g.fillRect(i * pixelSize + pixelSize,
-                                                                                j * pixelSize + pixelSize
-                                                                                                + (pixelSize - pixelSize
-                                                                                                                / 3),
-                                                                                pixelSize,
-                                                                                pixelSize / 3);
-                                                                g.setColor(STREET_COLOR);
-                                                                g.fillRect(i * pixelSize + pixelSize,
-                                                                                j * pixelSize + pixelSize + (pixelSize
-                                                                                                - (pixelSize / 3 + pixelSize
-                                                                                                                / 3)),
-                                                                                pixelSize - (pixelSize / 3),
-                                                                                pixelSize / 3);
-                                                                g.fillRect(i * pixelSize + pixelSize + (pixelSize
-                                                                                - (pixelSize / 3 + pixelSize / 3)),
-                                                                                j * pixelSize + pixelSize,
-                                                                                pixelSize / 3,
-                                                                                pixelSize - (pixelSize / 3));
-                                                                g.setColor(NO_STREET_COLOR);
-                                                                g.fillRect(i * pixelSize + pixelSize,
-                                                                                j * pixelSize + pixelSize,
-                                                                                pixelSize - (pixelSize / 3
-                                                                                                + pixelSize / 3),
-                                                                                pixelSize - (pixelSize / 3
-                                                                                                + pixelSize / 3));
-                                                                break;
-                                                        case TWO_HUNDRED_SEVENTY:
-                                                                g.setColor(NO_STREET_COLOR);
-                                                                g.fillRect(i * pixelSize + pixelSize,
-                                                                                j * pixelSize + pixelSize
-                                                                                                + (pixelSize - pixelSize
-                                                                                                                / 3),
-                                                                                pixelSize,
-                                                                                pixelSize / 3);
-                                                                g.fillRect(i * pixelSize + pixelSize,
-                                                                                j * pixelSize + pixelSize,
-                                                                                pixelSize / 3,
-                                                                                pixelSize);
-                                                                g.setColor(STREET_COLOR);
-                                                                g.fillRect(i * pixelSize + pixelSize + pixelSize / 3,
-                                                                                j * pixelSize + pixelSize,
-                                                                                pixelSize / 3,
-                                                                                pixelSize - (pixelSize / 3));
-                                                                g.fillRect(i * pixelSize + pixelSize + (pixelSize / 3),
-                                                                                j * pixelSize + pixelSize + (pixelSize
-                                                                                                - (pixelSize / 3 + pixelSize
-                                                                                                                / 3)),
-                                                                                pixelSize - (pixelSize / 3),
-                                                                                pixelSize / 3);
-                                                                g.setColor(NO_STREET_COLOR);
-                                                                g.fillRect(i * pixelSize + pixelSize
-                                                                                + (pixelSize / 3 + pixelSize / 3),
-                                                                                j * pixelSize + pixelSize,
-                                                                                pixelSize - (pixelSize / 3
-                                                                                                + pixelSize / 3),
-                                                                                pixelSize - (pixelSize / 3
-                                                                                                + pixelSize / 3));
-                                                                break;
-                                                }
-                                                break;
-                                        case CORRIDOR:
-                                                switch (b.getRotation()) {
-                                                        case ZERO, ONE_HUNDRED_EIGHTY:
-                                                                g.setColor(NO_STREET_COLOR);
-                                                                g.fillRect(i * pixelSize + pixelSize,
-                                                                                j * pixelSize + pixelSize, pixelSize,
-                                                                                pixelSize / 3);
-                                                                g.setColor(STREET_COLOR);
-                                                                g.fillRect(i * pixelSize + pixelSize,
-                                                                                j * pixelSize + pixelSize
-                                                                                                + pixelSize / 3,
-                                                                                pixelSize, pixelSize / 3);
-                                                                g.setColor(NO_STREET_COLOR);
-                                                                g.fillRect(i * pixelSize + pixelSize,
-                                                                                j * pixelSize + pixelSize + (pixelSize
-                                                                                                / 3 + pixelSize / 3),
-                                                                                pixelSize,
-                                                                                (pixelSize / 3));
-                                                                break;
-                                                        case NINETY, TWO_HUNDRED_SEVENTY:
-                                                                g.setColor(NO_STREET_COLOR);
-                                                                g.fillRect(i * pixelSize + pixelSize,
-                                                                                j * pixelSize + pixelSize,
-                                                                                pixelSize / 3,
-                                                                                pixelSize);
-                                                                g.setColor(STREET_COLOR);
-                                                                g.fillRect(i * pixelSize + pixelSize + pixelSize / 3,
-                                                                                j * pixelSize + pixelSize,
-                                                                                pixelSize / 3, pixelSize);
-                                                                g.setColor(NO_STREET_COLOR);
-                                                                g.fillRect(i * pixelSize + pixelSize
-                                                                                + (pixelSize / 3 + pixelSize / 3),
-                                                                                j * pixelSize + pixelSize,
-                                                                                pixelSize / 3, pixelSize);
-                                                                break;
-                                                }
-                                                break;
-                                        case CROSSING:
-                                                switch (b.getRotation()) {
-                                                        case ZERO:
-                                                                g.setColor(NO_STREET_COLOR);
-                                                                g.fillRect(i * pixelSize + pixelSize,
-                                                                                j * pixelSize + pixelSize, pixelSize,
-                                                                                (pixelSize / 3));
-                                                                g.setColor(STREET_COLOR);
-                                                                g.fillRect(i * pixelSize + pixelSize,
-                                                                                j * pixelSize + pixelSize
-                                                                                                + pixelSize / 3,
-                                                                                pixelSize, pixelSize / 3);
-                                                                g.fillRect(i * pixelSize + pixelSize + pixelSize / 3,
-                                                                                j * pixelSize + pixelSize,
-                                                                                pixelSize / 3, pixelSize / 3);
-                                                                g.setColor(NO_STREET_COLOR);
-                                                                g.fillRect(i * pixelSize + pixelSize,
-                                                                                j * pixelSize + pixelSize + (pixelSize
-                                                                                                / 3 + pixelSize / 3),
-                                                                                pixelSize,
-                                                                                (pixelSize / 3));
-                                                                break;
-                                                        case NINETY:
-                                                                g.setColor(NO_STREET_COLOR);
-                                                                g.fillRect(i * pixelSize + pixelSize,
-                                                                                j * pixelSize + pixelSize,
-                                                                                pixelSize / 3,
-                                                                                pixelSize);
-                                                                g.fillRect(i * pixelSize + pixelSize
-                                                                                + (pixelSize / 3 + pixelSize / 3),
-                                                                                j * pixelSize + pixelSize,
-                                                                                (pixelSize / 3), pixelSize);
-                                                                g.setColor(STREET_COLOR);
-                                                                g.fillRect(i * pixelSize + pixelSize + pixelSize / 3,
-                                                                                j * pixelSize + pixelSize,
-                                                                                pixelSize / 3, pixelSize);
-                                                                g.fillRect(i * pixelSize + pixelSize
-                                                                                + (pixelSize - pixelSize / 3),
-                                                                                j * pixelSize + pixelSize
-                                                                                                + pixelSize / 3,
-                                                                                (pixelSize / 3),
-                                                                                pixelSize / 3);
-                                                                break;
-                                                        case ONE_HUNDRED_EIGHTY:
-                                                                g.setColor(NO_STREET_COLOR);
-                                                                g.fillRect(i * pixelSize + pixelSize,
-                                                                                j * pixelSize + pixelSize, pixelSize,
-                                                                                pixelSize / 3);
-                                                                g.fillRect(i * pixelSize + pixelSize,
-                                                                                j * pixelSize + pixelSize + (pixelSize
-                                                                                                / 3 + pixelSize / 3),
-                                                                                pixelSize,
-                                                                                (pixelSize / 3));
-                                                                g.setColor(STREET_COLOR);
-                                                                g.fillRect(i * pixelSize + pixelSize,
-                                                                                j * pixelSize + pixelSize
-                                                                                                + pixelSize / 3,
-                                                                                pixelSize, pixelSize / 3);
-                                                                g.fillRect(i * pixelSize + pixelSize + pixelSize / 3,
-                                                                                j * pixelSize + pixelSize
-                                                                                                + (pixelSize - pixelSize
-                                                                                                                / 3),
-                                                                                pixelSize / 3,
-                                                                                pixelSize / 3);
-                                                                break;
-                                                        case TWO_HUNDRED_SEVENTY:
-                                                                g.setColor(NO_STREET_COLOR);
-                                                                g.fillRect(i * pixelSize + pixelSize,
-                                                                                j * pixelSize + pixelSize,
-                                                                                pixelSize / 3,
-                                                                                pixelSize);
-                                                                g.setColor(STREET_COLOR);
-                                                                g.fillRect(i * pixelSize + pixelSize + pixelSize / 3,
-                                                                                j * pixelSize + pixelSize,
-                                                                                pixelSize / 3, pixelSize);
-                                                                g.fillRect(i * pixelSize + pixelSize,
-                                                                                j * pixelSize + pixelSize
-                                                                                                + pixelSize / 3,
-                                                                                pixelSize / 3, pixelSize / 3);
-                                                                g.setColor(NO_STREET_COLOR);
-                                                                g.fillRect(i * pixelSize + pixelSize
-                                                                                + (pixelSize / 3 + pixelSize / 3),
-                                                                                j * pixelSize + pixelSize,
-                                                                                pixelSize / 3, pixelSize);
-                                                                break;
-                                                }
-                                                break;
-                                }
-
-                                if (coorPlayers.containsKey(new Coordinate(i, j))) {
-                                        Image img = this.loadImage(
-                                                        "" + coorPlayers.get(new Coordinate(i, j)).getID() + ".jpg");
-                                        g.drawImage(img, i + pixelSize / 4, j + pixelSize / 4, this);
+                Graphics2D g2 = (Graphics2D) g;
+                AffineTransform old = g2.getTransform();
+                if(maze!=null) {
+                        Block b;
+                        boolean end = false;
+                        for (int i = 0; i <= maze.getSize(); i++) {
+                                for (int j = 0; j < maze.getSize() && end==false; j++) {
+                                        if(i == maze.getSize()) {
+                                                b = outsideBlock;
+                                                i = i+1;
+                                                end=true;
+                                        } else {
+                                                b = maze.GetBlock(new Coordinate(i, j));
+                                        }
+                                        switch (b.getType()) {
+                                                case CORNER:
+                                                        switch (b.getRotation()) {
+                                                                case ZERO:
+                                                                        g2.drawImage(CORNER_IMAGE, i*pixelSize, j*pixelSize,pixelSize,pixelSize, this);
+                                                                        break;
+                                                                case NINETY:
+                                                                        g2.rotate(Math.toRadians(-90));
+                                                                        g2.drawImage(CORNER_IMAGE, (-j*pixelSize)-pixelSize, i*pixelSize,pixelSize,pixelSize, this);   
+                                                                        g2.setTransform(old);
+                                                                        break;
+                                                                case ONE_HUNDRED_EIGHTY:
+                                                                        g2.rotate(Math.toRadians(-180));
+                                                                        g2.drawImage(CORNER_IMAGE, (-i*pixelSize)-pixelSize, (-j*pixelSize)-pixelSize,pixelSize,pixelSize, this);   
+                                                                        g2.setTransform(old);
+                                                                        break;
+                                                                case TWO_HUNDRED_SEVENTY:
+                                                                        g2.rotate(Math.toRadians(-270));
+                                                                        g2.drawImage(CORNER_IMAGE, j*pixelSize, (-i*pixelSize)-pixelSize,pixelSize,pixelSize, this);   
+                                                                        g2.setTransform(old);
+                                                                        break;
+                                                        }
+                                                        break;
+                                                case CORRIDOR:
+                                                        switch (b.getRotation()) {
+                                                                case ZERO, ONE_HUNDRED_EIGHTY:
+                                                                        g2.drawImage(CORRIDOR_IMAGE, i*pixelSize, j*pixelSize,pixelSize,pixelSize, this);
+                                                                        break;
+                                                                case NINETY, TWO_HUNDRED_SEVENTY:
+                                                                        g2.rotate(Math.toRadians(-90));
+                                                                        g2.drawImage(CORRIDOR_IMAGE, (-j*pixelSize)-pixelSize, i*pixelSize,pixelSize,pixelSize, this);   
+                                                                        g2.setTransform(old);
+                                                                        break;
+                                                        }
+                                                        break;
+                                                case CROSSING:
+                                                        switch (b.getRotation()) {
+                                                                case ZERO:
+                                                                        g2.drawImage(CROSSING_IMAGE, i*pixelSize, j*pixelSize,pixelSize,pixelSize, this);
+                                                                        break;
+                                                                case NINETY:
+                                                                        g2.rotate(Math.toRadians(-90));
+                                                                        g2.drawImage(CROSSING_IMAGE, (-j*pixelSize)-pixelSize, i*pixelSize,pixelSize,pixelSize, this);   
+                                                                        g2.setTransform(old);
+                                                                        break;
+                                                                case ONE_HUNDRED_EIGHTY:
+                                                                        g2.rotate(Math.toRadians(-180));
+                                                                        g2.drawImage(CROSSING_IMAGE, (-i*pixelSize)-pixelSize, (-j*pixelSize)-pixelSize,pixelSize,pixelSize, this);   
+                                                                        g2.setTransform(old);
+                                                                        break;
+                                                                case TWO_HUNDRED_SEVENTY:
+                                                                        g2.rotate(Math.toRadians(-270));
+                                                                        g2.drawImage(CROSSING_IMAGE, j*pixelSize, (-i*pixelSize)-pixelSize,pixelSize,pixelSize, this);   
+                                                                        g2.setTransform(old);
+                                                                        break;
+                                                        }
+                                                        break;
+                                        }
                                 }
                         }
                 }
         }
-
-        private Image loadImage(String name) {
-                String path = "resources/" + name;
-                File f = new File(path);
-                return ImageIO.read(f);
-        }
-
 }

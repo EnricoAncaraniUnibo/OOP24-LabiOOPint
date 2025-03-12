@@ -33,7 +33,6 @@ public class MazeGenerator {
             }
         }
         return map;
-
     }
 
     public Block getOutsideBlock() {
