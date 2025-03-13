@@ -2,14 +2,14 @@ package labioopint.model.Core.impl;
 
 import java.util.*;
 
-import labioopint.model.Enemy.impl.BaseEnemy;
-import labioopint.model.Enemy.impl.EnemyAI;
-import labioopint.model.Enemy.impl.RandomEnemy;
+import labioopint.model.Enemy.api.EnemyFactory;
+import labioopint.model.Enemy.impl.EnemyFactoryImpl;
+import labioopint.model.Enemy.impl.EnemyImpl;
 import labioopint.model.Labyrinth.api.Labyrinth;
 import labioopint.model.Player.api.Player;
 
 /**
- * BuilderImpl is responsible for creating various game components such as 
+ * BuilderImpl is responsible for creating various game components such as
  * labyrinths, players, and enemies based on the game settings.
  */
 public class BuilderImpl {
@@ -18,15 +18,17 @@ public class BuilderImpl {
     public final static int BIG_LABYRINTH = 7;
     private int definitiveDimension; // NO USARE VAR PUBBLICHE USA METODO CON GETTER
     private int numberPlayer;
+    private EnemyFactory enemyFactory;
 
-    // potrebbe avere bisogno di ricevere setting dal costruttore, se è vuoto, 
+    // potrebbe avere bisogno di ricevere setting dal costruttore, se è vuoto,
     // setting va passato in qualche modo
     /**
-     * Constructs a BuilderImpl instance. The number of players is retrieved 
+     * Constructs a BuilderImpl instance. The number of players is retrieved
      * from the game settings.
      */
     public BuilderImpl() {
         numberPlayer = setting.getNumberPlayer;
+        enemyFactory = new EnemyFactoryImpl();
     }
 
     /**
@@ -70,13 +72,13 @@ public class BuilderImpl {
      * 
      * @return a BaseEnemy instance.
      */
-    public BaseEnemy createEnemy() {
+    public EnemyImpl createEnemy() {
         int type = setting.getTypeEnemy;
         if (type == 0) {
-            BaseEnemy enemy = new RandomEnemy();
+            EnemyImpl enemy = enemyFactory.createRandomEnemy(... /* passare parametri necessari */);
             return enemy;
         } else {
-            BaseEnemy enemy = new EnemyAI();
+            EnemyImpl enemy = enemyFactory.createChaseEnemy(... /* passare parametri necessari */);
             return enemy;
         }
 

@@ -50,7 +50,7 @@ public class ControllerImpl implements Controller {
                 // singola azione fattibile del player.
                 if (a != null) {
                     if (a instanceof actionMovement) {
-                        currentPlayer.move();
+                        currentPlayer.getNextPosition();
                     }
                     if (a instanceof actionPowerUp) {
                         currentPlayer.usePowerUp();

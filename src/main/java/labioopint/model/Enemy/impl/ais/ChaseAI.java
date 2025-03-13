@@ -1,4 +1,4 @@
-package labioopint.model.Enemy.impl;
+package labioopint.model.Enemy.impl.ais;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -11,6 +11,7 @@ import java.util.Queue;
 import java.util.stream.Collectors;
 
 import labioopint.commons.Coordinate;
+import labioopint.model.Enemy.api.EnemyAI;
 import labioopint.model.Labyrinth.api.Labyrinth;
 import labioopint.model.Player.api.Player;
 
@@ -18,7 +19,7 @@ import labioopint.model.Player.api.Player;
  * EnemyAI represents an enemy with artificial intelligence that can move
  * towards players in the labyrinth.
  */
-public class EnemyAI extends BaseEnemy {
+public class ChaseAI implements EnemyAI {
 
     private static final int STEPS = 5;
 
@@ -29,7 +30,8 @@ public class EnemyAI extends BaseEnemy {
      * @param players the list of players in the game.
      */
     @Override
-    public void move(Labyrinth maze, List<Player> players) {
+    public Coordinate getNextPosition(Labyrinth maze, List<Player> players, Coordinate current) {
+
         List<Coordinate> walkableCells = maze.getLabyrinth()
                 .entrySet()
                 .stream()
@@ -37,8 +39,12 @@ public class EnemyAI extends BaseEnemy {
                 .map(x -> x.getKey())
                 .toList();
 
-        getPath(walkableCells, players);
-
+        var path = getPath(walkableCells, players, current);
+        if (path.isPresent()) {
+            return path.get().getLast(); // ritorna l'ultima coordinata del percorso
+        } else {
+            return current;
+        }
     }
 
     // Optional perché potrebbe non esistere un percorso di coordinate, altrimenti
@@ -50,15 +56,14 @@ public class EnemyAI extends BaseEnemy {
      * @param players       the list of players in the game.
      * @return an optional list of coordinates representing the path to a player.
      */
-    private Optional<List<Coordinate>> getPath(List<Coordinate> walkableCells, List<Player> players) {
+    private Optional<List<Coordinate>> getPath(List<Coordinate> walkableCells, List<Player> players, Coordinate start) {
         List<Coordinate> playerPositions = players.stream()
                 .map(p -> p.getCoordinate())
                 .toList();
-        Coordinate start = this.getPosition();
         List<Coordinate> visited = new ArrayList<>();
         // chiavi -> nodo corrente, valore -> nodo precedente (null per il primo nodo)
         Map<Coordinate, Coordinate> predecessors = new HashMap<>();
-        Queue<Coordinate> queue = new ArrayDeque<>(); // TODO trovare struttura dati migliore
+        Queue<Coordinate> queue = new ArrayDeque<>();
         queue.add(start);
         Coordinate previous = null;
         Optional<Coordinate> playerFound = Optional.empty();
@@ -101,7 +106,8 @@ public class EnemyAI extends BaseEnemy {
     }
 
     /**
-     * Retrieves the neighboring cells of the current node that are walkable and not visited.
+     * Retrieves the neighboring cells of the current node that are walkable and not
+     * visited.
      * 
      * @param currentNode the current node.
      * @param maze        the list of walkable cells in the labyrinth.
@@ -119,18 +125,6 @@ public class EnemyAI extends BaseEnemy {
             }
         }
         return neighbours;
-    }
-
-    /**
-     * Determines if a player has been hit by the enemy.
-     * 
-     * @param players the list of players in the game.
-     * @return an optional player that has been hit.
-     */
-    @Override
-    public Optional<Player> playerHit(List<Player> players) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'playerHit'");
     }
 
 }

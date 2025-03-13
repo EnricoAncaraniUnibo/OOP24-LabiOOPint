@@ -1,8 +1,7 @@
 package labioopint.model.Player.api;
 
-import labioopint.commons.Coordinate;
+import labioopint.model.Core.api.GameObject;
 
-public interface Player {
-    
-    Coordinate getCoordinate();
+public interface Player extends GameObject {
+
 }
