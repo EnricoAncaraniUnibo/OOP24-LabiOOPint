@@ -21,8 +21,7 @@ public class GameView extends JFrame {
         setResizable(false);
         setLocationByPlatform(true);
 
-        labirintPanel = new JPanel();
-        labirintPanel.setBackground(Color.BLACK);
+        labirintPanel = new DrawPanel(this.getSize());
         add(labirintPanel, BorderLayout.CENTER);
         JPanel controlPanel = new JPanel();
         controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.Y_AXIS));
