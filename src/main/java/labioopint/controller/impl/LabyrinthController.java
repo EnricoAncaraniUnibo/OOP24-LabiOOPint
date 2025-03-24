@@ -1,7 +1,5 @@
 package labioopint.controller.maze;
 
-import labioopint.TempClass.Enemy;
-import labioopint.TempClass.PowerUp;
 import labioopint.model.api.DualMap;
 import labioopint.model.maze.impl.Block;
 import labioopint.model.maze.impl.Maze;

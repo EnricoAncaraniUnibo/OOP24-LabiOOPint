@@ -2,9 +2,6 @@ package labioopint.model.maze.impl;
 
 import java.util.List;
 
-import labioopint.TempClass.Enemy;
-import labioopint.TempClass.PowerUp;
-import labioopint.TempClass.Settings;
 import labioopint.controller.maze.LabyrinthController;
 import labioopint.model.api.Coordinate;
 import labioopint.model.api.CoordinateGenerator;

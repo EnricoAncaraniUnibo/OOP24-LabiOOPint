@@ -3,7 +3,6 @@ package labioopint.model.player.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import labioopint.TempClass.PowerUp;
 import labioopint.model.api.Coordinate;
 import labioopint.model.api.Movable;
 import labioopint.model.maze.api.Direction;
