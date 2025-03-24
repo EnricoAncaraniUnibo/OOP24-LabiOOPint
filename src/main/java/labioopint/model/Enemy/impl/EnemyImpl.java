@@ -2,11 +2,11 @@ package labioopint.model.Enemy.impl;
 
 import java.util.*;
 
-import labioopint.commons.Coordinate;
 import labioopint.model.Enemy.api.Enemy;
 import labioopint.model.Enemy.api.EnemyAI;
-import labioopint.model.Labyrinth.api.Labyrinth;
-import labioopint.model.Player.api.Player;
+import labioopint.model.api.Coordinate;
+import labioopint.model.maze.impl.Labyrinth;
+import labioopint.model.player.impl.Player;
 
 /**
  * BaseEnemy is an class that provides a base implementation for the

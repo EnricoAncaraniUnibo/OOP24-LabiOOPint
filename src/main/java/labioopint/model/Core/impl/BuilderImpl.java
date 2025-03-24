@@ -5,8 +5,8 @@ import java.util.*;
 import labioopint.model.Enemy.api.EnemyFactory;
 import labioopint.model.Enemy.impl.EnemyFactoryImpl;
 import labioopint.model.Enemy.impl.EnemyImpl;
-import labioopint.model.Labyrinth.api.Labyrinth;
-import labioopint.model.Player.api.Player;
+import labioopint.model.maze.impl.Labyrinth;
+import labioopint.model.player.impl.Player;
 
 /**
  * BuilderImpl is responsible for creating various game components such as
@@ -27,7 +27,7 @@ public class BuilderImpl {
      * from the game settings.
      */
     public BuilderImpl() {
-        numberPlayer = setting.getNumberPlayer;
+        numberPlayer = 4/*setting.getNumberPlayer*/;
         enemyFactory = new EnemyFactoryImpl();
     }
 
@@ -62,7 +62,7 @@ public class BuilderImpl {
         List<Player> tm = new ArrayList<>();
         for (int i = 1; i <= numberPlayer; i++) {
             Player a = new Player(i);
-            tm.addPlayer(a);
+            tm.add(a);
         }
         return tm;
     }

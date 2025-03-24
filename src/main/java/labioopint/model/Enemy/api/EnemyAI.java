@@ -2,9 +2,9 @@ package labioopint.model.Enemy.api;
 
 import java.util.*;
 
-import labioopint.commons.Coordinate;
-import labioopint.model.Labyrinth.api.Labyrinth;
-import labioopint.model.Player.api.Player;
+import labioopint.model.api.Coordinate;
+import labioopint.model.maze.impl.Labyrinth;
+import labioopint.model.player.impl.Player;
 
 public interface EnemyAI {
 

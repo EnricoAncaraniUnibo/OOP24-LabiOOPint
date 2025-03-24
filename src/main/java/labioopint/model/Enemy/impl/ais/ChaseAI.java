@@ -10,10 +10,11 @@ import java.util.Optional;
 import java.util.Queue;
 import java.util.stream.Collectors;
 
-import labioopint.commons.Coordinate;
+
 import labioopint.model.Enemy.api.EnemyAI;
-import labioopint.model.Labyrinth.api.Labyrinth;
-import labioopint.model.Player.api.Player;
+import labioopint.model.api.Coordinate;
+import labioopint.model.maze.impl.Labyrinth;
+import labioopint.model.player.impl.Player;
 
 /**
  * EnemyAI represents an enemy with artificial intelligence that can move

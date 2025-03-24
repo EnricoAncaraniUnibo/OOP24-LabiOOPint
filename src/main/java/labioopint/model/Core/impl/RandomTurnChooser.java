@@ -2,7 +2,7 @@ package labioopint.model.Core.impl;
 
 import java.util.*;
 
-import labioopint.model.Player.api.Player;
+import labioopint.model.player.impl.Player;
 
 /**
  * RandomTurnChooser is responsible for randomizing the order of players' turns.
@@ -31,7 +31,7 @@ public class RandomTurnChooser {
         List<Integer> idiesRandomic = new ArrayList<>();
         List<Player> playerRandomic = new ArrayList<>();
         for (Player player : players) {
-            idies.add(player.getId);
+            idies.add(player.getID());
         }
 
         while (idies.size() != 0) {
@@ -42,7 +42,7 @@ public class RandomTurnChooser {
 
         for (Integer integer : idiesRandomic) {
             for (Player player : players) {
-                if (player.getId == integer) {
+                if (player.getID() == integer) {
                     playerRandomic.add(player);
                 }
             }

@@ -4,8 +4,8 @@ import java.util.*;
 // import Labyrinth e Player (come interfacce)
 
 import labioopint.model.Core.api.GameObject;
-import labioopint.model.Labyrinth.api.Labyrinth;
-import labioopint.model.Player.api.Player;
+import labioopint.model.maze.impl.Labyrinth;
+import labioopint.model.player.impl.Player;
 
 public interface Enemy extends GameObject {
 

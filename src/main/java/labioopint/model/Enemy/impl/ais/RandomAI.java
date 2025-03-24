@@ -3,11 +3,11 @@ package labioopint.model.Enemy.impl.ais;
 import java.util.List;
 import java.util.Random;
 
-import labioopint.commons.Coordinate;
 import labioopint.model.Enemy.api.EnemyAI;
 import labioopint.model.Enemy.impl.MovementUtilities;
-import labioopint.model.Labyrinth.api.Labyrinth;
-import labioopint.model.Player.api.Player;
+import labioopint.model.api.Coordinate;
+import labioopint.model.maze.impl.Labyrinth;
+import labioopint.model.player.impl.Player;
 
 public class RandomAI implements EnemyAI {
 

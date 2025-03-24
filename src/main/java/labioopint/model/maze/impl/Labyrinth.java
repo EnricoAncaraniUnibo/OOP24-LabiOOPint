@@ -2,7 +2,7 @@ package labioopint.model.maze.impl;
 
 import java.util.List;
 
-import labioopint.controller.maze.LabyrinthController;
+import labioopint.controller.impl.LabyrinthController;
 import labioopint.model.api.Coordinate;
 import labioopint.model.api.CoordinateGenerator;
 import labioopint.model.api.DualMap;
@@ -60,10 +60,6 @@ public class Labyrinth {
         return outsideBlock;
     }
 
-    public Maze getGrid(){
-        return grid;
-    }
-    
     public boolean moveBlock(final Coordinate c, final Direction d) {
         Block b = grid.GetBlock(c);
         if (b.IsMovable() == true) {
