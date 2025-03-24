@@ -11,8 +11,6 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-import labioopint.TempClass.Enemy;
-import labioopint.TempClass.PowerUp;
 import labioopint.model.api.Coordinate;
 import labioopint.model.maze.impl.Block;
 import labioopint.model.maze.impl.Maze;
