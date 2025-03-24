@@ -1,14 +1,22 @@
 package labioopint.view;
 
 import javax.swing.*;
+
+import labioopint.model.Enemy.api.Enemy;
+import labioopint.model.api.Coordinate;
+import labioopint.model.maze.impl.Block;import labioopint.model.maze.impl.PowerUp;
+import labioopint.model.maze.impl.Maze;
+import labioopint.model.player.impl.Player;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.Map;
 import java.awt.event.ActionListener;
 
 public class GameView extends JFrame {
 
     private JLabel turnLabel;
-    private JPanel labirintPanel;
+    private DrawPanel labirintPanel;
     private int currentPlayer = 1;
     private final int totalPlayers = 4;
 
@@ -104,5 +112,9 @@ public class GameView extends JFrame {
             }
         });
         return button;
+    }
+
+    public void update(final Maze grid, final Map<Coordinate,Player> mapPlayers, final Map<Coordinate,Enemy> mapEnemies, final Map<Coordinate,PowerUp> mapPowerUps,Block outside) {
+        labirintPanel.draw(grid,mapPlayers,mapEnemies,mapPowerUps,outside);
     }
 }

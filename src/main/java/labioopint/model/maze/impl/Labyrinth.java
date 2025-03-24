@@ -42,9 +42,14 @@ public class Labyrinth {
 
     private void start(final List<Player> players, final Optional<Enemy> enemy, final List<PowerUp> powerUps) {
         CoordinateGenerator cg = new CoordinateGenerator(grid.getSize());
-        for (PowerUp pu : powerUps) {
+        try {
+            for (PowerUp pu : powerUps) {
             mapOfPowerUps.addElemWithCoordinate(pu, cg.getRandomCoordinate());
         }
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+        
         cg = new CoordinateGenerator(CoordinateGenerator.createBasicSpawnCoordinate(grid.getSize()));
         for (Player p : players) {
             mapOfPlayers.addElemWithCoordinate(p, cg.getRandomCoordinate());
