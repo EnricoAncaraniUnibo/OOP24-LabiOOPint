@@ -11,9 +11,11 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import labioopint.model.Enemy.api.Enemy;
 import labioopint.model.api.Coordinate;
 import labioopint.model.maze.impl.Block;
 import labioopint.model.maze.impl.Maze;
+import labioopint.model.maze.impl.PowerUp;
 import labioopint.model.player.impl.Player;
 
 public class DrawPanel extends JPanel {

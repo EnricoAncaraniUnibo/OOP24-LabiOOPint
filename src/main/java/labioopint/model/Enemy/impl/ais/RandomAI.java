@@ -14,7 +14,7 @@ public class RandomAI implements EnemyAI {
     private Random rand = new Random();
 
     @Override
-    public Coordinate getNextPosition(Labyrinth maze, List<Player> players, Coordinate current) {
+    public Coordinate getNextPosition(final Labyrinth maze, final List<Player> players, final Coordinate current) {
 
         Coordinate newPos = new Coordinate(current.getRow(), current.getColumn());
         int direction = rand.nextInt(4);

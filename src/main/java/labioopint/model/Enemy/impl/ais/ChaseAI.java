@@ -31,7 +31,7 @@ public class ChaseAI implements EnemyAI {
      * @param players the list of players in the game.
      */
     @Override
-    public Coordinate getNextPosition(Labyrinth maze, List<Player> players, Coordinate current) {
+    public Coordinate getNextPosition(final Labyrinth maze, final List<Player> players, final Coordinate current) {
 
         List<Coordinate> walkableCells = maze.getLabyrinth()
                 .entrySet()
@@ -57,7 +57,7 @@ public class ChaseAI implements EnemyAI {
      * @param players       the list of players in the game.
      * @return an optional list of coordinates representing the path to a player.
      */
-    private Optional<List<Coordinate>> getPath(List<Coordinate> walkableCells, List<Player> players, Coordinate start) {
+    private Optional<List<Coordinate>> getPath(final List<Coordinate> walkableCells, final List<Player> players, final Coordinate start) {
         List<Coordinate> playerPositions = players.stream()
                 .map(p -> p.getCoordinate())
                 .toList();
@@ -115,7 +115,7 @@ public class ChaseAI implements EnemyAI {
      * @param visited     the list of visited cells.
      * @return a list of neighboring coordinates.
      */
-    private List<Coordinate> neighbours(Coordinate currentNode, List<Coordinate> maze, List<Coordinate> visited) {
+    private List<Coordinate> neighbours(final Coordinate currentNode, final List<Coordinate> maze, final List<Coordinate> visited) {
         List<Coordinate> neighbours = new ArrayList<>();
         for (int i = currentNode.getRow() - 1; i <= currentNode.getRow() + 1; i++) {
             for (int j = currentNode.getColumn() - 1; j <= currentNode.getColumn() + 1; j++) {

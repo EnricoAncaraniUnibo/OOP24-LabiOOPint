@@ -6,16 +6,17 @@ import labioopint.model.maze.impl.Block;
 import labioopint.model.maze.impl.Maze;
 import labioopint.model.maze.impl.PowerUp;
 import labioopint.model.player.impl.Player;
+import labioopint.view.GameView;
 
 public class LabyrinthController {
 
-    private final GameTestView gtv;
+    private final GameView gtv;
 
     public LabyrinthController() {
-        gtv = new GameTestView();
+        gtv = new GameView();
     }
 
     public void updateGraphics(final Maze grid, final DualMap<Player> mapPlayers, final DualMap<Enemy> mapEnemy, final DualMap<PowerUp> mapPowerUps, Block outside) {
-        gtv.update(grid,mapPlayers.getMapFromCoordinate() ,mapEnemy.getMapFromCoordinate(),mapPowerUps.getMapFromCoordinate(),outside);
+        //gtv.update(grid,mapPlayers.getMapFromCoordinate() ,mapEnemy.getMapFromCoordinate(),mapPowerUps.getMapFromCoordinate(),outside);
     }
 }

@@ -27,7 +27,7 @@ public class EnemyImpl extends Movable implements Enemy {
     }
 
     @Override
-    public void move(Labyrinth maze, List<Player> players) {
+    public void move(final Labyrinth maze, final List<Player> players) {
         position = enemyAI.getNextPosition(maze, players, position);
     }
     /*
@@ -42,7 +42,7 @@ public class EnemyImpl extends Movable implements Enemy {
      * 
      * @param player the player that is hit by the enemy.
      */
-    public void hit(Player player) {
+    public void hit(final Player player) {
         if (getPosition(maze) == Player.position) {
             playerPowerUP.removeFirst();
         }
@@ -55,7 +55,7 @@ public class EnemyImpl extends Movable implements Enemy {
      */
 
     @Override
-    public Optional<Player> playerHit(List<Player> players) {
+    public Optional<Player> playerHit(final List<Player> players) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'playerHit'");
     }
@@ -66,7 +66,7 @@ public class EnemyImpl extends Movable implements Enemy {
     }
 
     @Override
-    public void setCoordinate(Coordinate coordinate) {
+    public void setCoordinate(final Coordinate coordinate) {
         this.position = coordinate;
     }
 }

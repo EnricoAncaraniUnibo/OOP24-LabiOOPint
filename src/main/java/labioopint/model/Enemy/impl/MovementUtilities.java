@@ -1,6 +1,6 @@
 package labioopint.model.Enemy.impl;
 
-import labioopint.commons.Coordinate;
+import labioopint.model.api.Coordinate;
 
 public class MovementUtilities {
     /**
@@ -10,7 +10,7 @@ public class MovementUtilities {
      * @param direction the direction to move (0: up, 1: down, 2: right, 3: left).
      * @return the next coordinate after moving in the specified direction.
      */
-    public static Coordinate getNextCoordinate(Coordinate c, int direction) {
+    public static Coordinate getNextCoordinate(final Coordinate c, final int direction) {
         switch (direction) {
             case 0:
                 return new Coordinate(c.getRow() - 1, c.getColumn());

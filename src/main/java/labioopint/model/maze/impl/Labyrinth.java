@@ -1,8 +1,10 @@
 package labioopint.model.maze.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import labioopint.controller.impl.LabyrinthController;
+import labioopint.model.Enemy.api.Enemy;
 import labioopint.model.api.Coordinate;
 import labioopint.model.api.CoordinateGenerator;
 import labioopint.model.api.DualMap;
@@ -24,34 +26,31 @@ public class Labyrinth {
         mapOfEnemy = new DualMap<>();
     }
 
-    public Labyrinth(final Integer size, final Settings set) {
+    public Labyrinth(final Integer size, final List<Player> players, final Optional<Enemy> enemy, final List<PowerUp> powerUps) {
         this.Default();
         grid = new SimpleMaze(size);
         outsideBlock = grid.Generate();
-        this.start(set);
+        this.start(players,enemy,powerUps);
     }
 
-    public Labyrinth(final Integer size, final Integer corners, final Integer corridors, final Integer crossings, final Settings set) {
+    public Labyrinth(final Integer size, final Integer corners, final Integer corridors, final Integer crossings, final List<Player> players, final Optional<Enemy> enemy, final List<PowerUp> powerUps) {
         this.Default();
         grid = new ComplexMaze(size, corners, corridors, crossings);
         outsideBlock = grid.Generate();
-        this.start(set);
+        this.start(players,enemy,powerUps);
     }
 
-    private void start(final Settings set) {
+    private void start(final List<Player> players, final Optional<Enemy> enemy, final List<PowerUp> powerUps) {
         CoordinateGenerator cg = new CoordinateGenerator(grid.getSize());
-        List<PowerUp> powerList = set.getPowerUps();
-        for (PowerUp pu : powerList) {
+        for (PowerUp pu : powerUps) {
             mapOfPowerUps.addElemWithCoordinate(pu, cg.getRandomCoordinate());
         }
         cg = new CoordinateGenerator(CoordinateGenerator.createBasicSpawnCoordinate(grid.getSize()));
-        List<Player> playerList = set.getPlayers();
-        for (Player p : playerList) {
+        for (Player p : players) {
             mapOfPlayers.addElemWithCoordinate(p, cg.getRandomCoordinate());
         }
-        List<Enemy> enemyList = set.getEnemy();
-        for (Enemy en : enemyList) {
-            mapOfEnemy.addElemWithCoordinate(en, CoordinateGenerator.getCentralCoordinate(grid.getSize()));
+        if(enemy.isPresent()) {
+            mapOfEnemy.addElemWithCoordinate(enemy.get(), CoordinateGenerator.getCentralCoordinate(grid.getSize()));
         }
         labyController.updateGraphics(grid,mapOfPlayers,mapOfEnemy,mapOfPowerUps,outsideBlock);
     }
