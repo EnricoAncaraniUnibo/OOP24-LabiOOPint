@@ -60,6 +60,10 @@ public class Labyrinth {
         return outsideBlock;
     }
 
+    public Maze getGrid(){
+        return grid;
+    }
+    
     public boolean moveBlock(final Coordinate c, final Direction d) {
         Block b = grid.GetBlock(c);
         if (b.IsMovable() == true) {

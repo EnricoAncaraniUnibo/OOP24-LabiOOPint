@@ -27,16 +27,21 @@ public abstract class Maze {
         return null;
     }
 
+    public Coordinate getCoordinate(Block b){
+        for (Map.Entry<Coordinate,Block> iterableItem : grid.entrySet()) {
+            if(iterableItem.getValue().equals(b)){
+                return iterableItem.getKey();
+            }
+        }
+        return null;
+    }
+
     public List<Block> getListofBlocks() {
         return blockSelection;
     }
 
     public Integer getSize() {
         return size;
-    }
-
-    public Map<Coordinate, Block> getMaze() {
-        return grid;
     }
 
     public void setMaze(final Map<Coordinate, Block> maze) {
