@@ -1,8 +1,5 @@
 package labioopint.model.maze.impl;
 
-import java.util.List;
-import java.util.Optional;
-
 import labioopint.controller.impl.LabyrinthController;
 import labioopint.model.Core.impl.TurnMenager;
 import labioopint.model.Enemy.api.Enemy;

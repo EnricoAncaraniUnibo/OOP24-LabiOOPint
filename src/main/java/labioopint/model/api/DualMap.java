@@ -22,7 +22,12 @@ public class DualMap<X> {
     }
 
     public X getElemFromCoordinate(final Coordinate coor) {
-        return mapFromCoordinate.get(coor);
+        for (Coordinate obj : mapFromCoordinate.keySet()) {
+            if(obj.getRow() == coor.getRow() && obj.getColumn()==coor.getColumn()) {
+                return mapFromCoordinate.get(obj);
+            }
+        }
+        return null;
     }
 
     public void remove(final X elem) {
@@ -32,5 +37,14 @@ public class DualMap<X> {
 
     public Map<Coordinate,X> getMapFromCoordinate() {
         return mapFromCoordinate;
+    }
+
+    public boolean isPresentByCoordinate(final Coordinate coor) {
+        for (Coordinate checkCoordinate : mapFromCoordinate.keySet()) {
+            if(coor.getRow()==checkCoordinate.getRow() && coor.getColumn()==checkCoordinate.getColumn()) {
+                return true;
+            }
+        }
+        return false;
     }
 }

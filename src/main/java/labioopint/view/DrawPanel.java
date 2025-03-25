@@ -6,13 +6,12 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.AffineTransform;
 import java.io.File;
-import java.util.Map;
-
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import labioopint.model.Enemy.api.Enemy;
 import labioopint.model.api.Coordinate;
+import labioopint.model.api.DualMap;
 import labioopint.model.maze.impl.Block;
 import labioopint.model.maze.impl.Maze;
 import labioopint.model.maze.impl.PowerUp;
@@ -21,16 +20,16 @@ import labioopint.model.player.impl.Player;
 public class DrawPanel extends JPanel {
         private final Integer pixelSize;
         private Maze maze;
-        private Map<Coordinate, Player> coorPlayers;
-        private Map<Coordinate, Enemy> coorEnemies;
-        private Map<Coordinate, PowerUp> coorPowerUps;
+        private DualMap<Player> coorPlayers;
+        private DualMap<Enemy> coorEnemies;
+        private DualMap<PowerUp> coorPowerUps;
         private Block outsideBlock;
         private Image CORRIDOR_IMAGE;
         private Image CORNER_IMAGE;
         private Image CROSSING_IMAGE;
 
         public DrawPanel(final Dimension size) {
-                pixelSize = (int) size.getWidth() / 15;
+                pixelSize = (int) size.getWidth() / 13;
                 try {
                         CORRIDOR_IMAGE = ImageIO.read(new File("src/main/java/labioopint/resources/Tiles/Corridor.png"));
                         CORNER_IMAGE = ImageIO.read(new File("src/main/java/labioopint/resources/Tiles/Corner.png"));
@@ -40,8 +39,8 @@ public class DrawPanel extends JPanel {
                 }
         }
 
-        public void draw(final Maze m, final Map<Coordinate, Player> mapPlayers,
-                final Map<Coordinate, Enemy> mapEnemies, final Map<Coordinate, PowerUp> mapPowerUps,
+        public void draw(final Maze m, final DualMap<Player> mapPlayers,
+                final DualMap<Enemy> mapEnemies, final DualMap<PowerUp> mapPowerUps,
                 final Block outside) {
                 this.maze = m;
                 this.coorPlayers = mapPlayers;
@@ -124,6 +123,9 @@ public class DrawPanel extends JPanel {
                                                                         break;
                                                         }
                                                         break;
+                                        }
+                                        if(coorPlayers.isPresentByCoordinate(new Coordinate(i, j))) {
+                                                g2.drawImage(coorPlayers.getElemFromCoordinate(new Coordinate(i, j)).getImage(), i*pixelSize+pixelSize/4, j*pixelSize+pixelSize/4,pixelSize*3/5,pixelSize*3/5, this);
                                         }
                                 }
                         }

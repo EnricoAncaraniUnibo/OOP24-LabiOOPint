@@ -2,18 +2,14 @@ package labioopint.view;
 
 import javax.swing.*;
 
-import labioopint.controller.api.GameController;
-import labioopint.model.Core.impl.TurnMenager;
 import labioopint.model.Enemy.api.Enemy;
-import labioopint.model.api.Coordinate;
-import labioopint.model.maze.api.Direction;
+import labioopint.model.api.DualMap;
 import labioopint.model.maze.impl.Block;import labioopint.model.maze.impl.PowerUp;
 import labioopint.model.maze.impl.Maze;
 import labioopint.model.player.impl.Player;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.util.Map;
 import java.awt.event.ActionListener;
 
 public class GameView extends JFrame {
@@ -120,7 +116,7 @@ public class GameView extends JFrame {
         return button;
     }
 
-    public void update(final Maze grid, final Map<Coordinate,Player> mapPlayers, final Map<Coordinate,Enemy> mapEnemies, final Map<Coordinate,PowerUp> mapPowerUps,Block outside) {
+    public void update(final Maze grid, final DualMap<Player> mapPlayers, final DualMap<Enemy> mapEnemies, final DualMap<PowerUp> mapPowerUps,Block outside) {
         labirintPanel.draw(grid,mapPlayers,mapEnemies,mapPowerUps,outside);
     }
 }

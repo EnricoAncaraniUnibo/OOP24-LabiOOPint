@@ -1,5 +1,6 @@
 package labioopint.model.player.impl;
 
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,16 +13,22 @@ public class Player extends Movable {
     private final Integer id;
     private final List<PowerUp> objectives;
     private final List<PowerUp> usablePowerUps;
+    private final Image image;
 
-    public Player(final Integer id) {
+    public Player(final Integer id, final Image im) {
         this.id = id;
         objectives = new ArrayList<>();
         usablePowerUps = new ArrayList<>();
+        this.image = im;
     }
 
     public void addObjective(final PowerUp pu) {
         objectives.add(pu);
         usablePowerUps.add(pu);
+    }
+
+    public Image getImage() {
+        return image;
     }
 
     public Coordinate move(final Coordinate old, final Direction d) {

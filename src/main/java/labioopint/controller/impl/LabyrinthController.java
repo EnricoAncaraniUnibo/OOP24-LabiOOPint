@@ -17,6 +17,6 @@ public class LabyrinthController {
     }
 
     public void updateGraphics(final Maze grid, final DualMap<Player> mapPlayers, final DualMap<Enemy> mapEnemy, final DualMap<PowerUp> mapPowerUps, Block outside) {
-        gtv.update(grid,mapPlayers.getMapFromCoordinate() ,mapEnemy.getMapFromCoordinate(),mapPowerUps.getMapFromCoordinate(),outside);
+        gtv.update(grid,mapPlayers ,mapEnemy,mapPowerUps,outside);
     }
 }

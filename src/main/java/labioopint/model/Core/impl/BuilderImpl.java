@@ -6,11 +6,11 @@ import labioopint.model.Enemy.api.Enemy;
 import labioopint.model.Enemy.api.EnemyDifficulty;
 import labioopint.model.Enemy.api.EnemyFactory;
 import labioopint.model.Enemy.impl.EnemyFactoryImpl;
-import labioopint.model.Enemy.impl.EnemyImpl;
 import labioopint.model.api.Settings;
 import labioopint.model.maze.impl.Labyrinth;
 import labioopint.model.maze.impl.PowerUp;
 import labioopint.model.player.impl.Player;
+import labioopint.model.player.impl.PlayerImageGenerator;
 
 /**
  * BuilderImpl is responsible for creating various game components such as
@@ -46,12 +46,12 @@ public class BuilderImpl {
     public Labyrinth createMaze(final List<Player> players, final Optional<Enemy> enemy, final List<PowerUp> powerUps) {
         if (numberPlayer == 2) {
             definitiveDimension = SMALL_LABYRINTH;
-            Labyrinth labyrint = new Labyrinth(SMALL_LABYRINTH, players, enemy, powerUps);
+            Labyrinth labyrint = new Labyrinth(SMALL_LABYRINTH);
             getDimension(definitiveDimension);
             return labyrint;
         } else if (numberPlayer == 4) {
             definitiveDimension = BIG_LABYRINTH;
-            Labyrinth labyrint = new Labyrinth(BIG_LABYRINTH, players, enemy, powerUps);
+            Labyrinth labyrint = new Labyrinth(BIG_LABYRINTH);
             getDimension(definitiveDimension);
             return labyrint;
         } else {
@@ -65,9 +65,10 @@ public class BuilderImpl {
      * @return a list of Player instances.
      */
     public List<Player> createPlayers() {
+        PlayerImageGenerator gen = new PlayerImageGenerator();
         List<Player> tm = new ArrayList<>();
         for (int i = 1; i <= numberPlayer; i++) {
-            Player a = new Player(i);
+            Player a = new Player(i,gen.getRandomImage());
             tm.add(a);
         }
         return tm;
