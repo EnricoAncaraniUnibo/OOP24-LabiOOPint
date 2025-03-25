@@ -2,8 +2,11 @@ package labioopint.view;
 
 import javax.swing.*;
 
+import labioopint.controller.api.GameController;
+import labioopint.model.Core.impl.TurnMenager;
 import labioopint.model.Enemy.api.Enemy;
 import labioopint.model.api.Coordinate;
+import labioopint.model.maze.api.Direction;
 import labioopint.model.maze.impl.Block;import labioopint.model.maze.impl.PowerUp;
 import labioopint.model.maze.impl.Maze;
 import labioopint.model.player.impl.Player;
@@ -109,6 +112,9 @@ public class GameView extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(null, "Hai premuto " + text);
+                if(text.equals("←")){
+                    //GameController.MoveBlock(Direction.LEFT, blocco, TurnMenager.GetLab());
+                }
             }
         });
         return button;

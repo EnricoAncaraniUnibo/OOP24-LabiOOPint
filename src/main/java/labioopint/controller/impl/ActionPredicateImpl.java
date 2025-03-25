@@ -1,3 +1,4 @@
+/*
 package labioopint.controller.impl;
 
 import labioopint.controller.api.ActionPredicate;
@@ -6,7 +7,7 @@ import labioopint.model.Enemy.api.Enemy;
 import labioopint.model.maze.api.Direction;
 import labioopint.model.maze.impl.Block;
 import labioopint.model.maze.impl.Labyrinth;
-import labioopint.model.maze.impl.Player;
+import labioopint.model.player.impl.Player;
 import labioopint.model.api.Coordinate;
 
 public class ActionPredicateImpl implements ActionPredicate {
@@ -96,3 +97,4 @@ public class ActionPredicateImpl implements ActionPredicate {
     }
     
 }
+*/

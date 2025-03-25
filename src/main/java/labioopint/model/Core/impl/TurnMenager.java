@@ -9,10 +9,10 @@ import labioopint.model.maze.impl.PowerUp;
 import labioopint.model.player.impl.Player;
 
 public class TurnMenager {
-    private Labyrinth maze;
-    private List<Player> players;
-    private Optional<Enemy> enemy;
-    private List<PowerUp> powerUps;
+    private static Labyrinth maze;
+    private static List<Player> players;
+    private static Optional<Enemy> enemy;
+    private static List<PowerUp> powerUps;
 
     public TurnMenager(Settings st) throws Exception{
         BuilderImpl bi = new BuilderImpl(st);
@@ -21,7 +21,19 @@ public class TurnMenager {
         maze = bi.createMaze(players, enemy, powerUps);
     }
 
+    public static Labyrinth GetLab(){
+        return maze;
+    }
 
+    public static List<Player> GetPlayers(){
+        return players;
+    }
 
+    public static Optional<Enemy> GetEnemy(){
+        return enemy;
+    }
 
+    public static List<PowerUp> GetPowerUps(){
+        return powerUps;
+    }
 }

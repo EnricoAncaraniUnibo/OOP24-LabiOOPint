@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import labioopint.controller.impl.LabyrinthController;
+import labioopint.model.Core.impl.TurnMenager;
 import labioopint.model.Enemy.api.Enemy;
 import labioopint.model.api.Coordinate;
 import labioopint.model.api.CoordinateGenerator;
@@ -26,24 +27,24 @@ public class Labyrinth {
         mapOfEnemy = new DualMap<>();
     }
 
-    public Labyrinth(final Integer size, final List<Player> players, final Optional<Enemy> enemy, final List<PowerUp> powerUps) {
+    public Labyrinth(final Integer size) {
         this.Default();
         grid = new SimpleMaze(size);
         outsideBlock = grid.Generate();
-        this.start(players,enemy,powerUps);
+        this.start();
     }
 
-    public Labyrinth(final Integer size, final Integer corners, final Integer corridors, final Integer crossings, final List<Player> players, final Optional<Enemy> enemy, final List<PowerUp> powerUps) {
+    public Labyrinth(final Integer size, final Integer corners, final Integer corridors, final Integer crossings) {
         this.Default();
         grid = new ComplexMaze(size, corners, corridors, crossings);
         outsideBlock = grid.Generate();
-        this.start(players,enemy,powerUps);
+        this.start();
     }
 
-    private void start(final List<Player> players, final Optional<Enemy> enemy, final List<PowerUp> powerUps) {
+    private void start() {
         CoordinateGenerator cg = new CoordinateGenerator(grid.getSize());
         try {
-            for (PowerUp pu : powerUps) {
+            for (PowerUp pu : TurnMenager.GetPowerUps()) {
             mapOfPowerUps.addElemWithCoordinate(pu, cg.getRandomCoordinate());
         }
         } catch (Exception e) {
@@ -51,11 +52,11 @@ public class Labyrinth {
         }
         
         cg = new CoordinateGenerator(CoordinateGenerator.createBasicSpawnCoordinate(grid.getSize()));
-        for (Player p : players) {
+        for (Player p : TurnMenager.GetPlayers()) {
             mapOfPlayers.addElemWithCoordinate(p, cg.getRandomCoordinate());
         }
-        if(enemy.isPresent()) {
-            mapOfEnemy.addElemWithCoordinate(enemy.get(), CoordinateGenerator.getCentralCoordinate(grid.getSize()));
+        if(TurnMenager.GetEnemy().isPresent()) {
+            mapOfEnemy.addElemWithCoordinate(TurnMenager.GetEnemy().get(), CoordinateGenerator.getCentralCoordinate(grid.getSize()));
         }
         labyController.updateGraphics(grid,mapOfPlayers,mapOfEnemy,mapOfPowerUps,outsideBlock);
     }
@@ -149,5 +150,9 @@ public class Labyrinth {
             mapOfPowerUps.remove((PowerUp) o);
         }
         labyController.updateGraphics(grid,mapOfPlayers,mapOfEnemy,mapOfPowerUps,outsideBlock);
+    }
+
+    public Maze getGrid() {
+        return grid;
     }
 }

@@ -1,3 +1,4 @@
+/*
 package labioopint.controller.impl;
 
 import labioopint.controller.api.ActionPredicate;
@@ -34,3 +35,4 @@ public class GameControllerImpl implements GameController {
     }
 
 }
+*/
