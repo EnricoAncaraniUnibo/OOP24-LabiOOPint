@@ -6,7 +6,6 @@ import labioopint.controller.api.GameController;
 import labioopint.model.Core.impl.TurnMenager;
 import labioopint.model.Enemy.api.Enemy;
 import labioopint.model.api.DualMap;
-import labioopint.model.maze.api.Direction;
 import labioopint.model.maze.impl.Block;import labioopint.model.maze.impl.PowerUp;
 import labioopint.model.maze.impl.Maze;
 import labioopint.model.player.impl.Player;
@@ -20,7 +19,6 @@ public class GameView extends JFrame {
     private JLabel turnLabel;
     private DrawPanel labirintPanel;
     private Player currentPlayer = TurnMenager.GetCurrentPlayer();
-    private final int totalPlayers = 4;
 
     public GameView() {
         setTitle("LabiOPPint");
