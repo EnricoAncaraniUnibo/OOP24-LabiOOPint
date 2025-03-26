@@ -2,6 +2,11 @@ package labioopint.model.Enemy.impl;
 
 import java.util.*;
 
+import javax.imageio.ImageIO;
+
+import java.awt.Image;
+import java.io.File;
+
 import labioopint.model.Core.impl.TurnMenager;
 import labioopint.model.Enemy.api.Enemy;
 import labioopint.model.Enemy.api.EnemyAI;
@@ -16,6 +21,7 @@ import labioopint.model.player.impl.Player;
 public class EnemyImpl extends Movable implements Enemy {
 
     private EnemyAI enemyAI;
+    private final Image image;
 
     /**
      * Constructs a new EnemyImpl object with the specified EnemyAI.
@@ -24,11 +30,16 @@ public class EnemyImpl extends Movable implements Enemy {
      */
     public EnemyImpl(EnemyAI enemyAI) {
         this.enemyAI = enemyAI;
+        try {
+            this.image = ImageIO.read(new File("src/main/java/labioopint/resources/Characters/monster.png"));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public Coordinate move(final Labyrinth maze, final List<Player> players) {
-        return enemyAI.getNextPosition(maze, players, maze.getEnemyPosition());
+        return enemyAI.getNextPosition(maze, players, maze.getEnemyCoordinate(this));
     }
     /*
      * Quando un player viene mangiato dal nemico, il player perde il primo PowerUp
@@ -46,8 +57,12 @@ public class EnemyImpl extends Movable implements Enemy {
         Labyrinth maze = TurnMenager.GetLab();
         for (Player player : players) {
             if (maze.getEnemyCoordinate(this).equals(maze.getPlayerCoordinate(player))) { 
-                player.removeFirst();
+                //player.removeFirst();
             }
         }
+    }
+
+    public Image getImage() {
+        return image;
     }
 }
