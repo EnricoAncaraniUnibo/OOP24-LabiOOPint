@@ -1,6 +1,7 @@
 package labioopint.model.Enemy.impl;
 
 import labioopint.model.api.Coordinate;
+import labioopint.model.maze.api.Direction;
 
 public class MovementUtilities {
     /**
@@ -10,15 +11,15 @@ public class MovementUtilities {
      * @param direction the direction to move (0: up, 1: down, 2: right, 3: left).
      * @return the next coordinate after moving in the specified direction.
      */
-    public static Coordinate getNextCoordinate(final Coordinate c, final int direction) {
+    public static Coordinate getNextCoordinate(final Coordinate c, final Direction direction) {
         switch (direction) {
-            case 0:
+            case Direction.UP:
                 return new Coordinate(c.getRow() - 1, c.getColumn());
-            case 1:
+            case Direction.DOWN:
                 return new Coordinate(c.getRow() + 1, c.getColumn());
-            case 2:
+            case Direction.RIGHT:
                 return new Coordinate(c.getRow(), c.getColumn() + 1);
-            case 3:
+            case Direction.LEFT:
                 return new Coordinate(c.getRow(), c.getColumn() - 1);
             default:
                 return c;

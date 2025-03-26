@@ -2,6 +2,7 @@ package labioopint.model.Enemy.impl;
 
 import java.util.*;
 
+import labioopint.model.Core.impl.TurnMenager;
 import labioopint.model.Enemy.api.Enemy;
 import labioopint.model.Enemy.api.EnemyAI;
 import labioopint.model.api.Coordinate;
@@ -26,26 +27,13 @@ public class EnemyImpl extends Movable implements Enemy {
     }
 
     @Override
-    public void move(final Labyrinth maze, final List<Player> players) {
-        position = enemyAI.getNextPosition(maze, players, position);
+    public Coordinate move(final Labyrinth maze, final List<Player> players) {
+        return enemyAI.getNextPosition(maze, players, maze.getEnemyPosition());
     }
     /*
      * Quando un player viene mangiato dal nemico, il player perde il primo PowerUp
      * che è in coda. Se la lista fosse vuota allora il player sta fermo un turno.
      */
-
-    /**
-     * When a player is hit by the enemy, the player loses the first PowerUp in
-     * their queue.
-     * If the player's PowerUp list is empty, the player skips a turn.
-     * 
-     * @param player the player that is hit by the enemy.
-     */
-    public void hit(final Player player) {
-        if (getPosition(maze) == Player.position) {
-            playerPowerUP.removeFirst();
-        }
-    }
 
     /**
      * Retrieves the current position of the enemy in the labyrinth.
@@ -54,18 +42,12 @@ public class EnemyImpl extends Movable implements Enemy {
      */
 
     @Override
-    public Optional<Player> playerHit(final List<Player> players) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'playerHit'");
-    }
-
-    @Override
-    public Coordinate getCoordinate() {
-        return position;
-    }
-
-    @Override
-    public void setCoordinate(final Coordinate coordinate) {
-        this.position = coordinate;
+    public void playerHit(final List<Player> players) {
+        Labyrinth maze = TurnMenager.GetLab();
+        for (Player player : players) {
+            if (maze.getEnemyCoordinate(this).equals(maze.getPlayerCoordinate(player))) { 
+                player.removeFirst();
+            }
+        }
     }
 }
