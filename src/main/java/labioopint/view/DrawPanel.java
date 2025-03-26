@@ -18,7 +18,7 @@ import labioopint.model.maze.impl.PowerUp;
 import labioopint.model.player.impl.Player;
 
 public class DrawPanel extends JPanel {
-        private final Integer pixelSize;
+        private static Integer pixelSize;
         private Maze maze;
         private DualMap<Player> coorPlayers;
         private DualMap<Enemy> coorEnemies;
@@ -27,6 +27,10 @@ public class DrawPanel extends JPanel {
         private Image CORRIDOR_IMAGE;
         private Image CORNER_IMAGE;
         private Image CROSSING_IMAGE;
+
+        public static Integer getBlockSize() {
+                return pixelSize;
+        }
 
         public DrawPanel(final Dimension size) {
                 pixelSize = (int) size.getWidth() / 13;
