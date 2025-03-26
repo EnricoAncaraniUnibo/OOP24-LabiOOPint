@@ -19,7 +19,34 @@ public class DirectionCheck {
 
         switch (BType) {
             case BlockType.CORNER:
-                if(rotation == Rotation.ZERO || rotation == Rotation.TWO_HUNDRED_SEVENTY){
+                if(rotation == Rotation.ZERO || rotation == Rotation.NINETY){
+                    return true;
+                }
+                break;
+            case BlockType.CORRIDOR:
+                if(rotation == Rotation.NINETY || rotation == Rotation.TWO_HUNDRED_SEVENTY){
+                    return true;
+                }
+                break;
+            case BlockType.CROSSING:
+                if(rotation == Rotation.ZERO || rotation == Rotation.NINETY || rotation == Rotation.ONE_HUNDRED_EIGHTY){
+                    return true;
+                }
+                break;
+            default:
+                break;
+        }
+        return false;
+    }
+    public static boolean checkLeftEntrance(Labyrinth lab, Coordinate coord){
+        Maze grid = lab.getGrid();
+        Block block = grid.GetBlock(coord);
+        BlockType BType = block.getType();
+        Rotation rotation = block.getRotation();
+
+        switch (BType) {
+            case BlockType.CORNER:
+                if(rotation == Rotation.ONE_HUNDRED_EIGHTY || rotation == Rotation.TWO_HUNDRED_SEVENTY){
                     return true;
                 }
                 break;
@@ -38,33 +65,6 @@ public class DirectionCheck {
         }
         return false;
     }
-    public static boolean checkLeftEntrance(Labyrinth lab, Coordinate coord){
-        Maze grid = lab.getGrid();
-        Block block = grid.GetBlock(coord);
-        BlockType BType = block.getType();
-        Rotation rotation = block.getRotation();
-
-        switch (BType) {
-            case BlockType.CORNER:
-                if(rotation == Rotation.NINETY || rotation == Rotation.ONE_HUNDRED_EIGHTY){
-                    return true;
-                }
-                break;
-            case BlockType.CORRIDOR:
-                if(rotation == Rotation.NINETY || rotation == Rotation.TWO_HUNDRED_SEVENTY){
-                    return true;
-                }
-                break;
-            case BlockType.CROSSING:
-                if(rotation == Rotation.ZERO || rotation == Rotation.ONE_HUNDRED_EIGHTY || rotation == Rotation.NINETY){
-                    return true;
-                }
-                break;
-            default:
-                break;
-        }
-        return false;
-    }
     public static boolean checkBottomEntrance(Labyrinth lab, Coordinate coord){
         Maze grid = lab.getGrid();
         Block block = grid.GetBlock(coord);
@@ -73,7 +73,7 @@ public class DirectionCheck {
 
         switch (BType) {
             case BlockType.CORNER:
-                if(rotation == Rotation.ZERO || rotation == Rotation.NINETY){
+                if(rotation == Rotation.ZERO || rotation == Rotation.TWO_HUNDRED_SEVENTY){
                     return true;
                 }
                 break;
@@ -100,7 +100,7 @@ public class DirectionCheck {
 
         switch (BType) {
             case BlockType.CORNER:
-                if(rotation == Rotation.ONE_HUNDRED_EIGHTY || rotation == Rotation.TWO_HUNDRED_SEVENTY){
+                if(rotation == Rotation.NINETY || rotation == Rotation.ONE_HUNDRED_EIGHTY){
                     return true;
                 }
                 break;
@@ -110,7 +110,7 @@ public class DirectionCheck {
                 }
                 break;
             case BlockType.CROSSING:
-                if(rotation == Rotation.ONE_HUNDRED_EIGHTY || rotation == Rotation.NINETY || rotation == Rotation.TWO_HUNDRED_SEVENTY){
+                if(rotation == Rotation.NINETY || rotation == Rotation.ONE_HUNDRED_EIGHTY || rotation == Rotation.TWO_HUNDRED_SEVENTY){
                     return true;
                 }
                 break;

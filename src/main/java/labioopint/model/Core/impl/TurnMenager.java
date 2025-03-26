@@ -3,6 +3,7 @@ package labioopint.model.Core.impl;
 import java.util.*;
 
 import labioopint.model.Enemy.api.Enemy;
+import labioopint.model.api.ActionType;
 import labioopint.model.api.Settings;
 import labioopint.model.maze.impl.Labyrinth;
 import labioopint.model.maze.impl.PowerUp;
@@ -13,6 +14,7 @@ public class TurnMenager {
     private static List<Player> players;
     private static Optional<Enemy> enemy;
     private static List<PowerUp> powerUps;
+    private static ActionType currentAction = ActionType.MOVE_BLOCK;
 
     public TurnMenager(Settings st) throws Exception{
         BuilderImpl bi = new BuilderImpl(st);
@@ -40,5 +42,9 @@ public class TurnMenager {
     public static Player GetCurrentPlayer() {
         Player p = players.get(0);
         return p;
+    }
+
+    public static ActionType GetCurrentAction() {
+        return currentAction;
     }
 }

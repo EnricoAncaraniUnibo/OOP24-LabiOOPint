@@ -57,11 +57,12 @@ public class DrawPanel extends JPanel {
                 if(maze!=null) {
                         Block b;
                         boolean end = false;
-                        for (int i = 0; i <= maze.getSize(); i++) {
+                        for (int i = 0; i <= maze.getSize() && end==false; i++) {
                                 for (int j = 0; j < maze.getSize() && end==false; j++) {
                                         if(i == maze.getSize()) {
                                                 b = outsideBlock;
-                                                i = i+1;
+                                                j = maze.getSize()+1;
+                                                i = 0;
                                                 end=true;
                                         } else {
                                                 b = maze.GetBlock(new Coordinate(i, j));

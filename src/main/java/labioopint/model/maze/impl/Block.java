@@ -42,4 +42,8 @@ public class Block extends Movable {
                 break;
         }
     }
+
+    public void setRotation(Rotation blockRotation) {
+        rotation = blockRotation;
+    }
 }

@@ -7,6 +7,7 @@ import labioopint.model.api.Coordinate;
 import labioopint.model.api.CoordinateGenerator;
 import labioopint.model.api.DualMap;
 import labioopint.model.maze.api.Direction;
+import labioopint.model.maze.api.Rotation;
 import labioopint.model.player.impl.Player;
 
 public class Labyrinth {
@@ -153,5 +154,10 @@ public class Labyrinth {
 
     public Maze getGrid() {
         return grid;
+    }
+
+    public void RotateOutsideBlock(Rotation blockRotation) {
+        outsideBlock.setRotation(blockRotation);
+        labyController.updateGraphics(grid, mapOfPlayers, mapOfEnemy, mapOfPowerUps, outsideBlock);
     }
 }

@@ -111,18 +111,7 @@ public class GameView extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //JOptionPane.showMessageDialog(null, "Hai premuto " + text);
-                if(text.equals("←")){
-                    GameController.MovePlayer(Direction.LEFT,currentPlayer);
-                }
-                if(text.equals("→")){
-                    GameController.MovePlayer(Direction.RIGHT,currentPlayer);
-                }
-                if(text.equals("↑")){
-                    GameController.MovePlayer(Direction.UP,currentPlayer);
-                }
-                if(text.equals("↓")){
-                    GameController.MovePlayer(Direction.DOWN,currentPlayer);
-                }
+                GameController.action(text, currentPlayer);
             }
         });
         return button;
