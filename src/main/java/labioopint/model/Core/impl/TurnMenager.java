@@ -36,4 +36,9 @@ public class TurnMenager {
     public static List<PowerUp> GetPowerUps(){
         return powerUps;
     }
+
+    public static Player GetCurrentPlayer() {
+        Player p = players.get(0);
+        return p;
+    }
 }

@@ -2,8 +2,11 @@ package labioopint.view;
 
 import javax.swing.*;
 
+import labioopint.controller.api.GameController;
+import labioopint.model.Core.impl.TurnMenager;
 import labioopint.model.Enemy.api.Enemy;
 import labioopint.model.api.DualMap;
+import labioopint.model.maze.api.Direction;
 import labioopint.model.maze.impl.Block;import labioopint.model.maze.impl.PowerUp;
 import labioopint.model.maze.impl.Maze;
 import labioopint.model.player.impl.Player;
@@ -16,7 +19,7 @@ public class GameView extends JFrame {
 
     private JLabel turnLabel;
     private DrawPanel labirintPanel;
-    private int currentPlayer = 1;
+    private Player currentPlayer = TurnMenager.GetCurrentPlayer();
     private final int totalPlayers = 4;
 
     public GameView() {
@@ -90,9 +93,9 @@ public class GameView extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                currentPlayer = (currentPlayer % totalPlayers) + 1; // Incrementa e resetta a 1 dopo Player 4
-                // currentPlayer = PlayerInformationController.getId();
-                turnLabel.setText("It's turn of Player " + currentPlayer);
+                //TurnMenager.endTurn();
+                currentPlayer = TurnMenager.GetCurrentPlayer();
+                turnLabel.setText("It's turn of Player " + currentPlayer.getID());
             }
 
         });
@@ -107,9 +110,18 @@ public class GameView extends JFrame {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Hai premuto " + text);
+                //JOptionPane.showMessageDialog(null, "Hai premuto " + text);
                 if(text.equals("←")){
-                    //GameController.MoveBlock(Direction.LEFT, blocco, TurnMenager.GetLab());
+                    GameController.MovePlayer(Direction.LEFT,currentPlayer);
+                }
+                if(text.equals("→")){
+                    GameController.MovePlayer(Direction.RIGHT,currentPlayer);
+                }
+                if(text.equals("↑")){
+                    GameController.MovePlayer(Direction.UP,currentPlayer);
+                }
+                if(text.equals("↓")){
+                    GameController.MovePlayer(Direction.DOWN,currentPlayer);
                 }
             }
         });

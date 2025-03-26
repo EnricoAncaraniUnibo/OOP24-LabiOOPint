@@ -70,21 +70,21 @@ public class DrawPanel extends JPanel {
                                                 case CORNER:
                                                         switch (b.getRotation()) {
                                                                 case ZERO:
-                                                                        g2.drawImage(CORNER_IMAGE, i*pixelSize, j*pixelSize,pixelSize,pixelSize, this);
+                                                                        g2.drawImage(CORNER_IMAGE, j*pixelSize, i*pixelSize,pixelSize,pixelSize, this);
                                                                         break;
                                                                 case NINETY:
                                                                         g2.rotate(Math.toRadians(-90));
-                                                                        g2.drawImage(CORNER_IMAGE, (-j*pixelSize)-pixelSize, i*pixelSize,pixelSize,pixelSize, this);   
+                                                                        g2.drawImage(CORNER_IMAGE, (-i*pixelSize)-pixelSize, j*pixelSize,pixelSize,pixelSize, this);   
                                                                         g2.setTransform(old);
                                                                         break;
                                                                 case ONE_HUNDRED_EIGHTY:
                                                                         g2.rotate(Math.toRadians(-180));
-                                                                        g2.drawImage(CORNER_IMAGE, (-i*pixelSize)-pixelSize, (-j*pixelSize)-pixelSize,pixelSize,pixelSize, this);   
+                                                                        g2.drawImage(CORNER_IMAGE, (-j*pixelSize)-pixelSize, (-i*pixelSize)-pixelSize,pixelSize,pixelSize, this);   
                                                                         g2.setTransform(old);
                                                                         break;
                                                                 case TWO_HUNDRED_SEVENTY:
                                                                         g2.rotate(Math.toRadians(-270));
-                                                                        g2.drawImage(CORNER_IMAGE, j*pixelSize, (-i*pixelSize)-pixelSize,pixelSize,pixelSize, this);   
+                                                                        g2.drawImage(CORNER_IMAGE, i*pixelSize, (-j*pixelSize)-pixelSize,pixelSize,pixelSize, this);   
                                                                         g2.setTransform(old);
                                                                         break;
                                                         }
@@ -92,11 +92,11 @@ public class DrawPanel extends JPanel {
                                                 case CORRIDOR:
                                                         switch (b.getRotation()) {
                                                                 case ZERO, ONE_HUNDRED_EIGHTY:
-                                                                        g2.drawImage(CORRIDOR_IMAGE, i*pixelSize, j*pixelSize,pixelSize,pixelSize, this);
+                                                                        g2.drawImage(CORRIDOR_IMAGE, j*pixelSize, i*pixelSize,pixelSize,pixelSize, this);
                                                                         break;
                                                                 case NINETY, TWO_HUNDRED_SEVENTY:
                                                                         g2.rotate(Math.toRadians(-90));
-                                                                        g2.drawImage(CORRIDOR_IMAGE, (-j*pixelSize)-pixelSize, i*pixelSize,pixelSize,pixelSize, this);   
+                                                                        g2.drawImage(CORRIDOR_IMAGE, (-i*pixelSize)-pixelSize, j*pixelSize,pixelSize,pixelSize, this);   
                                                                         g2.setTransform(old);
                                                                         break;
                                                         }
@@ -104,28 +104,28 @@ public class DrawPanel extends JPanel {
                                                 case CROSSING:
                                                         switch (b.getRotation()) {
                                                                 case ZERO:
-                                                                        g2.drawImage(CROSSING_IMAGE, i*pixelSize, j*pixelSize,pixelSize,pixelSize, this);
+                                                                        g2.drawImage(CROSSING_IMAGE, j*pixelSize, i*pixelSize,pixelSize,pixelSize, this);
                                                                         break;
                                                                 case NINETY:
                                                                         g2.rotate(Math.toRadians(-90));
-                                                                        g2.drawImage(CROSSING_IMAGE, (-j*pixelSize)-pixelSize, i*pixelSize,pixelSize,pixelSize, this);   
+                                                                        g2.drawImage(CROSSING_IMAGE, (-i*pixelSize)-pixelSize, j*pixelSize,pixelSize,pixelSize, this);   
                                                                         g2.setTransform(old);
                                                                         break;
                                                                 case ONE_HUNDRED_EIGHTY:
                                                                         g2.rotate(Math.toRadians(-180));
-                                                                        g2.drawImage(CROSSING_IMAGE, (-i*pixelSize)-pixelSize, (-j*pixelSize)-pixelSize,pixelSize,pixelSize, this);   
+                                                                        g2.drawImage(CROSSING_IMAGE, (-j*pixelSize)-pixelSize, (-i*pixelSize)-pixelSize,pixelSize,pixelSize, this);   
                                                                         g2.setTransform(old);
                                                                         break;
                                                                 case TWO_HUNDRED_SEVENTY:
                                                                         g2.rotate(Math.toRadians(-270));
-                                                                        g2.drawImage(CROSSING_IMAGE, j*pixelSize, (-i*pixelSize)-pixelSize,pixelSize,pixelSize, this);   
+                                                                        g2.drawImage(CROSSING_IMAGE, i*pixelSize, (-j*pixelSize)-pixelSize,pixelSize,pixelSize, this);   
                                                                         g2.setTransform(old);
                                                                         break;
                                                         }
                                                         break;
                                         }
                                         if(coorPlayers.isPresentByCoordinate(new Coordinate(i, j))) {
-                                                g2.drawImage(coorPlayers.getElemFromCoordinate(new Coordinate(i, j)).getImage(), i*pixelSize+pixelSize/4, j*pixelSize+pixelSize/4,pixelSize*3/5,pixelSize*3/5, this);
+                                                g2.drawImage(coorPlayers.getElemFromCoordinate(new Coordinate(i, j)).getImage(), j*pixelSize+pixelSize/4, i*pixelSize+pixelSize/4,pixelSize*3/5,pixelSize*3/5, this);
                                         }
                                 }
                         }

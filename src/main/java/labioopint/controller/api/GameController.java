@@ -5,7 +5,9 @@ import labioopint.model.maze.impl.Block;
 import labioopint.model.maze.impl.Labyrinth;
 import labioopint.model.maze.impl.PowerUp;
 import labioopint.model.player.impl.Player;
+import labioopint.model.Core.impl.TurnMenager;
 import labioopint.model.api.ActionType;
+import labioopint.model.api.Coordinate;
 
 
 public class GameController {
@@ -40,8 +42,36 @@ public class GameController {
      * Return true if the player can move in a specific direction
      * Otherwise it returns false
      */
-    public boolean MovePlayer(Direction dir, Player p){
-        return false;
+    public static void MovePlayer(Direction dir, Player p){
+        Labyrinth lab = TurnMenager.GetLab();
+        switch (dir) {
+            case Direction.LEFT:
+                if(ActionPredicate.PlayerCanMove(p, dir, lab)){
+                    current_action = ActionType.MOVE_PLAYER;
+                    lab.updateCoordinate(p,dir);
+                }
+                break;
+            case Direction.RIGHT:
+                if(ActionPredicate.PlayerCanMove(p, dir, lab)){
+                    current_action = ActionType.MOVE_PLAYER;
+                    lab.updateCoordinate(p,dir);
+                }
+                break;
+            case Direction.UP:
+                if(ActionPredicate.PlayerCanMove(p, dir, lab)){
+                    current_action = ActionType.MOVE_PLAYER;
+                    lab.updateCoordinate(p,dir);
+                }
+                break;
+            case Direction.DOWN:
+                if(ActionPredicate.PlayerCanMove(p, dir, lab)){
+                    current_action = ActionType.MOVE_PLAYER;
+                    lab.updateCoordinate(p,dir);
+                }
+                break;
+            default:
+                break;
+        }
     }
 
     /* ENEMY MOVEMENT

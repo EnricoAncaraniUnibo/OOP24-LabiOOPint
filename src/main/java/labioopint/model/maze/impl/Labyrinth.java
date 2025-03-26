@@ -134,18 +134,20 @@ public class Labyrinth {
         return mapOfEnemy.getCoordinateFromElement(e);
     }
 
-    public void updateCoordinate(final Object o, final Coordinate c) {
+    public void updateCoordinate(final Object o, final Direction dir) {
         if (o instanceof Player) {
-            mapOfPlayers.remove((Player) o);
-            mapOfPlayers.addElemWithCoordinate((Player) o, c);
+            Player p = (Player)o;
+            Coordinate newCoor = p.move(mapOfPlayers.getCoordinateFromElement(p), dir);
+            mapOfPlayers.remove(p);
+            mapOfPlayers.addElemWithCoordinate(p,newCoor);
         }
-        if (o instanceof Enemy) {
-            mapOfEnemy.remove((Enemy) o);
-            mapOfEnemy.addElemWithCoordinate((Enemy) o, c);
-        }
-        if (o instanceof PowerUp) {
-            mapOfPowerUps.remove((PowerUp) o);
-        }
+        // if (o instanceof Enemy) {
+        //     mapOfEnemy.remove((Enemy) o);
+        //     mapOfEnemy.addElemWithCoordinate((Enemy) o, c);
+        // }
+        // if (o instanceof PowerUp) {
+        //     mapOfPowerUps.remove((PowerUp) o);
+        // }
         labyController.updateGraphics(grid,mapOfPlayers,mapOfEnemy,mapOfPowerUps,outsideBlock);
     }
 
