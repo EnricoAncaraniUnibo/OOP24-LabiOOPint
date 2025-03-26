@@ -12,7 +12,7 @@ public class Settings {
         enemyNumber = Integer.valueOf(1);
         playerNumber = Integer.valueOf(4);
         powerUp = Integer.valueOf(0);
-        enemyDifficulty = EnemyDifficulty.MEDIUM;
+        enemyDifficulty = EnemyDifficulty.EASY;
     }
 
     public Integer getPowerUps() {

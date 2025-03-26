@@ -132,6 +132,9 @@ public class DrawPanel extends JPanel {
                                         if(coorPlayers.isPresentByCoordinate(new Coordinate(i, j))) {
                                                 g2.drawImage(coorPlayers.getElemFromCoordinate(new Coordinate(i, j)).getImage(), j*pixelSize+pixelSize/4, i*pixelSize+pixelSize/4,pixelSize*3/5,pixelSize*3/5, this);
                                         }
+                                        if(coorEnemies.isPresentByCoordinate(new Coordinate(i, j))) {
+                                                g2.drawImage(coorEnemies.getElemFromCoordinate(new Coordinate(i, j)).getImage(), j*pixelSize+pixelSize/4, i*pixelSize+pixelSize/4,pixelSize*3/5,pixelSize*3/5, this);
+                                        }
                                 }
                         }
                 }

@@ -1,5 +1,6 @@
 package labioopint.model.Enemy.api;
 
+import java.awt.Image;
 import java.util.*;
 
 import labioopint.model.api.Coordinate;
@@ -12,5 +13,5 @@ public interface Enemy {
 
     void playerHit(List<Player> players);
     // nemico dice che ho colpito quel player
-
+    Image getImage();
 }

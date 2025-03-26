@@ -47,4 +47,11 @@ public class DualMap<X> {
         }
         return false;
     }
+
+    public boolean isPresentByObject(final X elem) {
+        if(mapFromElement.containsKey(elem)) {
+            return true;
+        }
+        return false;
+    }
 }

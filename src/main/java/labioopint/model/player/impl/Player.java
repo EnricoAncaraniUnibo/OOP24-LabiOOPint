@@ -55,4 +55,8 @@ public class Player extends Movable {
     public Integer getID() {
         return id;
     }
+
+    public void removeFirst() {
+        objectives.remove(0);
+    }
 }

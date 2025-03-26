@@ -128,7 +128,10 @@ public class Labyrinth {
     }
 
     public Coordinate getEnemyCoordinate(final Enemy e) {
-        return mapOfEnemy.getCoordinateFromElement(e);
+        if(mapOfEnemy.isPresentByObject(e)) {
+            return mapOfEnemy.getCoordinateFromElement(e);
+        }
+        return null;
     }
 
     public void updateCoordinate(final Object o, final Direction dir) {
