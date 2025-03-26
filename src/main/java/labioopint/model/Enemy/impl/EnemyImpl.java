@@ -15,10 +15,9 @@ import labioopint.model.player.impl.Player;
 public class EnemyImpl extends Movable implements Enemy {
 
     private EnemyAI enemyAI;
-    private Coordinate position;
 
     /**
-     * Constructs a new EnemyImpl object with the specified EnemyAI and position.
+     * Constructs a new EnemyImpl object with the specified EnemyAI.
      * 
      * @param enemyAI the EnemyAI that controls the enemy's movement.
      */

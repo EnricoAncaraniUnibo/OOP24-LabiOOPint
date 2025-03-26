@@ -65,7 +65,6 @@ public class Labyrinth {
 
     public boolean moveBlock(final Coordinate c, final Direction d) {
         Block b = grid.GetBlock(c);
-        if (b.IsMovable() == true) {
             switch (d) {
                 case UP:
                     outsideBlock = shiftColumn(c.getColumn(), d);
@@ -82,9 +81,6 @@ public class Labyrinth {
             }
             labyController.updateGraphics(grid,mapOfPlayers,mapOfEnemy,mapOfPowerUps,outsideBlock);
             return true;
-        } else {
-            return false;
-        }
     }
 
     private Block shiftRow(final Integer number, final Direction d) {
