@@ -1,9 +1,12 @@
-package labioopint.model;
+package labioopint.model.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import labioopint.model.player.impl;
 
-public class PowerUpImpl implements PowerUp {
+import labioopint.model.api.PowerUp;
+
+public abstract class PowerUpImpl implements PowerUp {
     private boolean collected;
     private List<PowerUp> collectedPowerUps;
 
@@ -13,17 +16,14 @@ public class PowerUpImpl implements PowerUp {
     }
 
     @Override
-    public void activate() {
-        if (collected) {
-            // Logica per attivare il power-up
-        }
-    }
+    public abstract void activate(Player currentPlayer);
 
     @Override
     public boolean isCollected() {
         return collected;
     }
 
+    @Override
     public void collect() {
         this.collected = true;
         this.collectedPowerUps.add(this);
