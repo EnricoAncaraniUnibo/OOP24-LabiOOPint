@@ -3,10 +3,10 @@ package labioopint.model.Core.impl;
 import java.util.*;
 
 import labioopint.model.Enemy.api.Enemy;
+import labioopint.model.PowerUp.api.PowerUp;
 import labioopint.model.api.ActionType;
 import labioopint.model.api.Settings;
 import labioopint.model.maze.impl.Labyrinth;
-import labioopint.model.maze.impl.PowerUp;
 import labioopint.model.player.impl.Player;
 
 public class TurnManager {
@@ -21,6 +21,7 @@ public class TurnManager {
         BuilderImpl bi = new BuilderImpl(st);
         players = bi.createPlayers();
         enemy = bi.createEnemy();
+        powerUps = bi.createPowerUps();
         maze = bi.createMaze(players, enemy, powerUps);
         currentAction = ActionType.BLOCK_PLACEMENT;
         players = new RandomTurnChooser(players).randomOrder();

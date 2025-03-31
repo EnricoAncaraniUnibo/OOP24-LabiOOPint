@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import labioopint.model.Core.impl.TurnManager;
+import labioopint.model.PowerUp.api.PowerUp;
 import labioopint.model.api.Coordinate;
 import labioopint.model.api.Movable;
 import labioopint.model.maze.api.Direction;
-import labioopint.model.maze.impl.PowerUp;
 
 public class Player extends Movable {
     private final Integer id;

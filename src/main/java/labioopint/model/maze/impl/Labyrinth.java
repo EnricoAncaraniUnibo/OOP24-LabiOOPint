@@ -3,6 +3,7 @@ package labioopint.model.maze.impl;
 import labioopint.controller.impl.LabyrinthController;
 import labioopint.model.Core.impl.TurnManager;
 import labioopint.model.Enemy.api.Enemy;
+import labioopint.model.PowerUp.api.PowerUp;
 import labioopint.model.api.Coordinate;
 import labioopint.model.api.CoordinateGenerator;
 import labioopint.model.api.DualMap;

@@ -1,10 +1,10 @@
 package labioopint.controller.impl;
 
 import labioopint.model.Enemy.api.Enemy;
+import labioopint.model.PowerUp.api.PowerUp;
 import labioopint.model.api.DualMap;
 import labioopint.model.maze.impl.Block;
 import labioopint.model.maze.impl.Maze;
-import labioopint.model.maze.impl.PowerUp;
 import labioopint.model.player.impl.Player;
 import labioopint.view.GameView;
 

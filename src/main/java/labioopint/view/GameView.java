@@ -5,9 +5,10 @@ import javax.swing.*;
 import labioopint.controller.api.GameController;
 import labioopint.model.Core.impl.TurnManager;
 import labioopint.model.Enemy.api.Enemy;
+import labioopint.model.PowerUp.api.PowerUp;
 import labioopint.model.api.ActionType;
 import labioopint.model.api.DualMap;
-import labioopint.model.maze.impl.Block;import labioopint.model.maze.impl.PowerUp;
+import labioopint.model.maze.impl.Block;
 import labioopint.model.maze.impl.Maze;
 import labioopint.model.player.impl.Player;
 

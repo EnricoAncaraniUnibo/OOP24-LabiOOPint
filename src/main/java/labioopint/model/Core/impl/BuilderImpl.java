@@ -6,9 +6,10 @@ import labioopint.model.Enemy.api.Enemy;
 import labioopint.model.Enemy.api.EnemyDifficulty;
 import labioopint.model.Enemy.api.EnemyFactory;
 import labioopint.model.Enemy.impl.EnemyFactoryImpl;
+import labioopint.model.PowerUp.api.PowerUp;
+import labioopint.model.PowerUp.impl.SwapPositionPowerUp;
 import labioopint.model.api.Settings;
 import labioopint.model.maze.impl.Labyrinth;
-import labioopint.model.maze.impl.PowerUp;
 import labioopint.model.player.impl.Player;
 import labioopint.model.player.impl.PlayerImageGenerator;
 
@@ -22,6 +23,7 @@ public class BuilderImpl {
     public final static int BIG_LABYRINTH = 7;
     private int definitiveDimension; // NO USARE VAR PUBBLICHE USA METODO CON GETTER
     private int numberPlayer;
+    private int numberPowerUp;
     private EnemyFactory enemyFactory;
     private EnemyDifficulty type;
 
@@ -35,6 +37,7 @@ public class BuilderImpl {
         numberPlayer = st.getPlayers();
         enemyFactory = new EnemyFactoryImpl();
         type = st.getEnemyDifficulty();
+        numberPowerUp = st.getPowerUps();
     }
 
     /**
@@ -93,6 +96,15 @@ public class BuilderImpl {
         } else {
             return Optional.empty();
         }
+    }
+
+    public List<PowerUp> createPowerUps() {
+        List<PowerUp> powerUps = new ArrayList<>();
+        for (int i = 0; i < numberPowerUp; i++) {
+            PowerUp powerUp = (PowerUp) new SwapPositionPowerUp();
+            powerUps.add(powerUp);
+        }
+        return powerUps;
     }
 
     /**
