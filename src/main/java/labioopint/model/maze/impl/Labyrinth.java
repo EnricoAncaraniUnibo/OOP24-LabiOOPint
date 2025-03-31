@@ -163,4 +163,9 @@ public class Labyrinth {
         outsideBlock.setRotation(blockRotation);
         labyController.updateGraphics(grid, mapOfPlayers, mapOfEnemy, mapOfPowerUps, outsideBlock);
     }
+
+    public void addPowerUp(PowerUp p) {
+        CoordinateGenerator cg = new CoordinateGenerator(grid.getSize());
+        mapOfPowerUps.addElemWithCoordinate(p, cg.getRandomCoordinate());
+    }
 }

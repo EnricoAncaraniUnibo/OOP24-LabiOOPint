@@ -3,7 +3,6 @@ package labioopint.model.Core.impl;
 import java.util.*;
 
 import labioopint.model.Enemy.api.Enemy;
-import labioopint.model.Enemy.impl.EnemyImpl;
 import labioopint.model.Enemy.impl.ais.ChaseAI;
 import labioopint.model.Enemy.impl.ais.RandomAI;
 import labioopint.model.Enemy.impl.ais.SingleStepRandomAI;
