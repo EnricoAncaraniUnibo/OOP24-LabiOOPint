@@ -71,8 +71,9 @@ public class TurnManager {
                 if(enemy.get().getEnemyAI() instanceof ChaseAI) {
                     maze.absoluteUpdateCoordinate(enemy.get(), enemy.get().move(players));      
                 }
+                currentAction = ActionType.PLAYER_MOVEMENT;
             } else {
-                TurnManager.nextAction();
+                currentAction = ActionType.BLOCK_PLACEMENT;
             }
         } else if(currentAction == ActionType.ENEMY_MOVEMENT){
             currentAction = ActionType.BLOCK_PLACEMENT;
