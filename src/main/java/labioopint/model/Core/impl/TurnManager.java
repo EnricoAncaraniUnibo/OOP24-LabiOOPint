@@ -26,7 +26,7 @@ public class TurnManager {
         players = bi.createPlayers();
         enemy = bi.createEnemy();
         powerUps = bi.createPowerUps();
-        maze = bi.createMaze(players, enemy, powerUps);
+        maze = bi.createMaze();
         currentAction = ActionType.BLOCK_PLACEMENT;
         players = new RandomTurnChooser(players).randomOrder();
         index = 0;
