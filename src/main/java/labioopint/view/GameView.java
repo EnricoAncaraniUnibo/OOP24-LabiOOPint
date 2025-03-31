@@ -104,7 +104,7 @@ public class GameView extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                GameController.action(endTurnButton.getText(), TurnManager.GetCurrentPlayer());
+                GameController.action(endTurnButton.getText());
             }
 
         });
@@ -119,7 +119,7 @@ public class GameView extends JFrame {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                GameController.action(text, TurnManager.GetCurrentPlayer());
+                GameController.action(text);
             }
         });
         return button;

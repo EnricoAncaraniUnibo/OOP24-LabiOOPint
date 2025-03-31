@@ -16,7 +16,7 @@ public class GameController {
     //ActionType.MOVE_BLOCK;
     private static Labyrinth lab = TurnManager.GetLab();
 
-    public static void action(Object action,Object subject){
+    public static void action(Object action){
         ActionType current_action = TurnManager.GetCurrentAction();
         switch (current_action) {
             case ActionType.BLOCK_PLACEMENT:
@@ -49,8 +49,8 @@ public class GameController {
                                         (action.equals("→")) ? Direction.RIGHT :
                                         (action.equals("↑")) ? Direction.UP :
                                         Direction.DOWN;
-                        if(ActionPredicate.PlayerCanMove((Player)subject, dir)){
-                            lab.updateCoordinateByCoordinate(subject, dir);
+                        if(ActionPredicate.PlayerCanMove(TurnManager.GetCurrentPlayer(), dir)){
+                            lab.updateCoordinateByCoordinate(TurnManager.GetCurrentPlayer(), dir);
                         }else{
                             //TurnManager.invalidMovement();
                         }
