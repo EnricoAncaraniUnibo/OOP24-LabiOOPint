@@ -36,7 +36,7 @@ public class GameController {
                     }else if(blockCoordinate.getRow() == lab.getGrid().getSize()-1){
                         lab.moveBlock(blockCoordinate, Direction.UP);
                     }else{
-                        TurnMenager.noValidBlockPosition();
+                        TurnMenager.invalidBlockPosition();
                     }
                     TurnMenager.nextAction();
                 }
@@ -51,11 +51,20 @@ public class GameController {
                     if(MovePlayer(dir, (Player)subject)){
                         TurnMenager.nextAction();
                     }else{
-                        TurnMenager.noValidMovement();
+                        TurnMenager.invalidMovement();
                     }
                 }
                 break;
             case ActionType.ENEMY_MOVEMENT:
+                if(action instanceof Direction){
+                    Direction enemyDirection = (Direction)action;
+                    if(MoveEnemy(enemyDirection)){
+                        lab.updateCoordinate(TurnMenager.GetEnemy().get(),enemyDirection);
+                        TurnMenager.nextAction();
+                    }else{
+                        TurnMenager.invalidMovement();
+                    }
+                }
             default:
                 break;
         }
