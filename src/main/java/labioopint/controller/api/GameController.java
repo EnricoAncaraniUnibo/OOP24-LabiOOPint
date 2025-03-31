@@ -25,7 +25,7 @@ public class GameController {
                     RotateBlock(dir);
                 }
                 if(action instanceof Coordinate){
-                    MoveBlock(null, null, lab);
+                    MoveBlock(null, null);
                     //TurnMenager.nextAction();
                 }
                 break;
@@ -68,10 +68,10 @@ public class GameController {
      * Return true if the block can move
      * Return false if the block can't move
      */
-    private static void MoveBlock(Direction dir,Block block,Labyrinth lab){
+    private static void MoveBlock(Direction dir,Block block){
         switch (dir) {
             case Direction.LEFT:
-                if(ActionPredicate.BlockCanMove(block, dir, lab)){
+                if(ActionPredicate.BlockCanMove(block, dir)){
                     lab.moveBlock(lab.getGrid().getCoordinate(block), dir);
                 }
                 break;
@@ -96,25 +96,25 @@ public class GameController {
     private static boolean MovePlayer(Direction dir, Player p){
         switch (dir) {
             case Direction.LEFT:
-                if(ActionPredicate.PlayerCanMove(p, dir, lab)){
+                if(ActionPredicate.PlayerCanMove(p, dir)){
                     lab.updateCoordinate(p,dir);
                     return true;
                 }
                 break;
             case Direction.RIGHT:
-                if(ActionPredicate.PlayerCanMove(p, dir, lab)){
+                if(ActionPredicate.PlayerCanMove(p, dir)){
                     lab.updateCoordinate(p,dir);
                     return true;
                 }
                 break;
             case Direction.UP:
-                if(ActionPredicate.PlayerCanMove(p, dir, lab)){
+                if(ActionPredicate.PlayerCanMove(p, dir)){
                     lab.updateCoordinate(p,dir);
                     return true;
                 }
                 break;
             case Direction.DOWN:
-                if(ActionPredicate.PlayerCanMove(p, dir, lab)){
+                if(ActionPredicate.PlayerCanMove(p, dir)){
                     lab.updateCoordinate(p,dir);
                     return true;
                 }

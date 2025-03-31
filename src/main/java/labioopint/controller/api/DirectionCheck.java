@@ -1,5 +1,6 @@
 package labioopint.controller.api;
 
+import labioopint.model.Core.impl.TurnMenager;
 import labioopint.model.api.Coordinate;
 import labioopint.model.maze.api.BlockType;
 import labioopint.model.maze.api.Rotation;
@@ -8,10 +9,12 @@ import labioopint.model.maze.impl.Labyrinth;
 import labioopint.model.maze.impl.Maze;
 
 public class DirectionCheck {
+    private static Labyrinth lab = TurnMenager.GetLab();
+
     /*
-     * Every functions check if there are an entrance
+     * Every functions check if there are an entrance in the specified direction
      */
-    public static boolean checkRightEntrance(Labyrinth lab, Coordinate coord){
+    public static boolean checkRightEntrance(Coordinate coord){
         Maze grid = lab.getGrid();
         Block block = grid.GetBlock(coord);
         BlockType BType = block.getType();
@@ -38,7 +41,7 @@ public class DirectionCheck {
         }
         return false;
     }
-    public static boolean checkLeftEntrance(Labyrinth lab, Coordinate coord){
+    public static boolean checkLeftEntrance(Coordinate coord){
         Maze grid = lab.getGrid();
         Block block = grid.GetBlock(coord);
         BlockType BType = block.getType();
@@ -65,7 +68,7 @@ public class DirectionCheck {
         }
         return false;
     }
-    public static boolean checkBottomEntrance(Labyrinth lab, Coordinate coord){
+    public static boolean checkBottomEntrance(Coordinate coord){
         Maze grid = lab.getGrid();
         Block block = grid.GetBlock(coord);
         BlockType BType = block.getType();
@@ -92,7 +95,7 @@ public class DirectionCheck {
         }
         return false;
     }
-    public static boolean checkUpperEntrance(Labyrinth lab, Coordinate coord){
+    public static boolean checkUpperEntrance(Coordinate coord){
         Maze grid = lab.getGrid();
         Block block = grid.GetBlock(coord);
         BlockType BType = block.getType();
