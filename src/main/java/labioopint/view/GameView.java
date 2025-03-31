@@ -105,6 +105,7 @@ public class GameView extends JFrame {
 
     private JButton createButton(String text) {
         JButton button = new JButton(text);
+         
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
