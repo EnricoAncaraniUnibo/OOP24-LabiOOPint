@@ -13,4 +13,6 @@ public interface Enemy {
     void playerHit(List<Player> players);
     // nemico dice che ho colpito quel player
     Image getImage();
+
+    EnemyAI getEnemyAI();
 }

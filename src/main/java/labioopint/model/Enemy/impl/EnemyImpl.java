@@ -37,6 +37,10 @@ public class EnemyImpl extends Movable implements Enemy {
         }
     }
 
+    public EnemyAI getEnemyAI() {
+        return enemyAI;
+    }
+
     @Override
     public Coordinate move(final List<Player> players) {
         return enemyAI.getNextPosition(players, TurnManager.GetLab().getEnemyCoordinate(this));
@@ -56,8 +60,9 @@ public class EnemyImpl extends Movable implements Enemy {
     public void playerHit(final List<Player> players) {
         Labyrinth maze = TurnManager.GetLab();
         for (Player player : players) {
-            if (maze.getEnemyCoordinate(this).equals(maze.getPlayerCoordinate(player))) { 
-                //player.removeFirst();
+            if (maze.getEnemyCoordinate(this).getRow() == maze.getPlayerCoordinate(player).getRow()
+                    && maze.getEnemyCoordinate(this).getColumn() == maze.getPlayerCoordinate(player).getColumn()) { 
+                player.removeObjective();
             }
         }
     }

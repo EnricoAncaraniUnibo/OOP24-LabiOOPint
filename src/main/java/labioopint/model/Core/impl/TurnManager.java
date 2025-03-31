@@ -3,6 +3,10 @@ package labioopint.model.Core.impl;
 import java.util.*;
 
 import labioopint.model.Enemy.api.Enemy;
+import labioopint.model.Enemy.impl.EnemyImpl;
+import labioopint.model.Enemy.impl.ais.ChaseAI;
+import labioopint.model.Enemy.impl.ais.RandomAI;
+import labioopint.model.Enemy.impl.ais.SingleStepRandomAI;
 import labioopint.model.PowerUp.api.PowerUp;
 import labioopint.model.api.ActionType;
 import labioopint.model.api.Settings;
@@ -59,6 +63,19 @@ public class TurnManager {
         } else if(currentAction == ActionType.PLAYER_MOVEMENT){
             index = (index + 1) % players.size();
             currentAction = ActionType.ENEMY_MOVEMENT;
+            if(enemy.isPresent()){
+                if(enemy.get().getEnemyAI() instanceof SingleStepRandomAI) {
+                    enemy.get().move(players);
+                }
+                if(enemy.get().getEnemyAI() instanceof RandomAI) {
+                    enemy.get().move(players);
+                }
+                if(enemy.get().getEnemyAI() instanceof ChaseAI) {
+                    enemy.get().move(players);
+                }
+            } else {
+                TurnManager.nextAction();
+            }
         } else if(currentAction == ActionType.ENEMY_MOVEMENT){
             currentAction = ActionType.BLOCK_PLACEMENT;
         }
