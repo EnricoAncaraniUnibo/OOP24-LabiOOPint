@@ -7,6 +7,7 @@ import labioopint.model.maze.impl.Labyrinth;
 import labioopint.model.maze.impl.PowerUp;
 import labioopint.model.player.impl.Player;
 import labioopint.model.Core.impl.TurnMenager;
+import labioopint.model.Enemy.api.Enemy;
 import labioopint.model.api.ActionType;
 import labioopint.model.api.Coordinate;
 
@@ -18,28 +19,44 @@ public class GameController {
     public static void action(Object action,Object subject){
         ActionType current_action = TurnMenager.GetCurrentAction();
         switch (current_action) {
-            case ActionType.MOVE_BLOCK:
+            case ActionType.BLOCK_PLACEMENT:
                 if(action instanceof String){
                     Direction dir = (action.equals("←")) ? Direction.LEFT :
                                     Direction.RIGHT;
                     RotateBlock(dir);
                 }
                 if(action instanceof Coordinate){
-                    MoveBlock(null, null);
-                    //TurnMenager.nextAction();
+                    Coordinate blockCoordinate = (Coordinate)action;
+                    if(blockCoordinate.getColumn() == 0){
+                        lab.moveBlock(blockCoordinate, Direction.RIGHT);
+                    }else if(blockCoordinate.getColumn() == lab.getGrid().getSize()-1){
+                        lab.moveBlock(blockCoordinate, Direction.LEFT);
+                    }else if(blockCoordinate.getRow() == 0){
+                        lab.moveBlock(blockCoordinate, Direction.DOWN);
+                    }else if(blockCoordinate.getRow() == lab.getGrid().getSize()-1){
+                        lab.moveBlock(blockCoordinate, Direction.UP);
+                    }else{
+                        TurnMenager.noValidBlockPosition();
+                    }
+                    TurnMenager.nextAction();
                 }
                 break;
         
-            case ActionType.MOVE_PLAYER:
+            case ActionType.PLAYER_MOVEMENT:
                 if(action instanceof String){
                     Direction dir = (action.equals("←")) ? Direction.LEFT :
                                     (action.equals("→")) ? Direction.RIGHT :
                                     (action.equals("↑")) ? Direction.UP :
                                     Direction.DOWN;
                     if(MovePlayer(dir, (Player)subject)){
-                        //TurnMenager.nextAction();
+                        TurnMenager.nextAction();
+                    }else{
+                        TurnMenager.noValidMovement();
                     }
                 }
+                break;
+            case ActionType.ENEMY_MOVEMENT:
+            default:
                 break;
         }
     }
@@ -61,30 +78,6 @@ public class GameController {
                                 (blockRotation == Rotation.ONE_HUNDRED_EIGHTY) ? Rotation.NINETY :
                                 Rotation.ZERO;
                 lab.RotateOutsideBlock(blockRotation);
-                break;
-        }
-    }
-    /* BLOCK MOVEMENT 
-     * Return true if the block can move
-     * Return false if the block can't move
-     */
-    private static void MoveBlock(Direction dir,Block block){
-        switch (dir) {
-            case Direction.LEFT:
-                if(ActionPredicate.BlockCanMove(block, dir)){
-                    lab.moveBlock(lab.getGrid().getCoordinate(block), dir);
-                }
-                break;
-            case Direction.RIGHT:
-
-                break;
-            case Direction.UP:
-
-                break;
-            case Direction.DOWN:
-
-                break;
-            default:
                 break;
         }
     }
@@ -128,6 +121,33 @@ public class GameController {
      * Otherwise it returns false
      */
     private static boolean MoveEnemy(Direction dir){
+        Enemy e = TurnMenager.GetEnemy().get();
+        switch (dir) {
+            case Direction.LEFT:
+                if(ActionPredicate.EnemyCanMove(dir)){
+                    lab.updateCoordinate(e,dir);
+                    return true;
+                }
+                break;
+            case Direction.RIGHT:
+                if(ActionPredicate.EnemyCanMove(dir)){
+                    lab.updateCoordinate(e,dir);
+                    return true;
+                }
+                break;
+            case Direction.UP:
+                if(ActionPredicate.EnemyCanMove(dir)){
+                    lab.updateCoordinate(e,dir);
+                    return true;
+                }
+                break;
+            case Direction.DOWN:
+                if(ActionPredicate.EnemyCanMove(dir)){
+                    lab.updateCoordinate(e,dir);
+                    return true;
+                }
+                break;
+        }
         return false;
     }  
 
