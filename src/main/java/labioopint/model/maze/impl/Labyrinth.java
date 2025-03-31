@@ -41,15 +41,10 @@ public class Labyrinth {
     }
 
     private void start() {
-        CoordinateGenerator cg = new CoordinateGenerator(grid.getSize());
-        try {
-            for (PowerUp pu : TurnManager.GetPowerUps()) {
+        CoordinateGenerator cg = new CoordinateGenerator(grid.getSize()); 
+        for (PowerUp pu : TurnManager.GetPowerUps()) {
             mapOfPowerUps.addElemWithCoordinate(pu, cg.getRandomCoordinate());
         }
-        } catch (Exception e) {
-            // TODO: handle exception
-        }
-        
         cg = new CoordinateGenerator(CoordinateGenerator.createBasicSpawnCoordinate(grid.getSize()));
         for (Player p : TurnManager.GetPlayers()) {
             mapOfPlayers.addElemWithCoordinate(p, cg.getRandomCoordinate());

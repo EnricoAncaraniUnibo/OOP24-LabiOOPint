@@ -46,7 +46,7 @@ public class BuilderImpl {
      * @return a Labyrinth instance with the appropriate dimension.
      * @throws IllegalArgumentException if the number of players is not supported.
      */
-    public Labyrinth createMaze(final List<Player> players, final Optional<Enemy> enemy, final List<PowerUp> powerUps) {
+    public Labyrinth createMaze() {
         if (numberPlayer == 2) {
             definitiveDimension = SMALL_LABYRINTH;
             Labyrinth labyrint = new Labyrinth(SMALL_LABYRINTH);
