@@ -4,6 +4,7 @@ import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
 
+import labioopint.model.Core.impl.TurnMenager;
 import labioopint.model.api.Coordinate;
 import labioopint.model.api.Movable;
 import labioopint.model.maze.api.Direction;
@@ -14,12 +15,14 @@ public class Player extends Movable {
     private final List<PowerUp> objectives;
     private final List<PowerUp> usablePowerUps;
     private final Image image;
+    private final Image imageTurn;
 
-    public Player(final Integer id, final Image im) {
+    public Player(final Integer id, final List<Image> im) {
         this.id = id;
         objectives = new ArrayList<>();
         usablePowerUps = new ArrayList<>();
-        this.image = im;
+        this.image = im.get(0);
+        this.imageTurn = im.get(1);
     }
 
     public void addObjective(final PowerUp pu) {
@@ -28,7 +31,11 @@ public class Player extends Movable {
     }
 
     public Image getImage() {
-        return image;
+        if(TurnMenager.GetCurrentPlayer()!=this) {
+            return image;
+        } else {
+            return imageTurn;
+        }
     }
 
     public Coordinate move(final Coordinate old, final Direction d) {

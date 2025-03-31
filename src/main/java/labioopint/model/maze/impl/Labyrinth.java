@@ -134,7 +134,7 @@ public class Labyrinth {
         return null;
     }
 
-    public void updateCoordinate(final Object o, final Direction dir) {
+    public void updateCoordinateByCoordinate(final Object o, final Direction dir) {
         if (o instanceof Player) {
             Player p = (Player)o;
             Coordinate newCoor = p.move(mapOfPlayers.getCoordinateFromElement(p), dir);
@@ -149,6 +149,14 @@ public class Labyrinth {
         //     mapOfPowerUps.remove((PowerUp) o);
         // }
         labyController.updateGraphics(grid,mapOfPlayers,mapOfEnemy,mapOfPowerUps,outsideBlock);
+    }
+
+    public void absoluteUpdateCoordinate(final Object o, final Coordinate coor) {
+        if(o instanceof Player) {
+            Player p = (Player)o;
+            mapOfPlayers.remove(p);
+            mapOfPlayers.addElemWithCoordinate(p, coor);
+        }
     }
 
     public Maze getGrid() {

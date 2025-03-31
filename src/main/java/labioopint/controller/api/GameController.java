@@ -97,25 +97,25 @@ public class GameController {
         switch (dir) {
             case Direction.LEFT:
                 if(ActionPredicate.PlayerCanMove(p, dir)){
-                    lab.updateCoordinate(p,dir);
+                    lab.updateCoordinateByCoordinate(p,dir);
                     return true;
                 }
                 break;
             case Direction.RIGHT:
                 if(ActionPredicate.PlayerCanMove(p, dir)){
-                    lab.updateCoordinate(p,dir);
+                    lab.updateCoordinateByCoordinate(p,dir);
                     return true;
                 }
                 break;
             case Direction.UP:
                 if(ActionPredicate.PlayerCanMove(p, dir)){
-                    lab.updateCoordinate(p,dir);
+                    lab.updateCoordinateByCoordinate(p,dir);
                     return true;
                 }
                 break;
             case Direction.DOWN:
                 if(ActionPredicate.PlayerCanMove(p, dir)){
-                    lab.updateCoordinate(p,dir);
+                    lab.updateCoordinateByCoordinate(p,dir);
                     return true;
                 }
                 break;

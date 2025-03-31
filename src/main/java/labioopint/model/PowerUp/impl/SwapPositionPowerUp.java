@@ -25,8 +25,8 @@ public class SwapPositionPowerUp extends PowerUpImpl {
                     this.condition = false;
                 } 
                 else if(this.players.size() > 1 && !currentPlayer.equals(playerSwap)){
-                    this.labyrinth.updateCoordinate(playerSwap,currentPlayerCoordinate);
-                    this.labyrinth.updateCoordinate(currentPlayer,playerSwapCoordinate);
+                    this.labyrinth.absoluteUpdateCoordinate(playerSwap,currentPlayerCoordinate);
+                    this.labyrinth.absoluteUpdateCoordinate(currentPlayer,playerSwapCoordinate);
                     this.condition = false;
                 }
             }
