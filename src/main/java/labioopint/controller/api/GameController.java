@@ -44,15 +44,18 @@ public class GameController {
         
             case ActionType.PLAYER_MOVEMENT:
                 if(action instanceof String){
-                    Direction dir = (action.equals("←")) ? Direction.LEFT :
-                                    (action.equals("→")) ? Direction.RIGHT :
-                                    (action.equals("↑")) ? Direction.UP :
-                                    Direction.DOWN;
-                    if(ActionPredicate.PlayerCanMove((Player)subject, dir)){
-                        lab.updateCoordinateByCoordinate(subject, dir);
+                    if(action.equals("←") || action.equals("→") || action.equals("↑") || action.equals("↓")){
+                        Direction dir = (action.equals("←")) ? Direction.LEFT :
+                                        (action.equals("→")) ? Direction.RIGHT :
+                                        (action.equals("↑")) ? Direction.UP :
+                                        Direction.DOWN;
+                        if(ActionPredicate.PlayerCanMove((Player)subject, dir)){
+                            lab.updateCoordinateByCoordinate(subject, dir);
+                        }else{
+                            //TurnManager.invalidMovement();
+                        }
+                    }else if(action.equals("End Turn")){
                         TurnManager.nextAction();
-                    }else{
-                        //TurnManager.invalidMovement();
                     }
                 }
                 break;
