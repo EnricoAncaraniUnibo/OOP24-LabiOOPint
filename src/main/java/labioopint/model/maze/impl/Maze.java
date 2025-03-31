@@ -37,8 +37,8 @@ public abstract class Maze {
         return null;
     }
 
-    public Set<Coordinate> getListofCoordinates() {
-        return grid.keySet();
+    public List<Coordinate> getListofCoordinates() {
+        return new ArrayList(grid.keySet());
     }
 
     public List<Block> getListofBlocks() {
