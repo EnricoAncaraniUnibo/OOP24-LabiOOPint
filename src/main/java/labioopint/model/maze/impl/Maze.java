@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import labioopint.model.api.Coordinate;
 
@@ -34,6 +35,10 @@ public abstract class Maze {
             }
         }
         return null;
+    }
+
+    public Set<Coordinate> getListofCoordinates() {
+        return grid.keySet();
     }
 
     public List<Block> getListofBlocks() {
