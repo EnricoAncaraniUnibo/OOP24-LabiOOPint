@@ -4,7 +4,7 @@ public enum ActionType{
     GAME_LOARDING,
     SETTINGS,
     SAVING,
-    MOVE_PLAYER,
-    MOVE_BLOCK,
-    ENEMY_TURN
+    PLAYER_MOVEMENT,
+    BLOCK_PLACEMENT,
+    ENEMY_MOVEMENT
 }

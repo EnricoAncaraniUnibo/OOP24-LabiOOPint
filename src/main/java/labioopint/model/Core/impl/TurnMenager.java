@@ -14,7 +14,7 @@ public class TurnMenager {
     private static List<Player> players;
     private static Optional<Enemy> enemy;
     private static List<PowerUp> powerUps;
-    private static ActionType currentAction = ActionType.MOVE_BLOCK;
+    private static ActionType currentAction = ActionType.BLOCK_PLACEMENT;
 
     public TurnMenager(Settings st) throws Exception{
         BuilderImpl bi = new BuilderImpl(st);
