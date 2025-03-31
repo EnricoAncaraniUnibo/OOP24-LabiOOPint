@@ -61,17 +61,15 @@ public class TurnManager {
             currentAction = ActionType.PLAYER_MOVEMENT;
         } else if(currentAction == ActionType.PLAYER_MOVEMENT){
             index = (index + 1) % players.size();
-            currentAction = ActionType.ENEMY_MOVEMENT;
             if(enemy.isPresent()){
                 if(enemy.get().getEnemyAI() instanceof SingleStepRandomAI) {
-                    enemy.get().move(players);
-                    
+                    maze.absoluteUpdateCoordinate(enemy.get(), enemy.get().move(players));         
                 }
                 if(enemy.get().getEnemyAI() instanceof RandomAI) {
-                    enemy.get().move(players);
+                    maze.absoluteUpdateCoordinate(enemy.get(), enemy.get().move(players));      
                 }
                 if(enemy.get().getEnemyAI() instanceof ChaseAI) {
-                    enemy.get().move(players);
+                    maze.absoluteUpdateCoordinate(enemy.get(), enemy.get().move(players));      
                 }
             } else {
                 TurnManager.nextAction();

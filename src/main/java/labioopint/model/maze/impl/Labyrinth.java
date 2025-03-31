@@ -130,17 +130,13 @@ public class Labyrinth {
         return null;
     }
 
-    public void updateCoordinateByCoordinate(final Object o, final Direction dir) {
+    public void updateCoordinateByDirection(final Object o, final Direction dir) {
         if (o instanceof Player) {
             Player p = (Player)o;
             Coordinate newCoor = p.move(mapOfPlayers.getCoordinateFromElement(p), dir);
             mapOfPlayers.remove(p);
             mapOfPlayers.addElemWithCoordinate(p,newCoor);
         }
-        // if (o instanceof Enemy) {
-        //     mapOfEnemy.remove((Enemy) o);
-        //     mapOfEnemy.addElemWithCoordinate((Enemy) o, c);
-        // }
         // if (o instanceof PowerUp) {
         //     mapOfPowerUps.remove((PowerUp) o);
         // }
@@ -153,6 +149,12 @@ public class Labyrinth {
             mapOfPlayers.remove(p);
             mapOfPlayers.addElemWithCoordinate(p, coor);
         }
+        if(o instanceof Enemy) {
+            Enemy e = (Enemy)o;
+            mapOfEnemy.remove(e);
+            mapOfEnemy.addElemWithCoordinate(e, coor);
+        }
+        labyController.updateGraphics(grid,mapOfPlayers,mapOfEnemy,mapOfPowerUps,outsideBlock);
     }
 
     public Maze getGrid() {

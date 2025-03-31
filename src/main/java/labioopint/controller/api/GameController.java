@@ -50,7 +50,7 @@ public class GameController {
                                         (action.equals("↑")) ? Direction.UP :
                                         Direction.DOWN;
                         if(ActionPredicate.PlayerCanMove(TurnManager.GetCurrentPlayer(), dir)){
-                            lab.updateCoordinateByCoordinate(TurnManager.GetCurrentPlayer(), dir);
+                            lab.updateCoordinateByDirection(TurnManager.GetCurrentPlayer(), dir);
                         }else{
                             //TurnManager.invalidMovement();
                         }
@@ -93,40 +93,6 @@ public class GameController {
                 lab.RotateOutsideBlock(blockRotation);
                 break;
         }
-    }
-
-    /* PLAYER MOVEMENT
-     * Return true if the player can move in a specific direction
-     * Otherwise it returns false
-     */
-    private static boolean MovePlayer(Direction dir, Player p){
-        switch (dir) {
-            case Direction.LEFT:
-                if(ActionPredicate.PlayerCanMove(p, dir)){
-                    lab.updateCoordinateByCoordinate(p,dir);
-                    return true;
-                }
-                break;
-            case Direction.RIGHT:
-                if(ActionPredicate.PlayerCanMove(p, dir)){
-                    lab.updateCoordinateByCoordinate(p,dir);
-                    return true;
-                }
-                break;
-            case Direction.UP:
-                if(ActionPredicate.PlayerCanMove(p, dir)){
-                    lab.updateCoordinateByCoordinate(p,dir);
-                    return true;
-                }
-                break;
-            case Direction.DOWN:
-                if(ActionPredicate.PlayerCanMove(p, dir)){
-                    lab.updateCoordinateByCoordinate(p,dir);
-                    return true;
-                }
-                break;
-        }
-        return false;
     }
 
     /* ENEMY MOVEMENT
