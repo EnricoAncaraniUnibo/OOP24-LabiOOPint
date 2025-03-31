@@ -3,10 +3,11 @@ package labioopint.model.Enemy.impl.ais;
 import java.util.List;
 import java.util.Random;
 
+import labioopint.controller.api.ActionPredicate;
 import labioopint.model.Enemy.api.EnemyAI;
 import labioopint.model.Enemy.impl.MovementUtilities;
 import labioopint.model.api.Coordinate;
-import labioopint.model.maze.impl.Labyrinth;
+import labioopint.model.maze.api.Direction;
 import labioopint.model.player.impl.Player;
 
 public class RandomAI implements EnemyAI {
@@ -14,7 +15,7 @@ public class RandomAI implements EnemyAI {
     private Random rand = new Random();
 
     @Override
-    public Coordinate getNextPosition(final Labyrinth maze, final List<Player> players, final Coordinate current) {
+    public Coordinate getNextPosition(final List<Player> players, final Coordinate current) {
 
         Coordinate newPos = new Coordinate(current.getRow(), current.getColumn());
         int direction = rand.nextInt(4);
@@ -23,8 +24,9 @@ public class RandomAI implements EnemyAI {
         for (int i = 0; i < steps; i++) {
             Boolean success = false;
             while (!success) {
-                Coordinate next = MovementUtilities.getNextCoordinate(newPos, direction);
-                if (ActionPredicate.isValidPosition(newPos, next)) {
+                Direction dir = MovementUtilities.createDirection(direction);
+                Coordinate next = MovementUtilities.getNextCoordinate(newPos, dir);
+                if (ActionPredicate.EnemyCanMove(dir)) {
                     newPos = next;
                     success = true;
                 } else {

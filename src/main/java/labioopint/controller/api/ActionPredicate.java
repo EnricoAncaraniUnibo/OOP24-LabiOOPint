@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import labioopint.controller.api.ActionPredicate;
 import labioopint.controller.api.DirectionCheck;
-import labioopint.model.Core.impl.TurnMenager;
+import labioopint.model.Core.impl.TurnManager;
 import labioopint.model.Enemy.api.Enemy;
 import labioopint.model.maze.api.Direction;
 import labioopint.model.maze.impl.Block;
@@ -13,7 +13,7 @@ import labioopint.model.player.impl.Player;
 import labioopint.model.api.Coordinate;
 
 public class ActionPredicate{
-    private static Labyrinth lab = TurnMenager.GetLab();
+    private static Labyrinth lab = TurnManager.GetLab();
 
     public static boolean PlayerCanMove(Player p, Direction dir) {
         Coordinate playerCoordinate = new Coordinate(lab.getPlayerCoordinate(p));
@@ -67,7 +67,7 @@ public class ActionPredicate{
     }
 
     public static boolean EnemyCanMove(Direction dir) {
-        Optional<Enemy> e = TurnMenager.GetEnemy();
+        Optional<Enemy> e = TurnManager.GetEnemy();
         Coordinate enemyCoordinate = new Coordinate(lab.getEnemyCoordinate(e.get()));
         if(dir == Direction.LEFT){
             Coordinate targetBlock = new Coordinate(enemyCoordinate.getRow(),Integer.valueOf(enemyCoordinate.getColumn()-1));

@@ -3,8 +3,9 @@ package labioopint.view;
 import javax.swing.*;
 
 import labioopint.controller.api.GameController;
-import labioopint.model.Core.impl.TurnMenager;
+import labioopint.model.Core.impl.TurnManager;
 import labioopint.model.Enemy.api.Enemy;
+import labioopint.model.api.ActionType;
 import labioopint.model.api.DualMap;
 import labioopint.model.maze.impl.Block;import labioopint.model.maze.impl.PowerUp;
 import labioopint.model.maze.impl.Maze;
@@ -18,7 +19,11 @@ public class GameView extends JFrame {
 
     private JLabel turnLabel;
     private DrawPanel labirintPanel;
-    private Player currentPlayer = TurnMenager.GetCurrentPlayer();
+    private Player currentPlayer = TurnManager.GetCurrentPlayer();
+    JButton upButton = createButton("↑");
+    JButton leftButton = createButton("←");
+    JButton rightButton = createButton("→");
+    JButton downButton = createButton("↓");
 
     public GameView() {
         setTitle("LabiOPPint");
@@ -48,19 +53,19 @@ public class GameView extends JFrame {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 0;
-        movementPanel.add(createButton("↑"), gbc);
+        movementPanel.add(upButton, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 1;
-        movementPanel.add(createButton("←"), gbc);
+        movementPanel.add(leftButton, gbc);
 
         gbc.gridx = 2;
         gbc.gridy = 1;
-        movementPanel.add(createButton("→"), gbc);
+        movementPanel.add(rightButton, gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 2;
-        movementPanel.add(createButton("↓"), gbc);
+        movementPanel.add(downButton, gbc);
 
         controlPanel.add(movementPanel);
 
@@ -92,7 +97,7 @@ public class GameView extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //TurnMenager.endTurn();
-                currentPlayer = TurnMenager.GetCurrentPlayer();
+                currentPlayer = TurnManager.GetCurrentPlayer();
                 turnLabel.setText("It's turn of Player " + currentPlayer.getID());
             }
 
@@ -109,7 +114,6 @@ public class GameView extends JFrame {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //JOptionPane.showMessageDialog(null, "Hai premuto " + text);
                 GameController.action(text, currentPlayer);
             }
         });
@@ -117,6 +121,13 @@ public class GameView extends JFrame {
     }
 
     public void update(final Maze grid, final DualMap<Player> mapPlayers, final DualMap<Enemy> mapEnemies, final DualMap<PowerUp> mapPowerUps,Block outside) {
+        if(TurnManager.GetCurrentAction() == ActionType.BLOCK_PLACEMENT) {
+            upButton.setEnabled(false);
+            downButton.setEnabled(false);
+        } else {
+            upButton.setEnabled(true);
+            downButton.setEnabled(true);
+        }
         labirintPanel.draw(grid,mapPlayers,mapEnemies,mapPowerUps,outside);
     }
 }

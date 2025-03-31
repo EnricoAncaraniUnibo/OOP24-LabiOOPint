@@ -6,7 +6,7 @@ import labioopint.model.maze.impl.Block;
 import labioopint.model.maze.impl.Labyrinth;
 import labioopint.model.maze.impl.PowerUp;
 import labioopint.model.player.impl.Player;
-import labioopint.model.Core.impl.TurnMenager;
+import labioopint.model.Core.impl.TurnManager;
 import labioopint.model.Enemy.api.Enemy;
 import labioopint.model.api.ActionType;
 import labioopint.model.api.Coordinate;
@@ -14,10 +14,10 @@ import labioopint.model.api.Coordinate;
 
 public class GameController {
     //ActionType.MOVE_BLOCK;
-    private static Labyrinth lab = TurnMenager.GetLab();
+    private static Labyrinth lab = TurnManager.GetLab();
 
     public static void action(Object action,Object subject){
-        ActionType current_action = TurnMenager.GetCurrentAction();
+        ActionType current_action = TurnManager.GetCurrentAction();
         switch (current_action) {
             case ActionType.BLOCK_PLACEMENT:
                 if(action instanceof String){
@@ -36,9 +36,9 @@ public class GameController {
                     }else if(blockCoordinate.getRow() == lab.getGrid().getSize()-1){
                         lab.moveBlock(blockCoordinate, Direction.UP);
                     }else{
-                        TurnMenager.invalidBlockPosition();
+                        TurnManager.invalidBlockPosition();
                     }
-                    TurnMenager.nextAction();
+                    TurnManager.nextAction();
                 }
                 break;
         
@@ -49,9 +49,9 @@ public class GameController {
                                     (action.equals("↑")) ? Direction.UP :
                                     Direction.DOWN;
                     if(MovePlayer(dir, (Player)subject)){
-                        TurnMenager.nextAction();
+                        TurnManager.nextAction();
                     }else{
-                        TurnMenager.invalidMovement();
+                        TurnManager.invalidMovement();
                     }
                 }
                 break;
@@ -59,10 +59,10 @@ public class GameController {
                 if(action instanceof Direction){
                     Direction enemyDirection = (Direction)action;
                     if(MoveEnemy(enemyDirection)){
-                        lab.updateCoordinate(TurnMenager.GetEnemy().get(),enemyDirection);
-                        TurnMenager.nextAction();
+                        lab.updateCoordinate(TurnManager.GetEnemy().get(),enemyDirection);
+                        TurnManager.nextAction();
                     }else{
-                        TurnMenager.invalidMovement();
+                        TurnManager.invalidMovement();
                     }
                 }
             default:
@@ -130,7 +130,7 @@ public class GameController {
      * Otherwise it returns false
      */
     private static boolean MoveEnemy(Direction dir){
-        Enemy e = TurnMenager.GetEnemy().get();
+        Enemy e = TurnManager.GetEnemy().get();
         switch (dir) {
             case Direction.LEFT:
                 if(ActionPredicate.EnemyCanMove(dir)){

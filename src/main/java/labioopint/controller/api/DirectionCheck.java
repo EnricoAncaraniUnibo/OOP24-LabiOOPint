@@ -1,6 +1,6 @@
 package labioopint.controller.api;
 
-import labioopint.model.Core.impl.TurnMenager;
+import labioopint.model.Core.impl.TurnManager;
 import labioopint.model.api.Coordinate;
 import labioopint.model.maze.api.BlockType;
 import labioopint.model.maze.api.Rotation;
@@ -9,7 +9,7 @@ import labioopint.model.maze.impl.Labyrinth;
 import labioopint.model.maze.impl.Maze;
 
 public class DirectionCheck {
-    private static Labyrinth lab = TurnMenager.GetLab();
+    private static Labyrinth lab = TurnManager.GetLab();
 
     /*
      * Every functions check if there are an entrance in the specified direction

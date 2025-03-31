@@ -31,8 +31,9 @@ public class ChaseAI implements EnemyAI {
      * @param players the list of players in the game.
      */
     @Override
-    public Coordinate getNextPosition(final Labyrinth maze, final List<Player> players, final Coordinate current) {
+    public Coordinate getNextPosition(final List<Player> players, final Coordinate current) {
 
+        //TO DO
         List<Coordinate> walkableCells = maze.getLabyrinth()
                 .entrySet()
                 .stream()

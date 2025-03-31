@@ -25,4 +25,19 @@ public class MovementUtilities {
                 return c;
         }
     }
+
+    public static Direction createDirection(int i) {
+        switch (i) {
+            case 0:
+                return Direction.UP;
+            case 1:
+                return Direction.DOWN;
+            case 2:
+                return Direction.RIGHT;
+            case 3:
+                return Direction.LEFT;
+            default:
+                return null;
+        }
+    }
 }

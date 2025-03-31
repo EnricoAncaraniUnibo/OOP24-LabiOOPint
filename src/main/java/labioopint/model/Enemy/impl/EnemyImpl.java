@@ -7,7 +7,7 @@ import javax.imageio.ImageIO;
 import java.awt.Image;
 import java.io.File;
 
-import labioopint.model.Core.impl.TurnMenager;
+import labioopint.model.Core.impl.TurnManager;
 import labioopint.model.Enemy.api.Enemy;
 import labioopint.model.Enemy.api.EnemyAI;
 import labioopint.model.api.Coordinate;
@@ -38,8 +38,8 @@ public class EnemyImpl extends Movable implements Enemy {
     }
 
     @Override
-    public Coordinate move(final Labyrinth maze, final List<Player> players) {
-        return enemyAI.getNextPosition(maze, players, maze.getEnemyCoordinate(this));
+    public Coordinate move(final List<Player> players) {
+        return enemyAI.getNextPosition(players, TurnManager.GetLab().getEnemyCoordinate(this));
     }
     /*
      * Quando un player viene mangiato dal nemico, il player perde il primo PowerUp
@@ -54,7 +54,7 @@ public class EnemyImpl extends Movable implements Enemy {
 
     @Override
     public void playerHit(final List<Player> players) {
-        Labyrinth maze = TurnMenager.GetLab();
+        Labyrinth maze = TurnManager.GetLab();
         for (Player player : players) {
             if (maze.getEnemyCoordinate(this).equals(maze.getPlayerCoordinate(player))) { 
                 //player.removeFirst();

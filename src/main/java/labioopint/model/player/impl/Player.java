@@ -4,7 +4,7 @@ import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
 
-import labioopint.model.Core.impl.TurnMenager;
+import labioopint.model.Core.impl.TurnManager;
 import labioopint.model.api.Coordinate;
 import labioopint.model.api.Movable;
 import labioopint.model.maze.api.Direction;
@@ -31,7 +31,7 @@ public class Player extends Movable {
     }
 
     public Image getImage() {
-        if(TurnMenager.GetCurrentPlayer()!=this) {
+        if(TurnManager.GetCurrentPlayer()!=this) {
             return image;
         } else {
             return imageTurn;

@@ -1,7 +1,7 @@
 package labioopint.model.maze.impl;
 
 import labioopint.controller.impl.LabyrinthController;
-import labioopint.model.Core.impl.TurnMenager;
+import labioopint.model.Core.impl.TurnManager;
 import labioopint.model.Enemy.api.Enemy;
 import labioopint.model.api.Coordinate;
 import labioopint.model.api.CoordinateGenerator;
@@ -42,7 +42,7 @@ public class Labyrinth {
     private void start() {
         CoordinateGenerator cg = new CoordinateGenerator(grid.getSize());
         try {
-            for (PowerUp pu : TurnMenager.GetPowerUps()) {
+            for (PowerUp pu : TurnManager.GetPowerUps()) {
             mapOfPowerUps.addElemWithCoordinate(pu, cg.getRandomCoordinate());
         }
         } catch (Exception e) {
@@ -50,11 +50,11 @@ public class Labyrinth {
         }
         
         cg = new CoordinateGenerator(CoordinateGenerator.createBasicSpawnCoordinate(grid.getSize()));
-        for (Player p : TurnMenager.GetPlayers()) {
+        for (Player p : TurnManager.GetPlayers()) {
             mapOfPlayers.addElemWithCoordinate(p, cg.getRandomCoordinate());
         }
-        if(TurnMenager.GetEnemy().isPresent()) {
-            mapOfEnemy.addElemWithCoordinate(TurnMenager.GetEnemy().get(), CoordinateGenerator.getCentralCoordinate(grid.getSize()));
+        if(TurnManager.GetEnemy().isPresent()) {
+            mapOfEnemy.addElemWithCoordinate(TurnManager.GetEnemy().get(), CoordinateGenerator.getCentralCoordinate(grid.getSize()));
         }
         labyController.updateGraphics(grid,mapOfPlayers,mapOfEnemy,mapOfPowerUps,outsideBlock);
     }

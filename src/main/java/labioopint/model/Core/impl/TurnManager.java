@@ -9,18 +9,22 @@ import labioopint.model.maze.impl.Labyrinth;
 import labioopint.model.maze.impl.PowerUp;
 import labioopint.model.player.impl.Player;
 
-public class TurnMenager {
+public class TurnManager {
     private static Labyrinth maze;
     private static List<Player> players;
     private static Optional<Enemy> enemy;
     private static List<PowerUp> powerUps;
-    private static ActionType currentAction = ActionType.BLOCK_PLACEMENT;
+    private static ActionType currentAction;
+    private static int index;
 
-    public TurnMenager(Settings st) throws Exception{
+    public TurnManager(Settings st) throws Exception{
         BuilderImpl bi = new BuilderImpl(st);
         players = bi.createPlayers();
         enemy = bi.createEnemy();
         maze = bi.createMaze(players, enemy, powerUps);
+        currentAction = ActionType.BLOCK_PLACEMENT;
+        players = new RandomTurnChooser(players).randomOrder();
+        index = 0;
     }
 
     public static Labyrinth GetLab(){
@@ -40,11 +44,22 @@ public class TurnMenager {
     }
 
     public static Player GetCurrentPlayer() {
-        Player p = players.get(0);
+        Player p = players.get(index);
         return p;
     }
 
     public static ActionType GetCurrentAction() {
         return currentAction;
+    }
+
+    public static void nextAction(){
+        if(currentAction == ActionType.BLOCK_PLACEMENT){
+            currentAction = ActionType.PLAYER_MOVEMENT;
+        } else if(currentAction == ActionType.PLAYER_MOVEMENT){
+            index = (index + 1) % players.size();
+            currentAction = ActionType.ENEMY_MOVEMENT;
+        } else if(currentAction == ActionType.ENEMY_MOVEMENT){
+            currentAction = ActionType.BLOCK_PLACEMENT;
+        }
     }
 }

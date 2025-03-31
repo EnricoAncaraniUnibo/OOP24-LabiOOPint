@@ -2,15 +2,15 @@ package labioopint.model.PowerUp.impl;
 
 import java.util.List;
 import java.util.Random;
-import labioopint.model.Core.impl.TurnMenager;
+import labioopint.model.Core.impl.TurnManager;
 import labioopint.model.api.Coordinate;
 import labioopint.model.maze.impl.Labyrinth;
 import labioopint.model.player.impl.Player;
 
 public class SwapPositionPowerUp extends PowerUpImpl {
 
-    private final Labyrinth labyrinth = TurnMenager.GetLab();
-    private final List<Player> players = TurnMenager.GetPlayers();
+    private final Labyrinth labyrinth = TurnManager.GetLab();
+    private final List<Player> players = TurnManager.GetPlayers();
     private boolean condition = true;
 
     @Override

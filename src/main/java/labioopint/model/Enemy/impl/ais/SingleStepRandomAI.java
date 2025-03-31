@@ -8,7 +8,6 @@ import labioopint.model.Enemy.api.EnemyAI;
 import labioopint.model.Enemy.impl.MovementUtilities;
 import labioopint.model.api.Coordinate;
 import labioopint.model.maze.api.Direction;
-import labioopint.model.maze.impl.Labyrinth;
 import labioopint.model.player.impl.Player;
 
 public class SingleStepRandomAI implements EnemyAI {
@@ -16,7 +15,7 @@ public class SingleStepRandomAI implements EnemyAI {
     private Random rand = new Random();
 
     @Override
-    public Coordinate getNextPosition(final Labyrinth maze, final List<Player> players, final Coordinate current) {
+    public Coordinate getNextPosition(final List<Player> players, final Coordinate current) {
         Direction dir = Direction.UP;
         int result;
         
@@ -24,24 +23,9 @@ public class SingleStepRandomAI implements EnemyAI {
         Boolean success = false;
         while (!success) {
             result = rand.nextInt(4);
-            switch (result) {
-                case 0:
-                    dir = Direction.UP;
-                    break;
-                case 1:
-                    dir = Direction.DOWN;
-                    break;
-                case 2:
-                    dir = Direction.LEFT;
-                    break;
-                case 3:
-                    dir = Direction.RIGHT;
-                    break;
-                default:
-                    break;
-            }
+            dir = MovementUtilities.createDirection(result);
             Coordinate next = MovementUtilities.getNextCoordinate(newPos, dir);
-            if (ActionPredicate.EnemyCanMove(dir, maze)) {
+            if (ActionPredicate.EnemyCanMove(dir)) {
                 newPos = next;
                 success = true;
             }
