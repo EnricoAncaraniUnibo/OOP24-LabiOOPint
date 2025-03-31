@@ -66,6 +66,7 @@ public class TurnManager {
             if(enemy.isPresent()){
                 if(enemy.get().getEnemyAI() instanceof SingleStepRandomAI) {
                     enemy.get().move(players);
+                    
                 }
                 if(enemy.get().getEnemyAI() instanceof RandomAI) {
                     enemy.get().move(players);
