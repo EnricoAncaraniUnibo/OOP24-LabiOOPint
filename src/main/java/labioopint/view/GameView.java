@@ -21,10 +21,10 @@ public class GameView extends JFrame {
     private JLabel turnLabel;
     private DrawPanel labirintPanel;
     private Player currentPlayer = TurnManager.GetCurrentPlayer();
-    JButton upButton = createButton("↑");
-    JButton leftButton = createButton("←");
-    JButton rightButton = createButton("→");
-    JButton downButton = createButton("↓");
+    JButton upButton; 
+    JButton leftButton;
+    JButton rightButton;
+    JButton downButton;
 
     public GameView() {
         setTitle("LabiOPPint");
@@ -48,6 +48,13 @@ public class GameView extends JFrame {
         turnLabel.setFont(newFont);
         turnLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         controlPanel.add(turnLabel);
+
+        upButton = createButton("↑");
+        leftButton = createButton("←");
+        rightButton = createButton("→");
+        downButton = createButton("↓");
+        upButton.setVisible(false);
+        downButton.setVisible(false);
 
         JPanel movementPanel = new JPanel(new GridBagLayout());
         movementPanel.setBackground(Color.GRAY);
@@ -105,7 +112,6 @@ public class GameView extends JFrame {
         });
 
         rotation.addActionListener(e -> JOptionPane.showMessageDialog(this, "Rotation"));
-
         setVisible(true);
     }
 
@@ -123,11 +129,11 @@ public class GameView extends JFrame {
 
     public void update(final Maze grid, final DualMap<Player> mapPlayers, final DualMap<Enemy> mapEnemies, final DualMap<PowerUp> mapPowerUps,Block outside) {
         if(TurnManager.GetCurrentAction() == ActionType.BLOCK_PLACEMENT) {
-            upButton.setEnabled(false);
-            downButton.setEnabled(false);
+            upButton.setVisible(false);
+            downButton.setVisible(false);
         } else {
-            upButton.setEnabled(true);
-            downButton.setEnabled(true);
+            upButton.setVisible(true);
+            downButton.setVisible(true);
         }
         labirintPanel.draw(grid,mapPlayers,mapEnemies,mapPowerUps,outside);
     }

@@ -3,7 +3,6 @@ package labioopint.model.Core.impl;
 import java.util.*;
 
 import labioopint.model.Enemy.api.Enemy;
-import labioopint.model.Enemy.impl.EnemyImpl;
 import labioopint.model.Enemy.impl.ais.ChaseAI;
 import labioopint.model.Enemy.impl.ais.RandomAI;
 import labioopint.model.Enemy.impl.ais.SingleStepRandomAI;
@@ -22,14 +21,15 @@ public class TurnManager {
     private static int index;
 
     public TurnManager(Settings st) throws Exception{
+        currentAction = ActionType.PLAYER_MOVEMENT;
+        index = 0;
         BuilderImpl bi = new BuilderImpl(st);
         players = bi.createPlayers();
         enemy = bi.createEnemy();
         powerUps = bi.createPowerUps();
         maze = bi.createMaze();
-        currentAction = ActionType.PLAYER_MOVEMENT;
+        currentAction = ActionType.BLOCK_PLACEMENT;
         players = new RandomTurnChooser(players).randomOrder();
-        index = 0;
     }
 
     public static Labyrinth GetLab(){

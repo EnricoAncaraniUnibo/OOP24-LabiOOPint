@@ -66,4 +66,15 @@ public class Player extends Movable {
     public void removeFirst() {
         objectives.remove(0);
     }
+
+    public void removeObjective() {
+        if(objectives.size()!=0) {
+            PowerUp p = objectives.get(0);
+            if(usablePowerUps.contains(p)) {
+                usablePowerUps.remove(p);
+            }
+            objectives.remove(p);
+            TurnManager.GetLab().addPowerUp(p);
+        }
+    }
 }
