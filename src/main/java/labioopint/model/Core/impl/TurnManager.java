@@ -21,14 +21,14 @@ public class TurnManager {
     private static int index;
 
     public TurnManager(Settings st) throws Exception{
+        currentAction = ActionType.PLAYER_MOVEMENT;
+        index = 0;
         BuilderImpl bi = new BuilderImpl(st);
         players = bi.createPlayers();
         enemy = bi.createEnemy();
         powerUps = bi.createPowerUps();
         maze = bi.createMaze();
-        currentAction = ActionType.BLOCK_PLACEMENT;
         players = new RandomTurnChooser(players).randomOrder();
-        index = 0;
     }
 
     public static Labyrinth GetLab(){

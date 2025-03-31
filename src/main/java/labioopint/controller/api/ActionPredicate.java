@@ -49,19 +49,19 @@ public class ActionPredicate{
         if(dir == Direction.LEFT){
             Coordinate blockToMoveCoordinate = lab.getGrid().getCoordinate(b);
             Coordinate targetBlockCoordinate = new Coordinate(blockToMoveCoordinate.getRow(),Integer.valueOf(blockToMoveCoordinate.getColumn()-1));
-            if(blockToMoveCoordinate.getColumn() != 0 && b.IsMovable() && lab.getGrid().GetBlock(targetBlockCoordinate).IsMovable()){return true;}
+            if(blockToMoveCoordinate.getColumn() != 0 && lab.getGrid().GetBlock(targetBlockCoordinate).IsMovable()){return true;}
         }else if(dir == Direction.RIGHT){
             Coordinate blockToMoveCoordinate = lab.getGrid().getCoordinate(b);
             Coordinate targetBlockCoordinate = new Coordinate(blockToMoveCoordinate.getRow(),Integer.valueOf(blockToMoveCoordinate.getColumn()+1));
-            if(blockToMoveCoordinate.getColumn() != lab.getGrid().getSize()-1 && b.IsMovable() && lab.getGrid().GetBlock(targetBlockCoordinate).IsMovable()){return true;}
+            if(blockToMoveCoordinate.getColumn() != lab.getGrid().getSize()-1 && lab.getGrid().GetBlock(targetBlockCoordinate).IsMovable()){return true;}
         }else if(dir == Direction.UP){
             Coordinate blockToMoveCoordinate = lab.getGrid().getCoordinate(b);
             Coordinate targetBlockCoordinate = new Coordinate(Integer.valueOf(blockToMoveCoordinate.getRow()-1),blockToMoveCoordinate.getColumn());
-            if(blockToMoveCoordinate.getRow() != 0 && b.IsMovable() && lab.getGrid().GetBlock(targetBlockCoordinate).IsMovable()){return true;}
+            if(blockToMoveCoordinate.getRow() != 0 && lab.getGrid().GetBlock(targetBlockCoordinate).IsMovable()){return true;}
         }else if(dir == Direction.DOWN){
             Coordinate blockToMoveCoordinate = lab.getGrid().getCoordinate(b);
             Coordinate targetBlockCoordinate = new Coordinate(Integer.valueOf(blockToMoveCoordinate.getRow()+1),blockToMoveCoordinate.getColumn());
-            if(blockToMoveCoordinate.getRow() != lab.getGrid().getSize()-1 && b.IsMovable() && lab.getGrid().GetBlock(targetBlockCoordinate).IsMovable()){return true;}
+            if(blockToMoveCoordinate.getRow() != lab.getGrid().getSize()-1 && lab.getGrid().GetBlock(targetBlockCoordinate).IsMovable()){return true;}
         }
         return false;
     }
