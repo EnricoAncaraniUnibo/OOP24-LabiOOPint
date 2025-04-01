@@ -24,21 +24,23 @@ public class GameController {
                     Direction dir = (action.equals("←")) ? Direction.LEFT :
                                     Direction.RIGHT;
                     RotateBlock(dir);
-                }
-                if(action instanceof Coordinate){
+                } else if(action instanceof Coordinate){
                     Coordinate blockCoordinate = (Coordinate)action;
                     if(blockCoordinate.getColumn() == 0){
+                        TurnManager.nextAction();
                         lab.moveBlock(blockCoordinate, Direction.RIGHT);
                     }else if(blockCoordinate.getColumn() == lab.getGrid().getSize()-1){
+                        TurnManager.nextAction();
                         lab.moveBlock(blockCoordinate, Direction.LEFT);
                     }else if(blockCoordinate.getRow() == 0){
+                        TurnManager.nextAction();
                         lab.moveBlock(blockCoordinate, Direction.DOWN);
                     }else if(blockCoordinate.getRow() == lab.getGrid().getSize()-1){
+                        TurnManager.nextAction();
                         lab.moveBlock(blockCoordinate, Direction.UP);
                     }else{
                         //TurnManager.invalidBlockPosition();
                     }
-                    TurnManager.nextAction();
                 }
                 break;
         

@@ -21,7 +21,7 @@ public class TurnManager {
     private static int index;
 
     public TurnManager(Settings st) throws Exception{
-        currentAction = ActionType.PLAYER_MOVEMENT;
+        currentAction = ActionType.BLOCK_PLACEMENT;
         index = 0;
         BuilderImpl bi = new BuilderImpl(st);
         players = bi.createPlayers();
@@ -71,7 +71,7 @@ public class TurnManager {
                 if(enemy.get().getEnemyAI() instanceof ChaseAI) {
                     maze.absoluteUpdateCoordinate(enemy.get(), enemy.get().move(players));      
                 }
-                currentAction = ActionType.PLAYER_MOVEMENT;
+                currentAction = ActionType.BLOCK_PLACEMENT;
             } else {
                 currentAction = ActionType.BLOCK_PLACEMENT;
             }

@@ -1,12 +1,14 @@
 package labioopint.view;
 
 import javax.swing.*;
+import javax.swing.event.MouseInputListener;
 
 import labioopint.controller.api.GameController;
 import labioopint.model.Core.impl.TurnManager;
 import labioopint.model.Enemy.api.Enemy;
 import labioopint.model.PowerUp.api.PowerUp;
 import labioopint.model.api.ActionType;
+import labioopint.model.api.Coordinate;
 import labioopint.model.api.DualMap;
 import labioopint.model.maze.impl.Block;
 import labioopint.model.maze.impl.Maze;
@@ -15,6 +17,8 @@ import labioopint.model.player.impl.Player;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 public class GameView extends JFrame {
 
@@ -105,6 +109,47 @@ public class GameView extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 GameController.action(endTurnButton.getText());
+            }
+
+        });
+
+        
+        this.addMouseListener(new MouseInputListener() {
+        
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int X = e.getX();
+                int Y = e.getY();
+                //Coordinate newCoordinate = new Coordinate(Y,X);
+                //GameController.action(newCoordinate);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                int X = e.getX();
+                int Y = e.getY();
+                Coordinate newCoordinate = new Coordinate((Y/DrawPanel.getBlockSize()),(X/DrawPanel.getBlockSize()));
+                GameController.action(newCoordinate);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseDragged(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseMoved(MouseEvent e) {
             }
 
         });
