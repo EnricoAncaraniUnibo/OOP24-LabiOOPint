@@ -48,15 +48,19 @@ public abstract class Maze {
         grid.putAll(maze);
     }
 
-    public void ChangeCoordinate(final Coordinate oldC, final Block b, final Coordinate newC) {
-        grid.remove(oldC);
-        this.ChangeCoordinate(b, newC);
+    public void ChangeCoordinate(final Coordinate coor, final Block b) {
+        Coordinate removable=new Coordinate(-1, -1);
+        for (Coordinate test : grid.keySet()) {
+            if(test.getRow()==coor.getRow() && test.getColumn()==coor.getColumn()) {
+                removable=test;
+            }
+        }
+        try {
+            grid.remove(removable);
+            grid.put(coor, b);
+        } catch (Exception e) {
+            
+        }
     }
-
-    public void ChangeCoordinate(final Block b, final Coordinate newC) {
-        grid.remove(newC);
-        grid.put(newC, b);
-    }
-
     public abstract Block Generate();
 }

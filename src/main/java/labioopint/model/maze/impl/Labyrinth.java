@@ -1,5 +1,9 @@
 package labioopint.model.maze.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import labioopint.controller.impl.LabyrinthController;
 import labioopint.model.Core.impl.TurnManager;
 import labioopint.model.Enemy.api.Enemy;
@@ -60,59 +64,139 @@ public class Labyrinth {
     }
 
     public boolean moveBlock(final Coordinate c, final Direction d) {
-        Block b = grid.GetBlock(c);
-            switch (d) {
-                case UP:
-                    outsideBlock = shiftColumn(c.getColumn(), d);
-                    break;
-                case DOWN:
-                    outsideBlock = shiftColumn(c.getColumn(), d);
-                    break;
-                case RIGHT:
-                    outsideBlock = shiftRow(c.getRow(), d);
-                    break;
-                case LEFT:
-                    outsideBlock = shiftRow(c.getRow(), d);
-                    break;
-            }
-            labyController.updateGraphics(grid,mapOfPlayers,mapOfEnemy,mapOfPowerUps,outsideBlock);
-            return true;
+        switch (d) {
+            case UP:
+                outsideBlock = shiftColumn(c.getColumn(), d);
+                break;
+            case DOWN:
+                outsideBlock = shiftColumn(c.getColumn(), d);
+                break;
+            case RIGHT:
+                outsideBlock = shiftRow(c.getRow(), d);
+                break;
+            case LEFT:
+                outsideBlock = shiftRow(c.getRow(), d);
+                break;
+        }
+        labyController.updateGraphics(grid,mapOfPlayers,mapOfEnemy,mapOfPowerUps,outsideBlock);
+        return true;
     }
 
     private Block shiftRow(final Integer number, final Direction d) {
         if (d.equals(Direction.RIGHT)) {
-            Block outside = grid.GetBlock(new Coordinate(number, grid.getSize() - 1));
-            for (int i = grid.getSize() - 2; i >= 0; i--) {
-                grid.ChangeCoordinate(new Coordinate(number, i), outside, new Coordinate(number, i + 1));
-            }
-            grid.ChangeCoordinate(outsideBlock, new Coordinate(number, 0));
-            return outside;
-        } else {
-            Block outside = grid.GetBlock(new Coordinate(number, 0));
+            Block last = grid.GetBlock(new Coordinate(number, 0));
+            moveObjectBlock(new Coordinate(number, 0), d);
+            Block Saved;
+            grid.ChangeCoordinate(new Coordinate(number,0), outsideBlock);
             for (int i = 1; i < grid.getSize(); i++) {
-                grid.ChangeCoordinate(new Coordinate(number, i), outside, new Coordinate(number, i - 1));
+                Saved = grid.GetBlock(new Coordinate(number,i));
+                grid.ChangeCoordinate(new Coordinate(number, i), last);
+                last=Saved;
             }
-            grid.ChangeCoordinate(outsideBlock, new Coordinate(number, grid.getSize() - 1));
-            return outside;
+            return last;
+        } else {
+            Block last = grid.GetBlock(new Coordinate(number, grid.getSize()-1));
+            moveObjectBlock(new Coordinate(number, grid.getSize()-1), d);
+            Block Saved;
+            grid.ChangeCoordinate(new Coordinate(number,grid.getSize()-1), outsideBlock);
+            for (int i = grid.getSize()-2; i >= 0; i--) {
+                Saved = grid.GetBlock(new Coordinate(number,i));
+                grid.ChangeCoordinate(new Coordinate(number, i), last);
+                last=Saved;
+            }
+            return last;
         }
     }
 
     private Block shiftColumn(final Integer number, final Direction d) {
         if (d.equals(Direction.UP)) {
-            Block outside = grid.GetBlock(new Coordinate(0, number));
-            for (int i = 1; i < grid.getSize(); i++) {
-                grid.ChangeCoordinate(new Coordinate(i, number), outside, new Coordinate(i - 1, number));
+            Block last = grid.GetBlock(new Coordinate(grid.getSize()-1, number));
+            moveObjectBlock(new Coordinate(grid.getSize()-1, number), d);
+            Block Saved;
+            grid.ChangeCoordinate(new Coordinate(grid.getSize()-1, number), outsideBlock);
+            for (int i = grid.getSize()-2; i >= 0; i--) {
+                Saved = grid.GetBlock(new Coordinate(i,number));
+                grid.ChangeCoordinate(new Coordinate(i, number), last);
+                last=Saved;
             }
-            grid.ChangeCoordinate(outsideBlock, new Coordinate(grid.getSize() - 1, number));
-            return outside;
+            return last;
         } else {
-            Block outside = grid.GetBlock(new Coordinate(grid.getSize() - 1, number));
-            for (int i = grid.getSize() - 2; i >= 0; i--) {
-                grid.ChangeCoordinate(new Coordinate(i, number), outside, new Coordinate(i + 1, number));
+            Block last = grid.GetBlock(new Coordinate(0, number));
+            moveObjectBlock(new Coordinate(0, number), d);
+            Block Saved;
+            grid.ChangeCoordinate(new Coordinate(0,number), outsideBlock);
+            for (int i = 1; i < grid.getSize(); i++) {
+                Saved = grid.GetBlock(new Coordinate(i,number));
+                grid.ChangeCoordinate(new Coordinate(i,number), last);
+                last=Saved;
             }
-            grid.ChangeCoordinate(outsideBlock, new Coordinate(0, number));
-            return outside;
+            return last;
         }
+    }
+
+    private void moveObjectBlock(Coordinate c, Direction d) {
+        List<Player> lp = new ArrayList<>();
+        List<Enemy> le = new ArrayList<>();
+        List<PowerUp> lpu = new ArrayList<>();
+        Optional<Player> p;
+        Optional<Enemy> e;
+        Optional<PowerUp> pu;
+        Coordinate coor = new Coordinate(c);
+        for(int j=0;j<grid.getSize();j++) {
+            p = Optional.ofNullable(mapOfPlayers.getElemFromCoordinate(coor));
+            if(p.isPresent()) {
+                if(!lp.contains(p.get())) {
+                    lp.add(p.get());
+                    mapOfPlayers.remove(p.get());
+                    mapOfPlayers.addElemWithCoordinate(p.get(), calculateNewCoordinate(coor, d));
+                }
+            }
+
+            e = Optional.ofNullable(mapOfEnemy.getElemFromCoordinate(coor));
+            if(e.isPresent()) {
+                if(!le.contains(e.get())) {
+                    le.add(e.get());
+                    mapOfEnemy.remove(e.get());
+                    mapOfEnemy.addElemWithCoordinate(e.get(), calculateNewCoordinate(coor, d));
+                }
+            }
+
+            pu = Optional.ofNullable(mapOfPowerUps.getElemFromCoordinate(coor));
+            if(pu.isPresent()) {
+                if(!lpu.contains(pu.get())) {
+                    lpu.add(pu.get());
+                    mapOfPowerUps.remove(pu.get());
+                    mapOfPowerUps.addElemWithCoordinate(pu.get(), calculateNewCoordinate(coor, d));
+                }
+            }
+            coor = calculateNewCoordinate(coor, d);
+        }
+    }
+
+    private Coordinate calculateNewCoordinate(Coordinate c, Direction d) {
+        if(d == Direction.UP) {
+            return new Coordinate(overFlowTest(c.getRow()-1), c.getColumn());
+        }
+        if(d == Direction.DOWN) {
+            return new Coordinate(overFlowTest(c.getRow()+1), c.getColumn());
+        }
+        if(d == Direction.LEFT) {
+            return new Coordinate(c.getRow(), overFlowTest(c.getColumn()-1));
+        }
+        if(d == Direction.RIGHT) {
+            return new Coordinate(c.getRow(), overFlowTest(c.getColumn()+1));
+        }
+        throw new IllegalStateException();
+    }
+
+    private Integer overFlowTest(final Integer i) {
+        if(i==-1) {
+            return grid.getSize()-1;
+        }
+        if(i==grid.getSize()-1) {
+            return 0;
+        }
+        return i;
     }
 
     public Coordinate getPlayerCoordinate(final Player p) {
