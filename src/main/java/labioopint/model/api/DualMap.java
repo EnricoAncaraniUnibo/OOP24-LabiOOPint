@@ -35,10 +35,6 @@ public class DualMap<X> {
         mapFromElement.remove(elem);
     }
 
-    public Map<Coordinate,X> getMapFromCoordinate() {
-        return mapFromCoordinate;
-    }
-
     public boolean isPresentByCoordinate(final Coordinate coor) {
         for (Coordinate checkCoordinate : mapFromCoordinate.keySet()) {
             if(coor.getRow()==checkCoordinate.getRow() && coor.getColumn()==checkCoordinate.getColumn()) {

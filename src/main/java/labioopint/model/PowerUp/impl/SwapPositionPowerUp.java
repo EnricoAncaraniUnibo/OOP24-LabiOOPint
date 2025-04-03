@@ -23,6 +23,7 @@ public class SwapPositionPowerUp extends PowerUpImpl {
         super();
         try {
             image = ImageIO.read(new File("src/main/java/labioopint/resources/PowerUps/teleport.png"));
+            super.setName("Teleport");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

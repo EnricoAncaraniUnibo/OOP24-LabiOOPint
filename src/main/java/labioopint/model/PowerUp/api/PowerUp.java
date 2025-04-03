@@ -30,4 +30,6 @@ public interface PowerUp {
     List<PowerUp> getCollectedPowerUps();
 
     Image getImage();
+
+    String getName();
 }

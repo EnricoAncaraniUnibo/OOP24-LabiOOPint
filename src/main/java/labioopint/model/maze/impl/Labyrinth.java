@@ -193,7 +193,7 @@ public class Labyrinth {
         if(i==-1) {
             return grid.getSize()-1;
         }
-        if(i==grid.getSize()-1) {
+        if(i==grid.getSize()) {
             return 0;
         }
         return i;
@@ -207,6 +207,16 @@ public class Labyrinth {
         return mapOfPowerUps.getCoordinateFromElement(p);
     }
 
+    public List<PowerUp> getListOfPowerUps() {
+        List<PowerUp> lpu = new ArrayList<>();
+        for (PowerUp powerUp : TurnManager.GetPowerUps()) {
+            if(mapOfPowerUps.isPresentByObject(powerUp)) {
+                lpu.add(powerUp);
+            }
+        }
+        return lpu;
+    }
+
     public Coordinate getEnemyCoordinate(final Enemy e) {
         if(mapOfEnemy.isPresentByObject(e)) {
             return mapOfEnemy.getCoordinateFromElement(e);
@@ -214,17 +224,19 @@ public class Labyrinth {
         return null;
     }
 
-    public void updateCoordinateByDirection(final Object o, final Direction dir) {
-        if (o instanceof Player) {
-            Player p = (Player)o;
-            Coordinate newCoor = p.move(mapOfPlayers.getCoordinateFromElement(p), dir);
-            mapOfPlayers.remove(p);
-            mapOfPlayers.addElemWithCoordinate(p,newCoor);
-        }
-        // if (o instanceof PowerUp) {
-        //     mapOfPowerUps.remove((PowerUp) o);
-        // }
+    public void movePlayer(final Player p, final Direction dir) {
+        Coordinate newCoor = calculateNewCoordinate(mapOfPlayers.getCoordinateFromElement(p), dir);
+        mapOfPlayers.remove(p);
+        mapOfPlayers.addElemWithCoordinate(p,newCoor);
+        pickUpPowerUp(p,newCoor);
         labyController.updateGraphics(grid,mapOfPlayers,mapOfEnemy,mapOfPowerUps,outsideBlock);
+    }
+
+    private void pickUpPowerUp(Player p, Coordinate c) {
+        if(mapOfPowerUps.isPresentByCoordinate(c)) {
+            p.addObjective(mapOfPowerUps.getElemFromCoordinate(c));
+            mapOfPowerUps.remove(mapOfPowerUps.getElemFromCoordinate(c));
+        }
     }
 
     public void absoluteUpdateCoordinate(final Object o, final Coordinate coor) {

@@ -9,10 +9,15 @@ import labioopint.model.player.impl.Player;
 public abstract class PowerUpImpl implements PowerUp {
     private boolean collected;
     private List<PowerUp> collectedPowerUps;
+    private String name;
 
     public PowerUpImpl() {
         this.collected = false;
         this.collectedPowerUps = new ArrayList<>();
+    }
+
+    public String getName() {
+        return name;
     }
 
     @Override
@@ -32,5 +37,9 @@ public abstract class PowerUpImpl implements PowerUp {
     @Override
     public List<PowerUp> getCollectedPowerUps() {
         return new ArrayList<>(collectedPowerUps);
+    }
+
+    public void setName(String string) {
+        this.name = string;
     }
 }

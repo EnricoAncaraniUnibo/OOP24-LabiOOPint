@@ -52,7 +52,7 @@ public class GameController {
                                         (action.equals("↑")) ? Direction.UP :
                                         Direction.DOWN;
                         if(ActionPredicate.PlayerCanMove(TurnManager.GetCurrentPlayer(), dir)){
-                            lab.updateCoordinateByDirection(TurnManager.GetCurrentPlayer(), dir);
+                            lab.movePlayer(TurnManager.GetCurrentPlayer(), dir);
                         }else{
                             //TurnManager.invalidMovement();
                         }
