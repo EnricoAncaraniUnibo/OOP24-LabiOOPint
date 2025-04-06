@@ -8,8 +8,8 @@ import labioopint.model.PowerUp.api.PowerUp;
 import labioopint.model.api.ActionType;
 
 public class InformationMessenger {
-    public static Integer getTurn() {
-        return TurnManager.GetCurrentPlayer().getID();
+    public static String getTurn() {
+        return "E' il turno del player: "+TurnManager.GetCurrentPlayer().getName();
     }
 
     public static String getAction() {
