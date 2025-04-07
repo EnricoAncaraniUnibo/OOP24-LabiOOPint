@@ -59,14 +59,8 @@ public class GameView extends JFrame {
         actionLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         controlPanel.add(actionLabel);
 
-        
-        //String[] data = InformationMessenger.getObjectivesInGame().toArray(new String[0]);
-
-        JList<String> list = new JList<>(data);
-
-        JScrollPane scrollPane = new JScrollPane(list);
-        controlPanel.add(scrollPane);
-
+        JLabel objectiveLabel = new JLabel("Objectives in game: "+ InformationMessenger.getObjectivesInGame(), SwingConstants.CENTER);
+        controlPanel.add(objectiveLabel);
 
         upButton = createButton("↑");
         leftButton = createButton("←");
