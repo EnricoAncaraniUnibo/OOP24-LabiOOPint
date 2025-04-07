@@ -129,18 +129,27 @@ public class DrawPanel extends JPanel {
                                         if(coorPowerUps.isPresentByCoordinate(new Coordinate(i,j))) {
                                                 g2.drawImage(ImageLoader.getImage(coorPowerUps.getElemFromCoordinate(new Coordinate(i, j)).getName()).get(), j*pixelSize+pixelSize/4, i*pixelSize+pixelSize/4,pixelSize*3/5,pixelSize*3/5, this);
                                         }
-                                        if(coorPlayers.isPresentByCoordinate(new Coordinate(i, j))) {
-                                                Player p = coorPlayers.getElemFromCoordinate(new Coordinate(i, j));
-                                                if(p == TurnManager.GetCurrentPlayer()) {
-                                                        g2.drawImage(ImageLoader.getImage(""+coorPlayers.getElemFromCoordinate(new Coordinate(i, j)).getID()+"Turn").get(), j*pixelSize+pixelSize/4, i*pixelSize+pixelSize/4,pixelSize*3/5,pixelSize*3/5, this);
-                                                }else {
-                                                        g2.drawImage(ImageLoader.getImage(""+coorPlayers.getElemFromCoordinate(new Coordinate(i, j)).getID()).get(), j*pixelSize+pixelSize/4, i*pixelSize+pixelSize/4,pixelSize*3/5,pixelSize*3/5, this);
-                                                }
-                                        }
+                                        // if(coorPlayers.isPresentByCoordinate(new Coordinate(i, j))) {
+                                        //         Player p = coorPlayers.getElemFromCoordinate(new Coordinate(i, j));
+                                        //         if(p == TurnManager.GetCurrentPlayer()) {
+                                        //                 g2.drawImage(ImageLoader.getImage(""+coorPlayers.getElemFromCoordinate(new Coordinate(i, j)).getID()+"Turn").get(), j*pixelSize+pixelSize/4, i*pixelSize+pixelSize/4,pixelSize*3/5,pixelSize*3/5, this);
+                                        //         }else {
+                                        //                 g2.drawImage(ImageLoader.getImage(""+coorPlayers.getElemFromCoordinate(new Coordinate(i, j)).getID()).get(), j*pixelSize+pixelSize/4, i*pixelSize+pixelSize/4,pixelSize*3/5,pixelSize*3/5, this);
+                                        //         }
+                                        // }
                                         if(coorEnemies.isPresentByCoordinate(new Coordinate(i, j))) {
                                                 g2.drawImage(ImageLoader.getImage("Monster").get(), j*pixelSize+pixelSize/4, i*pixelSize+pixelSize/4,pixelSize*3/5,pixelSize*3/5, this);
                                         }
                                 }
+                        }
+                        for (Player p : TurnManager.GetPlayers()) {
+                                Coordinate c = TurnManager.GetLab().getPlayerCoordinate(p);
+                                if(p == TurnManager.GetCurrentPlayer()) {
+                                        g2.drawImage(ImageLoader.getImage(""+p.getID()+"Turn").get(), c.getColumn()*pixelSize+pixelSize/4, c.getRow()*pixelSize+pixelSize/4,pixelSize*3/5,pixelSize*3/5, this);
+                                }else {
+                                        g2.drawImage(ImageLoader.getImage(""+p.getID()+"").get(), c.getColumn()*pixelSize+pixelSize/4, c.getRow()*pixelSize+pixelSize/4,pixelSize*3/5,pixelSize*3/5, this);
+                                }
+
                         }
                 }
         }
