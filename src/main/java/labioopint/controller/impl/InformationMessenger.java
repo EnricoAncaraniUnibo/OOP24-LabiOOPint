@@ -22,12 +22,14 @@ public class InformationMessenger {
         return "";
     }
 
-    public static List<String> getPowerUpsList(){
+    public static String[] getPowerUpsList(){
         List<PowerUp> lpu = new ArrayList<>();
         lpu.addAll(TurnManager.GetCurrentPlayer().getUsablePowerUps());
-        List<String> names=new ArrayList<>(); 
+        String[] names = new String[lpu.size()];
+        int i=0;
         for (PowerUp pu : lpu) {
-            names.add(pu.getName());
+            names[i] = (pu.getName());
+            i++;
         }
         return names;
     }
