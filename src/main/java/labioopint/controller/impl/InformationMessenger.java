@@ -33,14 +33,4 @@ public class InformationMessenger {
         }
         return names;
     }
-
-    public static List<String> getObjectivesInGame() {
-        List<PowerUp> lpu = new ArrayList<>();
-        lpu.addAll(TurnManager.GetLab().getListOfPowerUps());
-        List<String> names=new ArrayList<>(); 
-        for (PowerUp pu : lpu) {
-            names.add(pu.getName());
-        }
-        return names;
-    }
 }

@@ -8,7 +8,6 @@ import labioopint.controller.impl.InformationMessenger;
 import labioopint.model.Core.impl.TurnManager;
 import labioopint.model.Enemy.api.Enemy;
 import labioopint.model.PowerUp.api.PowerUp;
-import labioopint.model.PowerUp.impl.PowerUpImpl;
 import labioopint.model.api.ActionType;
 import labioopint.model.api.Coordinate;
 import labioopint.model.api.DualMap;
@@ -19,7 +18,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
-import java.lang.ProcessHandle.Info;
 
 public class GameView extends JFrame {
 
@@ -58,9 +56,6 @@ public class GameView extends JFrame {
         actionLabel.setFont(newFont);
         actionLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         controlPanel.add(actionLabel);
-
-        JLabel objectiveLabel = new JLabel("Objectives in game: "+ InformationMessenger.getObjectivesInGame(), SwingConstants.CENTER);
-        controlPanel.add(objectiveLabel);
 
         upButton = createButton("↑");
         leftButton = createButton("←");
@@ -110,9 +105,11 @@ public class GameView extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                PowerUpImpl pu = (PowerUpImpl)comboBox.getSelectedItem();
-                if(pu != null) {
-                    pu.activate(TurnManager.GetCurrentPlayer());
+                String name = (String)comboBox.getSelectedItem();
+                for (PowerUp pu : TurnManager.GetPowerUps()) {
+                    if(pu.getName().equals(name)) {
+                        pu.activate(TurnManager.GetCurrentPlayer());
+                    }
                 }
             }
         });

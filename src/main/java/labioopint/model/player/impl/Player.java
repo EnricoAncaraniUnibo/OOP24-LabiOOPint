@@ -45,4 +45,8 @@ public class Player extends Movable {
             TurnManager.GetLab().addPowerUp(p);
         }
     }
+
+    public void removePowerUp(PowerUp pu) {
+        usablePowerUps.remove(pu);
+    }
 }

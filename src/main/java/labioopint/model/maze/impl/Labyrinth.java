@@ -227,6 +227,7 @@ public class Labyrinth {
 
     private void pickUpPowerUp(Player p, Coordinate c) {
         if(mapOfPowerUps.isPresentByCoordinate(c)) {
+            mapOfPowerUps.getElemFromCoordinate(c).collect();
             p.addObjective(mapOfPowerUps.getElemFromCoordinate(c));
             mapOfPowerUps.remove(mapOfPowerUps.getElemFromCoordinate(c));
         }
