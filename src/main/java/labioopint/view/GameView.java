@@ -148,7 +148,7 @@ public class GameView extends JFrame {
             public void mousePressed(MouseEvent e) {
                 int X = e.getX();
                 int Y = e.getY();
-                Coordinate newCoordinate = new Coordinate((Y/DrawPanel.getBlockSize()*3/5),(X/DrawPanel.getBlockSize()*3/5));
+                Coordinate newCoordinate = new Coordinate((Y/DrawPanel.getBlockSize()),(X/DrawPanel.getBlockSize()));
                 GameController.action(newCoordinate);
                 actionLabel.setText(InformationMessenger.getAction());
             }
