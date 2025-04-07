@@ -30,23 +30,24 @@ public class MazeGenerator {
                     Block b = selectableBlocks.get(r.nextInt(0, selectableBlocks.size()));
                     selectableBlocks.remove(b);
                     Coordinate c = new Coordinate(i, j);
-                    if (j % 2 == 0 && i % 2 == 0) {
-                        b.disable();
-                    }
                     b.RandomRotation();
                     map.put(c, b);
                 }   
             }
         }
         Block b = new Block(BlockType.CORNER);
+        b.disable();
         map.put(new Coordinate(0, 0), b);
         b = new Block(BlockType.CORNER);
+        b.disable();
         b.setRotation(Rotation.NINETY);
         map.put(new Coordinate(size-1, 0), b);
         b = new Block(BlockType.CORNER);
+        b.disable();
         b.setRotation(Rotation.TWO_HUNDRED_SEVENTY);
         map.put(new Coordinate(0, size-1), b);
         b = new Block(BlockType.CORNER);
+        b.disable();
         b.setRotation(Rotation.ONE_HUNDRED_EIGHTY);
         map.put(new Coordinate(size-1, size-1), b);
         return map;

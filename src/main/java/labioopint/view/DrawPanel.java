@@ -134,7 +134,7 @@ public class DrawPanel extends JPanel {
                                                 if(p == TurnManager.GetCurrentPlayer()) {
                                                         g2.drawImage(ImageLoader.getImage(""+coorPlayers.getElemFromCoordinate(new Coordinate(i, j)).getID()+"Turn").get(), j*pixelSize+pixelSize/4, i*pixelSize+pixelSize/4,pixelSize*3/5,pixelSize*3/5, this);
                                                 }else {
-                                                        g2.drawImage(ImageLoader.getImage(coorPlayers.getElemFromCoordinate(new Coordinate(i, j)).getID()).get(), j*pixelSize+pixelSize/4, i*pixelSize+pixelSize/4,pixelSize*3/5,pixelSize*3/5, this);
+                                                        g2.drawImage(ImageLoader.getImage(""+coorPlayers.getElemFromCoordinate(new Coordinate(i, j)).getID()).get(), j*pixelSize+pixelSize/4, i*pixelSize+pixelSize/4,pixelSize*3/5,pixelSize*3/5, this);
                                                 }
                                         }
                                         if(coorEnemies.isPresentByCoordinate(new Coordinate(i, j))) {
