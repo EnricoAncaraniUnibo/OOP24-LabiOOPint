@@ -14,10 +14,10 @@ public class InformationMessenger {
 
     public static String getAction() {
         if(TurnManager.GetCurrentAction()==ActionType.BLOCK_PLACEMENT) {
-            return "Devi posizionare il blocco";
+            return "Posizionare il blocco";
         }
         if(TurnManager.GetCurrentAction()==ActionType.PLAYER_MOVEMENT) {
-            return "Puoi muovere il personaggio";
+            return "Muovere il personaggio";
         }
         return "";
     }

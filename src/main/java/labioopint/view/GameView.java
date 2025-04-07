@@ -28,6 +28,7 @@ public class GameView extends JFrame {
     JButton leftButton;
     JButton rightButton;
     JButton downButton;
+    JLabel actionLabel;
 
     public GameView() {
         setTitle("LabiOPPint");
@@ -52,7 +53,7 @@ public class GameView extends JFrame {
         turnLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         controlPanel.add(turnLabel);
 
-        JLabel actionLabel = new JLabel(InformationMessenger.getAction(), SwingConstants.CENTER);
+        actionLabel = new JLabel(InformationMessenger.getAction(), SwingConstants.CENTER);
         actionLabel.setFont(newFont);
         actionLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         controlPanel.add(actionLabel);
@@ -146,6 +147,7 @@ public class GameView extends JFrame {
                 int Y = e.getY();
                 Coordinate newCoordinate = new Coordinate((Y/DrawPanel.getBlockSize()),(X/DrawPanel.getBlockSize()));
                 GameController.action(newCoordinate);
+                actionLabel.setText(InformationMessenger.getAction());
             }
 
             @Override
