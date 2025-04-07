@@ -2,11 +2,6 @@ package labioopint.model.Enemy.impl;
 
 import java.util.*;
 
-import javax.imageio.ImageIO;
-
-import java.awt.Image;
-import java.io.File;
-
 import labioopint.model.Core.impl.TurnManager;
 import labioopint.model.Enemy.api.Enemy;
 import labioopint.model.Enemy.api.EnemyAI;
@@ -21,7 +16,6 @@ import labioopint.model.player.impl.Player;
 public class EnemyImpl extends Movable implements Enemy {
 
     private EnemyAI enemyAI;
-    private final Image image;
 
     /**
      * Constructs a new EnemyImpl object with the specified EnemyAI.
@@ -30,11 +24,6 @@ public class EnemyImpl extends Movable implements Enemy {
      */
     public EnemyImpl(EnemyAI enemyAI) {
         this.enemyAI = enemyAI;
-        try {
-            this.image = ImageIO.read(new File("src/main/java/labioopint/resources/Characters/monster.png"));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 
     public EnemyAI getEnemyAI() {
@@ -65,9 +54,5 @@ public class EnemyImpl extends Movable implements Enemy {
                 player.removeObjective();
             }
         }
-    }
-
-    public Image getImage() {
-        return image;
     }
 }

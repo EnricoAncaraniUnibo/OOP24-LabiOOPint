@@ -11,7 +11,6 @@ import labioopint.model.PowerUp.impl.SwapPositionPowerUp;
 import labioopint.model.api.Settings;
 import labioopint.model.maze.impl.Labyrinth;
 import labioopint.model.player.impl.Player;
-import labioopint.model.player.impl.PlayerImageGenerator;
 
 /**
  * BuilderImpl is responsible for creating various game components such as
@@ -68,10 +67,17 @@ public class BuilderImpl {
      * @return a list of Player instances.
      */
     public List<Player> createPlayers() {
-        PlayerImageGenerator gen = new PlayerImageGenerator();
+        List<String> nameList = new ArrayList<>();
+        nameList.add("Archer");
+        nameList.add("Warrior");
+        nameList.add("Thief");
+        nameList.add("Mage");
+        Random x = new Random();
         List<Player> tm = new ArrayList<>();
         for (int i = 1; i <= numberPlayer; i++) {
-            Player a = new Player(i,gen.getRandomImage());
+            int n = x.nextInt(0,nameList.size());
+            Player a = new Player(nameList.get(n));
+            nameList.remove(n);
             tm.add(a);
         }
         return tm;

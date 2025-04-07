@@ -1,6 +1,5 @@
 package labioopint.model.PowerUp.api;
 
-import java.awt.Image;
 import java.util.List;
 import labioopint.model.player.impl.Player;
 
@@ -28,8 +27,6 @@ public interface PowerUp {
      * @return la lista dei power-up collezionati.
      */
     List<PowerUp> getCollectedPowerUps();
-
-    Image getImage();
 
     String getName();
 }

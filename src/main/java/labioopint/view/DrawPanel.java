@@ -5,10 +5,10 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.AffineTransform;
-import java.io.File;
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import labioopint.model.Core.impl.ImageLoader;
+import labioopint.model.Core.impl.TurnManager;
 import labioopint.model.Enemy.api.Enemy;
 import labioopint.model.PowerUp.api.PowerUp;
 import labioopint.model.api.Coordinate;
@@ -34,13 +34,10 @@ public class DrawPanel extends JPanel {
 
         public DrawPanel(final Dimension size) {
                 pixelSize = (int) size.getWidth() / 13;
-                try {
-                        CORRIDOR_IMAGE = ImageIO.read(new File("src/main/java/labioopint/resources/Tiles/Corridor.png"));
-                        CORNER_IMAGE = ImageIO.read(new File("src/main/java/labioopint/resources/Tiles/Corner.png"));
-                        CROSSING_IMAGE = ImageIO.read(new File("src/main/java/labioopint/resources/Tiles/Crossing.png"));
-                } catch (Exception e) {
-                        e.printStackTrace();
-                }
+                ImageLoader.load();
+                CORRIDOR_IMAGE = ImageLoader.getImage("Corridor").get();
+                CORNER_IMAGE = ImageLoader.getImage("Corner").get();
+                CROSSING_IMAGE = ImageLoader.getImage("Crossing").get();
         }
 
         public void draw(final Maze m, final DualMap<Player> mapPlayers,
@@ -130,13 +127,18 @@ public class DrawPanel extends JPanel {
                                                         break;
                                         }
                                         if(coorPowerUps.isPresentByCoordinate(new Coordinate(i,j))) {
-                                                g2.drawImage(coorPowerUps.getElemFromCoordinate(new Coordinate(i, j)).getImage(), j*pixelSize+pixelSize/4, i*pixelSize+pixelSize/4,pixelSize*3/5,pixelSize*3/5, this);
+                                                g2.drawImage(ImageLoader.getImage(coorPowerUps.getElemFromCoordinate(new Coordinate(i, j)).getName()).get(), j*pixelSize+pixelSize/4, i*pixelSize+pixelSize/4,pixelSize*3/5,pixelSize*3/5, this);
                                         }
                                         if(coorPlayers.isPresentByCoordinate(new Coordinate(i, j))) {
-                                                g2.drawImage(coorPlayers.getElemFromCoordinate(new Coordinate(i, j)).getImage(), j*pixelSize+pixelSize/4, i*pixelSize+pixelSize/4,pixelSize*3/5,pixelSize*3/5, this);
+                                                Player p = coorPlayers.getElemFromCoordinate(new Coordinate(i, j));
+                                                if(p == TurnManager.GetCurrentPlayer()) {
+                                                        g2.drawImage(ImageLoader.getImage(""+coorPlayers.getElemFromCoordinate(new Coordinate(i, j)).getID()+"Turn").get(), j*pixelSize+pixelSize/4, i*pixelSize+pixelSize/4,pixelSize*3/5,pixelSize*3/5, this);
+                                                }else {
+                                                        g2.drawImage(ImageLoader.getImage(coorPlayers.getElemFromCoordinate(new Coordinate(i, j)).getID()).get(), j*pixelSize+pixelSize/4, i*pixelSize+pixelSize/4,pixelSize*3/5,pixelSize*3/5, this);
+                                                }
                                         }
                                         if(coorEnemies.isPresentByCoordinate(new Coordinate(i, j))) {
-                                                g2.drawImage(coorEnemies.getElemFromCoordinate(new Coordinate(i, j)).getImage(), j*pixelSize+pixelSize/4, i*pixelSize+pixelSize/4,pixelSize*3/5,pixelSize*3/5, this);
+                                                g2.drawImage(ImageLoader.getImage("Monster").get(), j*pixelSize+pixelSize/4, i*pixelSize+pixelSize/4,pixelSize*3/5,pixelSize*3/5, this);
                                         }
                                 }
                         }

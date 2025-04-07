@@ -27,8 +27,8 @@ public class RandomTurnChooser {
      * @return a list of players in random order.
      */
     public List<Player> randomOrder() {
-        List<Integer> idies = new ArrayList<>();
-        List<Integer> idiesRandomic = new ArrayList<>();
+        List<String> idies = new ArrayList<>();
+        List<String> idiesRandomic = new ArrayList<>();
         List<Player> playerRandomic = new ArrayList<>();
         for (Player player : players) {
             idies.add(player.getID());
@@ -40,9 +40,9 @@ public class RandomTurnChooser {
             idies.remove(index);
         }
 
-        for (Integer integer : idiesRandomic) {
+        for (String s : idiesRandomic) {
             for (Player player : players) {
-                if (player.getID() == integer) {
+                if (player.getID().equals(s)) {
                     playerRandomic.add(player);
                 }
             }
