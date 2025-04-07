@@ -2,10 +2,12 @@ package labioopint.model.Enemy.impl;
 
 import java.util.*;
 
+import labioopint.controller.api.ActionPredicate;
 import labioopint.model.Core.impl.TurnManager;
 import labioopint.model.Enemy.api.Enemy;
 import labioopint.model.Enemy.api.EnemyAI;
 import labioopint.model.api.Coordinate;
+import labioopint.model.maze.api.Direction;
 import labioopint.model.maze.impl.Labyrinth;
 import labioopint.model.player.impl.Player;
 
@@ -32,7 +34,12 @@ public class EnemyImpl extends Movable implements Enemy {
 
     @Override
     public Coordinate move(final List<Player> players) {
-        return enemyAI.getNextPosition(players, TurnManager.GetLab().getEnemyCoordinate(this));
+        if(!ActionPredicate.EnemyCanMove(Direction.UP) && !ActionPredicate.EnemyCanMove(Direction.DOWN)
+                && !ActionPredicate.EnemyCanMove(Direction.LEFT) && !ActionPredicate.EnemyCanMove(Direction.RIGHT)) {
+            return TurnManager.GetLab().getEnemyCoordinate(this);
+        } else {
+            return enemyAI.getNextPosition(players, TurnManager.GetLab().getEnemyCoordinate(this));
+        }
     }
     /*
      * Quando un player viene mangiato dal nemico, il player perde il primo PowerUp
@@ -55,6 +62,4 @@ public class EnemyImpl extends Movable implements Enemy {
             }
         }
     }
-
-    
 }

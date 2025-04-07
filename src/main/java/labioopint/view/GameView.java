@@ -8,18 +8,17 @@ import labioopint.controller.impl.InformationMessenger;
 import labioopint.model.Core.impl.TurnManager;
 import labioopint.model.Enemy.api.Enemy;
 import labioopint.model.PowerUp.api.PowerUp;
+import labioopint.model.PowerUp.impl.PowerUpImpl;
 import labioopint.model.api.ActionType;
 import labioopint.model.api.Coordinate;
 import labioopint.model.api.DualMap;
 import labioopint.model.maze.impl.Block;
 import labioopint.model.maze.impl.Maze;
 import labioopint.model.player.impl.Player;
-import java.util.List;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 public class GameView extends JFrame {
 
@@ -48,7 +47,7 @@ public class GameView extends JFrame {
         controlPanel.setBackground(Color.GRAY);
         add(controlPanel, BorderLayout.EAST);
 
-        turnLabel = new JLabel("It's turn of Player 1", SwingConstants.CENTER);
+        turnLabel = new JLabel(InformationMessenger.getTurn(), SwingConstants.CENTER);
         Font newFont = new Font("Arial", Font.BOLD, 18);
         turnLabel.setFont(newFont);
         turnLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -82,17 +81,13 @@ public class GameView extends JFrame {
 
         controlPanel.add(movementPanel);
 
-        JButton rotation = new JButton("Rotation");
-        rotation.setAlignmentX(Component.CENTER_ALIGNMENT);
-        controlPanel.add(rotation);
-
         String[] options = InformationMessenger.getPowerUpsList();
         JComboBox<String> comboBox = new JComboBox<>(options);
         controlPanel.add(comboBox);
 
         // Aggiunta un ActionListener alla ComboBox per gestire l'evento di selezione
-        comboBox.addActionListener(
-                e -> JOptionPane.showMessageDialog(this, "Hai selezionato: " + (String) comboBox.getSelectedItem()));
+        //comboBox.addActionListener(
+        //        e -> JOptionPane.showMessageDialog(this, "Hai selezionato: " + (String) comboBox.getSelectedItem()));
 
         JButton powerUpButton = new JButton("Use PowerUp");
         powerUpButton.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -102,13 +97,28 @@ public class GameView extends JFrame {
         endTurnButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         controlPanel.add(endTurnButton);
 
-        powerUpButton.addActionListener(e -> JOptionPane.showMessageDialog(this, "PowerUp usato!"));
+        powerUpButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                PowerUpImpl pu = (PowerUpImpl)comboBox.getSelectedItem();
+                if(pu != null) {
+                    pu.activate(TurnManager.GetCurrentPlayer());
+                }
+            }
+        });
 
         endTurnButton.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 GameController.action(endTurnButton.getText());
+                turnLabel.setText(InformationMessenger.getTurn());
+                String[] options = InformationMessenger.getPowerUpsList();
+                comboBox.removeAllItems();
+                for (String option : options) {
+                    comboBox.addItem(option);
+                }
             }
 
         });
@@ -154,7 +164,6 @@ public class GameView extends JFrame {
 
         });
 
-        rotation.addActionListener(e -> JOptionPane.showMessageDialog(this, "Rotation"));
         setVisible(true);
     }
 
