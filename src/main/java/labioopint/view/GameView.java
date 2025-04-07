@@ -126,6 +126,9 @@ public class GameView extends JFrame {
                 for (String option : options) {
                     comboBox.addItem(option);
                 }
+                upButton.setVisible(false);
+                downButton.setVisible(false);
+                actionLabel.setText(InformationMessenger.getAction());
             }
 
         });
