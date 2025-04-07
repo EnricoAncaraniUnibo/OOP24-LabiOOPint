@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 
 import labioopint.controller.api.GameController;
+import labioopint.controller.impl.InformationMessenger;
 import labioopint.model.Core.impl.TurnManager;
 import labioopint.model.Enemy.api.Enemy;
 import labioopint.model.PowerUp.api.PowerUp;
@@ -13,7 +14,7 @@ import labioopint.model.api.DualMap;
 import labioopint.model.maze.impl.Block;
 import labioopint.model.maze.impl.Maze;
 import labioopint.model.player.impl.Player;
-
+import java.util.List;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -85,8 +86,7 @@ public class GameView extends JFrame {
         rotation.setAlignmentX(Component.CENTER_ALIGNMENT);
         controlPanel.add(rotation);
 
-        String[] options = { "Name_PowerUp1", "Name_PowerUp2", "Name_PowerUp3", "Name_PowerUp4", "Name_PowerUp5",
-                "Name_PowerUp6" };
+        String[] options = InformationMessenger.getPowerUpsList();
         JComboBox<String> comboBox = new JComboBox<>(options);
         controlPanel.add(comboBox);
 

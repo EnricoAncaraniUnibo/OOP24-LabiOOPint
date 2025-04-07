@@ -55,4 +55,6 @@ public class EnemyImpl extends Movable implements Enemy {
             }
         }
     }
+
+    
 }
