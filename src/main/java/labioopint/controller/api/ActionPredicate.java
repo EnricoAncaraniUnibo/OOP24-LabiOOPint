@@ -46,6 +46,11 @@ public class ActionPredicate{
     }
 
     public static boolean BlockCanMove(Block b, Direction dir) {
+        if(b.IsMovable()){
+            return true;
+        }
+        return false;
+        /*
         if(dir == Direction.LEFT){
             Coordinate blockToMoveCoordinate = lab.getGrid().getCoordinate(b);
             Coordinate targetBlockCoordinate = new Coordinate(blockToMoveCoordinate.getRow(),Integer.valueOf(blockToMoveCoordinate.getColumn()-1));
@@ -64,6 +69,7 @@ public class ActionPredicate{
             if(blockToMoveCoordinate.getRow() != lab.getGrid().getSize()-1 && lab.getGrid().GetBlock(targetBlockCoordinate).IsMovable()){return true;}
         }
         return false;
+         */
     }
 
     public static boolean EnemyCanMove(Direction dir) {
