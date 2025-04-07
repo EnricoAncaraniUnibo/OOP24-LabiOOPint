@@ -9,7 +9,7 @@ import labioopint.model.api.ActionType;
 
 public class InformationMessenger {
     public static String getTurn() {
-        return "E' il turno del player: "+TurnManager.GetCurrentPlayer().getID();
+        return "Player: "+TurnManager.GetCurrentPlayer().getID();
     }
 
     public static String getAction() {
