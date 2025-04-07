@@ -14,6 +14,7 @@ import labioopint.model.api.Coordinate;
 
 public class ActionPredicate{
     private static Labyrinth lab = TurnManager.GetLab();
+    private static Integer mazeSize = lab.getGrid().getSize();
 
     public static boolean PlayerCanMove(Player p, Direction dir) {
         Coordinate playerCoordinate = new Coordinate(lab.getPlayerCoordinate(p));
@@ -25,7 +26,7 @@ public class ActionPredicate{
             {return true;}
         }else if(dir == Direction.RIGHT){
             Coordinate targetBlock = new Coordinate(playerCoordinate.getRow(),Integer.valueOf(playerCoordinate.getColumn()+1));
-            if(playerCoordinate.getColumn() != lab.getGrid().getSize()-1 && 
+            if(playerCoordinate.getColumn() != mazeSize-1 && 
                DirectionCheck.checkRightEntrance(playerCoordinate) && 
                DirectionCheck.checkLeftEntrance(targetBlock))
             {return true;}
@@ -37,7 +38,7 @@ public class ActionPredicate{
             {return true;}
         }else if(dir == Direction.DOWN){
             Coordinate targetBlock = new Coordinate(Integer.valueOf(playerCoordinate.getRow()+1),playerCoordinate.getColumn());
-            if(playerCoordinate.getRow() != lab.getGrid().getSize()-1 && 
+            if(playerCoordinate.getRow() != mazeSize-1 && 
                DirectionCheck.checkBottomEntrance(playerCoordinate) && 
                DirectionCheck.checkUpperEntrance(targetBlock))
             {return true;}
@@ -45,8 +46,10 @@ public class ActionPredicate{
         return false;
     }
 
-    public static boolean BlockCanMove(Block b, Direction dir) {
-        if(b.IsMovable()){
+    public static boolean BlockCanMove(Coordinate blockCoordinate) {
+        Block b = lab.getGrid().GetBlock(blockCoordinate);
+        if(b.IsMovable() && (blockCoordinate.getColumn() == 0 || blockCoordinate.getColumn() == mazeSize-1
+                         ||  blockCoordinate.getRow() == 0 || blockCoordinate.getRow() == mazeSize-1)){
             return true;
         }
         return false;
@@ -58,7 +61,7 @@ public class ActionPredicate{
         }else if(dir == Direction.RIGHT){
             Coordinate blockToMoveCoordinate = lab.getGrid().getCoordinate(b);
             Coordinate targetBlockCoordinate = new Coordinate(blockToMoveCoordinate.getRow(),Integer.valueOf(blockToMoveCoordinate.getColumn()+1));
-            if(blockToMoveCoordinate.getColumn() != lab.getGrid().getSize()-1 && lab.getGrid().GetBlock(targetBlockCoordinate).IsMovable()){return true;}
+            if(blockToMoveCoordinate.getColumn() != mazeSize-1 && lab.getGrid().GetBlock(targetBlockCoordinate).IsMovable()){return true;}
         }else if(dir == Direction.UP){
             Coordinate blockToMoveCoordinate = lab.getGrid().getCoordinate(b);
             Coordinate targetBlockCoordinate = new Coordinate(Integer.valueOf(blockToMoveCoordinate.getRow()-1),blockToMoveCoordinate.getColumn());
@@ -66,7 +69,7 @@ public class ActionPredicate{
         }else if(dir == Direction.DOWN){
             Coordinate blockToMoveCoordinate = lab.getGrid().getCoordinate(b);
             Coordinate targetBlockCoordinate = new Coordinate(Integer.valueOf(blockToMoveCoordinate.getRow()+1),blockToMoveCoordinate.getColumn());
-            if(blockToMoveCoordinate.getRow() != lab.getGrid().getSize()-1 && lab.getGrid().GetBlock(targetBlockCoordinate).IsMovable()){return true;}
+            if(blockToMoveCoordinate.getRow() != mazeSize-1 && lab.getGrid().GetBlock(targetBlockCoordinate).IsMovable()){return true;}
         }
         return false;
          */
@@ -83,7 +86,7 @@ public class ActionPredicate{
             {return true;}
         }else if(dir == Direction.RIGHT){
             Coordinate targetBlock = new Coordinate(enemyCoordinate.getRow(),Integer.valueOf(enemyCoordinate.getColumn()+1));
-            if(enemyCoordinate.getColumn() != lab.getGrid().getSize()-1 && 
+            if(enemyCoordinate.getColumn() != mazeSize-1 && 
                DirectionCheck.checkRightEntrance(enemyCoordinate) && 
                DirectionCheck.checkLeftEntrance(targetBlock))
             {return true;}
@@ -95,7 +98,7 @@ public class ActionPredicate{
             {return true;}
         }else if(dir == Direction.DOWN){
             Coordinate targetBlock = new Coordinate(Integer.valueOf(enemyCoordinate.getRow()+1),enemyCoordinate.getColumn());
-            if(enemyCoordinate.getRow() != lab.getGrid().getSize()-1 && 
+            if(enemyCoordinate.getRow() != mazeSize-1 && 
                DirectionCheck.checkBottomEntrance(enemyCoordinate) && 
                DirectionCheck.checkUpperEntrance(targetBlock))
             {return true;}

@@ -26,21 +26,23 @@ public class GameController {
                     RotateBlock(dir);
                 } else if(action instanceof Coordinate){
                     Coordinate blockCoordinate = (Coordinate)action;
-                    if(blockCoordinate.getColumn() == 0){
-                        TurnManager.nextAction();
-                        lab.moveBlock(blockCoordinate, Direction.RIGHT);
-                    }else if(blockCoordinate.getColumn() == lab.getGrid().getSize()-1){
-                        TurnManager.nextAction();
-                        lab.moveBlock(blockCoordinate, Direction.LEFT);
-                    }else if(blockCoordinate.getRow() == 0){
-                        TurnManager.nextAction();
-                        lab.moveBlock(blockCoordinate, Direction.DOWN);
-                    }else if(blockCoordinate.getRow() == lab.getGrid().getSize()-1){
-                        TurnManager.nextAction();
-                        lab.moveBlock(blockCoordinate, Direction.UP);
-                    }else{
-                        //TurnManager.invalidBlockPosition();
-                    }
+                    if(ActionPredicate.BlockCanMove(blockCoordinate)){
+                        if(blockCoordinate.getColumn() == 0){
+                            TurnManager.nextAction();
+                            lab.moveBlock(blockCoordinate, Direction.RIGHT);
+                        }else if(blockCoordinate.getColumn() == lab.getGrid().getSize()-1){
+                            TurnManager.nextAction();
+                            lab.moveBlock(blockCoordinate, Direction.LEFT);
+                        }else if(blockCoordinate.getRow() == 0){
+                            TurnManager.nextAction();
+                            lab.moveBlock(blockCoordinate, Direction.DOWN);
+                        }else if(blockCoordinate.getRow() == lab.getGrid().getSize()-1){
+                            TurnManager.nextAction();
+                            lab.moveBlock(blockCoordinate, Direction.UP);
+                        }else{
+                            //TurnManager.invalidBlockPosition();
+                        }
+                    } 
                 }
                 break;
         
