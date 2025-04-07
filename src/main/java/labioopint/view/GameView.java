@@ -19,6 +19,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.lang.ProcessHandle.Info;
 
 public class GameView extends JFrame {
 
@@ -52,6 +53,20 @@ public class GameView extends JFrame {
         turnLabel.setFont(newFont);
         turnLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         controlPanel.add(turnLabel);
+
+        JLabel actionLabel = new JLabel(InformationMessenger.getAction(), SwingConstants.CENTER);
+        actionLabel.setFont(newFont);
+        actionLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        controlPanel.add(actionLabel);
+
+        
+        //String[] data = InformationMessenger.getObjectivesInGame().toArray(new String[0]);
+
+        JList<String> list = new JList<>(data);
+
+        JScrollPane scrollPane = new JScrollPane(list);
+        controlPanel.add(scrollPane);
+
 
         upButton = createButton("↑");
         leftButton = createButton("←");
