@@ -37,13 +37,6 @@ public class Labyrinth {
         this.start();
     }
 
-    public Labyrinth(final Integer size, final Integer corners, final Integer corridors, final Integer crossings) {
-        this.Default();
-        grid = new ComplexMaze(size, corners, corridors, crossings);
-        outsideBlock = grid.Generate();
-        this.start();
-    }
-
     private void start() {
         CoordinateGenerator cg = new CoordinateGenerator(grid.getSize()); 
         for (PowerUp pu : TurnManager.GetPowerUps()) {

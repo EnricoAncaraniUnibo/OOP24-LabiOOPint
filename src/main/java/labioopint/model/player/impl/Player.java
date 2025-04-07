@@ -35,10 +35,6 @@ public class Player extends Movable {
         return id;
     }
 
-    public void removeFirst() {
-        objectives.remove(0);
-    }
-
     public void removeObjective() {
         if(objectives.size()!=0) {
             PowerUp p = objectives.get(0);
