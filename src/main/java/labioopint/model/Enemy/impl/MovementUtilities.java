@@ -1,7 +1,7 @@
 package labioopint.model.Enemy.impl;
 
+import labioopint.model.Maze.api.Direction;
 import labioopint.model.api.Coordinate;
-import labioopint.model.maze.api.Direction;
 
 public class MovementUtilities {
     /**

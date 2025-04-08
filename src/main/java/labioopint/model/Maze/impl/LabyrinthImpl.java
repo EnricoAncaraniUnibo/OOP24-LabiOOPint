@@ -1,28 +1,31 @@
-package labioopint.model.maze.impl;
+package labioopint.model.Maze.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import labioopint.controller.impl.LabyrinthController;
+import labioopint.model.Block.api.Rotation;
+import labioopint.model.Block.impl.BlockImpl;
 import labioopint.model.Core.impl.TurnManager;
 import labioopint.model.Enemy.api.Enemy;
+import labioopint.model.Maze.api.Direction;
+import labioopint.model.Maze.api.Labyrinth;
+import labioopint.model.Player.impl.PlayerImpl;
 import labioopint.model.PowerUp.api.PowerUp;
 import labioopint.model.api.Coordinate;
 import labioopint.model.api.CoordinateGenerator;
 import labioopint.model.api.DualMap;
-import labioopint.model.maze.api.Direction;
-import labioopint.model.maze.api.Rotation;
-import labioopint.model.player.impl.Player;
 
-public class Labyrinth {
-    private final Maze grid;
-    private Block outsideBlock;
+public class LabyrinthImpl implements Labyrinth {
+    private final MazeImpl grid;
+    private BlockImpl outsideBlock;
     private DualMap<PowerUp> mapOfPowerUps;
-    private DualMap<Player> mapOfPlayers;
+    private DualMap<PlayerImpl> mapOfPlayers;
     private DualMap<Enemy> mapOfEnemy;
     private LabyrinthController labyController;
 
+    @Override
     public void Default() {
         labyController = new LabyrinthController();
         mapOfPowerUps = new DualMap<>();
@@ -30,9 +33,9 @@ public class Labyrinth {
         mapOfEnemy = new DualMap<>();
     }
 
-    public Labyrinth(final Integer size) {
+    public LabyrinthImpl(final Integer size) {
         this.Default();
-        grid = new SimpleMaze(size);
+        grid = new SimpleMazeImpl(size);
         outsideBlock = grid.Generate();
         this.start();
     }
@@ -43,7 +46,7 @@ public class Labyrinth {
             mapOfPowerUps.addElemWithCoordinate(pu, cg.getRandomCoordinate());
         }
         cg = new CoordinateGenerator(CoordinateGenerator.createBasicSpawnCoordinate(grid.getSize()));
-        for (Player p : TurnManager.GetPlayers()) {
+        for (PlayerImpl p : TurnManager.GetPlayers()) {
             mapOfPlayers.addElemWithCoordinate(p, cg.getRandomCoordinate());
         }
         if(TurnManager.GetEnemy().isPresent()) {
@@ -52,10 +55,12 @@ public class Labyrinth {
         labyController.updateGraphics(grid,mapOfPlayers,mapOfEnemy,mapOfPowerUps,outsideBlock);
     }
 
-    public Block getOutsideBlock() {
+    @Override
+    public BlockImpl getOutsideBlock() {
         return outsideBlock;
     }
 
+    @Override
     public boolean moveBlock(final Coordinate c, final Direction d) {
         switch (d) {
             case UP:
@@ -75,11 +80,11 @@ public class Labyrinth {
         return true;
     }
 
-    private Block shiftRow(final Integer number, final Direction d) {
+    private BlockImpl shiftRow(final Integer number, final Direction d) {
         if (d.equals(Direction.RIGHT)) {
-            Block last = grid.GetBlock(new Coordinate(number, 0));
+            BlockImpl last = grid.GetBlock(new Coordinate(number, 0));
             moveObjectBlock(new Coordinate(number, 0), d);
-            Block Saved;
+            BlockImpl Saved;
             grid.ChangeCoordinate(new Coordinate(number,0), outsideBlock);
             for (int i = 1; i < grid.getSize(); i++) {
                 Saved = grid.GetBlock(new Coordinate(number,i));
@@ -88,9 +93,9 @@ public class Labyrinth {
             }
             return last;
         } else {
-            Block last = grid.GetBlock(new Coordinate(number, grid.getSize()-1));
+            BlockImpl last = grid.GetBlock(new Coordinate(number, grid.getSize()-1));
             moveObjectBlock(new Coordinate(number, grid.getSize()-1), d);
-            Block Saved;
+            BlockImpl Saved;
             grid.ChangeCoordinate(new Coordinate(number,grid.getSize()-1), outsideBlock);
             for (int i = grid.getSize()-2; i >= 0; i--) {
                 Saved = grid.GetBlock(new Coordinate(number,i));
@@ -101,11 +106,11 @@ public class Labyrinth {
         }
     }
 
-    private Block shiftColumn(final Integer number, final Direction d) {
+    private BlockImpl shiftColumn(final Integer number, final Direction d) {
         if (d.equals(Direction.UP)) {
-            Block last = grid.GetBlock(new Coordinate(grid.getSize()-1, number));
+            BlockImpl last = grid.GetBlock(new Coordinate(grid.getSize()-1, number));
             moveObjectBlock(new Coordinate(grid.getSize()-1, number), d);
-            Block Saved;
+            BlockImpl Saved;
             grid.ChangeCoordinate(new Coordinate(grid.getSize()-1, number), outsideBlock);
             for (int i = grid.getSize()-2; i >= 0; i--) {
                 Saved = grid.GetBlock(new Coordinate(i,number));
@@ -114,9 +119,9 @@ public class Labyrinth {
             }
             return last;
         } else {
-            Block last = grid.GetBlock(new Coordinate(0, number));
+            BlockImpl last = grid.GetBlock(new Coordinate(0, number));
             moveObjectBlock(new Coordinate(0, number), d);
-            Block Saved;
+            BlockImpl Saved;
             grid.ChangeCoordinate(new Coordinate(0,number), outsideBlock);
             for (int i = 1; i < grid.getSize(); i++) {
                 Saved = grid.GetBlock(new Coordinate(i,number));
@@ -128,10 +133,10 @@ public class Labyrinth {
     }
 
     private void moveObjectBlock(Coordinate c, Direction d) {
-        List<Player> lp = new ArrayList<>();
+        List<PlayerImpl> lp = new ArrayList<>();
         List<Enemy> le = new ArrayList<>();
         List<PowerUp> lpu = new ArrayList<>();
-        Optional<Player> p;
+        Optional<PlayerImpl> p;
         Optional<Enemy> e;
         Optional<PowerUp> pu;
         Coordinate coor = new Coordinate(c);
@@ -192,14 +197,17 @@ public class Labyrinth {
         return i;
     }
 
-    public Coordinate getPlayerCoordinate(final Player p) {
+    @Override
+    public Coordinate getPlayerCoordinate(final PlayerImpl p) {
         return mapOfPlayers.getCoordinateFromElement(p);
     }
 
+    @Override
     public Coordinate getPowerUp(final PowerUp p) {
         return mapOfPowerUps.getCoordinateFromElement(p);
     }
 
+    @Override
     public List<PowerUp> getListOfPowerUps() {
         List<PowerUp> lpu = new ArrayList<>();
         for (PowerUp powerUp : TurnManager.GetPowerUps()) {
@@ -210,6 +218,7 @@ public class Labyrinth {
         return lpu;
     }
 
+    @Override
     public Coordinate getEnemyCoordinate(final Enemy e) {
         if(mapOfEnemy.isPresentByObject(e)) {
             return mapOfEnemy.getCoordinateFromElement(e);
@@ -217,7 +226,8 @@ public class Labyrinth {
         return null;
     }
 
-    public void movePlayer(final Player p, final Direction dir) {
+    @Override
+    public void movePlayer(final PlayerImpl p, final Direction dir) {
         Coordinate newCoor = calculateNewCoordinate(mapOfPlayers.getCoordinateFromElement(p), dir);
         mapOfPlayers.remove(p);
         mapOfPlayers.addElemWithCoordinate(p,newCoor);
@@ -225,7 +235,7 @@ public class Labyrinth {
         labyController.updateGraphics(grid,mapOfPlayers,mapOfEnemy,mapOfPowerUps,outsideBlock);
     }
 
-    private void pickUpPowerUp(Player p, Coordinate c) {
+    private void pickUpPowerUp(PlayerImpl p, Coordinate c) {
         if(mapOfPowerUps.isPresentByCoordinate(c)) {
             mapOfPowerUps.getElemFromCoordinate(c).collect();
             p.addObjective(mapOfPowerUps.getElemFromCoordinate(c));
@@ -233,9 +243,10 @@ public class Labyrinth {
         }
     }
 
+    @Override
     public void absoluteUpdateCoordinate(final Object o, final Coordinate coor) {
-        if(o instanceof Player) {
-            Player p = (Player)o;
+        if(o instanceof PlayerImpl) {
+            PlayerImpl p = (PlayerImpl)o;
             mapOfPlayers.remove(p);
             mapOfPlayers.addElemWithCoordinate(p, coor);
         }
@@ -247,15 +258,18 @@ public class Labyrinth {
         labyController.updateGraphics(grid,mapOfPlayers,mapOfEnemy,mapOfPowerUps,outsideBlock);
     }
 
-    public Maze getGrid() {
+    @Override
+    public MazeImpl getGrid() {
         return grid;
     }
 
+    @Override
     public void RotateOutsideBlock(Rotation blockRotation) {
         outsideBlock.setRotation(blockRotation);
         labyController.updateGraphics(grid, mapOfPlayers, mapOfEnemy, mapOfPowerUps, outsideBlock);
     }
 
+    @Override
     public void addPowerUp(PowerUp p) {
         CoordinateGenerator cg = new CoordinateGenerator(grid.getSize());
         mapOfPowerUps.addElemWithCoordinate(p, cg.getRandomCoordinate());

@@ -1,13 +1,14 @@
 package labioopint.model.PowerUp.api;
 
 import java.util.List;
-import labioopint.model.player.impl.Player;
+
+import labioopint.model.Player.impl.PlayerImpl;
 
 public interface PowerUp {
     /**
      * Attiva il power-up.
      */
-    void activate(Player currentPlayer);
+    void activate(PlayerImpl currentPlayer);
 
     /**
      * Verifica se il power-up è stato raccolto.

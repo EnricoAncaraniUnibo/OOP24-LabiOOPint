@@ -1,24 +1,27 @@
-package labioopint.model.maze.impl;
+package labioopint.model.Maze.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import labioopint.model.Block.impl.BlockImpl;
+import labioopint.model.Maze.api.Maze;
 import labioopint.model.api.Coordinate;
 
-public abstract class Maze {
-    private final Map<Coordinate, Block> grid;
-    private final List<Block> blockSelection;
+public abstract class MazeImpl implements Maze {
+    private final Map<Coordinate, BlockImpl> grid;
+    private final List<BlockImpl> blockSelection;
     private final Integer size;
 
-    public Maze(final Integer size) {
+    public MazeImpl(final Integer size) {
         this.size = size;
         this.blockSelection = new ArrayList<>();
         this.grid = new HashMap<>();
     }
 
-    public Block GetBlock(final Coordinate c) {
+    @Override
+    public BlockImpl GetBlock(final Coordinate c) {
         for (Coordinate coor : grid.keySet()) {
             if(c.getRow().equals(coor.getRow()) && c.getColumn().equals(coor.getColumn())) {
                 return grid.get(coor);
@@ -27,8 +30,9 @@ public abstract class Maze {
         return null;
     }
 
-    public Coordinate getCoordinate(Block b){
-        for (Map.Entry<Coordinate,Block> iterableItem : grid.entrySet()) {
+    @Override
+    public Coordinate getCoordinate(BlockImpl b){
+        for (Map.Entry<Coordinate,BlockImpl> iterableItem : grid.entrySet()) {
             if(iterableItem.getValue().equals(b)){
                 return iterableItem.getKey();
             }
@@ -36,19 +40,23 @@ public abstract class Maze {
         return null;
     }
 
-    public List<Block> getListofBlocks() {
+    @Override
+    public List<BlockImpl> getListofBlocks() {
         return blockSelection;
     }
 
+    @Override
     public Integer getSize() {
         return size;
     }
 
-    public void setMaze(final Map<Coordinate, Block> maze) {
+    @Override
+    public void setMaze(final Map<Coordinate, BlockImpl> maze) {
         grid.putAll(maze);
     }
 
-    public void ChangeCoordinate(final Coordinate coor, final Block b) {
+    @Override
+    public void ChangeCoordinate(final Coordinate coor, final BlockImpl b) {
         Coordinate removable=new Coordinate(-1, -1);
         for (Coordinate test : grid.keySet()) {
             if(test.getRow()==coor.getRow() && test.getColumn()==coor.getColumn()) {
@@ -62,5 +70,6 @@ public abstract class Maze {
             
         }
     }
-    public abstract Block Generate();
+    @Override
+    public abstract BlockImpl Generate();
 }

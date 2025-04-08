@@ -6,11 +6,11 @@ import labioopint.model.Enemy.api.Enemy;
 import labioopint.model.Enemy.api.EnemyDifficulty;
 import labioopint.model.Enemy.api.EnemyFactory;
 import labioopint.model.Enemy.impl.EnemyFactoryImpl;
+import labioopint.model.Maze.impl.LabyrinthImpl;
+import labioopint.model.Player.impl.PlayerImpl;
 import labioopint.model.PowerUp.api.PowerUp;
 import labioopint.model.PowerUp.impl.SwapPositionPowerUp;
 import labioopint.model.api.Settings;
-import labioopint.model.maze.impl.Labyrinth;
-import labioopint.model.player.impl.Player;
 
 /**
  * BuilderImpl is responsible for creating various game components such as
@@ -45,15 +45,15 @@ public class BuilderImpl {
      * @return a Labyrinth instance with the appropriate dimension.
      * @throws IllegalArgumentException if the number of players is not supported.
      */
-    public Labyrinth createMaze() {
+    public LabyrinthImpl createMaze() {
         if (numberPlayer == 2) {
             definitiveDimension = SMALL_LABYRINTH;
-            Labyrinth labyrint = new Labyrinth(SMALL_LABYRINTH);
+            LabyrinthImpl labyrint = new LabyrinthImpl(SMALL_LABYRINTH);
             getDimension(definitiveDimension);
             return labyrint;
         } else if (numberPlayer == 4) {
             definitiveDimension = BIG_LABYRINTH;
-            Labyrinth labyrint = new Labyrinth(BIG_LABYRINTH);
+            LabyrinthImpl labyrint = new LabyrinthImpl(BIG_LABYRINTH);
             getDimension(definitiveDimension);
             return labyrint;
         } else {
@@ -66,17 +66,17 @@ public class BuilderImpl {
      * 
      * @return a list of Player instances.
      */
-    public List<Player> createPlayers() {
+    public List<PlayerImpl> createPlayers() {
         List<String> nameList = new ArrayList<>();
         nameList.add("Archer");
         nameList.add("Warrior");
         nameList.add("Thief");
         nameList.add("Mage");
         Random x = new Random();
-        List<Player> tm = new ArrayList<>();
+        List<PlayerImpl> tm = new ArrayList<>();
         for (int i = 1; i <= numberPlayer; i++) {
             int n = x.nextInt(0,nameList.size());
-            Player a = new Player(nameList.get(n));
+            PlayerImpl a = new PlayerImpl(nameList.get(n));
             nameList.remove(n);
             tm.add(a);
         }

@@ -3,8 +3,8 @@ package labioopint.model.PowerUp.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import labioopint.model.Player.impl.PlayerImpl;
 import labioopint.model.PowerUp.api.PowerUp;
-import labioopint.model.player.impl.Player;
 
 public abstract class PowerUpImpl implements PowerUp {
     private boolean collected;
@@ -21,7 +21,7 @@ public abstract class PowerUpImpl implements PowerUp {
     }
 
     @Override
-    public abstract void activate(Player currentPlayer);
+    public abstract void activate(PlayerImpl currentPlayer);
 
     @Override
     public boolean isCollected() {

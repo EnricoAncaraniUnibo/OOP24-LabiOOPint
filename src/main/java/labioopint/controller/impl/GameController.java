@@ -1,20 +1,16 @@
-package labioopint.controller.api;
+package labioopint.controller.impl;
 
-import labioopint.model.maze.api.Direction;
-import labioopint.model.maze.api.Rotation;
-import labioopint.model.maze.impl.Block;
-import labioopint.model.maze.impl.Labyrinth;
-//import labioopint.model.maze.impl.PowerUp;
-import labioopint.model.player.impl.Player;
+import labioopint.model.Block.api.Rotation;
 import labioopint.model.Core.impl.TurnManager;
-import labioopint.model.Enemy.api.Enemy;
+import labioopint.model.Maze.api.Direction;
+import labioopint.model.Maze.impl.LabyrinthImpl;
 import labioopint.model.api.ActionType;
 import labioopint.model.api.Coordinate;
 
 
 public class GameController {
     //ActionType.MOVE_BLOCK;
-    private static Labyrinth lab = TurnManager.GetLab();
+    private static LabyrinthImpl lab = TurnManager.GetLab();
 
     public static void action(Object action){
         ActionType current_action = TurnManager.GetCurrentAction();
@@ -65,7 +61,6 @@ public class GameController {
                 break;
             case ActionType.ENEMY_MOVEMENT:
                 if(action instanceof Direction){
-                    Direction enemyDirection = (Direction)action;
                     if(TurnManager.GetEnemy().isPresent()){
                         TurnManager.GetEnemy().get().move(TurnManager.GetPlayers());
                         TurnManager.nextAction();
@@ -96,7 +91,10 @@ public class GameController {
                                 Rotation.ZERO;
                 lab.RotateOutsideBlock(blockRotation);
                 break;
+            default:
+                break;
         }
+
     }
 
     /* ENEMY MOVEMENT

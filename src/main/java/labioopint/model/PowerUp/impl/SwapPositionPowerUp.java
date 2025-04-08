@@ -3,8 +3,8 @@ package labioopint.model.PowerUp.impl;
 import java.util.Random;
 
 import labioopint.model.Core.impl.TurnManager;
+import labioopint.model.Player.impl.PlayerImpl;
 import labioopint.model.api.Coordinate;
-import labioopint.model.player.impl.Player;
 
 public class SwapPositionPowerUp extends PowerUpImpl {
 
@@ -16,12 +16,12 @@ public class SwapPositionPowerUp extends PowerUpImpl {
     }
 
     @Override
-    public void activate(Player currentPlayer) {
+    public void activate(PlayerImpl currentPlayer) {
         if (isCollected()) {
             Coordinate currentPlayerCoordinate = TurnManager.GetLab().getPlayerCoordinate(currentPlayer);
             Random random = new Random();
             while(this.condition) {
-                Player playerSwap = TurnManager.GetPlayers().get(random.nextInt(TurnManager.GetPlayers().size()));
+                PlayerImpl playerSwap = TurnManager.GetPlayers().get(random.nextInt(TurnManager.GetPlayers().size()));
                 Coordinate playerSwapCoordinate = TurnManager.GetLab().getPlayerCoordinate(playerSwap);
                 if(TurnManager.GetPlayers().size() < 2) {
                     this.condition = false;

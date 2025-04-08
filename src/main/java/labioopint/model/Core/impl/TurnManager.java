@@ -6,15 +6,15 @@ import labioopint.model.Enemy.api.Enemy;
 import labioopint.model.Enemy.impl.ais.ChaseAI;
 import labioopint.model.Enemy.impl.ais.RandomAI;
 import labioopint.model.Enemy.impl.ais.SingleStepRandomAI;
+import labioopint.model.Maze.impl.LabyrinthImpl;
+import labioopint.model.Player.impl.PlayerImpl;
 import labioopint.model.PowerUp.api.PowerUp;
 import labioopint.model.api.ActionType;
 import labioopint.model.api.Settings;
-import labioopint.model.maze.impl.Labyrinth;
-import labioopint.model.player.impl.Player;
 
 public class TurnManager {
-    private static Labyrinth maze;
-    private static List<Player> players;
+    private static LabyrinthImpl maze;
+    private static List<PlayerImpl> players;
     private static Optional<Enemy> enemy;
     private static List<PowerUp> powerUps;
     private static ActionType currentAction;
@@ -31,11 +31,11 @@ public class TurnManager {
         players = new RandomTurnChooser(players).randomOrder();
     }
 
-    public static Labyrinth GetLab(){
+    public static LabyrinthImpl GetLab(){
         return maze;
     }
 
-    public static List<Player> GetPlayers(){
+    public static List<PlayerImpl> GetPlayers(){
         return players;
     }
 
@@ -47,8 +47,8 @@ public class TurnManager {
         return powerUps;
     }
 
-    public static Player GetCurrentPlayer() {
-        Player p = players.get(index);
+    public static PlayerImpl GetCurrentPlayer() {
+        PlayerImpl p = players.get(index);
         return p;
     }
 

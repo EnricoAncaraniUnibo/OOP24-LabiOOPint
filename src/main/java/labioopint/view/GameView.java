@@ -3,17 +3,18 @@ package labioopint.view;
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 
-import labioopint.controller.api.GameController;
+import labioopint.controller.impl.GameController;
 import labioopint.controller.impl.InformationMessenger;
+import labioopint.model.Block.impl.BlockImpl;
 import labioopint.model.Core.impl.TurnManager;
 import labioopint.model.Enemy.api.Enemy;
+import labioopint.model.Maze.impl.MazeImpl;
+import labioopint.model.Player.impl.PlayerImpl;
 import labioopint.model.PowerUp.api.PowerUp;
 import labioopint.model.api.ActionType;
 import labioopint.model.api.Coordinate;
 import labioopint.model.api.DualMap;
-import labioopint.model.maze.impl.Block;
-import labioopint.model.maze.impl.Maze;
-import labioopint.model.player.impl.Player;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,7 +24,7 @@ public class GameView extends JFrame {
 
     private JLabel turnLabel;
     private DrawPanel labirintPanel;
-    private Player currentPlayer = TurnManager.GetCurrentPlayer();
+    //private PlayerImpl currentPlayer = TurnManager.GetCurrentPlayer();
     JButton upButton; 
     JButton leftButton;
     JButton rightButton;
@@ -38,6 +39,8 @@ public class GameView extends JFrame {
         setLayout(new BorderLayout());
         setResizable(false);
         setLocationByPlatform(true);
+
+        
 
         labirintPanel = new DrawPanel(this.getSize());
         add(labirintPanel, BorderLayout.CENTER);
@@ -138,17 +141,15 @@ public class GameView extends JFrame {
         
             @Override
             public void mouseClicked(MouseEvent e) {
-                int X = e.getX();
-                int Y = e.getY();
-                //Coordinate newCoordinate = new Coordinate(Y,X);
-                //GameController.action(newCoordinate);
             }
 
             @Override
             public void mousePressed(MouseEvent e) {
                 int X = e.getX();
                 int Y = e.getY();
-                Coordinate newCoordinate = new Coordinate((Y/DrawPanel.getBlockSize()),(X/DrawPanel.getBlockSize()));
+                int blockSize = DrawPanel.getBlockSize();
+                Coordinate newCoordinate = new Coordinate((Y % blockSize < blockSize/2) ? Y/blockSize-1 : Y/blockSize,
+                                                          X/blockSize);
                 GameController.action(newCoordinate);
                 actionLabel.setText(InformationMessenger.getAction());
             }
@@ -190,7 +191,7 @@ public class GameView extends JFrame {
         return button;
     }
 
-    public void update(final Maze grid, final DualMap<Player> mapPlayers, final DualMap<Enemy> mapEnemies, final DualMap<PowerUp> mapPowerUps,Block outside) {
+    public void update(final MazeImpl grid, final DualMap<PlayerImpl> mapPlayers, final DualMap<Enemy> mapEnemies, final DualMap<PowerUp> mapPowerUps,BlockImpl outside) {
         if(TurnManager.GetCurrentAction() == ActionType.BLOCK_PLACEMENT) {
             upButton.setVisible(false);
             downButton.setVisible(false);

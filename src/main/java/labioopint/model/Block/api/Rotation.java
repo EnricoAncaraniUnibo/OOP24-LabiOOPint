@@ -1,4 +1,4 @@
-package labioopint.model.maze.api;
+package labioopint.model.Block.api;
 
 public enum Rotation {
     ZERO,

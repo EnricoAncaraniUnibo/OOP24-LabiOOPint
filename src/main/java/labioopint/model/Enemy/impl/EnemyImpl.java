@@ -2,14 +2,15 @@ package labioopint.model.Enemy.impl;
 
 import java.util.*;
 
-import labioopint.controller.api.ActionPredicate;
+import labioopint.controller.impl.ActionPredicate;
 import labioopint.model.Core.impl.TurnManager;
 import labioopint.model.Enemy.api.Enemy;
 import labioopint.model.Enemy.api.EnemyAI;
+import labioopint.model.Maze.api.Direction;
+
+import labioopint.model.Player.impl.PlayerImpl;
 import labioopint.model.api.Coordinate;
-import labioopint.model.maze.api.Direction;
-import labioopint.model.maze.impl.Labyrinth;
-import labioopint.model.player.impl.Player;
+import labioopint.model.Maze.impl.LabyrinthImpl;
 
 /**
  * BaseEnemy is an class that provides a base implementation for the
@@ -33,7 +34,7 @@ public class EnemyImpl extends Movable implements Enemy {
     }
 
     @Override
-    public Coordinate move(final List<Player> players) {
+    public Coordinate move(final List<PlayerImpl> players) {
         if(!ActionPredicate.EnemyCanMove(Direction.UP) && !ActionPredicate.EnemyCanMove(Direction.DOWN)
                 && !ActionPredicate.EnemyCanMove(Direction.LEFT) && !ActionPredicate.EnemyCanMove(Direction.RIGHT)) {
             return TurnManager.GetLab().getEnemyCoordinate(this);
@@ -53,9 +54,9 @@ public class EnemyImpl extends Movable implements Enemy {
      */
 
     @Override
-    public void playerHit(final List<Player> players) {
-        Labyrinth maze = TurnManager.GetLab();
-        for (Player player : players) {
+    public void playerHit(final List<PlayerImpl> players) {
+        LabyrinthImpl maze = TurnManager.GetLab();
+        for (PlayerImpl player : players) {
             if (maze.getEnemyCoordinate(this).getRow() == maze.getPlayerCoordinate(player).getRow()
                     && maze.getEnemyCoordinate(this).getColumn() == maze.getPlayerCoordinate(player).getColumn()) { 
                 player.removeObjective();

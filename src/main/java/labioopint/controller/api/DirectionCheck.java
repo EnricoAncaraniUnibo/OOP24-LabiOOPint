@@ -1,22 +1,22 @@
 package labioopint.controller.api;
 
+import labioopint.model.Block.api.BlockType;
+import labioopint.model.Block.api.Rotation;
+import labioopint.model.Block.impl.BlockImpl;
 import labioopint.model.Core.impl.TurnManager;
+import labioopint.model.Maze.impl.LabyrinthImpl;
+import labioopint.model.Maze.impl.MazeImpl;
 import labioopint.model.api.Coordinate;
-import labioopint.model.maze.api.BlockType;
-import labioopint.model.maze.api.Rotation;
-import labioopint.model.maze.impl.Block;
-import labioopint.model.maze.impl.Labyrinth;
-import labioopint.model.maze.impl.Maze;
 
 public class DirectionCheck {
-    private static Labyrinth lab = TurnManager.GetLab();
+    private static LabyrinthImpl lab = TurnManager.GetLab();
 
     /*
      * Every functions check if there are an entrance in the specified direction
      */
     public static boolean checkRightEntrance(Coordinate coord){
-        Maze grid = lab.getGrid();
-        Block block = grid.GetBlock(coord);
+        MazeImpl grid = lab.getGrid();
+        BlockImpl block = grid.GetBlock(coord);
         BlockType BType = block.getType();
         Rotation rotation = block.getRotation();
 
@@ -42,8 +42,8 @@ public class DirectionCheck {
         return false;
     }
     public static boolean checkLeftEntrance(Coordinate coord){
-        Maze grid = lab.getGrid();
-        Block block = grid.GetBlock(coord);
+        MazeImpl grid = lab.getGrid();
+        BlockImpl block = grid.GetBlock(coord);
         BlockType BType = block.getType();
         Rotation rotation = block.getRotation();
 
@@ -69,8 +69,8 @@ public class DirectionCheck {
         return false;
     }
     public static boolean checkBottomEntrance(Coordinate coord){
-        Maze grid = lab.getGrid();
-        Block block = grid.GetBlock(coord);
+        MazeImpl grid = lab.getGrid();
+        BlockImpl block = grid.GetBlock(coord);
         BlockType BType = block.getType();
         Rotation rotation = block.getRotation();
 
@@ -96,8 +96,8 @@ public class DirectionCheck {
         return false;
     }
     public static boolean checkUpperEntrance(Coordinate coord){
-        Maze grid = lab.getGrid();
-        Block block = grid.GetBlock(coord);
+        MazeImpl grid = lab.getGrid();
+        BlockImpl block = grid.GetBlock(coord);
         BlockType BType = block.getType();
         Rotation rotation = block.getRotation();
 

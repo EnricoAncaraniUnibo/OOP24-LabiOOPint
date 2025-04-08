@@ -7,23 +7,23 @@ import java.awt.Image;
 import java.awt.geom.AffineTransform;
 import javax.swing.JPanel;
 
+import labioopint.model.Block.impl.BlockImpl;
 import labioopint.model.Core.impl.ImageLoader;
 import labioopint.model.Core.impl.TurnManager;
 import labioopint.model.Enemy.api.Enemy;
+import labioopint.model.Maze.impl.MazeImpl;
+import labioopint.model.Player.impl.PlayerImpl;
 import labioopint.model.PowerUp.api.PowerUp;
 import labioopint.model.api.Coordinate;
 import labioopint.model.api.DualMap;
-import labioopint.model.maze.impl.Block;
-import labioopint.model.maze.impl.Maze;
-import labioopint.model.player.impl.Player;
 
 public class DrawPanel extends JPanel {
         private static Integer pixelSize;
-        private Maze maze;
-        private DualMap<Player> coorPlayers;
+        private MazeImpl maze;
+        //private DualMap<PlayerImpl> coorPlayers;
         private DualMap<Enemy> coorEnemies;
         private DualMap<PowerUp> coorPowerUps;
-        private Block outsideBlock;
+        private BlockImpl outsideBlock;
         private Image CORRIDOR_IMAGE;
         private Image CORNER_IMAGE;
         private Image CROSSING_IMAGE;
@@ -40,11 +40,11 @@ public class DrawPanel extends JPanel {
                 CROSSING_IMAGE = ImageLoader.getImage("Crossing").get();
         }
 
-        public void draw(final Maze m, final DualMap<Player> mapPlayers,
+        public void draw(final MazeImpl m, final DualMap<PlayerImpl> mapPlayers,
                 final DualMap<Enemy> mapEnemies, final DualMap<PowerUp> mapPowerUps,
-                final Block outside) {
+                final BlockImpl outside) {
                 this.maze = m;
-                this.coorPlayers = mapPlayers;
+                //this.coorPlayers = mapPlayers;
                 this.coorEnemies = mapEnemies;
                 this.coorPowerUps = mapPowerUps;
                 this.outsideBlock = outside;
@@ -56,7 +56,7 @@ public class DrawPanel extends JPanel {
                 Graphics2D g2 = (Graphics2D) g;
                 AffineTransform old = g2.getTransform();
                 if(maze!=null) {
-                        Block b;
+                        BlockImpl b;
                         boolean end = false;
                         for (int i = 0; i <= maze.getSize() && end==false; i++) {
                                 for (int j = 0; j < maze.getSize() && end==false; j++) {
@@ -142,7 +142,7 @@ public class DrawPanel extends JPanel {
                                         }
                                 }
                         }
-                        for (Player p : TurnManager.GetPlayers()) {
+                        for (PlayerImpl p : TurnManager.GetPlayers()) {
                                 Coordinate c = TurnManager.GetLab().getPlayerCoordinate(p);
                                 if(p == TurnManager.GetCurrentPlayer()) {
                                         g2.drawImage(ImageLoader.getImage(""+p.getID()+"Turn").get(), c.getColumn()*pixelSize+pixelSize/4, c.getRow()*pixelSize+pixelSize/4,pixelSize*3/5,pixelSize*3/5, this);

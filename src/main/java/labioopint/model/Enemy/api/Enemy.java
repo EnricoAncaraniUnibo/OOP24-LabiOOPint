@@ -2,14 +2,14 @@ package labioopint.model.Enemy.api;
 
 import java.util.*;
 
+import labioopint.model.Player.impl.PlayerImpl;
 import labioopint.model.api.Coordinate;
-import labioopint.model.player.impl.Player;
 
 public interface Enemy {
 
-    Coordinate move(List<Player> players);
+    Coordinate move(List<PlayerImpl> players);
 
-    void playerHit(List<Player> players);
+    void playerHit(List<PlayerImpl> players);
     // nemico dice che ho colpito quel player
     EnemyAI getEnemyAI();
 }

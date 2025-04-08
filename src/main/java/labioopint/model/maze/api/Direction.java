@@ -1,4 +1,4 @@
-package labioopint.model.maze.api;
+package labioopint.model.Maze.api;
 
 public enum Direction {
     UP,

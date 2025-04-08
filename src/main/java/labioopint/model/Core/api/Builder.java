@@ -3,14 +3,14 @@ package labioopint.model.Core.api;
 import java.util.List;
 
 import labioopint.model.Enemy.api.Enemy;
-import labioopint.model.maze.impl.Labyrinth;
-import labioopint.model.player.impl.Player;
+import labioopint.model.Maze.impl.LabyrinthImpl;
+import labioopint.model.Player.impl.PlayerImpl;
 
 public interface Builder {
     
-    Labyrinth createMaze();
+    LabyrinthImpl createMaze();
 
-    List<Player> createPlayers();
+    List<PlayerImpl> createPlayers();
 
     Enemy createEnemy();
     

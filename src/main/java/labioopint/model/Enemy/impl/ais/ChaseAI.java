@@ -12,9 +12,9 @@ import java.util.stream.Collectors;
 
 
 import labioopint.model.Enemy.api.EnemyAI;
+import labioopint.model.Maze.impl.LabyrinthImpl;
+import labioopint.model.Player.impl.PlayerImpl;
 import labioopint.model.api.Coordinate;
-import labioopint.model.maze.impl.Labyrinth;
-import labioopint.model.player.impl.Player;
 
 /**
  * EnemyAI represents an enemy with artificial intelligence that can move
@@ -31,7 +31,7 @@ public class ChaseAI implements EnemyAI {
      * @param players the list of players in the game.
      */
     @Override
-    public Coordinate getNextPosition(final List<Player> players, final Coordinate current) {
+    public Coordinate getNextPosition(final List<PlayerImpl> players, final Coordinate current) {
 
         //TO DO
         List<Coordinate> walkableCells = maze.getLabyrinth()
@@ -58,7 +58,7 @@ public class ChaseAI implements EnemyAI {
      * @param players       the list of players in the game.
      * @return an optional list of coordinates representing the path to a player.
      */
-    private Optional<List<Coordinate>> getPath(final List<Coordinate> walkableCells, final List<Player> players, final Coordinate start) {
+    private Optional<List<Coordinate>> getPath(final List<Coordinate> walkableCells, final List<PlayerImpl> players, final Coordinate start) {
         List<Coordinate> playerPositions = players.stream()
                 .map(p -> p.getCoordinate())
                 .toList();

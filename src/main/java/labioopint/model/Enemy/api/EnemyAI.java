@@ -2,10 +2,10 @@ package labioopint.model.Enemy.api;
 
 import java.util.*;
 
+import labioopint.model.Player.impl.PlayerImpl;
 import labioopint.model.api.Coordinate;
-import labioopint.model.player.impl.Player;
 
 public interface EnemyAI {
 
-    Coordinate getNextPosition(List<Player> players, Coordinate current);
+    Coordinate getNextPosition(List<PlayerImpl> players, Coordinate current);
 }

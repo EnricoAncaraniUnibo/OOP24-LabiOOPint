@@ -1,100 +1,109 @@
-/*
 package labioopint.controller.impl;
 
-import labioopint.controller.api.ActionPredicate;
+import java.util.Optional;
+
 import labioopint.controller.api.DirectionCheck;
+import labioopint.controller.impl.ActionPredicate;
+import labioopint.model.Block.impl.BlockImpl;
+import labioopint.model.Core.impl.TurnManager;
 import labioopint.model.Enemy.api.Enemy;
-import labioopint.model.maze.api.Direction;
-import labioopint.model.maze.impl.Block;
-import labioopint.model.maze.impl.Labyrinth;
-import labioopint.model.player.impl.Player;
+import labioopint.model.Maze.api.Direction;
+import labioopint.model.Maze.impl.LabyrinthImpl;
+import labioopint.model.Player.impl.PlayerImpl;
 import labioopint.model.api.Coordinate;
 
-public class ActionPredicateImpl implements ActionPredicate {
+public class ActionPredicate{
+    private static LabyrinthImpl lab = TurnManager.GetLab();
+    private static Integer mazeSize = lab.getGrid().getSize();
 
-    @Override
-    public boolean PlayerCanMove(Player p, Direction dir, Labyrinth lab) {
+    public static boolean PlayerCanMove(PlayerImpl p, Direction dir) {
         Coordinate playerCoordinate = new Coordinate(lab.getPlayerCoordinate(p));
         if(dir == Direction.LEFT){
             Coordinate targetBlock = new Coordinate(playerCoordinate.getRow(),Integer.valueOf(playerCoordinate.getColumn()-1));
             if(playerCoordinate.getColumn() != 0 && 
-               DirectionCheck.checkLeftEntrance(lab, playerCoordinate) && 
-               DirectionCheck.checkRightEntrance(lab,targetBlock))
+               DirectionCheck.checkLeftEntrance(playerCoordinate) && 
+               DirectionCheck.checkRightEntrance(targetBlock))
             {return true;}
         }else if(dir == Direction.RIGHT){
             Coordinate targetBlock = new Coordinate(playerCoordinate.getRow(),Integer.valueOf(playerCoordinate.getColumn()+1));
-            if(playerCoordinate.getColumn() != lab.getGrid().getSize()-1 && 
-               DirectionCheck.checkRightEntrance(lab, playerCoordinate) && 
-               DirectionCheck.checkLeftEntrance(lab,targetBlock))
+            if(playerCoordinate.getColumn() != mazeSize-1 && 
+               DirectionCheck.checkRightEntrance(playerCoordinate) && 
+               DirectionCheck.checkLeftEntrance(targetBlock))
             {return true;}
         }else if(dir == Direction.UP){
             Coordinate targetBlock = new Coordinate(Integer.valueOf(playerCoordinate.getRow()-1),playerCoordinate.getColumn());
             if(playerCoordinate.getRow() != 0 && 
-               DirectionCheck.checkUpperEntrance(lab, playerCoordinate) && 
-               DirectionCheck.checkBottomEntrance(lab,targetBlock))
+               DirectionCheck.checkUpperEntrance(playerCoordinate) && 
+               DirectionCheck.checkBottomEntrance(targetBlock))
             {return true;}
         }else if(dir == Direction.DOWN){
             Coordinate targetBlock = new Coordinate(Integer.valueOf(playerCoordinate.getRow()+1),playerCoordinate.getColumn());
-            if(playerCoordinate.getRow() != lab.getGrid().getSize()-1 && 
-               DirectionCheck.checkBottomEntrance(lab, playerCoordinate) && 
-               DirectionCheck.checkUpperEntrance(lab,targetBlock))
+            if(playerCoordinate.getRow() != mazeSize-1 && 
+               DirectionCheck.checkBottomEntrance(playerCoordinate) && 
+               DirectionCheck.checkUpperEntrance(targetBlock))
             {return true;}
         }
         return false;
     }
 
-    @Override
-    public boolean BlockCanMove(Block b, Direction dir, Labyrinth lab) {
+    public static boolean BlockCanMove(Coordinate blockCoordinate) {
+        BlockImpl b = lab.getGrid().GetBlock(blockCoordinate);
+        if(b.IsMovable() && (blockCoordinate.getColumn() == 0 || blockCoordinate.getColumn() == mazeSize-1
+                         ||  blockCoordinate.getRow() == 0 || blockCoordinate.getRow() == mazeSize-1)){
+            return true;
+        }
+        return false;
+        /*
         if(dir == Direction.LEFT){
             Coordinate blockToMoveCoordinate = lab.getGrid().getCoordinate(b);
             Coordinate targetBlockCoordinate = new Coordinate(blockToMoveCoordinate.getRow(),Integer.valueOf(blockToMoveCoordinate.getColumn()-1));
-            if(blockToMoveCoordinate.getColumn() != 0 && b.IsMovable() && lab.getGrid().GetBlock(targetBlockCoordinate).IsMovable()){return true;}
+            if(blockToMoveCoordinate.getColumn() != 0 && lab.getGrid().GetBlock(targetBlockCoordinate).IsMovable()){return true;}
         }else if(dir == Direction.RIGHT){
             Coordinate blockToMoveCoordinate = lab.getGrid().getCoordinate(b);
             Coordinate targetBlockCoordinate = new Coordinate(blockToMoveCoordinate.getRow(),Integer.valueOf(blockToMoveCoordinate.getColumn()+1));
-            if(blockToMoveCoordinate.getColumn() != lab.getGrid().getSize()-1 && b.IsMovable() && lab.getGrid().GetBlock(targetBlockCoordinate).IsMovable()){return true;}
+            if(blockToMoveCoordinate.getColumn() != mazeSize-1 && lab.getGrid().GetBlock(targetBlockCoordinate).IsMovable()){return true;}
         }else if(dir == Direction.UP){
             Coordinate blockToMoveCoordinate = lab.getGrid().getCoordinate(b);
             Coordinate targetBlockCoordinate = new Coordinate(Integer.valueOf(blockToMoveCoordinate.getRow()-1),blockToMoveCoordinate.getColumn());
-            if(blockToMoveCoordinate.getRow() != 0 && b.IsMovable() && lab.getGrid().GetBlock(targetBlockCoordinate).IsMovable()){return true;}
+            if(blockToMoveCoordinate.getRow() != 0 && lab.getGrid().GetBlock(targetBlockCoordinate).IsMovable()){return true;}
         }else if(dir == Direction.DOWN){
             Coordinate blockToMoveCoordinate = lab.getGrid().getCoordinate(b);
             Coordinate targetBlockCoordinate = new Coordinate(Integer.valueOf(blockToMoveCoordinate.getRow()+1),blockToMoveCoordinate.getColumn());
-            if(blockToMoveCoordinate.getRow() != lab.getGrid().getSize()-1 && b.IsMovable() && lab.getGrid().GetBlock(targetBlockCoordinate).IsMovable()){return true;}
+            if(blockToMoveCoordinate.getRow() != mazeSize-1 && lab.getGrid().GetBlock(targetBlockCoordinate).IsMovable()){return true;}
         }
         return false;
+         */
     }
 
-    @Override
-    public boolean EnemyCanMove(Enemy e, Direction dir, Labyrinth lab) {
-        Coordinate enemyCoordinate = new Coordinate(lab.getEnemyCoordinate(e));
+    public static boolean EnemyCanMove(Direction dir) {
+        Optional<Enemy> e = TurnManager.GetEnemy();
+        Coordinate enemyCoordinate = new Coordinate(lab.getEnemyCoordinate(e.get()));
         if(dir == Direction.LEFT){
             Coordinate targetBlock = new Coordinate(enemyCoordinate.getRow(),Integer.valueOf(enemyCoordinate.getColumn()-1));
             if(enemyCoordinate.getColumn() != 0 && 
-               DirectionCheck.checkLeftEntrance(lab, enemyCoordinate) && 
-               DirectionCheck.checkRightEntrance(lab,targetBlock))
+               DirectionCheck.checkLeftEntrance(enemyCoordinate) && 
+               DirectionCheck.checkRightEntrance(targetBlock))
             {return true;}
         }else if(dir == Direction.RIGHT){
             Coordinate targetBlock = new Coordinate(enemyCoordinate.getRow(),Integer.valueOf(enemyCoordinate.getColumn()+1));
-            if(enemyCoordinate.getColumn() != lab.getGrid().getSize()-1 && 
-               DirectionCheck.checkRightEntrance(lab, enemyCoordinate) && 
-               DirectionCheck.checkLeftEntrance(lab,targetBlock))
+            if(enemyCoordinate.getColumn() != mazeSize-1 && 
+               DirectionCheck.checkRightEntrance(enemyCoordinate) && 
+               DirectionCheck.checkLeftEntrance(targetBlock))
             {return true;}
         }else if(dir == Direction.UP){
             Coordinate targetBlock = new Coordinate(Integer.valueOf(enemyCoordinate.getRow()-1),enemyCoordinate.getColumn());
             if(enemyCoordinate.getRow() != 0 && 
-               DirectionCheck.checkUpperEntrance(lab, enemyCoordinate) && 
-               DirectionCheck.checkBottomEntrance(lab,targetBlock))
+               DirectionCheck.checkUpperEntrance(enemyCoordinate) && 
+               DirectionCheck.checkBottomEntrance(targetBlock))
             {return true;}
         }else if(dir == Direction.DOWN){
             Coordinate targetBlock = new Coordinate(Integer.valueOf(enemyCoordinate.getRow()+1),enemyCoordinate.getColumn());
-            if(enemyCoordinate.getRow() != lab.getGrid().getSize()-1 && 
-               DirectionCheck.checkBottomEntrance(lab, enemyCoordinate) && 
-               DirectionCheck.checkUpperEntrance(lab,targetBlock))
+            if(enemyCoordinate.getRow() != mazeSize-1 && 
+               DirectionCheck.checkBottomEntrance(enemyCoordinate) && 
+               DirectionCheck.checkUpperEntrance(targetBlock))
             {return true;}
         }
         return false;
     }
     
 }
-*/
