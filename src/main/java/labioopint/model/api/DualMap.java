@@ -50,4 +50,8 @@ public class DualMap<X> {
         }
         return false;
     }
+
+    public int getNumberOfElements() {
+        return mapFromElement.keySet().size();
+    }
 }

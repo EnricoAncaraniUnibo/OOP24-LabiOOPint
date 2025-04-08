@@ -11,7 +11,7 @@ public class Settings {
     public Settings(){
         enemyNumber = Integer.valueOf(1);
         playerNumber = Integer.valueOf(4);
-        powerUp = Integer.valueOf(1);
+        powerUp = Integer.valueOf(2);
         enemyDifficulty = EnemyDifficulty.EASY;
     }
 
