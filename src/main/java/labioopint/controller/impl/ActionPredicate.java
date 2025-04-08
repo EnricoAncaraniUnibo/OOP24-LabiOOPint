@@ -3,7 +3,6 @@ package labioopint.controller.impl;
 import java.util.Optional;
 
 import labioopint.controller.api.DirectionCheck;
-import labioopint.controller.impl.ActionPredicate;
 import labioopint.model.Block.impl.BlockImpl;
 import labioopint.model.Core.impl.TurnManager;
 import labioopint.model.Enemy.api.Enemy;
