@@ -8,10 +8,17 @@ import javax.imageio.ImageIO;
 
 import java.awt.*;
 import java.io.File;
-
+/**
+ * The ImageLoader class is responsible for loading and managing images used in the application.
+ * It provides methods to load images from files and retrieve them by name.
+ */
 public class ImageLoader {
     private static Map<String,Image> imageMap;
-
+    /**
+     * Loads images from the specified file paths and stores them in a map for later retrieval.
+     * The images are categorized by their names, which are used as keys in the map.
+     * If an error occurs during loading, the exception is printed to the console.
+     */
     public static void load() {
         imageMap = new HashMap<>();
         try {
@@ -32,7 +39,12 @@ public class ImageLoader {
                 e.printStackTrace();
         }
     }
-
+    /**
+     * Retrieves an image by its name from the loaded images.
+     *
+     * @param name the name of the image to retrieve
+     * @return an Optional containing the image if found, or an empty Optional if not found
+     */
     public static Optional<Image> getImage(String name) {
         if(imageMap.containsKey(name)) {
             return Optional.ofNullable(imageMap.get(name));

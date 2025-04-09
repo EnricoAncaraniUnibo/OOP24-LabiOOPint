@@ -30,6 +30,8 @@ public class GameView extends JFrame {
     JButton rightButton;
     JButton downButton;
     JLabel actionLabel;
+    JButton endTurnButton;
+    JComboBox<String> comboBox;
 
     public GameView() {
         setTitle("LabiOPPint");
@@ -90,7 +92,7 @@ public class GameView extends JFrame {
         controlPanel.add(movementPanel);
 
         String[] options = InformationMessenger.getPowerUpsList();
-        JComboBox<String> comboBox = new JComboBox<>(options);
+        comboBox = new JComboBox<>(options);
         controlPanel.add(comboBox);
 
         // Aggiunta un ActionListener alla ComboBox per gestire l'evento di selezione
@@ -101,7 +103,8 @@ public class GameView extends JFrame {
         powerUpButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         controlPanel.add(powerUpButton);
 
-        JButton endTurnButton = new JButton("End Turn");
+        endTurnButton = new JButton("End Turn");
+        endTurnButton.setVisible(false);
         endTurnButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         controlPanel.add(endTurnButton);
 
@@ -115,6 +118,7 @@ public class GameView extends JFrame {
                         pu.activate(TurnManager.GetCurrentPlayer());
                     }
                 }
+                updateComboBox();
             }
         });
 
@@ -129,6 +133,7 @@ public class GameView extends JFrame {
                 for (String option : options) {
                     comboBox.addItem(option);
                 }
+                endTurnButton.setVisible(false);
                 upButton.setVisible(false);
                 downButton.setVisible(false);
                 actionLabel.setText(InformationMessenger.getAction());
@@ -186,16 +191,27 @@ public class GameView extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 GameController.action(text);
+                updateComboBox();
             }
         });
         return button;
     }
+    
+    private void updateComboBox() {
+    	String[] options = InformationMessenger.getPowerUpsList();
+        comboBox.removeAllItems();
+        for (String option : options) {
+            comboBox.addItem(option);
+        }
+    }
 
     public void update(final MazeImpl grid, final DualMap<PlayerImpl> mapPlayers, final DualMap<Enemy> mapEnemies, final DualMap<PowerUp> mapPowerUps,BlockImpl outside) {
         if(TurnManager.GetCurrentAction() == ActionType.BLOCK_PLACEMENT) {
+        	endTurnButton.setVisible(false);
             upButton.setVisible(false);
             downButton.setVisible(false);
         } else {
+        	endTurnButton.setVisible(true);
             upButton.setVisible(true);
             downButton.setVisible(true);
         }

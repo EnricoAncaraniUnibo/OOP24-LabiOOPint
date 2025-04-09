@@ -32,7 +32,7 @@ public class PlayerImpl extends Movable implements Player {
 
     @Override
     public List<PowerUp> getObjetives() {
-        return usablePowerUps;
+        return objectives;
     }
 
     @Override

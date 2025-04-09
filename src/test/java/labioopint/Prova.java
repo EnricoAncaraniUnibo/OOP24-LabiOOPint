@@ -7,7 +7,7 @@ public class Prova {
     public static void main(String[] args) {
         Settings test = new Settings(1,4,2);
         try {
-            TurnManager turn = new TurnManager(test);
+            TurnManager.Init(test);
         } catch (Exception e) {
            
         }

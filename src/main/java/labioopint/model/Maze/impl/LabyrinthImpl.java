@@ -1,7 +1,6 @@
 package labioopint.model.Maze.impl;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,10 +11,8 @@ import labioopint.model.Core.impl.TurnManager;
 import labioopint.model.Enemy.api.Enemy;
 import labioopint.model.Maze.api.Direction;
 import labioopint.model.Maze.api.Labyrinth;
-import labioopint.model.Player.api.Player;
 import labioopint.model.Player.impl.PlayerImpl;
 import labioopint.model.PowerUp.api.PowerUp;
-import labioopint.model.PowerUp.impl.SwapPositionPowerUp;
 import labioopint.model.api.Coordinate;
 import labioopint.model.api.CoordinateGenerator;
 import labioopint.model.api.DualMap;
@@ -206,7 +203,7 @@ public class LabyrinthImpl implements Labyrinth {
     }
 
     @Override
-    public Coordinate getPowerUp(final PowerUp p) {
+    public Coordinate getPowerUpCoordinate(final PowerUp p) {
         return mapOfPowerUps.getCoordinateFromElement(p);
     }
 
@@ -258,10 +255,6 @@ public class LabyrinthImpl implements Labyrinth {
             mapOfEnemy.remove(e);
             mapOfEnemy.addElemWithCoordinate(e, coor);
         }
-        Optional<Player> p = checkWin();
-        if(p.isPresent()) {
-            System.exit(0);
-        }
         labyController.updateGraphics(grid,mapOfPlayers,mapOfEnemy,mapOfPowerUps,outsideBlock);
     }
 
@@ -280,35 +273,5 @@ public class LabyrinthImpl implements Labyrinth {
     public void addPowerUp(PowerUp p) {
         CoordinateGenerator cg = new CoordinateGenerator(grid.getSize());
         mapOfPowerUps.addElemWithCoordinate(p, cg.getRandomCoordinate());
-    }
-
-    public Optional<Player> checkWin() {
-        if(mapOfPowerUps.getNumberOfElements()==0) {
-            List<Integer> ls = new ArrayList<>();
-            for (Player p : TurnManager.GetPlayers()) {
-                ls.add(p.getObjetives().size());
-            }
-            ls.sort(new Comparator<Integer>() {
-
-                @Override
-                public int compare(Integer o1, Integer o2) {
-                    return o1-o2;
-                }
-                
-            });;
-            if(ls.get(0)==ls.get(1)) {
-                PowerUp p = new SwapPositionPowerUp();
-                mapOfPowerUps.addElemWithCoordinate(p, new CoordinateGenerator(grid.getSize()).getRandomCoordinate());
-                labyController.updateGraphics(grid, mapOfPlayers, mapOfEnemy, mapOfPowerUps, outsideBlock);
-                return Optional.empty();
-            } else {
-                for (Player p : TurnManager.GetPlayers()) {
-                    if(p.getObjetives().size()==ls.get(0)) {
-                        return Optional.ofNullable(p);
-                    }
-                }
-            }
-        }
-        return Optional.empty();
     }
 }

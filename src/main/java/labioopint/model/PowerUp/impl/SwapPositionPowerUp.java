@@ -17,21 +17,24 @@ public class SwapPositionPowerUp extends PowerUpImpl {
 
     @Override
     public void activate(PlayerImpl currentPlayer) {
-        if (isCollected()) {
-            Coordinate currentPlayerCoordinate = TurnManager.GetLab().getPlayerCoordinate(currentPlayer);
-            Random random = new Random();
-            while(this.condition) {
-                PlayerImpl playerSwap = TurnManager.GetPlayers().get(random.nextInt(TurnManager.GetPlayers().size()));
-                Coordinate playerSwapCoordinate = TurnManager.GetLab().getPlayerCoordinate(playerSwap);
-                if(TurnManager.GetPlayers().size() < 2) {
-                    this.condition = false;
-                } 
-                else if(TurnManager.GetPlayers().size() > 1 && !currentPlayer.equals(playerSwap)){
-                    TurnManager.GetLab().absoluteUpdateCoordinate(playerSwap,currentPlayerCoordinate);
-                    TurnManager.GetLab().absoluteUpdateCoordinate(currentPlayer,playerSwapCoordinate);
-                    this.condition = false;
-                }
-            }
-        }
+    	if(currentPlayer.getUsablePowerUps().contains(this)) {
+    		if (isCollected()) {
+	            Coordinate currentPlayerCoordinate = TurnManager.GetLab().getPlayerCoordinate(currentPlayer);
+	            Random random = new Random();
+	            while(this.condition) {
+	                PlayerImpl playerSwap = TurnManager.GetPlayers().get(random.nextInt(TurnManager.GetPlayers().size()));
+	                Coordinate playerSwapCoordinate = TurnManager.GetLab().getPlayerCoordinate(playerSwap);
+	                if(TurnManager.GetPlayers().size() < 2) {
+	                    this.condition = false;
+	                } 
+	                else if(TurnManager.GetPlayers().size() > 1 && !currentPlayer.equals(playerSwap)){
+	                    TurnManager.GetLab().absoluteUpdateCoordinate(playerSwap,currentPlayerCoordinate);
+	                    TurnManager.GetLab().absoluteUpdateCoordinate(currentPlayer,playerSwapCoordinate);
+	                    this.condition = false;
+	                }
+	            }
+	        }
+    		currentPlayer.removePowerUp(this);
+    	}
     }
 }

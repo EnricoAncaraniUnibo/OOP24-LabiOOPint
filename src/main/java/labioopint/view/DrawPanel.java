@@ -16,8 +16,15 @@ import labioopint.model.Player.impl.PlayerImpl;
 import labioopint.model.PowerUp.api.PowerUp;
 import labioopint.model.api.Coordinate;
 import labioopint.model.api.DualMap;
-
+/**
+ * The DrawPanel class is responsible for rendering the labyrinth (maze) and its elements,
+ * such as blocks, players, enemies, and power-ups, on a graphical panel.
+ * It extends the JPanel class and uses the Graphics2D API for drawing.
+ */
 public class DrawPanel extends JPanel {
+		/**
+	     * The size of each block in pixels.
+	     */
         private static Integer pixelSize;
         private MazeImpl maze;
         //private DualMap<PlayerImpl> coorPlayers;
@@ -27,11 +34,22 @@ public class DrawPanel extends JPanel {
         private Image CORRIDOR_IMAGE;
         private Image CORNER_IMAGE;
         private Image CROSSING_IMAGE;
-
+        
+        /**
+         * Retrieves the size of each block in pixels.
+         *
+         * @return the block size in pixels
+         */
         public static Integer getBlockSize() {
                 return pixelSize;
         }
-
+        
+        /**
+         * Constructs a DrawPanel with the specified size.
+         * Initializes the block size and loads the required images.
+         *
+         * @param size the dimensions of the panel
+         */
         public DrawPanel(final Dimension size) {
                 pixelSize = (int) size.getWidth() / 13;
                 ImageLoader.load();
@@ -39,7 +57,16 @@ public class DrawPanel extends JPanel {
                 CORNER_IMAGE = ImageLoader.getImage("Corner").get();
                 CROSSING_IMAGE = ImageLoader.getImage("Crossing").get();
         }
-
+        /**
+         * Updates the panel with the current state of the maze, players, enemies, power-ups,
+         * and the block outside the maze, and triggers a repaint.
+         *
+         * @param m the maze to be drawn
+         * @param mapPlayers the mapping of players to their coordinates
+         * @param mapEnemies the mapping of enemies to their coordinates
+         * @param mapPowerUps the mapping of power-ups to their coordinates
+         * @param outside the block currently outside the maze
+         */
         public void draw(final MazeImpl m, final DualMap<PlayerImpl> mapPlayers,
                 final DualMap<Enemy> mapEnemies, final DualMap<PowerUp> mapPowerUps,
                 final BlockImpl outside) {
@@ -50,7 +77,12 @@ public class DrawPanel extends JPanel {
                 this.outsideBlock = outside;
                 repaint();
         }
-
+        /**
+         * Paints the components of the panel, including the maze, blocks, players, enemies,
+         * and power-ups, using the Graphics2D API.
+         *
+         * @param g the Graphics object used for drawing
+         */
         protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 Graphics2D g2 = (Graphics2D) g;
@@ -129,14 +161,6 @@ public class DrawPanel extends JPanel {
                                         if(coorPowerUps.isPresentByCoordinate(new Coordinate(i,j))) {
                                                 g2.drawImage(ImageLoader.getImage(coorPowerUps.getElemFromCoordinate(new Coordinate(i, j)).getName()).get(), j*pixelSize+pixelSize/4, i*pixelSize+pixelSize/4,pixelSize*3/5,pixelSize*3/5, this);
                                         }
-                                        // if(coorPlayers.isPresentByCoordinate(new Coordinate(i, j))) {
-                                        //         Player p = coorPlayers.getElemFromCoordinate(new Coordinate(i, j));
-                                        //         if(p == TurnManager.GetCurrentPlayer()) {
-                                        //                 g2.drawImage(ImageLoader.getImage(""+coorPlayers.getElemFromCoordinate(new Coordinate(i, j)).getID()+"Turn").get(), j*pixelSize+pixelSize/4, i*pixelSize+pixelSize/4,pixelSize*3/5,pixelSize*3/5, this);
-                                        //         }else {
-                                        //                 g2.drawImage(ImageLoader.getImage(""+coorPlayers.getElemFromCoordinate(new Coordinate(i, j)).getID()).get(), j*pixelSize+pixelSize/4, i*pixelSize+pixelSize/4,pixelSize*3/5,pixelSize*3/5, this);
-                                        //         }
-                                        // }
                                         if(coorEnemies.isPresentByCoordinate(new Coordinate(i, j))) {
                                                 g2.drawImage(ImageLoader.getImage("Monster").get(), j*pixelSize+pixelSize/4, i*pixelSize+pixelSize/4,pixelSize*3/5,pixelSize*3/5, this);
                                         }
