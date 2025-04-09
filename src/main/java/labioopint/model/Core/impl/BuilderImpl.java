@@ -89,7 +89,7 @@ public class BuilderImpl {
      * @return a BaseEnemy instance.
      * @throws Exception
      */
-    public Optional<Enemy> createEnemy() throws Exception {
+    public Optional<Enemy> createEnemy(){
         if (type == EnemyDifficulty.EASY) {
             Optional<Enemy> enemy = Optional.of(enemyFactory.createSingleStepEnemy());
             return enemy;

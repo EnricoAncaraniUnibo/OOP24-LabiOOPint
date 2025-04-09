@@ -2,13 +2,14 @@ package labioopint.model.Maze.api;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import labioopint.model.Block.impl.BlockImpl;
 import labioopint.model.api.Coordinate;
 
 public interface Maze {
 
-    BlockImpl GetBlock(Coordinate c);
+    Optional<BlockImpl> GetBlock(Coordinate c);
 
     Coordinate getCoordinate(BlockImpl b);
 

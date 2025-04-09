@@ -85,23 +85,23 @@ public class LabyrinthImpl implements Labyrinth {
 
     private BlockImpl shiftRow(final Integer number, final Direction d) {
         if (d.equals(Direction.RIGHT)) {
-            BlockImpl last = grid.GetBlock(new Coordinate(number, 0));
+            BlockImpl last = grid.GetBlock(new Coordinate(number, 0)).get();
             moveObjectBlock(new Coordinate(number, 0), d);
             BlockImpl Saved;
             grid.ChangeCoordinate(new Coordinate(number,0), outsideBlock);
             for (int i = 1; i < grid.getSize(); i++) {
-                Saved = grid.GetBlock(new Coordinate(number,i));
+                Saved = grid.GetBlock(new Coordinate(number,i)).get();
                 grid.ChangeCoordinate(new Coordinate(number, i), last);
                 last=Saved;
             }
             return last;
         } else {
-            BlockImpl last = grid.GetBlock(new Coordinate(number, grid.getSize()-1));
+            BlockImpl last = grid.GetBlock(new Coordinate(number, grid.getSize()-1)).get();
             moveObjectBlock(new Coordinate(number, grid.getSize()-1), d);
             BlockImpl Saved;
             grid.ChangeCoordinate(new Coordinate(number,grid.getSize()-1), outsideBlock);
             for (int i = grid.getSize()-2; i >= 0; i--) {
-                Saved = grid.GetBlock(new Coordinate(number,i));
+                Saved = grid.GetBlock(new Coordinate(number,i)).get();
                 grid.ChangeCoordinate(new Coordinate(number, i), last);
                 last=Saved;
             }
@@ -111,23 +111,23 @@ public class LabyrinthImpl implements Labyrinth {
 
     private BlockImpl shiftColumn(final Integer number, final Direction d) {
         if (d.equals(Direction.UP)) {
-            BlockImpl last = grid.GetBlock(new Coordinate(grid.getSize()-1, number));
+            BlockImpl last = grid.GetBlock(new Coordinate(grid.getSize()-1, number)).get();
             moveObjectBlock(new Coordinate(grid.getSize()-1, number), d);
             BlockImpl Saved;
             grid.ChangeCoordinate(new Coordinate(grid.getSize()-1, number), outsideBlock);
             for (int i = grid.getSize()-2; i >= 0; i--) {
-                Saved = grid.GetBlock(new Coordinate(i,number));
+                Saved = grid.GetBlock(new Coordinate(i,number)).get();
                 grid.ChangeCoordinate(new Coordinate(i, number), last);
                 last=Saved;
             }
             return last;
         } else {
-            BlockImpl last = grid.GetBlock(new Coordinate(0, number));
+            BlockImpl last = grid.GetBlock(new Coordinate(0, number)).get();
             moveObjectBlock(new Coordinate(0, number), d);
             BlockImpl Saved;
             grid.ChangeCoordinate(new Coordinate(0,number), outsideBlock);
             for (int i = 1; i < grid.getSize(); i++) {
-                Saved = grid.GetBlock(new Coordinate(i,number));
+                Saved = grid.GetBlock(new Coordinate(i,number)).get();
                 grid.ChangeCoordinate(new Coordinate(i,number), last);
                 last=Saved;
             }

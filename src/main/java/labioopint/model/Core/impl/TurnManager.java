@@ -20,7 +20,7 @@ public class TurnManager {
     private static ActionType currentAction;
     private static int index;
 
-    public TurnManager(Settings st) throws Exception{
+    public TurnManager(Settings st){
         currentAction = ActionType.BLOCK_PLACEMENT;
         index = 0;
         BuilderImpl bi = new BuilderImpl(st);

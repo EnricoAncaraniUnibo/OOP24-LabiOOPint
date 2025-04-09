@@ -1,0 +1,215 @@
+package labioopint.Labyrinth;
+
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+import labioopint.model.Block.api.Block;
+import labioopint.model.Block.api.BlockType;
+import labioopint.model.Block.api.Rotation;
+import labioopint.model.Block.impl.BlockImpl;
+import labioopint.model.Maze.api.Maze;
+import labioopint.model.Maze.impl.SimpleMazeImpl;
+import labioopint.model.api.Coordinate;
+
+public class GenerateMazeTest {
+	private final static Integer SIZE1 = 7;
+	private final static Integer SIZE2 = 5;
+    private static Maze gridTest1;
+    private static Maze gridTest2;
+    private static Block OutsideBlock1;
+    private static Block OutsideBlock2;
+    
+    @BeforeAll
+    static void init() {
+    	gridTest1 = new SimpleMazeImpl(SIZE1);
+    	gridTest2 = new SimpleMazeImpl(SIZE2);
+    	OutsideBlock1 = gridTest1.Generate();
+    	OutsideBlock2 = gridTest2.Generate();
+    }
+    
+    @Test
+    void CorrectGeneration() {
+    	boolean correctGeneration1=true;
+    	boolean correctGeneration2=true;
+    	for (int i=0;i<SIZE1;i++) {
+    		for(int j=0;j<SIZE1;j++) {
+    			Optional<BlockImpl> b = gridTest1.GetBlock(new Coordinate(i,j));
+    			if(b.isEmpty()) {
+    				correctGeneration1=false;
+    			}
+    		}
+    	}
+    	assertTrue(correctGeneration1);
+    	for (int i=0;i<SIZE2;i++) {
+    		for(int j=0;j<SIZE2;j++) {
+    			Optional<BlockImpl> b = gridTest2.GetBlock(new Coordinate(i,j));
+    			if(b.isEmpty()) {
+    				correctGeneration2=false;
+    			}
+    		}
+    	}
+    	assertTrue(correctGeneration2);
+    }
+    
+    @Test
+    void NoBlockOutsideRange() {
+    	boolean correctGeneration1=true;
+    	boolean correctGeneration2=true;
+    	for(int i=0;i<SIZE1;i++) {
+    		Optional<BlockImpl> b = gridTest1.GetBlock(new Coordinate(i,-1));
+    		if(b.isPresent()) {
+    			correctGeneration1=false;
+    		}
+    	}
+    	for(int i=0;i<SIZE1;i++) {
+    		Optional<BlockImpl> b = gridTest1.GetBlock(new Coordinate(i,SIZE1));
+    		if(b.isPresent()) {
+    			correctGeneration1=false;
+    		}
+    	}
+    	for(int i=0;i<SIZE1;i++) {
+    		Optional<BlockImpl> b = gridTest1.GetBlock(new Coordinate(-1,i));
+    		if(b.isPresent()) {
+    			correctGeneration1=false;
+    		}
+    	}
+    	for(int i=0;i<SIZE1;i++) {
+    		Optional<BlockImpl> b = gridTest1.GetBlock(new Coordinate(SIZE1,i));
+    		if(b.isPresent()) {
+    			correctGeneration1=false;
+    		}
+    	}
+    	assertTrue(correctGeneration1);
+    	
+    	for(int i=0;i<SIZE2;i++) {
+    		Optional<BlockImpl> b = gridTest2.GetBlock(new Coordinate(i,-1));
+    		if(b.isPresent()) {
+    			correctGeneration2=false;
+    		}
+    	}
+    	for(int i=0;i<SIZE2;i++) {
+    		Optional<BlockImpl> b = gridTest2.GetBlock(new Coordinate(i,SIZE1));
+    		if(b.isPresent()) {
+    			correctGeneration2=false;
+    		}
+    	}
+    	for(int i=0;i<SIZE2;i++) {
+    		Optional<BlockImpl> b = gridTest2.GetBlock(new Coordinate(-1,i));
+    		if(b.isPresent()) {
+    			correctGeneration2=false;
+    		}
+    	}
+    	for(int i=0;i<SIZE2;i++) {
+    		Optional<BlockImpl> b = gridTest2.GetBlock(new Coordinate(SIZE1,i));
+    		if(b.isPresent()) {
+    			correctGeneration2=false;
+    		}
+    	}
+    	assertTrue(correctGeneration2);
+    }
+    
+    @Test
+    void CheckNoDoubleBlocks() {
+    	boolean correctGeneration1=true;
+    	boolean correctGeneration2=true;
+    	for(int i=0;i<SIZE1;i++) {
+    		for(int j=0;j<SIZE1;j++) {
+    			Optional<BlockImpl> b = gridTest1.GetBlock(new Coordinate(i,j));
+    			for(int x=0;i<SIZE1;i++) {
+    	    		for(int y=0;j<SIZE1;j++) {
+    	    			Optional<BlockImpl> test = gridTest1.GetBlock(new Coordinate(x,y));
+    	    			if(b.equals(test) && i!=x && j!=y) {
+    	    				correctGeneration1=false;
+    	    			}
+    	    		}
+    	    	}
+    		}
+    	}
+    	assertTrue(correctGeneration1);
+    	
+    	for(int i=0;i<SIZE2;i++) {
+    		for(int j=0;j<SIZE2;j++) {
+    			Optional<BlockImpl> b = gridTest2.GetBlock(new Coordinate(i,j));
+    			for(int x=0;i<SIZE2;i++) {
+    	    		for(int y=0;j<SIZE2;j++) {
+    	    			Optional<BlockImpl> test = gridTest2.GetBlock(new Coordinate(x,y));
+    	    			if(b.equals(test) && i!=x && j!=y) {
+    	    				correctGeneration2=false;
+    	    			}
+    	    		}
+    	    	}
+    		}
+    	}
+    	assertTrue(correctGeneration2);
+    }
+    
+    @Test
+    void CorrectOutsideBlock() {
+    	boolean correctOutside1=true;
+    	boolean correctOutside2=true;
+    	for(int i=0;i<SIZE1;i++) {
+    		for(int j=0;j<SIZE1;j++) {
+    			Optional<BlockImpl> b = gridTest1.GetBlock(new Coordinate(i,j));
+    			if(b.equals(OutsideBlock1)) {
+    				correctOutside1=false;
+    			}
+    		}
+    	}
+    	assertTrue(correctOutside1);
+    	
+    	for(int i=0;i<SIZE2;i++) {
+    		for(int j=0;j<SIZE2;j++) {
+    			Optional<BlockImpl> b = gridTest2.GetBlock(new Coordinate(i,j));
+    			if(b.equals(OutsideBlock2)) {
+    				correctOutside2=false;
+    			}
+    		}
+    	}
+    	assertTrue(correctOutside2);
+    }
+    
+    @Test
+    void CorrectStartingBlockRotation() {
+    	boolean correctGeneration1=true;
+    	boolean correctGeneration2=true;
+    	Optional<BlockImpl> b = gridTest1.GetBlock(new Coordinate(0,0));
+    	if(!b.get().getRotation().equals(Rotation.ZERO) || !b.get().getType().equals(BlockType.CORNER)) {
+    		correctGeneration1=false;
+    	}
+    	b = gridTest1.GetBlock(new Coordinate(0,SIZE1-1));
+    	if(!b.get().getRotation().equals(Rotation.TWO_HUNDRED_SEVENTY) || !b.get().getType().equals(BlockType.CORNER)) {
+    		correctGeneration1=false;
+    	}
+    	b = gridTest1.GetBlock(new Coordinate(SIZE1-1,SIZE1-1));
+    	if(!b.get().getRotation().equals(Rotation.ONE_HUNDRED_EIGHTY) || !b.get().getType().equals(BlockType.CORNER)) {
+    		correctGeneration1=false;
+    	}
+    	b = gridTest1.GetBlock(new Coordinate(SIZE1-1,0));
+    	if(!b.get().getRotation().equals(Rotation.NINETY) || !b.get().getType().equals(BlockType.CORNER)) {
+    		correctGeneration1=false;
+    	}
+    	assertTrue(correctGeneration1);
+    	
+    	b = gridTest2.GetBlock(new Coordinate(0,0));
+    	if(!b.get().getRotation().equals(Rotation.ZERO) || !b.get().getType().equals(BlockType.CORNER)) {
+    		correctGeneration2=false;
+    	}
+    	b = gridTest2.GetBlock(new Coordinate(0,SIZE2-1));
+    	if(!b.get().getRotation().equals(Rotation.TWO_HUNDRED_SEVENTY) || !b.get().getType().equals(BlockType.CORNER)) {
+    		correctGeneration2=false;
+    	}
+    	b = gridTest2.GetBlock(new Coordinate(SIZE2-1,SIZE2-1));
+    	if(!b.get().getRotation().equals(Rotation.ONE_HUNDRED_EIGHTY) || !b.get().getType().equals(BlockType.CORNER)) {
+    		correctGeneration2=false;
+    	}
+    	b = gridTest2.GetBlock(new Coordinate(SIZE2-1,0));
+    	if(!b.get().getRotation().equals(Rotation.NINETY) || !b.get().getType().equals(BlockType.CORNER)) {
+    		correctGeneration2=false;
+    	}
+    	assertTrue(correctGeneration2);
+    }
+}

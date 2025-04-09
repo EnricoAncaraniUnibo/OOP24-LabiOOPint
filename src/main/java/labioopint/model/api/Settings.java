@@ -8,11 +8,11 @@ public class Settings {
     Integer powerUp;
     EnemyDifficulty enemyDifficulty;
 
-    public Settings(){
-        enemyNumber = Integer.valueOf(1);
-        playerNumber = Integer.valueOf(4);
-        powerUp = Integer.valueOf(2);
-        enemyDifficulty = EnemyDifficulty.EASY;
+    public Settings(Integer enemyNumber, Integer playerNumber, Integer powerUp){
+        this.enemyNumber = enemyNumber;
+        this.playerNumber = playerNumber;
+        this.powerUp = powerUp;
+        this.enemyDifficulty = EnemyDifficulty.EASY;
     }
 
     public Integer getPowerUps() {

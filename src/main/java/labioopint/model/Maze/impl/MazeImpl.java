@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import labioopint.model.Block.impl.BlockImpl;
 import labioopint.model.Maze.api.Maze;
@@ -21,13 +22,13 @@ public abstract class MazeImpl implements Maze {
     }
 
     @Override
-    public BlockImpl GetBlock(final Coordinate c) {
+    public Optional<BlockImpl> GetBlock(final Coordinate c) {
         for (Coordinate coor : grid.keySet()) {
             if(c.getRow().equals(coor.getRow()) && c.getColumn().equals(coor.getColumn())) {
-                return grid.get(coor);
+                return Optional.of(grid.get(coor));
             }
         }
-        return null;
+        return Optional.empty();
     }
 
     @Override
