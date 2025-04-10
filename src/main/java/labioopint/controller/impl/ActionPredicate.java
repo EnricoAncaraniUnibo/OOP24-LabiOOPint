@@ -74,35 +74,39 @@ public class ActionPredicate{
          */
     }
 
-    public static boolean EnemyCanMove(Direction dir) {
-        Optional<Enemy> e = TurnManager.GetEnemy();
-        Coordinate enemyCoordinate = new Coordinate(lab.getEnemyCoordinate(e.get()));
+    public static boolean CanMoveFromPosition(Coordinate coor, Direction dir) {
         if(dir == Direction.LEFT){
-            Coordinate targetBlock = new Coordinate(enemyCoordinate.getRow(),Integer.valueOf(enemyCoordinate.getColumn()-1));
-            if(enemyCoordinate.getColumn() != 0 && 
-               DirectionCheck.checkLeftEntrance(enemyCoordinate) && 
+            Coordinate targetBlock = new Coordinate(coor.getRow(),Integer.valueOf(coor.getColumn()-1));
+            if(coor.getColumn() != 0 && 
+               DirectionCheck.checkLeftEntrance(coor) && 
                DirectionCheck.checkRightEntrance(targetBlock))
             {return true;}
         }else if(dir == Direction.RIGHT){
-            Coordinate targetBlock = new Coordinate(enemyCoordinate.getRow(),Integer.valueOf(enemyCoordinate.getColumn()+1));
-            if(enemyCoordinate.getColumn() != mazeSize-1 && 
-               DirectionCheck.checkRightEntrance(enemyCoordinate) && 
+            Coordinate targetBlock = new Coordinate(coor.getRow(),Integer.valueOf(coor.getColumn()+1));
+            if(coor.getColumn() != mazeSize-1 && 
+               DirectionCheck.checkRightEntrance(coor) && 
                DirectionCheck.checkLeftEntrance(targetBlock))
             {return true;}
         }else if(dir == Direction.UP){
-            Coordinate targetBlock = new Coordinate(Integer.valueOf(enemyCoordinate.getRow()-1),enemyCoordinate.getColumn());
-            if(enemyCoordinate.getRow() != 0 && 
-               DirectionCheck.checkUpperEntrance(enemyCoordinate) && 
+            Coordinate targetBlock = new Coordinate(Integer.valueOf(coor.getRow()-1),coor.getColumn());
+            if(coor.getRow() != 0 && 
+               DirectionCheck.checkUpperEntrance(coor) && 
                DirectionCheck.checkBottomEntrance(targetBlock))
             {return true;}
         }else if(dir == Direction.DOWN){
-            Coordinate targetBlock = new Coordinate(Integer.valueOf(enemyCoordinate.getRow()+1),enemyCoordinate.getColumn());
-            if(enemyCoordinate.getRow() != mazeSize-1 && 
-               DirectionCheck.checkBottomEntrance(enemyCoordinate) && 
+            Coordinate targetBlock = new Coordinate(Integer.valueOf(coor.getRow()+1),coor.getColumn());
+            if(coor.getRow() != mazeSize-1 && 
+               DirectionCheck.checkBottomEntrance(coor) && 
                DirectionCheck.checkUpperEntrance(targetBlock))
             {return true;}
         }
         return false;
+    }
+
+    public static boolean EnemyCanMove(Direction dir) {
+        Optional<Enemy> e = TurnManager.GetEnemy();
+        Coordinate enemyCoordinate = new Coordinate(lab.getEnemyCoordinate(e.get()));
+        return CanMoveFromPosition(enemyCoordinate, dir);
     }
     
 }

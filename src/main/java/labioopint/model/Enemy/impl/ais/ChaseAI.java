@@ -12,9 +12,14 @@ import java.util.stream.Collectors;
 
 
 import labioopint.model.Enemy.api.EnemyAI;
+import labioopint.model.Enemy.impl.MovementUtilities;
+import labioopint.model.Maze.api.Direction;
 import labioopint.model.Maze.impl.LabyrinthImpl;
 import labioopint.model.Player.impl.PlayerImpl;
 import labioopint.model.api.Coordinate;
+import labioopint.controller.impl.ActionPredicate;
+import labioopint.model.Block.impl.BlockImpl;
+import labioopint.model.Core.impl.TurnManager;
 
 /**
  * EnemyAI represents an enemy with artificial intelligence that can move
@@ -24,22 +29,9 @@ public class ChaseAI implements EnemyAI {
 
     private static final int STEPS = 5;
 
-    /**
-     * Moves the enemy in the labyrinth towards the players.
-     * 
-     * @param maze    the labyrinth in which the enemy moves.
-     * @param players the list of players in the game.
-     */
     @Override
     public Coordinate getNextPosition(final List<PlayerImpl> players, final Coordinate current) {
-
-        //TO DO
-        List<Coordinate> walkableCells = maze.getLabyrinth()
-                .entrySet()
-                .stream()
-                .filter(x -> x.getValue() == true)
-                .map(x -> x.getKey())
-                .toList();
+        List<Coordinate> walkableCells = getWalkableCells(current);
 
         var path = getPath(walkableCells, players, current);
         if (path.isPresent()) {
@@ -47,6 +39,29 @@ public class ChaseAI implements EnemyAI {
         } else {
             return current;
         }
+    }
+
+    private List<Coordinate> getWalkableCells(final Coordinate enemyCoordinate) {
+        LabyrinthImpl lab = TurnManager.GetLab();
+        List<BlockImpl> blockList = lab.getGrid().getListofBlocks();
+        List<Coordinate> coordinates = blockList
+                .stream()
+                .map(b -> lab.getGrid().getCoordinate(b))
+                .toList();
+        List<Coordinate> output = new ArrayList<>();
+        Queue<Coordinate> queue = new ArrayDeque<>();
+        queue.add(enemyCoordinate);
+        while(!queue.isEmpty()) {
+            Coordinate current = queue.poll();
+            output.add(current);
+            for (Direction dir : List.of(Direction.UP, Direction.DOWN, Direction.LEFT, Direction.RIGHT)) {
+                Coordinate next = MovementUtilities.getNextCoordinate(current, dir);
+                if (ActionPredicate.CanMoveFromPosition(current, dir) && !output.contains(next)) {
+                    queue.add(next);
+                }
+            }
+        }
+        return output;
     }
 
     // Optional perché potrebbe non esistere un percorso di coordinate, altrimenti
@@ -59,11 +74,15 @@ public class ChaseAI implements EnemyAI {
      * @return an optional list of coordinates representing the path to a player.
      */
     private Optional<List<Coordinate>> getPath(final List<Coordinate> walkableCells, final List<PlayerImpl> players, final Coordinate start) {
+        
+        Coordinate startPos = new Coordinate(start.getRow(), start.getColumn());
+        LabyrinthImpl lab = TurnManager.GetLab();
         List<Coordinate> playerPositions = players.stream()
-                .map(p -> p.getCoordinate())
-                .toList();
+            .map(p -> lab.getPlayerCoordinate(p))
+            .toList();
         List<Coordinate> visited = new ArrayList<>();
-        // chiavi -> nodo corrente, valore -> nodo precedente (null per il primo nodo)
+
+        //chiavi -> nodo corrente, valore -> nodo precedente (null per il primo nodo)
         Map<Coordinate, Coordinate> predecessors = new HashMap<>();
         Queue<Coordinate> queue = new ArrayDeque<>();
         queue.add(start);
@@ -74,7 +93,7 @@ public class ChaseAI implements EnemyAI {
             Coordinate current = queue.poll();
             predecessors.put(current, previous);
             visited.add(current);
-            // controllo se siamo arrivati
+            //controllo se siamo arrivati
             if (playerPositions.contains(current)) {
                 playerFound = Optional.of(current);
                 break;
@@ -101,8 +120,8 @@ public class ChaseAI implements EnemyAI {
                     .collect(Collectors.toList());
             return Optional.of(shortPath);
         } else {
-            // TODO cosa fare se non si può raggiungere nessun player
-            return Optional.empty();
+            SingleStepRandomAI randomAI = new SingleStepRandomAI();
+            return Optional.of(List.of(randomAI.getNextPosition(players, startPos)));
         }
 
     }
