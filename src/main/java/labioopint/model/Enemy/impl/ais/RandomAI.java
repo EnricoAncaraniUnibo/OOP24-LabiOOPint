@@ -1,5 +1,6 @@
 package labioopint.model.Enemy.impl.ais;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -15,26 +16,27 @@ public class RandomAI implements EnemyAI {
     private Random rand = new Random();
 
     @Override
-    public Coordinate getNextPosition(final List<PlayerImpl> players, final Coordinate current) {
+    public List<Coordinate> getNextPosition(final List<PlayerImpl> players, final Coordinate current) {
 
         Coordinate newPos = new Coordinate(current.getRow(), current.getColumn());
         int direction = rand.nextInt(4);
         int steps = rand.nextInt(4) + 2; // da 2 a 5
-
+        List<Coordinate> ls = new ArrayList<>();
         for (int i = 0; i < steps; i++) {
             Boolean success = false;
             while (!success) {
                 Direction dir = MovementUtilities.createDirection(direction);
                 Coordinate next = MovementUtilities.getNextCoordinate(newPos, dir);
-                if (ActionPredicate.EnemyCanMove(dir)) {
+                if (ActionPredicate.CanMoveFromPosition(newPos,dir)) {
                     newPos = next;
                     success = true;
                 } else {
                     direction = rand.nextInt(4);
                 }
             }
+            ls.add(newPos);
         }
-        return newPos;
+        return ls;
 
     }
 

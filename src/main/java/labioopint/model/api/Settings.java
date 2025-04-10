@@ -12,7 +12,7 @@ public class Settings {
         this.enemyNumber = enemyNumber;
         this.playerNumber = playerNumber;
         this.powerUp = powerUp;
-        this.enemyDifficulty = EnemyDifficulty.EASY;
+        this.enemyDifficulty = EnemyDifficulty.MEDIUM;
     }
 
     public Integer getPowerUps() {

@@ -63,15 +63,15 @@ public class TurnManager {
             index = (index + 1) % players.size();
             if(enemy.isPresent()){
                 if(enemy.get().getEnemyAI() instanceof SingleStepRandomAI) {
-                    maze.absoluteUpdateCoordinate(enemy.get(), enemy.get().move(players));   
+                    maze.EnemyUpdateCoordinate(enemy.get(), enemy.get().move(players));   
                     enemy.get().playerHit(players);      
                 }
                 if(enemy.get().getEnemyAI() instanceof RandomAI) {
-                    maze.absoluteUpdateCoordinate(enemy.get(), enemy.get().move(players));      
+                    maze.EnemyUpdateCoordinate(enemy.get(), enemy.get().move(players));      
                     enemy.get().playerHit(players);  
                 }
                 if(enemy.get().getEnemyAI() instanceof ChaseAI) {
-                    maze.absoluteUpdateCoordinate(enemy.get(), enemy.get().move(players));     
+                    maze.EnemyUpdateCoordinate(enemy.get(), enemy.get().move(players));     
                     enemy.get().playerHit(players);   
                 }
                 currentAction = ActionType.BLOCK_PLACEMENT;

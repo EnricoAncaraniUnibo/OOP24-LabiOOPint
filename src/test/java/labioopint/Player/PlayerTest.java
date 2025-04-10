@@ -48,7 +48,7 @@ public class PlayerTest {
     void MovePlayer() {
     	TurnManager.Init(new Settings(0,2,0));
     	LabyrinthImpl lab = new LabyrinthImpl(5);
-    	lab.absoluteUpdateCoordinate(TurnManager.GetCurrentPlayer(), new Coordinate(0,0));
+    	lab.PlayerUpdateCoordinate(TurnManager.GetCurrentPlayer(), new Coordinate(0,0));
     	lab.movePlayer(TurnManager.GetCurrentPlayer(), Direction.DOWN);
     	assertEquals(lab.getPlayerCoordinate(TurnManager.GetCurrentPlayer()).getRow(),1);
     	lab.movePlayer(TurnManager.GetCurrentPlayer(), Direction.RIGHT);

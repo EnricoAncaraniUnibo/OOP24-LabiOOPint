@@ -6,6 +6,7 @@ import labioopint.model.Block.api.Rotation;
 import labioopint.model.Block.impl.BlockImpl;
 import labioopint.model.Enemy.api.Enemy;
 import labioopint.model.Maze.impl.MazeImpl;
+import labioopint.model.Player.api.Player;
 import labioopint.model.Player.impl.PlayerImpl;
 import labioopint.model.PowerUp.api.PowerUp;
 import labioopint.model.api.Coordinate;
@@ -68,12 +69,19 @@ public interface Labyrinth {
      */
     void movePlayer(PlayerImpl p, Direction dir);
     /**
-     * Updates the absolute coordinate of an object in the labyrinth.
+     * Updates the absolute coordinate of a player in the labyrinth.
      *
-     * @param o the object whose coordinate is to be updated
+     * @param p the player whose coordinate is to be updated
      * @param coor the new coordinate to assign to the object
      */
-    void absoluteUpdateCoordinate(Object o, Coordinate coor);
+    void PlayerUpdateCoordinate(Player p, Coordinate coor);
+    /**
+     * Updates the absolute coordinate of an enemy in the labyrinth.
+     *
+     * @param e the enemy whose coordinate is to be updated
+     * @param coor the new coordinate to assign to the object
+     */
+    void EnemyUpdateCoordinate(Enemy e, List<Coordinate> coor);
     /**
      * Retrieves the grid representation of the labyrinth.
      *

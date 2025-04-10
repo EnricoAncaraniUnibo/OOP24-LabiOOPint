@@ -7,5 +7,5 @@ import labioopint.model.api.Coordinate;
 
 public interface EnemyAI {
 
-    Coordinate getNextPosition(List<PlayerImpl> players, Coordinate current);
+    List<Coordinate> getNextPosition(List<PlayerImpl> players, Coordinate current);
 }

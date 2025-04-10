@@ -34,10 +34,10 @@ public class EnemyImpl extends Movable implements Enemy {
     }
 
     @Override
-    public Coordinate move(final List<PlayerImpl> players) {
+    public List<Coordinate> move(final List<PlayerImpl> players) {
         if(!ActionPredicate.EnemyCanMove(Direction.UP) && !ActionPredicate.EnemyCanMove(Direction.DOWN)
                 && !ActionPredicate.EnemyCanMove(Direction.LEFT) && !ActionPredicate.EnemyCanMove(Direction.RIGHT)) {
-            return TurnManager.GetLab().getEnemyCoordinate(this);
+            return new ArrayList<>();
         } else {
             return enemyAI.getNextPosition(players, TurnManager.GetLab().getEnemyCoordinate(this));
         }

@@ -2,6 +2,7 @@ package labioopint.Labyrinth;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -91,7 +92,7 @@ public class PositioningTest {
 		Enemy e = TurnManager.GetEnemy().get();
 		
 		Coordinate old = lab.getPlayerCoordinate(ls.get(0));
-		lab.absoluteUpdateCoordinate(ls.get(0), new Coordinate(3,3));
+		lab.PlayerUpdateCoordinate(ls.get(0), new Coordinate(3,3));
 		boolean oldRemoved=true;
 		if(lab.getPlayerCoordinate(ls.get(0)).getRow()==old.getRow() && lab.getPlayerCoordinate(ls.get(0)).getColumn()==old.getColumn()) {
 			oldRemoved=false;
@@ -105,7 +106,9 @@ public class PositioningTest {
 		assertTrue(correctChanged);
 		
 		old = lab.getEnemyCoordinate(e);
-		lab.absoluteUpdateCoordinate(e, new Coordinate(Math.abs(old.getRow()-1),Math.abs(old.getColumn()-1)));
+		List<Coordinate> lCoor = new ArrayList<>();
+		lCoor.add(new Coordinate(Math.abs(old.getRow()-1),Math.abs(old.getColumn()-1)));
+		lab.EnemyUpdateCoordinate(e, lCoor);
 		oldRemoved=true;
 		if(lab.getEnemyCoordinate(e).getRow()==old.getRow() && lab.getEnemyCoordinate(e).getColumn()==old.getColumn()) {
 			oldRemoved=false;

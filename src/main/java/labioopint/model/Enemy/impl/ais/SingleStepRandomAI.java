@@ -1,5 +1,6 @@
 package labioopint.model.Enemy.impl.ais;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -15,7 +16,7 @@ public class SingleStepRandomAI implements EnemyAI {
     private Random rand = new Random();
 
     @Override
-    public Coordinate getNextPosition(final List<PlayerImpl> players, final Coordinate current) {
+    public List<Coordinate> getNextPosition(final List<PlayerImpl> players, final Coordinate current) {
         Direction dir = Direction.UP;
         int result;
         
@@ -30,6 +31,8 @@ public class SingleStepRandomAI implements EnemyAI {
                 success = true;
             }
         }
-        return newPos;
+        List<Coordinate> ls = new ArrayList<>();
+        ls.add(newPos);
+        return ls;
     }
 }

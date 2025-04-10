@@ -11,6 +11,7 @@ import labioopint.model.Core.impl.TurnManager;
 import labioopint.model.Enemy.api.Enemy;
 import labioopint.model.Maze.api.Direction;
 import labioopint.model.Maze.api.Labyrinth;
+import labioopint.model.Player.api.Player;
 import labioopint.model.Player.impl.PlayerImpl;
 import labioopint.model.PowerUp.api.PowerUp;
 import labioopint.model.api.Coordinate;
@@ -244,21 +245,6 @@ public class LabyrinthImpl implements Labyrinth {
     }
 
     @Override
-    public void absoluteUpdateCoordinate(final Object o, final Coordinate coor) {
-        if(o instanceof PlayerImpl) {
-            PlayerImpl p = (PlayerImpl)o;
-            mapOfPlayers.remove(p);
-            mapOfPlayers.addElemWithCoordinate(p, coor);
-        }
-        if(o instanceof Enemy) {
-            Enemy e = (Enemy)o;
-            mapOfEnemy.remove(e);
-            mapOfEnemy.addElemWithCoordinate(e, coor);
-        }
-        labyController.updateGraphics(grid,mapOfPlayers,mapOfEnemy,mapOfPowerUps,outsideBlock);
-    }
-
-    @Override
     public MazeImpl getGrid() {
         return grid;
     }
@@ -273,5 +259,21 @@ public class LabyrinthImpl implements Labyrinth {
     public void addPowerUp(PowerUp p) {
         CoordinateGenerator cg = new CoordinateGenerator(grid.getSize());
         mapOfPowerUps.addElemWithCoordinate(p, cg.getRandomCoordinate());
+    }
+
+    @Override
+    public void PlayerUpdateCoordinate(Player p, Coordinate coor) {
+        mapOfPlayers.remove((PlayerImpl)p);
+        mapOfPlayers.addElemWithCoordinate((PlayerImpl)p, coor);
+        labyController.updateGraphics(grid, mapOfPlayers, mapOfEnemy, mapOfPowerUps, outsideBlock);
+    }
+
+    @Override
+    public void EnemyUpdateCoordinate(Enemy e, List<Coordinate> coor) {
+        for (Coordinate coordinate : coor) {
+            mapOfEnemy.remove(e);
+            mapOfEnemy.addElemWithCoordinate(e, coordinate);
+            labyController.updateGraphics(grid, mapOfPlayers, mapOfEnemy, mapOfPowerUps, outsideBlock);
+        }
     }
 }
