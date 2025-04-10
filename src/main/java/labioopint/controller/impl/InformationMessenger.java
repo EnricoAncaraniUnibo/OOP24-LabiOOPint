@@ -1,10 +1,14 @@
 package labioopint.controller.impl;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 import labioopint.model.Core.impl.TurnManager;
+import labioopint.model.Player.api.Player;
 import labioopint.model.PowerUp.api.PowerUp;
+import labioopint.model.PowerUp.impl.SwapPositionPowerUp;
 import labioopint.model.api.ActionType;
 /**
  * The InformationMessenger class provides utility methods to retrieve information
@@ -49,5 +53,39 @@ public class InformationMessenger {
             i++;
         }
         return names;
+    }
+    /**
+     * Checks if there is a winner in the game.
+     * If there is a tie, a new power-up is added to the game.
+     *
+     * @return an {@code Optional<String>} containing the winner's ID if there is a winner,
+     *         or an empty {@code Optional} if there is a tie.
+     */
+    public static Optional<String> CheckWin(){
+        List<Integer> lsWinners = new ArrayList<>();
+        for (Player p : TurnManager.GetPlayers()) {
+            lsWinners.add(p.getObjetives().size());
+        }
+        lsWinners.sort(new Comparator<Integer>() {
+
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return o1-o2;
+            }
+            
+        });
+        if(lsWinners.get(0)==lsWinners.get(1)){
+            SwapPositionPowerUp p = new SwapPositionPowerUp();
+            TurnManager.addAddictionalPowerUp(p);
+            TurnManager.GetLab().addPowerUp(p);
+            return Optional.empty();
+        }else {
+            for (Player p : TurnManager.GetPlayers()) {
+                if(p.getObjetives().size()==lsWinners.get(0)){
+                    return Optional.of(p.getID());
+                }
+            }
+        }
+        return Optional.empty();
     }
 }

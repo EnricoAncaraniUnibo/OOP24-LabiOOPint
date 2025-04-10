@@ -82,4 +82,8 @@ public class TurnManager {
             currentAction = ActionType.BLOCK_PLACEMENT;
         }
     }
+
+    public static void addAddictionalPowerUp(PowerUp p) {
+        powerUps.add(p);
+    }
 }
