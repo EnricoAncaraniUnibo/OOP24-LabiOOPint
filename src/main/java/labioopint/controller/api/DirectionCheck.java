@@ -9,12 +9,16 @@ import labioopint.model.Maze.impl.MazeImpl;
 import labioopint.model.api.Coordinate;
 
 public class DirectionCheck {
-    private static LabyrinthImpl lab = TurnManager.GetLab();
+    private LabyrinthImpl lab;
+
+    public DirectionCheck(TurnManager tu){
+        this.lab = tu.GetLab();
+    }
 
     /*
      * Every functions check if there are an entrance in the specified direction
      */
-    public static boolean checkRightEntrance(Coordinate coord){
+    public boolean checkRightEntrance(Coordinate coord){
         MazeImpl grid = lab.getGrid();
         BlockImpl block = grid.GetBlock(coord).get();
         BlockType BType = block.getType();
@@ -41,7 +45,7 @@ public class DirectionCheck {
         }
         return false;
     }
-    public static boolean checkLeftEntrance(Coordinate coord){
+    public boolean checkLeftEntrance(Coordinate coord){
         MazeImpl grid = lab.getGrid();
         BlockImpl block = grid.GetBlock(coord).get();
         BlockType BType = block.getType();
@@ -68,7 +72,7 @@ public class DirectionCheck {
         }
         return false;
     }
-    public static boolean checkBottomEntrance(Coordinate coord){
+    public boolean checkBottomEntrance(Coordinate coord){
         MazeImpl grid = lab.getGrid();
         BlockImpl block = grid.GetBlock(coord).get();
         BlockType BType = block.getType();
@@ -95,7 +99,7 @@ public class DirectionCheck {
         }
         return false;
     }
-    public static boolean checkUpperEntrance(Coordinate coord){
+    public boolean checkUpperEntrance(Coordinate coord){
         MazeImpl grid = lab.getGrid();
         BlockImpl block = grid.GetBlock(coord).get();
         BlockType BType = block.getType();

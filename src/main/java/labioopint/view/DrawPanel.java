@@ -27,13 +27,14 @@ public class DrawPanel extends JPanel {
 	     */
         private static Integer pixelSize;
         private MazeImpl maze;
-        //private DualMap<PlayerImpl> coorPlayers;
+        private DualMap<PlayerImpl> coorPlayers;
         private DualMap<Enemy> coorEnemies;
         private DualMap<PowerUp> coorPowerUps;
         private BlockImpl outsideBlock;
         private Image CORRIDOR_IMAGE;
         private Image CORNER_IMAGE;
         private Image CROSSING_IMAGE;
+        private TurnManager turn;
         
         /**
          * Retrieves the size of each block in pixels.
@@ -50,12 +51,13 @@ public class DrawPanel extends JPanel {
          *
          * @param size the dimensions of the panel
          */
-        public DrawPanel(final Dimension size) {
+        public DrawPanel(final Dimension size, TurnManager tu) {
                 pixelSize = (int) size.getWidth() / 13;
                 ImageLoader.load();
                 CORRIDOR_IMAGE = ImageLoader.getImage("Corridor").get();
                 CORNER_IMAGE = ImageLoader.getImage("Corner").get();
                 CROSSING_IMAGE = ImageLoader.getImage("Crossing").get();
+                turn = tu;
         }
         /**
          * Updates the panel with the current state of the maze, players, enemies, power-ups,
@@ -71,7 +73,7 @@ public class DrawPanel extends JPanel {
                 final DualMap<Enemy> mapEnemies, final DualMap<PowerUp> mapPowerUps,
                 final BlockImpl outside) {
                 this.maze = m;
-                //this.coorPlayers = mapPlayers;
+                this.coorPlayers = mapPlayers;
                 this.coorEnemies = mapEnemies;
                 this.coorPowerUps = mapPowerUps;
                 this.outsideBlock = outside;
@@ -166,9 +168,9 @@ public class DrawPanel extends JPanel {
                                         }
                                 }
                         }
-                        for (PlayerImpl p : TurnManager.GetPlayers()) {
-                                Coordinate c = TurnManager.GetLab().getPlayerCoordinate(p);
-                                if(p == TurnManager.GetCurrentPlayer()) {
+                        for (PlayerImpl p : coorPlayers.getElemets()) {
+                                Coordinate c = coorPlayers.getCoordinateFromElement(p);
+                                if(p == turn.GetCurrentPlayer()) {
                                         g2.drawImage(ImageLoader.getImage(""+p.getID()+"Turn").get(), c.getColumn()*pixelSize+pixelSize/4, c.getRow()*pixelSize+pixelSize/4,pixelSize*3/5,pixelSize*3/5, this);
                                 }else {
                                         g2.drawImage(ImageLoader.getImage(""+p.getID()+"").get(), c.getColumn()*pixelSize+pixelSize/4, c.getRow()*pixelSize+pixelSize/4,pixelSize*3/5,pixelSize*3/5, this);

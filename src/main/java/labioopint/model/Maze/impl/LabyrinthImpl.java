@@ -25,16 +25,18 @@ public class LabyrinthImpl implements Labyrinth {
     private DualMap<PlayerImpl> mapOfPlayers;
     private DualMap<Enemy> mapOfEnemy;
     private LabyrinthController labyController;
+    private TurnManager turn;
 
     @Override
     public void Default() {
-        labyController = new LabyrinthController();
+        labyController = new LabyrinthController(turn);
         mapOfPowerUps = new DualMap<>();
         mapOfPlayers = new DualMap<>();
         mapOfEnemy = new DualMap<>();
     }
 
-    public LabyrinthImpl(final Integer size) {
+    public LabyrinthImpl(final Integer size, final TurnManager tu) {
+        turn = tu;
         this.Default();
         grid = new SimpleMazeImpl(size);
         outsideBlock = grid.Generate();
@@ -43,15 +45,15 @@ public class LabyrinthImpl implements Labyrinth {
 
     private void start() {
         CoordinateGenerator cg = new CoordinateGenerator(grid.getSize()); 
-        for (PowerUp pu : TurnManager.GetPowerUps()) {
+        for (PowerUp pu : turn.GetPowerUps()) {
             mapOfPowerUps.addElemWithCoordinate(pu, cg.getRandomCoordinate());
         }
         cg = new CoordinateGenerator(CoordinateGenerator.createBasicSpawnCoordinate(grid.getSize()));
-        for (PlayerImpl p : TurnManager.GetPlayers()) {
+        for (PlayerImpl p : turn.GetPlayers()) {
             mapOfPlayers.addElemWithCoordinate(p, cg.getRandomCoordinate());
         }
-        if(TurnManager.GetEnemy().isPresent()) {
-            mapOfEnemy.addElemWithCoordinate(TurnManager.GetEnemy().get(), CoordinateGenerator.getCentralCoordinate(grid.getSize()));
+        if(turn.GetEnemy().isPresent()) {
+            mapOfEnemy.addElemWithCoordinate(turn.GetEnemy().get(), CoordinateGenerator.getCentralCoordinate(grid.getSize()));
         }
         labyController.updateGraphics(grid,mapOfPlayers,mapOfEnemy,mapOfPowerUps,outsideBlock);
     }
@@ -211,7 +213,7 @@ public class LabyrinthImpl implements Labyrinth {
     @Override
     public List<PowerUp> getListOfPowerUps() {
         List<PowerUp> lpu = new ArrayList<>();
-        for (PowerUp powerUp : TurnManager.GetPowerUps()) {
+        for (PowerUp powerUp : turn.GetPowerUps()) {
             if(mapOfPowerUps.isPresentByObject(powerUp)) {
                 lpu.add(powerUp);
             }

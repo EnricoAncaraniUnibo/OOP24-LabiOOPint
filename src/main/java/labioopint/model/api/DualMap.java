@@ -2,6 +2,7 @@ package labioopint.model.api;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 /**
  * The DualMap class provides a bidirectional mapping between coordinates and elements.
  * It allows efficient retrieval of elements by coordinates and vice versa.
@@ -85,5 +86,9 @@ public class DualMap<X> {
             return true;
         }
         return false;
+    }
+
+    public Set<X> getElemets(){
+        return mapFromElement.keySet();
     }
 }

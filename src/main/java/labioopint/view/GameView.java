@@ -24,6 +24,9 @@ public class GameView extends JFrame {
 
     private JLabel turnLabel;
     private DrawPanel labirintPanel;
+    private InformationMessenger ifm;
+    private TurnManager turn;
+    private GameController gc;
     //private PlayerImpl currentPlayer = TurnManager.GetCurrentPlayer();
     JButton upButton; 
     JButton leftButton;
@@ -33,7 +36,7 @@ public class GameView extends JFrame {
     JButton endTurnButton;
     JComboBox<String> comboBox;
 
-    public GameView() {
+    public GameView(TurnManager tu) {
         setTitle("LabiOPPint");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
@@ -41,10 +44,11 @@ public class GameView extends JFrame {
         setLayout(new BorderLayout());
         setResizable(false);
         setLocationByPlatform(true);
+        turn = tu;
+        ifm = new InformationMessenger(turn);
+        gc = new GameController(tu);
 
-        
-
-        labirintPanel = new DrawPanel(this.getSize());
+        labirintPanel = new DrawPanel(this.getSize(),turn);
         add(labirintPanel, BorderLayout.CENTER);
         JPanel controlPanel = new JPanel();
         controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.Y_AXIS));
@@ -52,13 +56,13 @@ public class GameView extends JFrame {
         controlPanel.setBackground(Color.GRAY);
         add(controlPanel, BorderLayout.EAST);
 
-        turnLabel = new JLabel(InformationMessenger.getTurn(), SwingConstants.CENTER);
+        turnLabel = new JLabel(ifm.getTurn(), SwingConstants.CENTER);
         Font newFont = new Font("Arial", Font.BOLD, 18);
         turnLabel.setFont(newFont);
         turnLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         controlPanel.add(turnLabel);
 
-        actionLabel = new JLabel(InformationMessenger.getAction(), SwingConstants.CENTER);
+        actionLabel = new JLabel(ifm.getAction(), SwingConstants.CENTER);
         actionLabel.setFont(newFont);
         actionLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         controlPanel.add(actionLabel);
@@ -91,7 +95,7 @@ public class GameView extends JFrame {
 
         controlPanel.add(movementPanel);
 
-        String[] options = InformationMessenger.getPowerUpsList();
+        String[] options = ifm.getPowerUpsList();
         comboBox = new JComboBox<>(options);
         controlPanel.add(comboBox);
 
@@ -113,9 +117,9 @@ public class GameView extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String name = (String)comboBox.getSelectedItem();
-                for (PowerUp pu : TurnManager.GetPowerUps()) {
+                for (PowerUp pu : turn.GetPowerUps()) {
                     if(pu.getName().equals(name)) {
-                        pu.activate(TurnManager.GetCurrentPlayer());
+                        pu.activate(turn.GetCurrentPlayer());
                     }
                 }
                 updateComboBox();
@@ -126,9 +130,9 @@ public class GameView extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                GameController.action(endTurnButton.getText());
-                turnLabel.setText(InformationMessenger.getTurn());
-                String[] options = InformationMessenger.getPowerUpsList();
+                gc.action(endTurnButton.getText());
+                turnLabel.setText(ifm.getTurn());
+                String[] options = ifm.getPowerUpsList();
                 comboBox.removeAllItems();
                 for (String option : options) {
                     comboBox.addItem(option);
@@ -136,7 +140,7 @@ public class GameView extends JFrame {
                 endTurnButton.setVisible(false);
                 upButton.setVisible(false);
                 downButton.setVisible(false);
-                actionLabel.setText(InformationMessenger.getAction());
+                actionLabel.setText(ifm.getAction());
             }
 
         });
@@ -155,8 +159,8 @@ public class GameView extends JFrame {
                 int blockSize = DrawPanel.getBlockSize();
                 Coordinate newCoordinate = new Coordinate((Y % blockSize < blockSize/2) ? Y/blockSize-1 : Y/blockSize,
                                                           X/blockSize);
-                GameController.action(newCoordinate);
-                actionLabel.setText(InformationMessenger.getAction());
+                gc.action(newCoordinate);
+                actionLabel.setText(ifm.getAction());
             }
 
             @Override
@@ -190,7 +194,7 @@ public class GameView extends JFrame {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                GameController.action(text);
+                gc.action(text);
                 updateComboBox();
             }
         });
@@ -198,7 +202,7 @@ public class GameView extends JFrame {
     }
     
     private void updateComboBox() {
-    	String[] options = InformationMessenger.getPowerUpsList();
+    	String[] options = ifm.getPowerUpsList();
         comboBox.removeAllItems();
         for (String option : options) {
             comboBox.addItem(option);
@@ -206,7 +210,7 @@ public class GameView extends JFrame {
     }
 
     public void update(final MazeImpl grid, final DualMap<PlayerImpl> mapPlayers, final DualMap<Enemy> mapEnemies, final DualMap<PowerUp> mapPowerUps,BlockImpl outside) {
-        if(TurnManager.GetCurrentAction() == ActionType.BLOCK_PLACEMENT) {
+        if(turn.GetCurrentAction() == ActionType.BLOCK_PLACEMENT) {
         	endTurnButton.setVisible(false);
             upButton.setVisible(false);
             downButton.setVisible(false);

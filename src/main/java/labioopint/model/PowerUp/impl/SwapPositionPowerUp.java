@@ -9,27 +9,29 @@ import labioopint.model.api.Coordinate;
 public class SwapPositionPowerUp extends PowerUpImpl {
 
     private boolean condition = true;
+	private TurnManager turn;
 
-    public SwapPositionPowerUp() {
+    public SwapPositionPowerUp(TurnManager tu) {
         super();
         super.setName("Teleport");
+		this.turn = tu;
     }
 
     @Override
     public void activate(PlayerImpl currentPlayer) {
     	if(currentPlayer.getUsablePowerUps().contains(this)) {
     		if (isCollected()) {
-	            Coordinate currentPlayerCoordinate = TurnManager.GetLab().getPlayerCoordinate(currentPlayer);
+	            Coordinate currentPlayerCoordinate = turn.GetLab().getPlayerCoordinate(currentPlayer);
 	            Random random = new Random();
 	            while(this.condition) {
-	                PlayerImpl playerSwap = TurnManager.GetPlayers().get(random.nextInt(TurnManager.GetPlayers().size()));
-	                Coordinate playerSwapCoordinate = TurnManager.GetLab().getPlayerCoordinate(playerSwap);
-	                if(TurnManager.GetPlayers().size() < 2) {
+	                PlayerImpl playerSwap = turn.GetPlayers().get(random.nextInt(turn.GetPlayers().size()));
+	                Coordinate playerSwapCoordinate = turn.GetLab().getPlayerCoordinate(playerSwap);
+	                if(turn.GetPlayers().size() < 2) {
 	                    this.condition = false;
 	                } 
-	                else if(TurnManager.GetPlayers().size() > 1 && !currentPlayer.equals(playerSwap)){
-	                    TurnManager.GetLab().PlayerUpdateCoordinate(playerSwap,currentPlayerCoordinate);
-	                    TurnManager.GetLab().PlayerUpdateCoordinate(currentPlayer,playerSwapCoordinate);
+	                else if(turn.GetPlayers().size() > 1 && !currentPlayer.equals(playerSwap)){
+	                    turn.GetLab().PlayerUpdateCoordinate(playerSwap,currentPlayerCoordinate);
+	                    turn.GetLab().PlayerUpdateCoordinate(currentPlayer,playerSwapCoordinate);
 	                    this.condition = false;
 	                }
 	            }

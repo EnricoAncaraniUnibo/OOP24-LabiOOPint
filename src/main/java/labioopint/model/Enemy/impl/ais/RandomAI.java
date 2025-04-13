@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import labioopint.controller.impl.ActionPredicate;
+import labioopint.model.Core.impl.TurnManager;
 import labioopint.model.Enemy.api.EnemyAI;
 import labioopint.model.Enemy.impl.MovementUtilities;
 import labioopint.model.Maze.api.Direction;
@@ -14,10 +15,16 @@ import labioopint.model.api.Coordinate;
 public class RandomAI implements EnemyAI {
 
     private Random rand = new Random();
+    private TurnManager turn;
+    private ActionPredicate ap;
+
+    public RandomAI(TurnManager tu){
+        turn = tu;
+    }
 
     @Override
     public List<Coordinate> getNextPosition(final List<PlayerImpl> players, final Coordinate current) {
-
+        ap = new ActionPredicate(turn);
         Coordinate newPos = new Coordinate(current.getRow(), current.getColumn());
         int direction = rand.nextInt(4);
         int steps = rand.nextInt(4) + 2; // da 2 a 5
@@ -27,7 +34,7 @@ public class RandomAI implements EnemyAI {
             while (!success) {
                 Direction dir = MovementUtilities.createDirection(direction);
                 Coordinate next = MovementUtilities.getNextCoordinate(newPos, dir);
-                if (ActionPredicate.CanMoveFromPosition(newPos,dir)) {
+                if (ap.CanMoveFromPosition(newPos,dir)) {
                     newPos = next;
                     success = true;
                 } else {

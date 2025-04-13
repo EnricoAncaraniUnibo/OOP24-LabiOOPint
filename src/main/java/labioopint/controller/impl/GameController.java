@@ -10,10 +10,18 @@ import labioopint.model.api.Coordinate;
 
 public class GameController {
     //ActionType.MOVE_BLOCK;
-    private static LabyrinthImpl lab = TurnManager.GetLab();
+    private LabyrinthImpl lab;
+    private TurnManager turn;
+    private ActionPredicate ap;
 
-    public static void action(Object action){
-        ActionType current_action = TurnManager.GetCurrentAction();
+    public GameController(TurnManager tu) {
+        turn = tu;
+    }
+
+    public void action(Object action){
+        ap = new ActionPredicate(turn);
+        lab = turn.GetLab();
+        ActionType current_action = turn.GetCurrentAction();
         switch (current_action) {
             case ActionType.BLOCK_PLACEMENT:
                 if(action instanceof String){
@@ -22,18 +30,18 @@ public class GameController {
                     RotateBlock(dir);
                 } else if(action instanceof Coordinate){
                     Coordinate blockCoordinate = (Coordinate)action;
-                    if(ActionPredicate.BlockCanMove(blockCoordinate)){
+                    if(ap.BlockCanMove(blockCoordinate)){
                         if(blockCoordinate.getColumn() == 0){
-                            TurnManager.nextAction();
+                            turn.nextAction();
                             lab.moveBlock(blockCoordinate, Direction.RIGHT);
                         }else if(blockCoordinate.getColumn() == lab.getGrid().getSize()-1){
-                            TurnManager.nextAction();
+                            turn.nextAction();
                             lab.moveBlock(blockCoordinate, Direction.LEFT);
                         }else if(blockCoordinate.getRow() == 0){
-                            TurnManager.nextAction();
+                            turn.nextAction();
                             lab.moveBlock(blockCoordinate, Direction.DOWN);
                         }else if(blockCoordinate.getRow() == lab.getGrid().getSize()-1){
-                            TurnManager.nextAction();
+                            turn.nextAction();
                             lab.moveBlock(blockCoordinate, Direction.UP);
                         }else{
                             //TurnManager.invalidBlockPosition();
@@ -49,21 +57,21 @@ public class GameController {
                                         (action.equals("→")) ? Direction.RIGHT :
                                         (action.equals("↑")) ? Direction.UP :
                                         Direction.DOWN;
-                        if(ActionPredicate.PlayerCanMove(TurnManager.GetCurrentPlayer(), dir)){
-                            lab.movePlayer(TurnManager.GetCurrentPlayer(), dir);
+                        if(ap.PlayerCanMove(turn.GetCurrentPlayer(), dir)){
+                            lab.movePlayer(turn.GetCurrentPlayer(), dir);
                         }else{
                             //TurnManager.invalidMovement();
                         }
                     }else if(action.equals("End Turn")){
-                        TurnManager.nextAction();
+                        turn.nextAction();
                     }
                 }
                 break;
             case ActionType.ENEMY_MOVEMENT:
                 if(action instanceof Direction){
-                    if(TurnManager.GetEnemy().isPresent()){
-                        TurnManager.GetEnemy().get().move(TurnManager.GetPlayers());
-                        TurnManager.nextAction();
+                    if(turn.GetEnemy().isPresent()){
+                        turn.GetEnemy().get().move(turn.GetPlayers());
+                        turn.nextAction();
                     }else{
                         //TurnManager.invalidMovement();
                     }
@@ -73,7 +81,7 @@ public class GameController {
         }
     }
 
-    private static void RotateBlock(Direction dir){
+    private void RotateBlock(Direction dir){
         Rotation blockRotation = lab.getOutsideBlock().getRotation();
         switch (dir) {
             case Direction.RIGHT:

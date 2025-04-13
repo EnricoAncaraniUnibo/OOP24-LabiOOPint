@@ -12,11 +12,13 @@ public class PlayerImpl extends Movable implements Player {
     private final String id;
     private final List<PowerUp> objectives;
     private final List<PowerUp> usablePowerUps;
+    private final TurnManager turn;
 
-    public PlayerImpl(final String id) {
+    public PlayerImpl(final String id,final TurnManager tu) {
         this.id = id;
         objectives = new ArrayList<>();
         usablePowerUps = new ArrayList<>();
+        turn = tu;
     }
 
     @Override
@@ -48,7 +50,7 @@ public class PlayerImpl extends Movable implements Player {
                 usablePowerUps.remove(p);
             }
             objectives.remove(p);
-            TurnManager.GetLab().addPowerUp(p);
+            turn.GetLab().addPowerUp(p);
         }
     }
 
