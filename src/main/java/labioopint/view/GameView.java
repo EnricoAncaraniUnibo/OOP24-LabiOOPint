@@ -156,7 +156,7 @@ public class GameView extends JFrame {
             public void mousePressed(MouseEvent e) {
                 int X = e.getX();
                 int Y = e.getY();
-                int blockSize = DrawPanel.getBlockSize();
+                int blockSize = labirintPanel.getBlockSize();
                 Coordinate newCoordinate = new Coordinate((Y % blockSize < blockSize/2) ? Y/blockSize-1 : Y/blockSize,
                                                           X/blockSize);
                 gc.action(newCoordinate);
