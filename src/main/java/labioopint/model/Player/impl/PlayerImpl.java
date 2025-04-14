@@ -7,14 +7,23 @@ import labioopint.model.Core.impl.TurnManager;
 import labioopint.model.Player.api.Player;
 import labioopint.model.PowerUp.api.PowerUp;
 import labioopint.model.api.Movable;
-
-public class PlayerImpl extends Movable implements Player {
+/**
+ * The PlayerImpl class implements the Player interface and represents a player
+ * in the game. It manages the player's ID, objectives, usable power-ups, and
+ * interactions with the TurnManager.
+ */
+public final class PlayerImpl extends Movable implements Player {
     private final String id;
     private final List<PowerUp> objectives;
     private final List<PowerUp> usablePowerUps;
     private final TurnManager turn;
-
-    public PlayerImpl(final String id,final TurnManager tu) {
+    /**
+     * Constructs a PlayerImpl with the specified ID and TurnManager.
+     *
+     * @param id the unique identifier for the player
+     * @param tu the TurnManager instance to manage game turns
+     */
+    public PlayerImpl(final String id, final TurnManager tu) {
         this.id = id;
         objectives = new ArrayList<>();
         usablePowerUps = new ArrayList<>();
@@ -44,9 +53,9 @@ public class PlayerImpl extends Movable implements Player {
 
     @Override
     public void removeObjective() {
-        if(objectives.size()!=0) {
+        if (objectives.size() != 0) {
             PowerUp p = objectives.get(0);
-            if(usablePowerUps.contains(p)) {
+            if (usablePowerUps.contains(p)) {
                 usablePowerUps.remove(p);
             }
             objectives.remove(p);
@@ -55,7 +64,7 @@ public class PlayerImpl extends Movable implements Player {
     }
 
     @Override
-    public void removePowerUp(PowerUp pu) {
+    public void removePowerUp(final PowerUp pu) {
         usablePowerUps.remove(pu);
     }
 }

@@ -3,15 +3,18 @@ package labioopint.model.api;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+
 /**
- * The DualMap class provides a bidirectional mapping between coordinates and elements.
+ * The DualMap class provides a bidirectional mapping between coordinates and
+ * elements.
  * It allows efficient retrieval of elements by coordinates and vice versa.
  *
  * @param <X> the type of elements stored in the map
  */
-public class DualMap<X> {
+public final class DualMap<X> {
     private Map<Coordinate, X> mapFromCoordinate;
     private Map<X, Coordinate> mapFromElement;
+
     /**
      * Constructs a new DualMap with empty mappings.
      */
@@ -19,6 +22,7 @@ public class DualMap<X> {
         mapFromCoordinate = new HashMap<>();
         mapFromElement = new HashMap<>();
     }
+
     /**
      * Adds an element with its associated coordinate to the map.
      *
@@ -29,6 +33,7 @@ public class DualMap<X> {
         mapFromCoordinate.put(coor, elem);
         mapFromElement.put(elem, coor);
     }
+
     /**
      * Retrieves the coordinate associated with the specified element.
      *
@@ -38,6 +43,7 @@ public class DualMap<X> {
     public Coordinate getCoordinateFromElement(final X elem) {
         return mapFromElement.get(elem);
     }
+
     /**
      * Retrieves the element associated with the specified coordinate.
      *
@@ -46,12 +52,13 @@ public class DualMap<X> {
      */
     public X getElemFromCoordinate(final Coordinate coor) {
         for (Coordinate obj : mapFromCoordinate.keySet()) {
-            if(obj.getRow() == coor.getRow() && obj.getColumn()==coor.getColumn()) {
+            if (obj.getRow() == coor.getRow() && obj.getColumn() == coor.getColumn()) {
                 return mapFromCoordinate.get(obj);
             }
         }
         return null;
     }
+
     /**
      * Removes the specified element and its associated coordinate from the map.
      *
@@ -61,6 +68,7 @@ public class DualMap<X> {
         mapFromCoordinate.remove(mapFromElement.get(elem));
         mapFromElement.remove(elem);
     }
+
     /**
      * Checks if a coordinate is present in the map.
      *
@@ -69,12 +77,13 @@ public class DualMap<X> {
      */
     public boolean isPresentByCoordinate(final Coordinate coor) {
         for (Coordinate checkCoordinate : mapFromCoordinate.keySet()) {
-            if(coor.getRow()==checkCoordinate.getRow() && coor.getColumn()==checkCoordinate.getColumn()) {
+            if (coor.getRow() == checkCoordinate.getRow() && coor.getColumn() == checkCoordinate.getColumn()) {
                 return true;
             }
         }
         return false;
     }
+
     /**
      * Checks if an element is present in the map.
      *
@@ -82,13 +91,13 @@ public class DualMap<X> {
      * @return true if the element is present, false otherwise
      */
     public boolean isPresentByObject(final X elem) {
-        if(mapFromElement.containsKey(elem)) {
+        if (mapFromElement.containsKey(elem)) {
             return true;
         }
         return false;
     }
 
-    public Set<X> getElemets(){
+    public Set<X> getElemets() {
         return mapFromElement.keySet();
     }
 }

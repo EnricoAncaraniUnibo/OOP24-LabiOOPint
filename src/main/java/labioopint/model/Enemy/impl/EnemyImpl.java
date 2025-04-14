@@ -10,6 +10,7 @@ import labioopint.model.Maze.api.Direction;
 
 import labioopint.model.Player.impl.PlayerImpl;
 import labioopint.model.api.Coordinate;
+import labioopint.model.api.Movable;
 import labioopint.model.Maze.impl.LabyrinthImpl;
 
 /**

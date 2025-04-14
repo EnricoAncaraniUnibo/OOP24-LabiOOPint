@@ -15,21 +15,38 @@ import labioopint.model.Player.impl.PlayerImpl;
 import labioopint.model.PowerUp.api.PowerUp;
 import labioopint.model.api.DualMap;
 import labioopint.model.api.Pair;
+
 /**
- * The DrawPanel class is responsible for rendering the labyrinth (maze) and its elements,
+ * The DrawPanel class is responsible for rendering the labyrinth (maze) and its
+ * elements,
  * such as blocks, players, enemies, and power-ups, on a graphical panel.
  * It extends the JPanel class and uses the Graphics2D API for drawing.
  */
-public class DrawPanel extends JPanel {
+public final class DrawPanel extends JPanel {
         private LogicDrawPanel ldp;
-        
-        public DrawPanel(final Dimension size, TurnManager tu) {
+
+        /**
+         * Constructs a DrawPanel with the specified panel size and TurnManager.
+         *
+         * @param size the Dimension of the panel
+         * @param tu   the TurnManager instance to manage turns
+         */
+        public DrawPanel(final Dimension size, final TurnManager tu) {
                 ldp = new LogicDrawPanel(tu, size);
         }
 
+        /**
+         * Updates the data required for drawing the panel and triggers a repaint.
+         *
+         * @param m           the MazeImpl instance representing the maze
+         * @param mapPlayers  the DualMap containing player coordinates
+         * @param mapEnemies  the DualMap containing enemy coordinates
+         * @param mapPowerUps the DualMap containing power-up coordinates
+         * @param outside     the BlockImpl representing the outside block
+         */
         public void draw(final MazeImpl m, final DualMap<PlayerImpl> mapPlayers,
-                final DualMap<Enemy> mapEnemies, final DualMap<PowerUp> mapPowerUps,
-                final BlockImpl outside) {
+                        final DualMap<Enemy> mapEnemies, final DualMap<PowerUp> mapPowerUps,
+                        final BlockImpl outside) {
                 ldp.updateData(m, mapPlayers, mapEnemies, mapPowerUps, outside);
                 repaint();
         }
@@ -38,14 +55,18 @@ public class DrawPanel extends JPanel {
                 super.paintComponent(g);
                 Graphics2D g2 = (Graphics2D) g;
                 AffineTransform old = g2.getTransform();
-                for (Pair<Pair<Image,Double>,Pair<Pair<Integer,Integer>,Pair<Integer,Integer>>> element : ldp.getImagesBlocks()) {
+                for (Pair<Pair<Image, Double>, Pair<Pair<Integer, Integer>, Pair<Integer, Integer>>> element : ldp
+                                .getImagesBlocks()) {
                         g2.rotate(element.getFirst().getSecond());
-                        g2.drawImage(element.getFirst().getFirst(), element.getSecond().getFirst().getFirst(), element.getSecond().getFirst().getSecond(),element.getSecond().getSecond().getFirst(),element.getSecond().getSecond().getSecond(), this);   
-                        g2.setTransform(old);       
+                        g2.drawImage(element.getFirst().getFirst(), element.getSecond().getFirst().getFirst(),
+                                        element.getSecond().getFirst().getSecond(),
+                                        element.getSecond().getSecond().getFirst(),
+                                        element.getSecond().getSecond().getSecond(), this);
+                        g2.setTransform(old);
                 }
         }
 
-        public Integer getBlockSize(){
+        public Integer getBlockSize() {
                 return ldp.getPixelSize();
         }
 }

@@ -33,7 +33,8 @@ public class LogicDrawPanel {
     private static final double ZERO_ROTATION = 0;
     private static final double ONE_HUNDRED_EIGHTY_ROTATION = -180;
     private static final double TWO_HUNDRED_SEVENTY = -270;
-    private static final Integer PERCENTILE = 3 / 5;
+    private static final Integer PERCENTILE_NUMERATOR = 3;
+    private static final Integer PERCENTILE_DENOMINATOR = 5;
     private static final Integer REDUCTION_SCALE_NUMBER = 4;
 
      /**
@@ -171,7 +172,7 @@ public class LogicDrawPanel {
             pPositions = new Pair<Integer, Integer>(
                 c.getColumn() * pixelSize + pixelSize / REDUCTION_SCALE_NUMBER, 
                 c.getRow() * pixelSize + pixelSize / REDUCTION_SCALE_NUMBER);
-            pSize = new Pair<Integer, Integer>(pixelSize * PERCENTILE, pixelSize * PERCENTILE);
+            pSize = new Pair<Integer, Integer>(pixelSize * PERCENTILE_NUMERATOR / PERCENTILE_DENOMINATOR, pixelSize * 3/5);
             pNumbers = new Pair<Pair<Integer, Integer>, Pair<Integer, Integer>>(pPositions, pSize);
             pFinal = new Pair<Pair<Image, Double>, Pair<Pair<Integer, Integer>, Pair<Integer, Integer>>>(
                 pImageRotation, pNumbers);
@@ -183,7 +184,8 @@ public class LogicDrawPanel {
             pPositions = new Pair<Integer, Integer>(
                 c.getColumn() * pixelSize + pixelSize / REDUCTION_SCALE_NUMBER, 
                 c.getRow() * pixelSize + pixelSize / REDUCTION_SCALE_NUMBER);
-            pSize = new Pair<Integer, Integer>(pixelSize * PERCENTILE, pixelSize * PERCENTILE);
+            pSize = new Pair<Integer, Integer>(pixelSize * PERCENTILE_NUMERATOR / PERCENTILE_DENOMINATOR, 
+            pixelSize * PERCENTILE_NUMERATOR / PERCENTILE_DENOMINATOR);
             pNumbers = new Pair<Pair<Integer, Integer>, Pair<Integer, Integer>>(pPositions, pSize);
             pFinal = new Pair<Pair<Image, Double>, Pair<Pair<Integer, Integer>, Pair<Integer, Integer>>>(
                 pImageRotation, pNumbers);
@@ -196,7 +198,8 @@ public class LogicDrawPanel {
             pPositions = new Pair<Integer, Integer>(
                 c.getColumn() * pixelSize + pixelSize / REDUCTION_SCALE_NUMBER, 
                 c.getRow() * pixelSize + pixelSize / REDUCTION_SCALE_NUMBER);
-            pSize = new Pair<Integer, Integer>(pixelSize * PERCENTILE, pixelSize * PERCENTILE);
+            pSize = new Pair<Integer, Integer>(pixelSize * PERCENTILE_NUMERATOR / PERCENTILE_DENOMINATOR, 
+            pixelSize * PERCENTILE_NUMERATOR / PERCENTILE_DENOMINATOR);
             pNumbers = new Pair<Pair<Integer, Integer>, Pair<Integer, Integer>>(pPositions, pSize);
             pFinal = new Pair<Pair<Image, Double>, Pair<Pair<Integer, Integer>, Pair<Integer, Integer>>>(
                 pImageRotation, pNumbers);

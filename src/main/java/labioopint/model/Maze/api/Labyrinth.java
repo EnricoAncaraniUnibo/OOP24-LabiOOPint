@@ -17,9 +17,9 @@ import labioopint.model.api.Coordinate;
  */
 public interface Labyrinth {
 	/**
-     * Initializes the labyrinth with a default configuration.
+     * Initializes the labyrinth attributes.
      */
-    void Default();
+    void Initialize();
     /**
      * Retrieves the block currently outside the labyrinth.
      *

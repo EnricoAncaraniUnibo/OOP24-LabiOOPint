@@ -3,18 +3,27 @@ package labioopint.model.Maze.impl;
 import labioopint.model.Block.api.BlockType;
 import labioopint.model.Block.impl.BlockImpl;
 import labioopint.model.Maze.api.SimpleMaze;
-
+/**
+ * The SimpleMazeImpl class extends MazeImpl and implements the SimpleMaze interface.
+ * It provides a specific implementation of a simple maze with predefined blocks
+ * (corner, corridor, and crossing) and their respective counts.
+ */
 public class SimpleMazeImpl extends MazeImpl implements SimpleMaze {
-    private final static Integer CORNER_BLOCKS = 16;
-    private final static Integer CORRIDOR_BLOCKS = 12;
-    private final static Integer CROSSING_BLOCKS = 18;
+    private static final Integer CORNER_BLOCKS = 16;
+    private static final Integer CORRIDOR_BLOCKS = 12;
+    private static final Integer CROSSING_BLOCKS = 18;
 
+    /**
+     * Constructs a SimpleMazeImpl with the specified size.
+     *
+     * @param size the size of the maze
+     */
     public SimpleMazeImpl(final Integer size) {
         super(size);
     }
 
     @Override
-    public BlockImpl Generate() {
+    public final BlockImpl Generate() {
         this.fillDefaultBlocks();
         MazeGeneratorImpl mg = new MazeGeneratorImpl(getListofBlocks());
         setMaze(mg.fill(getSize()));

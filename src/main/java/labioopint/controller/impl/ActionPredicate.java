@@ -56,7 +56,7 @@ public class ActionPredicate{
 
     public boolean BlockCanMove(Coordinate blockCoordinate) {
         BlockImpl b = lab.getGrid().GetBlock(blockCoordinate).get();
-        if(b.IsMovable() && (blockCoordinate.getColumn() == 0 || blockCoordinate.getColumn() == mazeSize-1
+        if(b.isMovable() && (blockCoordinate.getColumn() == 0 || blockCoordinate.getColumn() == mazeSize-1
                          ||  blockCoordinate.getRow() == 0 || blockCoordinate.getRow() == mazeSize-1)){
             return true;
         }
