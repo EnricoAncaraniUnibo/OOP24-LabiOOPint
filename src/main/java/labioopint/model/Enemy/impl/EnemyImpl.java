@@ -10,6 +10,7 @@ import labioopint.model.Maze.api.Direction;
 
 import labioopint.model.Player.impl.PlayerImpl;
 import labioopint.model.api.Coordinate;
+import labioopint.model.api.Movable;
 import labioopint.model.Maze.impl.LabyrinthImpl;
 
 /**
@@ -19,14 +20,17 @@ import labioopint.model.Maze.impl.LabyrinthImpl;
 public class EnemyImpl extends Movable implements Enemy {
 
     private EnemyAI enemyAI;
+    private ActionPredicate ap;
+    private TurnManager turn;
 
     /**
      * Constructs a new EnemyImpl object with the specified EnemyAI.
      * 
      * @param enemyAI the EnemyAI that controls the enemy's movement.
      */
-    public EnemyImpl(EnemyAI enemyAI) {
+    public EnemyImpl(EnemyAI enemyAI, TurnManager tu) {
         this.enemyAI = enemyAI;
+        turn = tu;
     }
 
     public EnemyAI getEnemyAI() {
@@ -34,12 +38,13 @@ public class EnemyImpl extends Movable implements Enemy {
     }
 
     @Override
-    public Coordinate move(final List<PlayerImpl> players) {
-        if(!ActionPredicate.EnemyCanMove(Direction.UP) && !ActionPredicate.EnemyCanMove(Direction.DOWN)
-                && !ActionPredicate.EnemyCanMove(Direction.LEFT) && !ActionPredicate.EnemyCanMove(Direction.RIGHT)) {
-            return TurnManager.GetLab().getEnemyCoordinate(this);
+    public List<Coordinate> move(final List<PlayerImpl> players) {
+        ap = new ActionPredicate(turn);
+        if(!ap.EnemyCanMove(Direction.UP) && !ap.EnemyCanMove(Direction.DOWN)
+                && !ap.EnemyCanMove(Direction.LEFT) && !ap.EnemyCanMove(Direction.RIGHT)) {
+            return new ArrayList<>();
         } else {
-            return enemyAI.getNextPosition(players, TurnManager.GetLab().getEnemyCoordinate(this));
+            return enemyAI.getNextPosition(players, turn.GetLab().getEnemyCoordinate(this));
         }
     }
     /*
@@ -55,7 +60,7 @@ public class EnemyImpl extends Movable implements Enemy {
 
     @Override
     public void playerHit(final List<PlayerImpl> players) {
-        LabyrinthImpl maze = TurnManager.GetLab();
+        LabyrinthImpl maze = turn.GetLab();
         for (PlayerImpl player : players) {
             if (maze.getEnemyCoordinate(this).getRow() == maze.getPlayerCoordinate(player).getRow()
                     && maze.getEnemyCoordinate(this).getColumn() == maze.getPlayerCoordinate(player).getColumn()) { 

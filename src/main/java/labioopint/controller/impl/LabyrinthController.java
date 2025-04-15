@@ -1,6 +1,7 @@
 package labioopint.controller.impl;
 
 import labioopint.model.Block.impl.BlockImpl;
+import labioopint.model.Core.impl.TurnManager;
 import labioopint.model.Enemy.api.Enemy;
 import labioopint.model.Maze.impl.MazeImpl;
 import labioopint.model.Player.impl.PlayerImpl;
@@ -17,8 +18,8 @@ public class LabyrinthController {
     /**
      * Constructs a new LabyrinthController and initializes the game view.
      */
-    public LabyrinthController() {
-        gtv = new GameView();
+    public LabyrinthController(TurnManager tu) {
+        gtv = new GameView(tu);
     }
     /**
      * Updates the graphical representation of the game state.

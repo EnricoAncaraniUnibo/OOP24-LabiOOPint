@@ -13,65 +13,65 @@ import labioopint.model.api.ActionType;
 import labioopint.model.api.Settings;
 
 public class TurnManager {
-    private static LabyrinthImpl maze;
-    private static List<PlayerImpl> players;
-    private static Optional<Enemy> enemy;
-    private static List<PowerUp> powerUps;
-    private static ActionType currentAction;
-    private static int index;
+    private LabyrinthImpl maze;
+    private List<PlayerImpl> players;
+    private Optional<Enemy> enemy;
+    private List<PowerUp> powerUps;
+    private ActionType currentAction;
+    private int index;
 
-    public static void Init(Settings st){
+    public TurnManager(Settings st){
         currentAction = ActionType.BLOCK_PLACEMENT;
         index = 0;
-        BuilderImpl bi = new BuilderImpl(st);
+        BuilderImpl bi = new BuilderImpl(st,this);
         players = bi.createPlayers();
+        players = new RandomTurnChooser(players).randomOrder();
         enemy = bi.createEnemy();
         powerUps = bi.createPowerUps();
         maze = bi.createMaze();
-        players = new RandomTurnChooser(players).randomOrder();
     }
 
-    public static LabyrinthImpl GetLab(){
+    public LabyrinthImpl GetLab(){
         return maze;
     }
 
-    public static List<PlayerImpl> GetPlayers(){
+    public List<PlayerImpl> GetPlayers(){
         return players;
     }
 
-    public static Optional<Enemy> GetEnemy(){
+    public Optional<Enemy> GetEnemy(){
         return enemy;
     }
 
-    public static List<PowerUp> GetPowerUps(){
+    public List<PowerUp> GetPowerUps(){
         return powerUps;
     }
 
-    public static PlayerImpl GetCurrentPlayer() {
+    public PlayerImpl GetCurrentPlayer() {
         PlayerImpl p = players.get(index);
         return p;
     }
 
-    public static ActionType GetCurrentAction() {
+    public ActionType GetCurrentAction() {
         return currentAction;
     }
 
-    public static void nextAction(){
+    public void nextAction(){
         if(currentAction == ActionType.BLOCK_PLACEMENT){
             currentAction = ActionType.PLAYER_MOVEMENT;
         } else if(currentAction == ActionType.PLAYER_MOVEMENT){
             index = (index + 1) % players.size();
             if(enemy.isPresent()){
                 if(enemy.get().getEnemyAI() instanceof SingleStepRandomAI) {
-                    maze.absoluteUpdateCoordinate(enemy.get(), enemy.get().move(players));   
+                    maze.EnemyUpdateCoordinate(enemy.get(), enemy.get().move(players));   
                     enemy.get().playerHit(players);      
                 }
                 if(enemy.get().getEnemyAI() instanceof RandomAI) {
-                    maze.absoluteUpdateCoordinate(enemy.get(), enemy.get().move(players));      
+                    maze.EnemyUpdateCoordinate(enemy.get(), enemy.get().move(players));      
                     enemy.get().playerHit(players);  
                 }
                 if(enemy.get().getEnemyAI() instanceof ChaseAI) {
-                    maze.absoluteUpdateCoordinate(enemy.get(), enemy.get().move(players));     
+                    maze.EnemyUpdateCoordinate(enemy.get(), enemy.get().move(players));     
                     enemy.get().playerHit(players);   
                 }
                 currentAction = ActionType.BLOCK_PLACEMENT;
@@ -83,7 +83,7 @@ public class TurnManager {
         }
     }
 
-    public static void addAddictionalPowerUp(PowerUp p) {
+    public void addAddictionalPowerUp(PowerUp p) {
         powerUps.add(p);
     }
 }

@@ -7,7 +7,7 @@ import labioopint.model.api.Coordinate;
 
 public interface Enemy {
 
-    Coordinate move(List<PlayerImpl> players);
+    List<Coordinate> move(List<PlayerImpl> players);
 
     void playerHit(List<PlayerImpl> players);
     // nemico dice che ho colpito quel player

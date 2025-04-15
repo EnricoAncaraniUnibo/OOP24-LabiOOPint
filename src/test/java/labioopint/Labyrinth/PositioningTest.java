@@ -2,14 +2,15 @@ package labioopint.Labyrinth;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import labioopint.model.Core.impl.TurnManager;
 import labioopint.model.Enemy.api.Enemy;
+import labioopint.model.Enemy.api.EnemyDifficulty;
 import labioopint.model.Maze.api.Labyrinth;
 import labioopint.model.Maze.impl.LabyrinthImpl;
 import labioopint.model.Player.impl.PlayerImpl;
@@ -23,17 +24,9 @@ import labioopint.model.api.Settings;
  * are valid, and positions can be updated as expected.
  */
 public class PositioningTest {
-	private static Labyrinth lab;
+	private Labyrinth lab;
 	private final static Integer SIZE = 7;
-	
-	/**
-     * Initializes the TurnManager and the labyrinth before all tests are executed.
-     */
-	@BeforeAll
-	static void init() {
-		TurnManager.Init(new Settings(1,4,5));
-		lab = new LabyrinthImpl(SIZE);
-	}
+	private TurnManager tu;
 	
 	/**
      * Tests that all players, enemies, and power-ups have valid positions
@@ -42,7 +35,9 @@ public class PositioningTest {
 	@Test
 	void CheckPositionForAll() {
 		boolean passed=true;
-		for(PlayerImpl p : TurnManager.GetPlayers()) {
+		tu = new TurnManager(new Settings(1,4,5,EnemyDifficulty.EASY));
+		lab = new LabyrinthImpl(SIZE, tu);
+		for(PlayerImpl p : tu.GetPlayers()) {
 			Coordinate c = lab.getPlayerCoordinate(p);
 			if(Objects.isNull(c)) {
 				passed=false;
@@ -50,13 +45,13 @@ public class PositioningTest {
 		}
 		assertTrue(passed);
 		passed=true;
-		Coordinate c = lab.getEnemyCoordinate(TurnManager.GetEnemy().get());
+		Coordinate c = lab.getEnemyCoordinate(tu.GetEnemy().get());
 		if(Objects.isNull(c)) {
 			passed=false;
 		}
 		assertTrue(passed);
 		passed=true;
-		for(PowerUp p : TurnManager.GetPowerUps()) {
+		for(PowerUp p : tu.GetPowerUps()) {
 			c = lab.getPowerUpCoordinate(p);
 			if(Objects.isNull(c)) {
 				passed=false;
@@ -70,9 +65,11 @@ public class PositioningTest {
      */
 	@Test
 	void StartingPlayerPositions() {
-		lab= new LabyrinthImpl(SIZE);
+		tu = new TurnManager(new Settings(1,4,5,EnemyDifficulty.EASY));
+		lab = new LabyrinthImpl(SIZE, tu);
+		lab= new LabyrinthImpl(SIZE,tu);
 		boolean passed=true;
-		for(PlayerImpl p : TurnManager.GetPlayers()) {
+		for(PlayerImpl p : tu.GetPlayers()) {
 			Coordinate c = lab.getPlayerCoordinate(p);
 			if(!(c.getRow()==0 && c.getColumn()==0) && !(c.getRow()==0 && c.getColumn()==SIZE-1) && !(c.getRow()==SIZE-1 && c.getColumn()==SIZE-1) && !(c.getRow()==SIZE-1 && c.getColumn()==0)) {
 				passed=false;
@@ -87,11 +84,13 @@ public class PositioningTest {
      */
 	@Test 
 	void ChangePosition() {
-		List<PlayerImpl> ls = TurnManager.GetPlayers();
-		Enemy e = TurnManager.GetEnemy().get();
+		tu = new TurnManager(new Settings(1,4,5,EnemyDifficulty.EASY));
+		lab = new LabyrinthImpl(SIZE, tu);
+		List<PlayerImpl> ls = tu.GetPlayers();
+		Enemy e = tu.GetEnemy().get();
 		
 		Coordinate old = lab.getPlayerCoordinate(ls.get(0));
-		lab.absoluteUpdateCoordinate(ls.get(0), new Coordinate(3,3));
+		lab.PlayerUpdateCoordinate(ls.get(0), new Coordinate(3,3));
 		boolean oldRemoved=true;
 		if(lab.getPlayerCoordinate(ls.get(0)).getRow()==old.getRow() && lab.getPlayerCoordinate(ls.get(0)).getColumn()==old.getColumn()) {
 			oldRemoved=false;
@@ -105,7 +104,9 @@ public class PositioningTest {
 		assertTrue(correctChanged);
 		
 		old = lab.getEnemyCoordinate(e);
-		lab.absoluteUpdateCoordinate(e, new Coordinate(Math.abs(old.getRow()-1),Math.abs(old.getColumn()-1)));
+		List<Coordinate> lCoor = new ArrayList<>();
+		lCoor.add(new Coordinate(Math.abs(old.getRow()-1),Math.abs(old.getColumn()-1)));
+		lab.EnemyUpdateCoordinate(e, lCoor);
 		oldRemoved=true;
 		if(lab.getEnemyCoordinate(e).getRow()==old.getRow() && lab.getEnemyCoordinate(e).getColumn()==old.getColumn()) {
 			oldRemoved=false;

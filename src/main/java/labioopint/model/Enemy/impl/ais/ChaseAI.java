@@ -29,7 +29,7 @@ public class ChaseAI implements EnemyAI {
     private static final int STEPS = 5;
 
     @Override
-    public Coordinate getNextPosition(final List<PlayerImpl> players, final Coordinate current) {
+    public List<Coordinate> getNextPosition(final List<PlayerImpl> players, final Coordinate current) {
         List<Coordinate> walkableCells = getWalkableCells(current);
 
         var path = getPath(walkableCells, players, current);
