@@ -44,7 +44,5 @@ public class RandomAI implements EnemyAI {
             ls.add(newPos);
         }
         return ls;
-
     }
-
 }

@@ -16,7 +16,7 @@ public class EnemyFactoryImpl implements EnemyFactory {
 
     @Override
     public Enemy createChaseEnemy(TurnManager tu) {
-        return new EnemyImpl(new ChaseAI(),tu);
+        return new EnemyImpl(new ChaseAI(tu),tu);
     }
 
     @Override
