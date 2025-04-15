@@ -18,7 +18,6 @@ import labioopint.model.Maze.impl.LabyrinthImpl;
 import labioopint.model.Player.impl.PlayerImpl;
 import labioopint.model.api.Coordinate;
 import labioopint.controller.impl.ActionPredicate;
-import labioopint.model.Block.impl.BlockImpl;
 import labioopint.model.Core.impl.TurnManager;
 
 /**
@@ -42,12 +41,6 @@ public class ChaseAI implements EnemyAI {
     }
 
     private List<Coordinate> getWalkableCells(final Coordinate enemyCoordinate) {
-        LabyrinthImpl lab = TurnManager.GetLab();
-        List<BlockImpl> blockList = lab.getGrid().getListofBlocks();
-        List<Coordinate> coordinates = blockList
-                .stream()
-                .map(b -> lab.getGrid().getCoordinate(b))
-                .toList();
         List<Coordinate> output = new ArrayList<>();
         Queue<Coordinate> queue = new ArrayDeque<>();
         queue.add(enemyCoordinate);
@@ -56,7 +49,7 @@ public class ChaseAI implements EnemyAI {
             output.add(current);
             for (Direction dir : List.of(Direction.UP, Direction.DOWN, Direction.LEFT, Direction.RIGHT)) {
                 Coordinate next = MovementUtilities.getNextCoordinate(current, dir);
-                if (ActionPredicate.CanMoveFromPosition(current, dir) && coordinates.contains(next) && !output.contains(next)) {
+                if (ActionPredicate.CanMoveFromPosition(current, dir) && !output.contains(next)) {
                     queue.add(next);
                 }
             }
