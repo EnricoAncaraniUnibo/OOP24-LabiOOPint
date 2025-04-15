@@ -2,11 +2,10 @@ package labioopint.Player;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import labioopint.model.Core.impl.TurnManager;
+import labioopint.model.Enemy.api.EnemyDifficulty;
 import labioopint.model.Maze.api.Direction;
 import labioopint.model.Maze.impl.LabyrinthImpl;
 import labioopint.model.Player.api.Player;
@@ -17,27 +16,21 @@ import labioopint.model.api.Settings;
 
 public class PlayerTest {
     private static Player p;
-    
-    @BeforeAll
-    static void init() {
-    	p = new PlayerImpl("Archer");
-    }
-    
-    @BeforeEach
-    void reCreate() {
-    	p = new PlayerImpl("Archer");
-    }
+	private TurnManager tu;
     
     @Test
     void PickUpObjective() {
-    	p.addObjective(new SwapPositionPowerUp());
+		tu = new TurnManager(new Settings(1,4,5,EnemyDifficulty.EASY));
+		p = new PlayerImpl("Archer",tu);
+    	p.addObjective(new SwapPositionPowerUp(tu));
     	assertEquals(p.getUsablePowerUps().size(),1);
     	assertEquals(p.getObjetives().size(),1);
     }
     
     @Test
     void ConsumePowerUp() {
-    	SwapPositionPowerUp pu = new SwapPositionPowerUp();
+		p = new PlayerImpl("Archer",tu);
+    	SwapPositionPowerUp pu = new SwapPositionPowerUp(tu);
     	p.addObjective(pu);
     	p.removePowerUp(pu);
     	assertEquals(p.getUsablePowerUps().size(),0);
@@ -46,12 +39,13 @@ public class PlayerTest {
     
     @Test
     void MovePlayer() {
-    	TurnManager.Init(new Settings(0,2,0));
-    	LabyrinthImpl lab = new LabyrinthImpl(5);
-    	lab.absoluteUpdateCoordinate(TurnManager.GetCurrentPlayer(), new Coordinate(0,0));
-    	lab.movePlayer(TurnManager.GetCurrentPlayer(), Direction.DOWN);
-    	assertEquals(lab.getPlayerCoordinate(TurnManager.GetCurrentPlayer()).getRow(),1);
-    	lab.movePlayer(TurnManager.GetCurrentPlayer(), Direction.RIGHT);
-    	assertEquals(lab.getPlayerCoordinate(TurnManager.GetCurrentPlayer()).getColumn(),1);
+		tu = new TurnManager(new Settings(0,2,0,EnemyDifficulty.EASY));
+		p = new PlayerImpl("Archer",tu);
+    	LabyrinthImpl lab = new LabyrinthImpl(5,tu);
+    	lab.PlayerUpdateCoordinate(tu.GetCurrentPlayer(), new Coordinate(0,0));
+    	lab.movePlayer(tu.GetCurrentPlayer(), Direction.DOWN);
+    	assertEquals(lab.getPlayerCoordinate(tu.GetCurrentPlayer()).getRow(),1);
+    	lab.movePlayer(tu.GetCurrentPlayer(), Direction.RIGHT);
+    	assertEquals(lab.getPlayerCoordinate(tu.GetCurrentPlayer()).getColumn(),1);
     }
 }

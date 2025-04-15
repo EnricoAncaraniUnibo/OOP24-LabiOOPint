@@ -1,16 +1,16 @@
 package labioopint;
 
 import labioopint.model.Core.impl.TurnManager;
+import labioopint.model.Enemy.api.EnemyDifficulty;
 import labioopint.model.api.Settings;
 
 public class Prova {
     public static void main(String[] args) {
-        Settings test = new Settings(1,4,2);
+        Settings test = new Settings(1,4,2,EnemyDifficulty.MEDIUM);
         try {
-            TurnManager.Init(test);
+            TurnManager tu = new TurnManager(test);
         } catch (Exception e) {
            
         }
-        
     }
 }

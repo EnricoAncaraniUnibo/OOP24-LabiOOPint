@@ -25,6 +25,7 @@ public class BuilderImpl {
     private int numberPowerUp;
     private EnemyFactory enemyFactory;
     private EnemyDifficulty type;
+    private TurnManager turn;
 
     // potrebbe avere bisogno di ricevere setting dal costruttore, se è vuoto,
     // setting va passato in qualche modo
@@ -32,11 +33,12 @@ public class BuilderImpl {
      * Constructs a BuilderImpl instance. The number of players is retrieved
      * from the game settings.
      */
-    public BuilderImpl(Settings st) {
+    public BuilderImpl(Settings st, TurnManager tu) {
         numberPlayer = st.getPlayers();
         enemyFactory = new EnemyFactoryImpl();
         type = st.getEnemyDifficulty();
         numberPowerUp = st.getPowerUps();
+        turn = tu;
     }
 
     /**
@@ -48,12 +50,12 @@ public class BuilderImpl {
     public LabyrinthImpl createMaze() {
         if (numberPlayer == 2) {
             definitiveDimension = SMALL_LABYRINTH;
-            LabyrinthImpl labyrint = new LabyrinthImpl(SMALL_LABYRINTH);
+            LabyrinthImpl labyrint = new LabyrinthImpl(SMALL_LABYRINTH,turn);
             getDimension(definitiveDimension);
             return labyrint;
         } else if (numberPlayer == 4) {
             definitiveDimension = BIG_LABYRINTH;
-            LabyrinthImpl labyrint = new LabyrinthImpl(BIG_LABYRINTH);
+            LabyrinthImpl labyrint = new LabyrinthImpl(BIG_LABYRINTH,turn);
             getDimension(definitiveDimension);
             return labyrint;
         } else {
@@ -76,7 +78,7 @@ public class BuilderImpl {
         List<PlayerImpl> tm = new ArrayList<>();
         for (int i = 1; i <= numberPlayer; i++) {
             int n = x.nextInt(0,nameList.size());
-            PlayerImpl a = new PlayerImpl(nameList.get(n));
+            PlayerImpl a = new PlayerImpl(nameList.get(n),turn);
             nameList.remove(n);
             tm.add(a);
         }
@@ -91,13 +93,13 @@ public class BuilderImpl {
      */
     public Optional<Enemy> createEnemy(){
         if (type == EnemyDifficulty.EASY) {
-            Optional<Enemy> enemy = Optional.of(enemyFactory.createSingleStepEnemy());
+            Optional<Enemy> enemy = Optional.of(enemyFactory.createSingleStepEnemy(turn));
             return enemy;
         } else if (type == EnemyDifficulty.MEDIUM) {
-            Optional<Enemy> enemy = Optional.of(enemyFactory.createRandomEnemy());
+            Optional<Enemy> enemy = Optional.of(enemyFactory.createRandomEnemy(turn));
             return enemy;
         } else if (type == EnemyDifficulty.HARD) {
-            Optional<Enemy> enemy = Optional.of(enemyFactory.createChaseEnemy());
+            Optional<Enemy> enemy = Optional.of(enemyFactory.createChaseEnemy(turn));
             return enemy;
         } else {
             return Optional.empty();
@@ -107,7 +109,7 @@ public class BuilderImpl {
     public List<PowerUp> createPowerUps() {
         List<PowerUp> powerUps = new ArrayList<>();
         for (int i = 0; i < numberPowerUp; i++) {
-            PowerUp powerUp = (PowerUp) new SwapPositionPowerUp();
+            PowerUp powerUp = (PowerUp) new SwapPositionPowerUp(turn);
             powerUps.add(powerUp);
         }
         return powerUps;

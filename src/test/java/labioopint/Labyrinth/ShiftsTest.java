@@ -4,11 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import labioopint.model.Block.impl.BlockImpl;
 import labioopint.model.Core.impl.TurnManager;
+import labioopint.model.Enemy.api.EnemyDifficulty;
 import labioopint.model.Maze.api.Direction;
 import labioopint.model.Maze.api.Labyrinth;
 import labioopint.model.Maze.impl.LabyrinthImpl;
@@ -22,17 +22,9 @@ import labioopint.model.api.Settings;
  */
 public class ShiftsTest {
     
-	private static Labyrinth lab;
+	private Labyrinth lab;
 	private final static Integer SIZE=5;
-	
-	/**
-     * Initializes the TurnManager and the labyrinth before all tests are executed.
-     */
-	@BeforeAll
-	static void Init() {
-		TurnManager.Init(new Settings(1,2,3));
-		lab = new LabyrinthImpl(SIZE);
-	}
+	private TurnManager tu;
 	
 	/**
      * Tests shifting a row to the right. Verifies that the blocks in the row
@@ -40,6 +32,8 @@ public class ShiftsTest {
      */
 	@Test
 	void testShiftRowRight() {
+		tu = new TurnManager(new Settings(1,2,3,EnemyDifficulty.EASY));
+		lab = new LabyrinthImpl(SIZE, tu);
 		BlockImpl initialOutsideBlock = lab.getOutsideBlock();
 		List<BlockImpl> ls = new ArrayList<BlockImpl>();
 		for(int i=0;i<SIZE;i++)  {
@@ -59,6 +53,8 @@ public class ShiftsTest {
      */
 	@Test
 	void testShiftRowLeft() {
+		tu = new TurnManager(new Settings(1,2,3,EnemyDifficulty.EASY));
+		lab = new LabyrinthImpl(SIZE, tu);
 		BlockImpl initialOutsideBlock = lab.getOutsideBlock();
 		List<BlockImpl> ls = new ArrayList<BlockImpl>();
 		for(int i=SIZE-1;i>=0;i--)  {
@@ -80,6 +76,8 @@ public class ShiftsTest {
      */
 	@Test
 	void testShiftColumnDown() {
+		tu = new TurnManager(new Settings(1,2,3,EnemyDifficulty.EASY));
+		lab = new LabyrinthImpl(SIZE, tu);
 		BlockImpl initialOutsideBlock = lab.getOutsideBlock();
 		List<BlockImpl> ls = new ArrayList<BlockImpl>();
 		for(int i=0;i<SIZE;i++)  {
@@ -99,6 +97,8 @@ public class ShiftsTest {
      */
 	@Test
 	void testShiftColumnUp() {
+		tu = new TurnManager(new Settings(1,2,3,EnemyDifficulty.EASY));
+		lab = new LabyrinthImpl(SIZE, tu);
 		BlockImpl initialOutsideBlock = lab.getOutsideBlock();
 		List<BlockImpl> ls = new ArrayList<BlockImpl>();
 		for(int i=SIZE-1;i>=0;i--)  {
