@@ -12,7 +12,6 @@ import java.util.Optional;
 import java.util.Queue;
 import java.util.Set;
 
-
 import labioopint.model.Enemy.api.EnemyAI;
 import labioopint.model.Enemy.impl.MovementUtilities;
 import labioopint.model.Maze.api.Direction;
@@ -42,7 +41,7 @@ public class ChaseAI implements EnemyAI {
 
         var path = getPath(walkableCells, players, current);
         if (path.isPresent()) {
-            return path.get(); // ritorna l'ultima coordinata del percorso
+            return path.get();
         } else {
             List<Coordinate> ls = new ArrayList<>();
             ls.add(current);
@@ -54,7 +53,7 @@ public class ChaseAI implements EnemyAI {
         List<Coordinate> output = new ArrayList<>();
         Queue<Coordinate> queue = new ArrayDeque<>();
         queue.add(enemyCoordinate);
-        while(!queue.isEmpty()) {
+        while (!queue.isEmpty()) {
             Coordinate current = queue.poll();
             output.add(current);
             for (Direction dir : List.of(Direction.UP, Direction.DOWN, Direction.LEFT, Direction.RIGHT)) {
@@ -63,7 +62,7 @@ public class ChaseAI implements EnemyAI {
                     queue.add(next);
                 }
             }
-            
+
         }
         return output;
     }
@@ -74,77 +73,52 @@ public class ChaseAI implements EnemyAI {
      * Finds the shortest path from the start position to any player position.
      * 
      * @param walkableCells List of coordinates that can be traversed
-     * @param players List of players in the game
-     * @param start The starting coordinate for pathfinding
-     * @return Optional containing a list of coordinates representing the path, or empty if no path exists
+     * @param players       List of players in the game
+     * @param start         The starting coordinate for pathfinding
+     * @return Optional containing a list of coordinates representing the path, or
+     *         empty if no path exists
      */
-    private Optional<List<Coordinate>> getPath(final List<Coordinate> walkableCells, final List<PlayerImpl> players, final Coordinate start) {
+    private Optional<List<Coordinate>> getPath(final List<Coordinate> walkableCells, final List<PlayerImpl> players,
+            final Coordinate start) {
         LabyrinthImpl lab = turn.GetLab();
-        
-        // Get all player positions
         List<Coordinate> playerPositions = players.stream()
-            .map(p -> lab.getPlayerCoordinate(p))
-            .toList();
-        
-        // If no players or walkable cells, return empty
+                .map(p -> lab.getPlayerCoordinate(p))
+                .toList();
+
         if (playerPositions.isEmpty() || walkableCells.isEmpty()) {
             return Optional.empty();
         }
-        
-        // Track visited nodes to avoid cycles
         Set<Coordinate> visited = new HashSet<>();
-        
-        // Track predecessors to reconstruct the path
         Map<Coordinate, Coordinate> predecessors = new HashMap<>();
-        
-        // BFS queue
         Queue<Coordinate> queue = new LinkedList<>();
-        
-        // Start the search
         queue.add(start);
         visited.add(start);
-        predecessors.put(start, null); // Start has no predecessor
-        
+        predecessors.put(start, null);
         Coordinate targetPlayer = null;
-        
-        // BFS algorithm
         while (!queue.isEmpty() && targetPlayer == null) {
             Coordinate current = queue.poll();
-            
-            // Check if we've found a player
             if (playerPositions.contains(current)) {
                 targetPlayer = current;
                 break;
             }
-            
-            // Get all valid neighbors (4-way movement: up, down, left, right)
             List<Coordinate> neighbors = getNeighbors(current, walkableCells, visited);
-            
-            // Add valid neighbors to the queue
             for (Coordinate neighbor : neighbors) {
                 queue.add(neighbor);
                 visited.add(neighbor);
                 predecessors.put(neighbor, current);
             }
         }
-        
-        // If a player was found, reconstruct the path
         if (targetPlayer != null) {
             List<Coordinate> path = new ArrayList<>();
             Coordinate current = targetPlayer;
-            
-            // Reconstruct path from target to start
             while (current != null) {
                 path.add(current);
                 current = predecessors.get(current);
             }
-            
-            // Reverse to get path from start to target
             Collections.reverse(path);
-            
+
             return Optional.of(path);
         } else {
-            // No path found, use random movement as fallback
             SingleStepRandomAI randomAI = new SingleStepRandomAI(turn);
             return Optional.of(randomAI.getNextPosition(players, start));
         }
@@ -153,34 +127,31 @@ public class ChaseAI implements EnemyAI {
     /**
      * Gets the valid neighboring cells for a coordinate (4-way movement).
      * 
-     * @param current The current coordinate
+     * @param current       The current coordinate
      * @param walkableCells List of walkable cells
-     * @param visited Set of already visited cells
+     * @param visited       Set of already visited cells
      * @return List of valid neighboring coordinates
      */
-    private List<Coordinate> getNeighbors(final Coordinate current, final List<Coordinate> walkableCells, final Set<Coordinate> visited) {
+    private List<Coordinate> getNeighbors(final Coordinate current, final List<Coordinate> walkableCells,
+            final Set<Coordinate> visited) {
         List<Coordinate> neighbors = new ArrayList<>();
-        
-        // The four cardinal directions (up, right, down, left)
         int[][] directions = {
-            {-1, 0}, // Up
-            {0, 1},  // Right
-            {1, 0},  // Down
-            {0, -1}  // Left
+                { -1, 0 }, 
+                { 0, 1 }, 
+                { 1, 0 }, 
+                { 0, -1 } 
         };
-        
+
         for (int[] dir : directions) {
             int newRow = current.getRow() + dir[0];
             int newCol = current.getColumn() + dir[1];
-            
+
             Coordinate neighbor = new Coordinate(newRow, newCol);
-            
-            // Check if the neighbor is walkable and not visited
             if (walkableCells.contains(neighbor) && !visited.contains(neighbor)) {
                 neighbors.add(neighbor);
             }
         }
-        
+
         return neighbors;
     }
 
