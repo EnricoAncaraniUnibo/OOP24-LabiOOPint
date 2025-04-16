@@ -4,11 +4,13 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Queue;
-import java.util.stream.Collectors;
+import java.util.Set;
 
 
 import labioopint.model.Enemy.api.EnemyAI;
@@ -26,17 +28,25 @@ import labioopint.model.Core.impl.TurnManager;
  */
 public class ChaseAI implements EnemyAI {
 
-    private static final int STEPS = 5;
+    private ActionPredicate ap;
+    private TurnManager turn;
+
+    public ChaseAI(TurnManager tu) {
+        turn = tu;
+    }
 
     @Override
-    public Coordinate getNextPosition(final List<PlayerImpl> players, final Coordinate current) {
+    public List<Coordinate> getNextPosition(final List<PlayerImpl> players, final Coordinate current) {
+        ap = new ActionPredicate(turn);
         List<Coordinate> walkableCells = getWalkableCells(current);
 
         var path = getPath(walkableCells, players, current);
         if (path.isPresent()) {
-            return path.get().getLast(); // ritorna l'ultima coordinata del percorso
+            return path.get(); // ritorna l'ultima coordinata del percorso
         } else {
-            return current;
+            List<Coordinate> ls = new ArrayList<>();
+            ls.add(current);
+            return ls;
         }
     }
 
@@ -49,7 +59,7 @@ public class ChaseAI implements EnemyAI {
             output.add(current);
             for (Direction dir : List.of(Direction.UP, Direction.DOWN, Direction.LEFT, Direction.RIGHT)) {
                 Coordinate next = MovementUtilities.getNextCoordinate(current, dir);
-                if (ActionPredicate.CanMoveFromPosition(current, dir) && !output.contains(next)) {
+                if (ap.CanMoveFromPosition(current, dir) && !output.contains(next)) {
                     queue.add(next);
                 }
             }
