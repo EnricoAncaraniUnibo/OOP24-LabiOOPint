@@ -37,7 +37,7 @@ public class PositioningTest {
 		boolean passed=true;
 		tu = new TurnManager(new Settings(1,4,5,EnemyDifficulty.EASY));
 		lab = new LabyrinthImpl(SIZE, tu);
-		for(PlayerImpl p : tu.GetPlayers()) {
+		for(PlayerImpl p : tu.getPlayers()) {
 			Coordinate c = lab.getPlayerCoordinate(p);
 			if(Objects.isNull(c)) {
 				passed=false;
@@ -45,13 +45,13 @@ public class PositioningTest {
 		}
 		assertTrue(passed);
 		passed=true;
-		Coordinate c = lab.getEnemyCoordinate(tu.GetEnemy().get());
+		Coordinate c = lab.getEnemyCoordinate(tu.getEnemy().get());
 		if(Objects.isNull(c)) {
 			passed=false;
 		}
 		assertTrue(passed);
 		passed=true;
-		for(PowerUp p : tu.GetPowerUps()) {
+		for(PowerUp p : tu.getPowerUps()) {
 			c = lab.getPowerUpCoordinate(p);
 			if(Objects.isNull(c)) {
 				passed=false;
@@ -69,7 +69,7 @@ public class PositioningTest {
 		lab = new LabyrinthImpl(SIZE, tu);
 		lab= new LabyrinthImpl(SIZE,tu);
 		boolean passed=true;
-		for(PlayerImpl p : tu.GetPlayers()) {
+		for(PlayerImpl p : tu.getPlayers()) {
 			Coordinate c = lab.getPlayerCoordinate(p);
 			if(!(c.getRow()==0 && c.getColumn()==0) && !(c.getRow()==0 && c.getColumn()==SIZE-1) && !(c.getRow()==SIZE-1 && c.getColumn()==SIZE-1) && !(c.getRow()==SIZE-1 && c.getColumn()==0)) {
 				passed=false;
@@ -86,8 +86,8 @@ public class PositioningTest {
 	void ChangePosition() {
 		tu = new TurnManager(new Settings(1,4,5,EnemyDifficulty.EASY));
 		lab = new LabyrinthImpl(SIZE, tu);
-		List<PlayerImpl> ls = tu.GetPlayers();
-		Enemy e = tu.GetEnemy().get();
+		List<PlayerImpl> ls = tu.getPlayers();
+		Enemy e = tu.getEnemy().get();
 		
 		Coordinate old = lab.getPlayerCoordinate(ls.get(0));
 		lab.PlayerUpdateCoordinate(ls.get(0), new Coordinate(3,3));

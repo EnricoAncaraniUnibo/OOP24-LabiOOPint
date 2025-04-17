@@ -1,6 +1,9 @@
 package labioopint.model.Core.impl;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Random;
 
 import labioopint.model.Enemy.api.Enemy;
 import labioopint.model.Enemy.api.EnemyDifficulty;
@@ -18,22 +21,29 @@ import labioopint.model.api.Settings;
  */
 public class BuilderImpl {
 
-    public final static int SMALL_LABYRINTH = 5;
-    public final static int BIG_LABYRINTH = 7;
-    private int definitiveDimension; // NO USARE VAR PUBBLICHE USA METODO CON GETTER
+    /**
+     * The dimension of a small labyrinth.
+     */
+    public static final int SMALL_LABYRINTH = 5;
+    /**
+     * The dimension of a big labyrinth.
+     */
+    public static final int BIG_LABYRINTH = 7;
+    private int definitiveDimension;
     private int numberPlayer;
     private int numberPowerUp;
     private EnemyFactory enemyFactory;
     private EnemyDifficulty type;
     private TurnManager turn;
 
-    // potrebbe avere bisogno di ricevere setting dal costruttore, se è vuoto,
-    // setting va passato in qualche modo
     /**
-     * Constructs a BuilderImpl instance. The number of players is retrieved
-     * from the game settings.
+     * Constructs a BuilderImpl instance. The number of players, enemy difficulty,
+     * and number of power-ups are retrieved from the game settings.
+     *
+     * @param st the game settings containing the configuration for the game
+     * @param tu the TurnManager used to manage game state
      */
-    public BuilderImpl(Settings st, TurnManager tu) {
+    public BuilderImpl(final Settings st, final TurnManager tu) {
         numberPlayer = st.getPlayers();
         enemyFactory = new EnemyFactoryImpl();
         type = st.getEnemyDifficulty();
@@ -50,12 +60,12 @@ public class BuilderImpl {
     public LabyrinthImpl createMaze() {
         if (numberPlayer == 2) {
             definitiveDimension = SMALL_LABYRINTH;
-            LabyrinthImpl labyrint = new LabyrinthImpl(SMALL_LABYRINTH,turn);
+            LabyrinthImpl labyrint = new LabyrinthImpl(SMALL_LABYRINTH, turn);
             getDimension(definitiveDimension);
             return labyrint;
         } else if (numberPlayer == 4) {
             definitiveDimension = BIG_LABYRINTH;
-            LabyrinthImpl labyrint = new LabyrinthImpl(BIG_LABYRINTH,turn);
+            LabyrinthImpl labyrint = new LabyrinthImpl(BIG_LABYRINTH, turn);
             getDimension(definitiveDimension);
             return labyrint;
         } else {
@@ -65,8 +75,8 @@ public class BuilderImpl {
 
     /**
      * Creates a list of players based on the number of players.
-     * 
-     * @return a list of Player instances.
+     *
+     * @return a list of {@link PlayerImpl} instances
      */
     public List<PlayerImpl> createPlayers() {
         List<String> nameList = new ArrayList<>();
@@ -77,8 +87,8 @@ public class BuilderImpl {
         Random x = new Random();
         List<PlayerImpl> tm = new ArrayList<>();
         for (int i = 1; i <= numberPlayer; i++) {
-            int n = x.nextInt(0,nameList.size());
-            PlayerImpl a = new PlayerImpl(nameList.get(n),turn);
+            int n = x.nextInt(0, nameList.size());
+            PlayerImpl a = new PlayerImpl(nameList.get(n), turn);
             nameList.remove(n);
             tm.add(a);
         }
@@ -87,11 +97,11 @@ public class BuilderImpl {
 
     /**
      * Creates an enemy based on the game settings.
-     * 
-     * @return a BaseEnemy instance.
-     * @throws Exception
+     *
+     * @return an {@link Optional} containing the created {@link Enemy}, or empty if
+     *         no enemy is created
      */
-    public Optional<Enemy> createEnemy(){
+    public Optional<Enemy> createEnemy() {
         if (type == EnemyDifficulty.EASY) {
             Optional<Enemy> enemy = Optional.of(enemyFactory.createSingleStepEnemy(turn));
             return enemy;
@@ -106,6 +116,11 @@ public class BuilderImpl {
         }
     }
 
+    /**
+     * Creates a list of power-ups based on the game settings.
+     *
+     * @return a list of {@link PowerUp} instances
+     */
     public List<PowerUp> createPowerUps() {
         List<PowerUp> powerUps = new ArrayList<>();
         for (int i = 0; i < numberPowerUp; i++) {
@@ -121,7 +136,7 @@ public class BuilderImpl {
      * @param dim the dimension to retrieve.
      * @return the dimension of the labyrinth.
      */
-    public int getDimension(int dim) {
+    public int getDimension(final int dim) {
         return dim;
     }
 

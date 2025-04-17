@@ -34,7 +34,7 @@ public class InformationMessenger {
      *         too).
      */
     public String getTurn() {
-        return "Player: " + turn.GetCurrentPlayer().getID();
+        return "Player: " + turn.getCurrentPlayer().getID();
     }
 
     /**
@@ -44,10 +44,10 @@ public class InformationMessenger {
      *         action is set.
      */
     public String getAction() {
-        if (turn.GetCurrentAction() == ActionType.BLOCK_PLACEMENT) {
+        if (turn.getCurrentAction() == ActionType.BLOCK_PLACEMENT) {
             return "Posizionare il blocco";
         }
-        if (turn.GetCurrentAction() == ActionType.PLAYER_MOVEMENT) {
+        if (turn.getCurrentAction() == ActionType.PLAYER_MOVEMENT) {
             return "Muovere il personaggio";
         }
         return "";
@@ -60,7 +60,7 @@ public class InformationMessenger {
      */
     public String[] getPowerUpsList() {
         List<PowerUp> lpu = new ArrayList<>();
-        lpu.addAll(turn.GetCurrentPlayer().getUsablePowerUps());
+        lpu.addAll(turn.getCurrentPlayer().getUsablePowerUps());
         String[] names = new String[lpu.size()];
         int i = 0;
         for (PowerUp pu : lpu) {

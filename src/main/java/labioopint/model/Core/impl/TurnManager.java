@@ -1,6 +1,7 @@
 package labioopint.model.Core.impl;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
 import labioopint.model.Enemy.api.Enemy;
 import labioopint.model.Enemy.impl.ais.ChaseAI;
@@ -12,6 +13,10 @@ import labioopint.model.PowerUp.api.PowerUp;
 import labioopint.model.api.ActionType;
 import labioopint.model.api.Settings;
 
+/**
+ * Manages the turns and actions in the game, including players, enemies, and
+ * power-ups.
+ */
 public class TurnManager {
     private LabyrinthImpl maze;
     private List<PlayerImpl> players;
@@ -20,10 +25,15 @@ public class TurnManager {
     private ActionType currentAction;
     private int index;
 
-    public TurnManager(Settings st){
+    /**
+     * Constructs a TurnManager with the given settings.
+     *
+     * @param st the game settings used to initialize the game components
+     */
+    public TurnManager(final Settings st) {
         currentAction = ActionType.BLOCK_PLACEMENT;
         index = 0;
-        BuilderImpl bi = new BuilderImpl(st,this);
+        BuilderImpl bi = new BuilderImpl(st, this);
         players = bi.createPlayers();
         players = new RandomTurnChooser(players).randomOrder();
         enemy = bi.createEnemy();
@@ -31,59 +41,97 @@ public class TurnManager {
         maze = bi.createMaze();
     }
 
-    public LabyrinthImpl GetLab(){
+    /**
+     * Gets the labyrinth of the game.
+     *
+     * @return the labyrinth
+     */
+    public LabyrinthImpl getLab() {
         return maze;
     }
 
-    public List<PlayerImpl> GetPlayers(){
+    /**
+     * Gets the list of players in the game.
+     *
+     * @return the list of players
+     */
+    public List<PlayerImpl> getPlayers() {
         return players;
     }
 
-    public Optional<Enemy> GetEnemy(){
+    /**
+     * Gets the enemy in the game, if present.
+     *
+     * @return an Optional containing the enemy, or empty if no enemy exists
+     */
+    public Optional<Enemy> getEnemy() {
         return enemy;
     }
 
-    public List<PowerUp> GetPowerUps(){
+    /**
+     * Gets the list of power-ups in the game.
+     *
+     * @return the list of power-ups
+     */
+    public List<PowerUp> getPowerUps() {
         return powerUps;
     }
 
-    public PlayerImpl GetCurrentPlayer() {
+    /**
+     * Gets the current player whose turn it is.
+     *
+     * @return the current player
+     */
+    public PlayerImpl getCurrentPlayer() {
         PlayerImpl p = players.get(index);
         return p;
     }
 
-    public ActionType GetCurrentAction() {
+    /**
+     * Gets the current action type in the game.
+     *
+     * @return the current action type
+     */
+    public ActionType getCurrentAction() {
         return currentAction;
     }
 
-    public void nextAction(){
-        if(currentAction == ActionType.BLOCK_PLACEMENT){
+    /**
+     * Advances the game to the next action or turn.
+     */
+    public void nextAction() {
+        if (currentAction == ActionType.BLOCK_PLACEMENT) {
             currentAction = ActionType.PLAYER_MOVEMENT;
-        } else if(currentAction == ActionType.PLAYER_MOVEMENT){
+        } else if (currentAction == ActionType.PLAYER_MOVEMENT) {
             index = (index + 1) % players.size();
-            if(enemy.isPresent()){
-                if(enemy.get().getEnemyAI() instanceof SingleStepRandomAI) {
-                    maze.EnemyUpdateCoordinate(enemy.get(), enemy.get().move(players));   
-                    enemy.get().playerHit(players);      
+            if (enemy.isPresent()) {
+                if (enemy.get().getEnemyAI() instanceof SingleStepRandomAI) {
+                    maze.EnemyUpdateCoordinate(enemy.get(), enemy.get().move(players));
+                    enemy.get().playerHit(players);
                 }
-                if(enemy.get().getEnemyAI() instanceof RandomAI) {
-                    maze.EnemyUpdateCoordinate(enemy.get(), enemy.get().move(players));      
-                    enemy.get().playerHit(players);  
+                if (enemy.get().getEnemyAI() instanceof RandomAI) {
+                    maze.EnemyUpdateCoordinate(enemy.get(), enemy.get().move(players));
+                    enemy.get().playerHit(players);
                 }
-                if(enemy.get().getEnemyAI() instanceof ChaseAI) {
-                    maze.EnemyUpdateCoordinate(enemy.get(), enemy.get().move(players));     
-                    enemy.get().playerHit(players);   
+                if (enemy.get().getEnemyAI() instanceof ChaseAI) {
+                    maze.EnemyUpdateCoordinate(enemy.get(), enemy.get().move(players));
+                    enemy.get().playerHit(players);
                 }
                 currentAction = ActionType.BLOCK_PLACEMENT;
             } else {
                 currentAction = ActionType.BLOCK_PLACEMENT;
             }
-        } else if(currentAction == ActionType.ENEMY_MOVEMENT){
+        } else if (currentAction == ActionType.ENEMY_MOVEMENT) {
             currentAction = ActionType.BLOCK_PLACEMENT;
         }
     }
 
-    public void addAddictionalPowerUp(PowerUp p) {
+    /**
+     * Adds an additional power-up to the game.
+     *
+     * @param p the power-up to add
+     */
+    public void addAddictionalPowerUp(final PowerUp p) {
         powerUps.add(p);
     }
 }

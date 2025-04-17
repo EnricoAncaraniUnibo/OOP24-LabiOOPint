@@ -22,18 +22,31 @@ import labioopint.controller.impl.ActionPredicate;
 import labioopint.model.Core.impl.TurnManager;
 
 /**
- * EnemyAI represents an enemy with artificial intelligence that can move
- * towards players in the labyrinth.
+ * Implementation of the {@link EnemyAI} interface that allows an enemy to chase
+ * players in the labyrinth using pathfinding.
  */
 public class ChaseAI implements EnemyAI {
 
     private ActionPredicate ap;
     private TurnManager turn;
 
-    public ChaseAI(TurnManager tu) {
+    /**
+     * Constructs a ChaseAI with the given TurnManager.
+     *
+     * @param tu the TurnManager used to manage game state and validate moves
+     */
+    public ChaseAI(final TurnManager tu) {
         turn = tu;
     }
 
+    /**
+     * Determines the next positions for the enemy by finding the shortest path
+     * to the nearest player or falling back to a random move if no path exists.
+     *
+     * @param players the list of players in the game
+     * @param current the current position of the enemy
+     * @return a list of coordinates representing the enemy's path
+     */
     @Override
     public List<Coordinate> getNextPosition(final List<PlayerImpl> players, final Coordinate current) {
         ap = new ActionPredicate(turn);
@@ -49,6 +62,12 @@ public class ChaseAI implements EnemyAI {
         }
     }
 
+    /**
+     * Retrieves all walkable cells starting from the enemy's current position.
+     *
+     * @param enemyCoordinate the current position of the enemy
+     * @return a list of walkable coordinates
+     */
     private List<Coordinate> getWalkableCells(final Coordinate enemyCoordinate) {
         List<Coordinate> output = new ArrayList<>();
         Queue<Coordinate> queue = new ArrayDeque<>();
@@ -70,17 +89,18 @@ public class ChaseAI implements EnemyAI {
     // Optional perché potrebbe non esistere un percorso di coordinate, altrimenti
     // definisce un percorso dal nemico al player.
     /**
-     * Finds the shortest path from the start position to any player position.
-     * 
-     * @param walkableCells List of coordinates that can be traversed
-     * @param players       List of players in the game
-     * @param start         The starting coordinate for pathfinding
-     * @return Optional containing a list of coordinates representing the path, or
-     *         empty if no path exists
+     * Finds the shortest path from the enemy's position to the nearest player.
+     * If no path exists, falls back to a random move.
+     *
+     * @param walkableCells the list of walkable cells
+     * @param players       the list of players in the game
+     * @param start         the starting position of the enemy
+     * @return an {@link Optional} containing the path as a list of coordinates,
+     *         or empty if no path exists
      */
     private Optional<List<Coordinate>> getPath(final List<Coordinate> walkableCells, final List<PlayerImpl> players,
             final Coordinate start) {
-        LabyrinthImpl lab = turn.GetLab();
+        LabyrinthImpl lab = turn.getLab();
         List<Coordinate> playerPositions = players.stream()
                 .map(p -> lab.getPlayerCoordinate(p))
                 .toList();
@@ -125,21 +145,21 @@ public class ChaseAI implements EnemyAI {
     }
 
     /**
-     * Gets the valid neighboring cells for a coordinate (4-way movement).
-     * 
-     * @param current       The current coordinate
-     * @param walkableCells List of walkable cells
-     * @param visited       Set of already visited cells
-     * @return List of valid neighboring coordinates
+     * Retrieves the valid neighboring cells for a given coordinate.
+     *
+     * @param current       the current coordinate
+     * @param walkableCells the list of walkable cells
+     * @param visited       the set of already visited cells
+     * @return a list of valid neighboring coordinates
      */
     private List<Coordinate> getNeighbors(final Coordinate current, final List<Coordinate> walkableCells,
             final Set<Coordinate> visited) {
         List<Coordinate> neighbors = new ArrayList<>();
         int[][] directions = {
-                { -1, 0 }, 
-                { 0, 1 }, 
-                { 1, 0 }, 
-                { 0, -1 } 
+                { -1, 0 },
+                { 0, 1 },
+                { 1, 0 },
+                { 0, -1 }
         };
 
         for (int[] dir : directions) {

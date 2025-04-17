@@ -162,7 +162,7 @@ public class LogicDrawPanel {
         }
         for (PlayerImpl p : coorPlayers.getElemets()) {
             Coordinate c = coorPlayers.getCoordinateFromElement(p);
-            if (p == turn.GetCurrentPlayer()) {
+            if (p == turn.getCurrentPlayer()) {
                 pImageRotation = new Pair<Image, Double>(
                     ImageLoader.getImage("" + p.getID() + "Turn").get(), Math.toRadians(ZERO_ROTATION));
             } else {

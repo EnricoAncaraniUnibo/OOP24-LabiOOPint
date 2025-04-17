@@ -32,9 +32,9 @@ public class LogicGameView {
     }
 
     public void activatePowerUps(String powerUp) {
-        for (PowerUp pu : turn.GetPowerUps()) {
+        for (PowerUp pu : turn.getPowerUps()) {
             if (pu.getName().equals(powerUp)) {
-                pu.activate(turn.GetCurrentPlayer());
+                pu.activate(turn.getCurrentPlayer());
             }
         }
     }
@@ -49,6 +49,6 @@ public class LogicGameView {
     }
 
     public Boolean isBlockPlacement() {
-        return turn.GetCurrentAction() == ActionType.BLOCK_PLACEMENT;
+        return turn.getCurrentAction() == ActionType.BLOCK_PLACEMENT;
     }
 }

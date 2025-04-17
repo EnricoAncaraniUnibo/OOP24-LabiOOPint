@@ -21,17 +21,17 @@ public class SwapPositionPowerUp extends PowerUpImpl {
     public void activate(PlayerImpl currentPlayer) {
     	if(currentPlayer.getUsablePowerUps().contains(this)) {
     		if (isCollected()) {
-	            Coordinate currentPlayerCoordinate = turn.GetLab().getPlayerCoordinate(currentPlayer);
+	            Coordinate currentPlayerCoordinate = turn.getLab().getPlayerCoordinate(currentPlayer);
 	            Random random = new Random();
 	            while(this.condition) {
-	                PlayerImpl playerSwap = turn.GetPlayers().get(random.nextInt(turn.GetPlayers().size()));
-	                Coordinate playerSwapCoordinate = turn.GetLab().getPlayerCoordinate(playerSwap);
-	                if(turn.GetPlayers().size() < 2) {
+	                PlayerImpl playerSwap = turn.getPlayers().get(random.nextInt(turn.getPlayers().size()));
+	                Coordinate playerSwapCoordinate = turn.getLab().getPlayerCoordinate(playerSwap);
+	                if(turn.getPlayers().size() < 2) {
 	                    this.condition = false;
 	                } 
-	                else if(turn.GetPlayers().size() > 1 && !currentPlayer.equals(playerSwap)){
-	                    turn.GetLab().PlayerUpdateCoordinate(playerSwap,currentPlayerCoordinate);
-	                    turn.GetLab().PlayerUpdateCoordinate(currentPlayer,playerSwapCoordinate);
+	                else if(turn.getPlayers().size() > 1 && !currentPlayer.equals(playerSwap)){
+	                    turn.getLab().PlayerUpdateCoordinate(playerSwap,currentPlayerCoordinate);
+	                    turn.getLab().PlayerUpdateCoordinate(currentPlayer,playerSwapCoordinate);
 	                    this.condition = false;
 	                }
 	            }

@@ -1,4 +1,5 @@
 package labioopint.model.api;
+
 /**
  * The Coordinate class represents a position in a two-dimensional grid
  * with row and column values.
@@ -6,15 +7,17 @@ package labioopint.model.api;
 public class Coordinate {
     private Integer row;
     private Integer column;
+
     /**
      * Constructs a new Coordinate by copying the values from another Coordinate.
      *
      * @param coord the other Coordinate from which takes values
      */
-    public Coordinate(Coordinate coord){
+    public Coordinate(final Coordinate coord) {
         this.row = coord.getRow();
         this.column = coord.getColumn();
     }
+
     /**
      * Constructs a new Coordinate with the specified row and column values.
      *
@@ -25,6 +28,7 @@ public class Coordinate {
         this.row = r;
         this.column = c;
     }
+
     /**
      * Retrieves the row value of this Coordinate.
      *
@@ -33,6 +37,7 @@ public class Coordinate {
     public Integer getRow() {
         return row;
     }
+
     /**
      * Retrieves the column value of this Coordinate.
      *
@@ -57,33 +62,43 @@ public class Coordinate {
     }
 
     /**
-     * Compares this {@code Coordinate} to the specified object. The result is {@code true}
-     * if and only if the argument is not {@code null}, is a {@code Coordinate} object, and
+     * Compares this {@code Coordinate} to the specified object. The result is
+     * {@code true}
+     * if and only if the argument is not {@code null}, is a {@code Coordinate}
+     * object, and
      * has the same row and column values as this {@code Coordinate}.
      *
      * @param obj the object to compare this {@code Coordinate} against
-     * @return {@code true} if the given object represents a {@code Coordinate} equivalent
+     * @return {@code true} if the given object represents a {@code Coordinate}
+     *         equivalent
      *         to this {@code Coordinate}, {@code false} otherwise
      */
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
+    public boolean equals(final Object obj) {
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         Coordinate other = (Coordinate) obj;
         if (row == null) {
-            if (other.row != null)
+            if (other.row != null) {
                 return false;
-        } else if (!row.equals(other.row))
+            }
+        } else if (!row.equals(other.row)) {
             return false;
+        }
         if (column == null) {
-            if (other.column != null)
+            if (other.column != null) {
                 return false;
-        } else if (!column.equals(other.column))
+            }
+        } else if (!column.equals(other.column)) {
             return false;
+        }
         return true;
     }
 }

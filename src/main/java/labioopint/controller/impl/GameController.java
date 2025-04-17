@@ -20,8 +20,8 @@ public class GameController {
 
     public void action(Object action){
         ap = new ActionPredicate(turn);
-        lab = turn.GetLab();
-        ActionType current_action = turn.GetCurrentAction();
+        lab = turn.getLab();
+        ActionType current_action = turn.getCurrentAction();
         switch (current_action) {
             case ActionType.BLOCK_PLACEMENT:
                 if(action instanceof String){
@@ -57,8 +57,8 @@ public class GameController {
                                         (action.equals("→")) ? Direction.RIGHT :
                                         (action.equals("↑")) ? Direction.UP :
                                         Direction.DOWN;
-                        if(ap.PlayerCanMove(turn.GetCurrentPlayer(), dir)){
-                            lab.movePlayer(turn.GetCurrentPlayer(), dir);
+                        if(ap.PlayerCanMove(turn.getCurrentPlayer(), dir)){
+                            lab.movePlayer(turn.getCurrentPlayer(), dir);
                         }else{
                             //TurnManager.invalidMovement();
                         }
@@ -69,8 +69,8 @@ public class GameController {
                 break;
             case ActionType.ENEMY_MOVEMENT:
                 if(action instanceof Direction){
-                    if(turn.GetEnemy().isPresent()){
-                        turn.GetEnemy().get().move(turn.GetPlayers());
+                    if(turn.getEnemy().isPresent()){
+                        turn.getEnemy().get().move(turn.getPlayers());
                         turn.nextAction();
                     }else{
                         //TurnManager.invalidMovement();

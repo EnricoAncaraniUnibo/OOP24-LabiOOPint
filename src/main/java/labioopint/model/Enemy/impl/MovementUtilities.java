@@ -3,7 +3,16 @@ package labioopint.model.Enemy.impl;
 import labioopint.model.Maze.api.Direction;
 import labioopint.model.api.Coordinate;
 
-public class MovementUtilities {
+/**
+ * Utility class for handling movement-related operations, such as determining
+ * the next coordinate based on a direction or creating a direction from an
+ * integer.
+ */
+public final class MovementUtilities {
+
+    private MovementUtilities() {
+    }
+
     /**
      * Determines the next coordinate based on the current position and direction.
      * 
@@ -26,7 +35,15 @@ public class MovementUtilities {
         }
     }
 
-    public static Direction createDirection(int i) {
+    /**
+     * Creates a {@link Direction} based on an integer value.
+     *
+     * @param i the integer representing a direction (0: UP, 1: DOWN, 2: RIGHT, 3:
+     *          LEFT)
+     * @return the corresponding {@link Direction}, or {@code null} if the integer
+     *         is invalid
+     */
+    public static Direction createDirection(final int i) {
         switch (i) {
             case 0:
                 return Direction.UP;

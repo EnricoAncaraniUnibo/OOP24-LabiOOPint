@@ -2,15 +2,38 @@ package labioopint.model.Enemy.api;
 
 import labioopint.model.Core.impl.TurnManager;
 
+/**
+ * The {@code EnemyFactory} interface defines methods for creating different
+ * types of enemies
+ * in the game based on their behavior and movement patterns.
+ */
 public interface EnemyFactory {
 
-    // un nemico che si muove in modo randomico con degli step
+    /**
+     * Creates an enemy that moves randomly with multiple steps.
+     *
+     * @param tu the {@link TurnManager} used to manage game state and validate
+     *           moves
+     * @return an {@link Enemy} instance with random multi-step movement
+     */
     Enemy createRandomEnemy(TurnManager tu);
 
-    // un nemico che insegue il giocatore o sta fermo se non esiste un percorso
-    // verso un giocatore
+    /**
+     * Creates an enemy that chases players or remains stationary if no path to a
+     * player exists.
+     *
+     * @param tu the {@link TurnManager} used to manage game state and validate
+     *           moves
+     * @return an {@link Enemy} instance with chasing behavior
+     */
     Enemy createChaseEnemy(TurnManager tu);
 
-    // un nemico che si muove in modo randomico di un solo step
+    /**
+     * Creates an enemy that moves randomly by a single step.
+     *
+     * @param tu the {@link TurnManager} used to manage game state and validate
+     *           moves
+     * @return an {@link Enemy} instance with single-step random movement
+     */
     Enemy createSingleStepEnemy(TurnManager tu);
 }

@@ -12,7 +12,7 @@ public class DirectionCheck {
     private LabyrinthImpl lab;
 
     public DirectionCheck(TurnManager tu){
-        this.lab = tu.GetLab();
+        this.lab = tu.getLab();
     }
 
     /*

@@ -59,7 +59,7 @@ public final class PlayerImpl extends Movable implements Player {
                 usablePowerUps.remove(p);
             }
             objectives.remove(p);
-            turn.GetLab().addPowerUp(p);
+            turn.getLab().addPowerUp(p);
         }
     }
 

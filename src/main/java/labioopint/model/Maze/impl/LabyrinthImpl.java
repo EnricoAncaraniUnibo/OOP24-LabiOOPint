@@ -54,15 +54,15 @@ public final class LabyrinthImpl implements Labyrinth {
 
     private void start() {
         CoordinateGenerator cg = new CoordinateGenerator(grid.getSize()); 
-        for (PowerUp pu : turn.GetPowerUps()) {
+        for (PowerUp pu : turn.getPowerUps()) {
             mapOfPowerUps.addElemWithCoordinate(pu, cg.getRandomCoordinate());
         }
         cg = new CoordinateGenerator(CoordinateGenerator.createBasicSpawnCoordinate(grid.getSize()));
-        for (PlayerImpl p : turn.GetPlayers()) {
+        for (PlayerImpl p : turn.getPlayers()) {
             mapOfPlayers.addElemWithCoordinate(p, cg.getRandomCoordinate());
         }
-        if (turn.GetEnemy().isPresent()) {
-            mapOfEnemy.addElemWithCoordinate(turn.GetEnemy().get(), CoordinateGenerator.getCentralCoordinate(grid.getSize()));
+        if (turn.getEnemy().isPresent()) {
+            mapOfEnemy.addElemWithCoordinate(turn.getEnemy().get(), CoordinateGenerator.getCentralCoordinate(grid.getSize()));
         }
         labyController.updateGraphics(grid, mapOfPlayers, mapOfEnemy, mapOfPowerUps, outsideBlock);
     }
@@ -224,7 +224,7 @@ public final class LabyrinthImpl implements Labyrinth {
     @Override
     public List<PowerUp> getListOfPowerUps() {
         List<PowerUp> lpu = new ArrayList<>();
-        for (PowerUp powerUp : turn.GetPowerUps()) {
+        for (PowerUp powerUp : turn.getPowerUps()) {
             if (mapOfPowerUps.isPresentByObject(powerUp)) {
                 lpu.add(powerUp);
             }

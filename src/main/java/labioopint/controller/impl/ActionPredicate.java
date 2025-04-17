@@ -18,10 +18,10 @@ public class ActionPredicate{
     private Optional<Enemy> e;
 
     public ActionPredicate(TurnManager tu) {
-        lab = tu.GetLab();
+        lab = tu.getLab();
         mazeSize = lab.getGrid().getSize();
         dc = new DirectionCheck(tu);
-        e = tu.GetEnemy();
+        e = tu.getEnemy();
     }
 
     public boolean PlayerCanMove(PlayerImpl p, Direction dir) {

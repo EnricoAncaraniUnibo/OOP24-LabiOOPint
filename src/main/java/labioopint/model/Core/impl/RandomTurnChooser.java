@@ -1,6 +1,8 @@
 package labioopint.model.Core.impl;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 import labioopint.model.Player.impl.PlayerImpl;
 
@@ -17,7 +19,7 @@ public class RandomTurnChooser {
      * 
      * @param players the list of players to be randomized.
      */
-    public RandomTurnChooser(List<PlayerImpl> players) {
+    public RandomTurnChooser(final List<PlayerImpl> players) {
         this.players = players;
     }
 

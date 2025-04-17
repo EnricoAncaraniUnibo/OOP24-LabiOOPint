@@ -1,6 +1,7 @@
 package labioopint.model.Enemy.impl;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import labioopint.controller.impl.ActionPredicate;
 import labioopint.model.Core.impl.TurnManager;
@@ -14,8 +15,10 @@ import labioopint.model.api.Movable;
 import labioopint.model.Maze.impl.LabyrinthImpl;
 
 /**
- * BaseEnemy is an class that provides a base implementation for the
- * Enemy interface.
+ * Implementation of the {@link Enemy} interface that provides the behavior
+ * for an enemy in the game. The enemy's movement and interactions are
+ * controlled
+ * by an {@link EnemyAI}.
  */
 public class EnemyImpl extends Movable implements Enemy {
 
@@ -24,27 +27,40 @@ public class EnemyImpl extends Movable implements Enemy {
     private TurnManager turn;
 
     /**
-     * Constructs a new EnemyImpl object with the specified EnemyAI.
+     * Constructs a new EnemyImpl object with the specified EnemyAI and TurnManager.
      * 
-     * @param enemyAI the EnemyAI that controls the enemy's movement.
+     * @param enemyAI the {@link EnemyAI} that controls the enemy's movement.
+     * @param tu      the {@link TurnManager} used to manage game state and validate
+     *                moves.
      */
-    public EnemyImpl(EnemyAI enemyAI, TurnManager tu) {
+    public EnemyImpl(final EnemyAI enemyAI, final TurnManager tu) {
         this.enemyAI = enemyAI;
         turn = tu;
     }
 
+    /**
+     * Retrieves the {@link EnemyAI} controlling this enemy.
+     * 
+     * @return the {@link EnemyAI} instance.
+     */
     public EnemyAI getEnemyAI() {
         return enemyAI;
     }
 
+    /**
+     * Moves the enemy based on its AI logic and the current game state.
+     * 
+     * @param players the list of players in the game.
+     * @return a list of {@link Coordinate} representing the enemy's movement path.
+     */
     @Override
     public List<Coordinate> move(final List<PlayerImpl> players) {
         ap = new ActionPredicate(turn);
-        if(!ap.EnemyCanMove(Direction.UP) && !ap.EnemyCanMove(Direction.DOWN)
+        if (!ap.EnemyCanMove(Direction.UP) && !ap.EnemyCanMove(Direction.DOWN)
                 && !ap.EnemyCanMove(Direction.LEFT) && !ap.EnemyCanMove(Direction.RIGHT)) {
             return new ArrayList<>();
         } else {
-            return enemyAI.getNextPosition(players, turn.GetLab().getEnemyCoordinate(this));
+            return enemyAI.getNextPosition(players, turn.getLab().getEnemyCoordinate(this));
         }
     }
     /*
@@ -53,17 +69,18 @@ public class EnemyImpl extends Movable implements Enemy {
      */
 
     /**
-     * Retrieves the current position of the enemy in the labyrinth.
+     * Handles the interaction when the enemy hits a player. If a player is at the
+     * same position as the enemy, the player loses their first objective. If the
+     * player's objective list is empty, the player skips their next turn.
      * 
-     * @return the coordinate of the enemy's position.
+     * @param players the list of players in the game.
      */
-
     @Override
     public void playerHit(final List<PlayerImpl> players) {
-        LabyrinthImpl maze = turn.GetLab();
+        LabyrinthImpl maze = turn.getLab();
         for (PlayerImpl player : players) {
             if (maze.getEnemyCoordinate(this).getRow() == maze.getPlayerCoordinate(player).getRow()
-                    && maze.getEnemyCoordinate(this).getColumn() == maze.getPlayerCoordinate(player).getColumn()) { 
+                    && maze.getEnemyCoordinate(this).getColumn() == maze.getPlayerCoordinate(player).getColumn()) {
                 player.removeObjective();
             }
         }
