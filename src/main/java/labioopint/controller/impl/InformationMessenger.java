@@ -72,8 +72,8 @@ public class InformationMessenger {
     }
 
     public Optional<String> getWinner() {
-        if(turn.GetLab().getWinner().isPresent()) {
-            return Optional.of("Ha vinto: " + turn.GetLab().getWinner().get().getID());
+        if(turn.getLab().getWinner().isPresent()) {
+            return Optional.of("Ha vinto: " + turn.getLab().getWinner().get().getID());
         }
         return Optional.empty();
     }

@@ -299,7 +299,7 @@ public final class LabyrinthImpl implements Labyrinth {
 
     private Optional<Player> checkWinner() {
         if(mapOfPowerUps.getElemets().isEmpty()) {
-            List<PlayerImpl> sortedPlayers = turn.GetPlayers().stream()
+            List<PlayerImpl> sortedPlayers = turn.getPlayers().stream()
             .sorted(Comparator.comparing(p -> p.getObjetives().size(), Comparator.reverseOrder()))
             .collect(Collectors.toList());
             if (sortedPlayers.get(0).getObjetives().size()==sortedPlayers.get(1).getObjetives().size()) {
