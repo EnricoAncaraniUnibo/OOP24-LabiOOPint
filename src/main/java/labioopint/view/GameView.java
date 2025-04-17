@@ -177,6 +177,7 @@ public class GameView extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 lgv.useAction(text);
                 updateComboBox();
+                showWinner();
             }
         });
         return button;
@@ -201,5 +202,12 @@ public class GameView extends JFrame {
             downButton.setVisible(true);
         }
         labirintPanel.draw(grid,mapPlayers,mapEnemies,mapPowerUps,outside);
+    }
+
+    private void showWinner() {
+        if(lgv.isWinnerPresent()) {
+            JOptionPane.showMessageDialog(null, lgv.getWinner());
+            lgv.close();
+        }
     }
 }

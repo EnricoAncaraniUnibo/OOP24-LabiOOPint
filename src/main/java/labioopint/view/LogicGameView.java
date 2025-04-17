@@ -51,4 +51,16 @@ public class LogicGameView {
     public Boolean isBlockPlacement() {
         return turn.getCurrentAction() == ActionType.BLOCK_PLACEMENT;
     }
+
+    public Boolean isWinnerPresent() {
+        return ifm.getWinner().isPresent();
+    }
+
+    public String getWinner() {
+        return ifm.getWinner().get();
+    }
+
+    public void close() {
+        System.exit(0);
+    }
 }
