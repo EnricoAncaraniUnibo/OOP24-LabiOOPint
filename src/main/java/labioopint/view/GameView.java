@@ -3,16 +3,12 @@ package labioopint.view;
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 
-import labioopint.controller.impl.GameController;
-import labioopint.controller.impl.InformationMessenger;
 import labioopint.model.Block.impl.BlockImpl;
 import labioopint.model.Core.impl.TurnManager;
 import labioopint.model.Enemy.api.Enemy;
 import labioopint.model.Maze.impl.MazeImpl;
 import labioopint.model.Player.impl.PlayerImpl;
 import labioopint.model.PowerUp.api.PowerUp;
-import labioopint.model.api.ActionType;
-import labioopint.model.api.Coordinate;
 import labioopint.model.api.DualMap;
 
 import java.awt.*;
@@ -24,10 +20,7 @@ public class GameView extends JFrame {
 
     private JLabel turnLabel;
     private DrawPanel labirintPanel;
-    private InformationMessenger ifm;
-    private TurnManager turn;
-    private GameController gc;
-    //private PlayerImpl currentPlayer = TurnManager.GetCurrentPlayer();
+    private LogicGameView lgv;
     JButton upButton; 
     JButton leftButton;
     JButton rightButton;
@@ -44,11 +37,8 @@ public class GameView extends JFrame {
         setLayout(new BorderLayout());
         setResizable(false);
         setLocationByPlatform(true);
-        turn = tu;
-        ifm = new InformationMessenger(turn);
-        gc = new GameController(tu);
-
-        labirintPanel = new DrawPanel(this.getSize(),turn);
+        lgv = new LogicGameView(tu);
+        labirintPanel = new DrawPanel(this.getSize(),tu);
         add(labirintPanel, BorderLayout.CENTER);
         JPanel controlPanel = new JPanel();
         controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.Y_AXIS));
@@ -56,13 +46,13 @@ public class GameView extends JFrame {
         controlPanel.setBackground(Color.GRAY);
         add(controlPanel, BorderLayout.EAST);
 
-        turnLabel = new JLabel(ifm.getTurn(), SwingConstants.CENTER);
+        turnLabel = new JLabel(lgv.getTurn(), SwingConstants.CENTER);
         Font newFont = new Font("Arial", Font.BOLD, 18);
         turnLabel.setFont(newFont);
         turnLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         controlPanel.add(turnLabel);
 
-        actionLabel = new JLabel(ifm.getAction(), SwingConstants.CENTER);
+        actionLabel = new JLabel(lgv.getAction(), SwingConstants.CENTER);
         actionLabel.setFont(newFont);
         actionLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         controlPanel.add(actionLabel);
@@ -95,8 +85,7 @@ public class GameView extends JFrame {
 
         controlPanel.add(movementPanel);
 
-        String[] options = ifm.getPowerUpsList();
-        comboBox = new JComboBox<>(options);
+        comboBox = new JComboBox<>(lgv.getPowerUps());
         controlPanel.add(comboBox);
 
         // Aggiunta un ActionListener alla ComboBox per gestire l'evento di selezione
@@ -117,11 +106,7 @@ public class GameView extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String name = (String)comboBox.getSelectedItem();
-                for (PowerUp pu : turn.GetPowerUps()) {
-                    if(pu.getName().equals(name)) {
-                        pu.activate(turn.GetCurrentPlayer());
-                    }
-                }
+                lgv.activatePowerUps(name);
                 updateComboBox();
             }
         });
@@ -130,9 +115,10 @@ public class GameView extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                gc.action(endTurnButton.getText());
-                turnLabel.setText(ifm.getTurn());
-                String[] options = ifm.getPowerUpsList();
+                String action = endTurnButton.getText();
+                lgv.useAction(action);
+                turnLabel.setText(lgv.getTurn());
+                String[] options = lgv.getPowerUps();
                 comboBox.removeAllItems();
                 for (String option : options) {
                     comboBox.addItem(option);
@@ -140,7 +126,7 @@ public class GameView extends JFrame {
                 endTurnButton.setVisible(false);
                 upButton.setVisible(false);
                 downButton.setVisible(false);
-                actionLabel.setText(ifm.getAction());
+                actionLabel.setText(lgv.getAction());
             }
 
         });
@@ -154,13 +140,8 @@ public class GameView extends JFrame {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                int X = e.getX();
-                int Y = e.getY();
-                int blockSize = labirintPanel.getBlockSize();
-                Coordinate newCoordinate = new Coordinate((Y % blockSize < blockSize/2) ? Y/blockSize-1 : Y/blockSize,
-                                                          X/blockSize);
-                gc.action(newCoordinate);
-                actionLabel.setText(ifm.getAction());
+                lgv.mouseAction(e.getX(), e.getY(), labirintPanel.getBlockSize());
+                actionLabel.setText(lgv.getAction());
             }
 
             @Override
@@ -194,7 +175,7 @@ public class GameView extends JFrame {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                gc.action(text);
+                lgv.useAction(text);
                 updateComboBox();
             }
         });
@@ -202,7 +183,7 @@ public class GameView extends JFrame {
     }
     
     private void updateComboBox() {
-    	String[] options = ifm.getPowerUpsList();
+    	String[] options = lgv.getPowerUps();
         comboBox.removeAllItems();
         for (String option : options) {
             comboBox.addItem(option);
@@ -210,7 +191,7 @@ public class GameView extends JFrame {
     }
 
     public void update(final MazeImpl grid, final DualMap<PlayerImpl> mapPlayers, final DualMap<Enemy> mapEnemies, final DualMap<PowerUp> mapPowerUps,BlockImpl outside) {
-        if(turn.GetCurrentAction() == ActionType.BLOCK_PLACEMENT) {
+        if(lgv.isBlockPlacement()) {
         	endTurnButton.setVisible(false);
             upButton.setVisible(false);
             downButton.setVisible(false);
