@@ -99,6 +99,10 @@ public final class LabyrinthImpl implements Labyrinth {
         return true;
     }
 
+    public void setBlock(BlockImpl b, Coordinate coor) {
+        grid.ChangeCoordinate(coor, b);
+    }
+
     private BlockImpl shiftRow(final Integer number, final Direction d) {
         if (d.equals(Direction.RIGHT)) {
             BlockImpl last = grid.GetBlock(new Coordinate(number, 0)).get();
