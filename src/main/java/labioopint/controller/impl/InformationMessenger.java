@@ -2,6 +2,7 @@ package labioopint.controller.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import labioopint.model.Core.impl.TurnManager;
 import labioopint.model.PowerUp.api.PowerUp;
@@ -68,5 +69,12 @@ public class InformationMessenger {
             i++;
         }
         return names;
+    }
+
+    public Optional<String> getWinner() {
+        if(turn.GetLab().getWinner().isPresent()) {
+            return Optional.of("Ha vinto: " + turn.GetLab().getWinner().get().getID());
+        }
+        return Optional.empty();
     }
 }

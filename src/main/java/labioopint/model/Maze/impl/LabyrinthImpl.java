@@ -1,8 +1,10 @@
 package labioopint.model.Maze.impl;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import labioopint.controller.impl.LabyrinthController;
 import labioopint.model.Block.api.Rotation;
@@ -14,6 +16,7 @@ import labioopint.model.Maze.api.Labyrinth;
 import labioopint.model.Player.api.Player;
 import labioopint.model.Player.impl.PlayerImpl;
 import labioopint.model.PowerUp.api.PowerUp;
+import labioopint.model.PowerUp.impl.SwapPositionPowerUp;
 import labioopint.model.api.Coordinate;
 import labioopint.model.api.CoordinateGenerator;
 import labioopint.model.api.DualMap;
@@ -29,6 +32,7 @@ public final class LabyrinthImpl implements Labyrinth {
     private DualMap<Enemy> mapOfEnemy;
     private LabyrinthController labyController;
     private TurnManager turn;
+    private Optional<Player> winner;
 
     @Override
     public void Initialize() {
@@ -36,6 +40,7 @@ public final class LabyrinthImpl implements Labyrinth {
         mapOfPowerUps = new DualMap<>();
         mapOfPlayers = new DualMap<>();
         mapOfEnemy = new DualMap<>();
+        winner = Optional.empty();
     }
     /**
      * Constructs a LabyrinthImpl with the specified size and TurnManager.
@@ -254,6 +259,8 @@ public final class LabyrinthImpl implements Labyrinth {
             mapOfPowerUps.getElemFromCoordinate(c).collect();
             p.addObjective(mapOfPowerUps.getElemFromCoordinate(c));
             mapOfPowerUps.remove(mapOfPowerUps.getElemFromCoordinate(c));
+            Optional<Player> pl = checkWinner();
+            winner = pl;
         }
     }
 
@@ -288,5 +295,27 @@ public final class LabyrinthImpl implements Labyrinth {
             mapOfEnemy.addElemWithCoordinate(e, coordinate);
             labyController.updateGraphics(grid, mapOfPlayers, mapOfEnemy, mapOfPowerUps, outsideBlock);
         }
+    }
+
+    private Optional<Player> checkWinner() {
+        if(mapOfPowerUps.getElemets().isEmpty()) {
+            List<PlayerImpl> sortedPlayers = turn.GetPlayers().stream()
+            .sorted(Comparator.comparing(p -> p.getObjetives().size(), Comparator.reverseOrder()))
+            .collect(Collectors.toList());
+            if (sortedPlayers.get(0).getObjetives().size()==sortedPlayers.get(1).getObjetives().size()) {
+                PowerUp pou = new SwapPositionPowerUp(turn);
+                turn.addAddictionalPowerUp(pou);
+                addPowerUp(pou);
+                labyController.updateGraphics(grid, mapOfPlayers, mapOfEnemy, mapOfPowerUps, outsideBlock);
+                return Optional.empty();
+            } else {
+                return Optional.of(sortedPlayers.get(0));
+            }
+        }
+        return Optional.empty();
+    }
+
+    public Optional<Player> getWinner() {
+        return winner;
     }
 }
