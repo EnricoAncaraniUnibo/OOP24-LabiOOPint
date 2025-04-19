@@ -1,6 +1,13 @@
 package labioopint.view;
 
-import javax.swing.*;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.event.MouseInputListener;
 
 import labioopint.model.Block.impl.BlockImpl;
@@ -11,43 +18,66 @@ import labioopint.model.Player.impl.PlayerImpl;
 import labioopint.model.PowerUp.api.PowerUp;
 import labioopint.model.api.DualMap;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 
+/**
+ * The GameView class represents the graphical user interface for the game.
+ * It extends JFrame and provides components for interacting with the game,
+ * such as buttons, labels, and panels.
+ */
 public class GameView extends JFrame {
 
     private JLabel turnLabel;
     private DrawPanel labirintPanel;
     private LogicGameView lgv;
-    JButton upButton; 
-    JButton leftButton;
-    JButton rightButton;
-    JButton downButton;
-    JLabel actionLabel;
-    JButton endTurnButton;
-    JComboBox<String> comboBox;
+    private JButton upButton;
+    private JButton leftButton;
+    private JButton rightButton;
+    private JButton downButton;
+    private JLabel actionLabel;
+    private JButton endTurnButton;
+    private JComboBox<String> comboBox;
+    private static final int RATIO_NUMERATOR = 4;
+    private static final int RATIO_DENOMINATOR = 5;
+    private static final int CONTROL_PANEL_WIDTH = 200;
+    private static final int CONTROL_PANEL_HEIGHT = 600;
+    private static final int TEXT_SIZE = 18;
 
-    public GameView(TurnManager tu) {
+    /**
+     * Constructs a new GameView instance.
+     *
+     * @param tu the TurnManager instance used to manage the game's turns.
+     */
+    public GameView(final TurnManager tu) {
         setTitle("LabiOPPint");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-        setSize((int) d.getWidth() * 4 / 5, (int) d.getHeight() * 4 / 5);
+        setSize((int) d.getWidth() * RATIO_NUMERATOR / RATIO_DENOMINATOR,
+                (int) d.getHeight() * RATIO_NUMERATOR / RATIO_DENOMINATOR);
         setLayout(new BorderLayout());
         setResizable(false);
         setLocationByPlatform(true);
         lgv = new LogicGameView(tu);
-        labirintPanel = new DrawPanel(this.getSize(),tu);
+        labirintPanel = new DrawPanel(this.getSize(), tu);
         add(labirintPanel, BorderLayout.CENTER);
         JPanel controlPanel = new JPanel();
         controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.Y_AXIS));
-        controlPanel.setPreferredSize(new Dimension(200, 600));
+        controlPanel.setPreferredSize(new Dimension(CONTROL_PANEL_WIDTH, CONTROL_PANEL_HEIGHT));
         controlPanel.setBackground(Color.GRAY);
         add(controlPanel, BorderLayout.EAST);
 
         turnLabel = new JLabel(lgv.getTurn(), SwingConstants.CENTER);
-        Font newFont = new Font("Arial", Font.BOLD, 18);
+        Font newFont = new Font("Arial", Font.BOLD, TEXT_SIZE);
         turnLabel.setFont(newFont);
         turnLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         controlPanel.add(turnLabel);
@@ -89,8 +119,9 @@ public class GameView extends JFrame {
         controlPanel.add(comboBox);
 
         // Aggiunta un ActionListener alla ComboBox per gestire l'evento di selezione
-        //comboBox.addActionListener(
-        //        e -> JOptionPane.showMessageDialog(this, "Hai selezionato: " + (String) comboBox.getSelectedItem()));
+        // comboBox.addActionListener(
+        // e -> JOptionPane.showMessageDialog(this, "Hai selezionato: " + (String)
+        // comboBox.getSelectedItem()));
 
         JButton powerUpButton = new JButton("Use PowerUp");
         powerUpButton.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -104,8 +135,8 @@ public class GameView extends JFrame {
         powerUpButton.addActionListener(new ActionListener() {
 
             @Override
-            public void actionPerformed(ActionEvent e) {
-                String name = (String)comboBox.getSelectedItem();
+            public void actionPerformed(final ActionEvent e) {
+                String name = (String) comboBox.getSelectedItem();
                 lgv.activatePowerUps(name);
                 updateComboBox();
             }
@@ -114,7 +145,7 @@ public class GameView extends JFrame {
         endTurnButton.addActionListener(new ActionListener() {
 
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 String action = endTurnButton.getText();
                 lgv.useAction(action);
                 turnLabel.setText(lgv.getTurn());
@@ -131,37 +162,36 @@ public class GameView extends JFrame {
 
         });
 
-        
         this.addMouseListener(new MouseInputListener() {
-        
+
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mouseClicked(final MouseEvent e) {
             }
 
             @Override
-            public void mousePressed(MouseEvent e) {
+            public void mousePressed(final MouseEvent e) {
                 lgv.mouseAction(e.getX(), e.getY(), labirintPanel.getBlockSize());
                 actionLabel.setText(lgv.getAction());
             }
 
             @Override
-            public void mouseReleased(MouseEvent e) {
+            public void mouseReleased(final MouseEvent e) {
             }
 
             @Override
-            public void mouseEntered(MouseEvent e) {
+            public void mouseEntered(final MouseEvent e) {
             }
 
             @Override
-            public void mouseExited(MouseEvent e) {
+            public void mouseExited(final MouseEvent e) {
             }
 
             @Override
-            public void mouseDragged(MouseEvent e) {
+            public void mouseDragged(final MouseEvent e) {
             }
 
             @Override
-            public void mouseMoved(MouseEvent e) {
+            public void mouseMoved(final MouseEvent e) {
             }
 
         });
@@ -169,12 +199,19 @@ public class GameView extends JFrame {
         setVisible(true);
     }
 
-    private JButton createButton(String text) {
+    /**
+     * Creates a JButton with the specified text and attaches an ActionListener
+     * to handle button actions.
+     *
+     * @param text the text to display on the button.
+     * @return the created JButton.
+     */
+    private JButton createButton(final String text) {
         JButton button = new JButton(text);
-         
+
         button.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 lgv.useAction(text);
                 updateComboBox();
                 showWinner();
@@ -182,30 +219,47 @@ public class GameView extends JFrame {
         });
         return button;
     }
-    
+
+    /**
+     * Updates the ComboBox with the available power-ups from the LogicGameView.
+     */
     private void updateComboBox() {
-    	String[] options = lgv.getPowerUps();
+        String[] options = lgv.getPowerUps();
         comboBox.removeAllItems();
         for (String option : options) {
             comboBox.addItem(option);
         }
     }
 
-    public void update(final MazeImpl grid, final DualMap<PlayerImpl> mapPlayers, final DualMap<Enemy> mapEnemies, final DualMap<PowerUp> mapPowerUps,BlockImpl outside) {
-        if(lgv.isBlockPlacement()) {
-        	endTurnButton.setVisible(false);
+    /**
+     * Updates the game view with the current state of the maze, players, enemies,
+     * power-ups, and the outside block.
+     *
+     * @param grid        the current maze grid.
+     * @param mapPlayers  the map of players in the game.
+     * @param mapEnemies  the map of enemies in the game.
+     * @param mapPowerUps the map of power-ups in the game.
+     * @param outside     the block representing the outside of the maze.
+     */
+    public void update(final MazeImpl grid, final DualMap<PlayerImpl> mapPlayers, final DualMap<Enemy> mapEnemies,
+            final DualMap<PowerUp> mapPowerUps, final BlockImpl outside) {
+        if (lgv.isBlockPlacement()) {
+            endTurnButton.setVisible(false);
             upButton.setVisible(false);
             downButton.setVisible(false);
         } else {
-        	endTurnButton.setVisible(true);
+            endTurnButton.setVisible(true);
             upButton.setVisible(true);
             downButton.setVisible(true);
         }
-        labirintPanel.draw(grid,mapPlayers,mapEnemies,mapPowerUps,outside);
+        labirintPanel.draw(grid, mapPlayers, mapEnemies, mapPowerUps, outside);
     }
 
+    /**
+     * Displays a dialog box showing the winner of the game if a winner is present.
+     */
     private void showWinner() {
-        if(lgv.isWinnerPresent()) {
+        if (lgv.isWinnerPresent()) {
             JOptionPane.showMessageDialog(null, lgv.getWinner());
             lgv.close();
         }
