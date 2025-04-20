@@ -1,19 +1,13 @@
 package labioopint.view;
 
-import labioopint.model.Core.impl.TurnManager;
-import labioopint.model.api.Settings;
+import labioopint.controller.MainMenuController;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class MainMenu extends JFrame{
+public class MainMenu extends JFrame {
 
-    private static Settings settings;
-
-    public MainMenu() {
-
+    public MainMenu(MainMenuController controller) {
         setTitle("Main Menu");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
@@ -26,19 +20,19 @@ public class MainMenu extends JFrame{
         buttonPanel.setLayout(new GridLayout(4, 1, 10, 10));
 
         JButton startGameButton = new JButton("Start Game");
-        startGameButton.addActionListener(e -> TurnManager.Init(SettingsMenu.getSettings()));
+        startGameButton.addActionListener(e -> controller.startGame());
         buttonPanel.add(startGameButton);
 
         JButton loadGameButton = new JButton("Load Game");
-        loadGameButton.addActionListener(e -> loadGame());
+        loadGameButton.addActionListener(e -> controller.loadGame());
         buttonPanel.add(loadGameButton);
 
         JButton settingsButton = new JButton("Settings");
-        settingsButton.addActionListener(e -> new SettingsMenu().setVisible(true));
+        settingsButton.addActionListener(e -> controller.openSettings());
         buttonPanel.add(settingsButton);
 
         JButton quitButton = new JButton("Quit");
-        quitButton.addActionListener(e -> System.exit(0));
+        quitButton.addActionListener(e -> controller.quitGame());
         buttonPanel.add(quitButton);
 
         add(buttonPanel, BorderLayout.CENTER);
