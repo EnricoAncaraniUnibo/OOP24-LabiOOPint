@@ -20,11 +20,8 @@ import labioopint.model.maze.impl.LabyrinthImpl;
  * moved correctly, the outside block is updated as expected, and the grid
  * maintains its integrity after each shift operation.
  */
-public class ShiftsTest {
-    
-	private Labyrinth lab;
+class ShiftsTest {
 	private final static Integer SIZE=5;
-	private TurnManager tu;
 	
 	/**
      * Tests shifting a row to the right. Verifies that the blocks in the row
@@ -32,10 +29,10 @@ public class ShiftsTest {
      */
 	@Test
 	void testShiftRowRight() {
-		tu = new TurnManager(new Settings(1,2,3,EnemyDifficulty.EASY));
-		lab = new LabyrinthImpl(SIZE, tu);
-		BlockImpl initialOutsideBlock = lab.getOutsideBlock();
-		List<BlockImpl> ls = new ArrayList<BlockImpl>();
+		TurnManager tu = new TurnManager(new Settings(1,2,3,EnemyDifficulty.EASY));
+		Labyrinth lab = new LabyrinthImpl(SIZE, tu);
+		final BlockImpl initialOutsideBlock = lab.getOutsideBlock();
+		final List<BlockImpl> ls = new ArrayList<>();
 		for(int i=0;i<SIZE;i++)  {
 			ls.add(lab.getGrid().getBlock(new Coordinate(2,i)).get());
 		}
@@ -53,10 +50,10 @@ public class ShiftsTest {
      */
 	@Test
 	void testShiftRowLeft() {
-		tu = new TurnManager(new Settings(1,2,3,EnemyDifficulty.EASY));
-		lab = new LabyrinthImpl(SIZE, tu);
-		BlockImpl initialOutsideBlock = lab.getOutsideBlock();
-		List<BlockImpl> ls = new ArrayList<BlockImpl>();
+		TurnManager tu = new TurnManager(new Settings(1,2,3,EnemyDifficulty.EASY));
+		Labyrinth lab = new LabyrinthImpl(SIZE, tu);
+		final BlockImpl initialOutsideBlock = lab.getOutsideBlock();
+		final List<BlockImpl> ls = new ArrayList<>();
 		for(int i=SIZE-1;i>=0;i--)  {
 			ls.add(lab.getGrid().getBlock(new Coordinate(2,i)).get());
 		}
@@ -76,10 +73,10 @@ public class ShiftsTest {
      */
 	@Test
 	void testShiftColumnDown() {
-		tu = new TurnManager(new Settings(1,2,3,EnemyDifficulty.EASY));
-		lab = new LabyrinthImpl(SIZE, tu);
-		BlockImpl initialOutsideBlock = lab.getOutsideBlock();
-		List<BlockImpl> ls = new ArrayList<BlockImpl>();
+		TurnManager tu = new TurnManager(new Settings(1,2,3,EnemyDifficulty.EASY));
+		Labyrinth lab = new LabyrinthImpl(SIZE, tu);
+		final BlockImpl initialOutsideBlock = lab.getOutsideBlock();
+		final List<BlockImpl> ls = new ArrayList<>();
 		for(int i=0;i<SIZE;i++)  {
 			ls.add(lab.getGrid().getBlock(new Coordinate(i,2)).get());
 		}
@@ -97,10 +94,10 @@ public class ShiftsTest {
      */
 	@Test
 	void testShiftColumnUp() {
-		tu = new TurnManager(new Settings(1,2,3,EnemyDifficulty.EASY));
-		lab = new LabyrinthImpl(SIZE, tu);
-		BlockImpl initialOutsideBlock = lab.getOutsideBlock();
-		List<BlockImpl> ls = new ArrayList<BlockImpl>();
+		TurnManager tu = new TurnManager(new Settings(1,2,3,EnemyDifficulty.EASY));
+		Labyrinth lab = new LabyrinthImpl(SIZE, tu);
+		final BlockImpl initialOutsideBlock = lab.getOutsideBlock();
+		final List<BlockImpl> ls = new ArrayList<>();
 		for(int i=SIZE-1;i>=0;i--)  {
 			ls.add(lab.getGrid().getBlock(new Coordinate(i,2)).get());
 		}

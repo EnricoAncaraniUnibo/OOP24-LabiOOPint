@@ -13,7 +13,7 @@ import labioopint.model.block.impl.BlockImpl;
  * It verifies the behavior of block rotation and ensures that the rotation
  * can be changed correctly.
  */
-public class BlocksTest {
+class BlocksTest {
 	/**
      * A static instance of BlockImpl used for testing.
      */
@@ -24,7 +24,7 @@ public class BlocksTest {
      * Sets the block type to CORRIDOR.
      */
 	@BeforeAll
-	static void Init() {
+	static void init() {
 		b = new BlockImpl(BlockType.CORRIDOR);
 	}
 	
@@ -33,8 +33,8 @@ public class BlocksTest {
      * Ensures that the rotation of the block changes when set to a new value.
      */
 	@Test
-	void ChangeRotation() {
-		Rotation r = b.getRotation();
+	void changeRotation() {
+		final Rotation r = b.getRotation();
 		b.setRotation(Rotation.ONE_HUNDRED_EIGHTY);
 		assertNotEquals(r,b.getRotation());
 	}
