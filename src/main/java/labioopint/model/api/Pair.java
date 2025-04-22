@@ -1,6 +1,6 @@
 package labioopint.model.api;
 
-public class Pair<X,Y> {
+public class Pair<X, Y> {
     private final X first;
     private final Y second;
 

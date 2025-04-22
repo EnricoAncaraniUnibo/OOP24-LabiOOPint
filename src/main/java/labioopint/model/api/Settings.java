@@ -3,12 +3,13 @@ package labioopint.model.api;
 import labioopint.model.enemy.api.EnemyDifficulty;
 
 public class Settings {
-    Integer playerNumber;
-    Integer enemyNumber;
-    Integer powerUp;
-    EnemyDifficulty enemyDifficulty;
+    private Integer playerNumber;
+    private Integer enemyNumber;
+    private Integer powerUp;
+    private EnemyDifficulty enemyDifficulty;
 
-    public Settings(final Integer enemyNumber, final Integer playerNumber, final Integer powerUp, final EnemyDifficulty enemyDifficulty){
+    public Settings(final Integer enemyNumber, final Integer playerNumber, final Integer powerUp,
+            final EnemyDifficulty enemyDifficulty) {
         this.enemyNumber = enemyNumber;
         this.playerNumber = playerNumber;
         this.powerUp = powerUp;

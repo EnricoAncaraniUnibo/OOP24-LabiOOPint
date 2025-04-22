@@ -1,6 +1,6 @@
 package labioopint.model.api;
 
-public enum ActionType{
+public enum ActionType {
     GAME_LOARDING,
     SETTINGS,
     SAVING,
