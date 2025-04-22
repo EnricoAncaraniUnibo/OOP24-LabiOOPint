@@ -16,13 +16,12 @@ public class TurnManagerTest {
 
     @BeforeAll
     static void setUp() {
-        // Initialize the TurnManager with mock settings
-        Settings settings = new Settings(2, 2, 3, EnemyDifficulty.MEDIUM); // 2 players, 2 difficulty, 3 power-ups
+        Settings settings = new Settings(2, 2, 3, EnemyDifficulty.MEDIUM);
         tm = new TurnManager(settings);
     }
 
     @Test
-    void testTurnManagerActions(){
+    void testTurnManagerActions() {
         assertEquals(tm.getCurrentAction(), ActionType.BLOCK_PLACEMENT);
         tm.nextAction();
         assertEquals(tm.getCurrentAction(), ActionType.PLAYER_MOVEMENT);

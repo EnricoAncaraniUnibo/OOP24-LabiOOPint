@@ -20,7 +20,7 @@ public class BuilderImplTest {
 
     @BeforeEach
     void setUp() {
-        Settings settings = new Settings(2, 2, 3, EnemyDifficulty.MEDIUM); 
+        Settings settings = new Settings(2, 2, 3, EnemyDifficulty.MEDIUM);
         tm = new TurnManager(settings);
         builder = new BuilderImpl(settings, tm);
     }
