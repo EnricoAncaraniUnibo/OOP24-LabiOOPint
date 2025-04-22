@@ -1,4 +1,4 @@
-package labioopint.model.Maze.impl;
+package labioopint.model.maze.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import labioopint.model.Block.impl.BlockImpl;
-import labioopint.model.Maze.api.Maze;
 import labioopint.model.api.Coordinate;
+import labioopint.model.block.impl.BlockImpl;
+import labioopint.model.maze.api.Maze;
 /**
  * The MazeImpl class provides an abstract implementation of the Maze interface.
  * It manages the maze grid, block selection, and size, and provides methods for

@@ -1,10 +1,10 @@
-package labioopint.model.PowerUp.impl;
+package labioopint.model.powerup.impl;
 
 import java.util.Random;
 
-import labioopint.model.Core.impl.TurnManager;
-import labioopint.model.Player.impl.PlayerImpl;
 import labioopint.model.api.Coordinate;
+import labioopint.model.core.impl.TurnManager;
+import labioopint.model.player.impl.PlayerImpl;
 
 public class SwapPositionPowerUp extends PowerUpImpl {
 

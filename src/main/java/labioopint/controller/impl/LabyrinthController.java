@@ -1,12 +1,12 @@
 package labioopint.controller.impl;
 
-import labioopint.model.Block.impl.BlockImpl;
-import labioopint.model.Core.impl.TurnManager;
-import labioopint.model.Enemy.api.Enemy;
-import labioopint.model.Maze.impl.MazeImpl;
-import labioopint.model.Player.impl.PlayerImpl;
-import labioopint.model.PowerUp.api.PowerUp;
 import labioopint.model.api.DualMap;
+import labioopint.model.block.impl.BlockImpl;
+import labioopint.model.core.impl.TurnManager;
+import labioopint.model.enemy.api.Enemy;
+import labioopint.model.maze.impl.MazeImpl;
+import labioopint.model.player.impl.PlayerImpl;
+import labioopint.model.powerup.api.PowerUp;
 import labioopint.view.GameView;
 /**
  * The LabyrinthController class is responsible for managing the interaction between the game model

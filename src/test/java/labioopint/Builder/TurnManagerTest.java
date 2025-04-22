@@ -5,11 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import labioopint.model.Core.impl.TurnManager;
-import labioopint.model.Enemy.api.EnemyDifficulty;
-import labioopint.model.PowerUp.impl.SwapPositionPowerUp;
 import labioopint.model.api.ActionType;
 import labioopint.model.api.Settings;
+import labioopint.model.core.impl.TurnManager;
+import labioopint.model.enemy.api.EnemyDifficulty;
+import labioopint.model.powerup.impl.SwapPositionPowerUp;
 
 public class TurnManagerTest {
     private static TurnManager tm;

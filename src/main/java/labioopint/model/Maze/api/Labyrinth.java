@@ -1,15 +1,15 @@
-package labioopint.model.Maze.api;
+package labioopint.model.maze.api;
 
 import java.util.List;
 
-import labioopint.model.Block.api.Rotation;
-import labioopint.model.Block.impl.BlockImpl;
-import labioopint.model.Enemy.api.Enemy;
-import labioopint.model.Maze.impl.MazeImpl;
-import labioopint.model.Player.api.Player;
-import labioopint.model.Player.impl.PlayerImpl;
-import labioopint.model.PowerUp.api.PowerUp;
 import labioopint.model.api.Coordinate;
+import labioopint.model.block.api.Rotation;
+import labioopint.model.block.impl.BlockImpl;
+import labioopint.model.enemy.api.Enemy;
+import labioopint.model.maze.impl.MazeImpl;
+import labioopint.model.player.api.Player;
+import labioopint.model.player.impl.PlayerImpl;
+import labioopint.model.powerup.api.PowerUp;
 /**
  * The Labyrinth interface defines the structure and behavior of a labyrinth.
  * It provides methods for managing blocks, players, enemies, power-ups, and

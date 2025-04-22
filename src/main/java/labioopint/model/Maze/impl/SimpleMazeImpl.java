@@ -1,8 +1,8 @@
-package labioopint.model.Maze.impl;
+package labioopint.model.maze.impl;
 
-import labioopint.model.Block.api.BlockType;
-import labioopint.model.Block.impl.BlockImpl;
-import labioopint.model.Maze.api.SimpleMaze;
+import labioopint.model.block.api.BlockType;
+import labioopint.model.block.impl.BlockImpl;
+import labioopint.model.maze.api.SimpleMaze;
 /**
  * The SimpleMazeImpl class extends MazeImpl and implements the SimpleMaze interface.
  * It provides a specific implementation of a simple maze with predefined blocks

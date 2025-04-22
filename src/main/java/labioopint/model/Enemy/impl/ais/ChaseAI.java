@@ -1,4 +1,4 @@
-package labioopint.model.Enemy.impl.ais;
+package labioopint.model.enemy.impl.ais;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -12,14 +12,14 @@ import java.util.Optional;
 import java.util.Queue;
 import java.util.Set;
 
-import labioopint.model.Enemy.api.EnemyAI;
-import labioopint.model.Enemy.impl.MovementUtilities;
-import labioopint.model.Maze.api.Direction;
-import labioopint.model.Maze.impl.LabyrinthImpl;
-import labioopint.model.Player.impl.PlayerImpl;
 import labioopint.model.api.Coordinate;
+import labioopint.model.core.impl.TurnManager;
+import labioopint.model.enemy.api.EnemyAI;
+import labioopint.model.enemy.impl.MovementUtilities;
+import labioopint.model.maze.api.Direction;
+import labioopint.model.maze.impl.LabyrinthImpl;
+import labioopint.model.player.impl.PlayerImpl;
 import labioopint.controller.impl.ActionPredicate;
-import labioopint.model.Core.impl.TurnManager;
 
 /**
  * Implementation of the {@link EnemyAI} interface that allows an enemy to chase

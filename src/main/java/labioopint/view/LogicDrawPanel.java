@@ -5,16 +5,16 @@ import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
 
-import labioopint.model.Block.impl.BlockImpl;
-import labioopint.model.Core.impl.ImageLoader;
-import labioopint.model.Core.impl.TurnManager;
-import labioopint.model.Enemy.api.Enemy;
-import labioopint.model.Maze.impl.MazeImpl;
-import labioopint.model.Player.impl.PlayerImpl;
-import labioopint.model.PowerUp.api.PowerUp;
 import labioopint.model.api.Coordinate;
 import labioopint.model.api.DualMap;
 import labioopint.model.api.Pair;
+import labioopint.model.block.impl.BlockImpl;
+import labioopint.model.core.impl.ImageLoader;
+import labioopint.model.core.impl.TurnManager;
+import labioopint.model.enemy.api.Enemy;
+import labioopint.model.maze.impl.MazeImpl;
+import labioopint.model.player.impl.PlayerImpl;
+import labioopint.model.powerup.api.PowerUp;
 /**
  * The LogicDrawPanel class is responsible for managing the logic and data
  * required to draw the game panel, including blocks, players, enemies, and power-ups.

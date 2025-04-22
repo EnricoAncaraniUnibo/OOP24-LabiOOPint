@@ -1,4 +1,4 @@
-package labioopint.model.Block.api;
+package labioopint.model.block.api;
 /**
  * The Rotation enum represents the possible rotations that a block can have
  * in the labyrinth. Each rotation corresponds to a specific angle in degrees.

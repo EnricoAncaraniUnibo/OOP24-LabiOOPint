@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import labioopint.model.Block.api.BlockType;
-import labioopint.model.Block.api.Rotation;
-import labioopint.model.Block.impl.BlockImpl;
+import labioopint.model.block.api.BlockType;
+import labioopint.model.block.api.Rotation;
+import labioopint.model.block.impl.BlockImpl;
 /**
  * The BlocksTest class contains unit tests for the BlockImpl class.
  * It verifies the behavior of block rotation and ensures that the rotation

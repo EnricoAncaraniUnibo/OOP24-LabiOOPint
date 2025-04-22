@@ -1,10 +1,10 @@
-package labioopint.model.PowerUp.impl;
+package labioopint.model.powerup.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import labioopint.model.Player.impl.PlayerImpl;
-import labioopint.model.PowerUp.api.PowerUp;
+import labioopint.model.player.impl.PlayerImpl;
+import labioopint.model.powerup.api.PowerUp;
 
 public abstract class PowerUpImpl implements PowerUp {
     private boolean collected;

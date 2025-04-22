@@ -1,4 +1,4 @@
-package labioopint.model.Block.api;
+package labioopint.model.block.api;
 /**
  * The Block interface represents a block in the labyrinth. It provides methods
  * to retrieve the block's type, manage its rotation, and apply random rotations.

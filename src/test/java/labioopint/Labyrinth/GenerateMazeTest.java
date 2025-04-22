@@ -7,13 +7,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import labioopint.model.Block.api.Block;
-import labioopint.model.Block.api.BlockType;
-import labioopint.model.Block.api.Rotation;
-import labioopint.model.Block.impl.BlockImpl;
-import labioopint.model.Maze.api.Maze;
-import labioopint.model.Maze.impl.SimpleMazeImpl;
 import labioopint.model.api.Coordinate;
+import labioopint.model.block.api.Block;
+import labioopint.model.block.api.BlockType;
+import labioopint.model.block.api.Rotation;
+import labioopint.model.block.impl.BlockImpl;
+import labioopint.model.maze.api.Maze;
+import labioopint.model.maze.impl.SimpleMazeImpl;
 /**
  * The GenerateMazeTest class contains unit tests for verifying the correct
  * generation and behavior of mazes. It ensures that the maze is generated

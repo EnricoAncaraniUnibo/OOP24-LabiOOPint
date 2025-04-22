@@ -1,4 +1,4 @@
-package labioopint.model.Block.api;
+package labioopint.model.block.api;
 /**
  * The BlockType enum represents the different types of blocks
  * that can exist in the labyrinth. Each block type defines a specific

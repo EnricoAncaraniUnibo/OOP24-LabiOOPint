@@ -1,12 +1,12 @@
 package labioopint.controller.api;
 
-import labioopint.model.Block.api.BlockType;
-import labioopint.model.Block.api.Rotation;
-import labioopint.model.Block.impl.BlockImpl;
-import labioopint.model.Core.impl.TurnManager;
-import labioopint.model.Maze.impl.LabyrinthImpl;
-import labioopint.model.Maze.impl.MazeImpl;
 import labioopint.model.api.Coordinate;
+import labioopint.model.block.api.BlockType;
+import labioopint.model.block.api.Rotation;
+import labioopint.model.block.impl.BlockImpl;
+import labioopint.model.core.impl.TurnManager;
+import labioopint.model.maze.impl.LabyrinthImpl;
+import labioopint.model.maze.impl.MazeImpl;
 
 public class DirectionCheck {
     private LabyrinthImpl lab;

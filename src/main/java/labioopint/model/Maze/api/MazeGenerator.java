@@ -1,9 +1,9 @@
-package labioopint.model.Maze.api;
+package labioopint.model.maze.api;
 
 import java.util.Map;
 
-import labioopint.model.Block.impl.BlockImpl;
 import labioopint.model.api.Coordinate;
+import labioopint.model.block.impl.BlockImpl;
 /**
  * The MazeGenerator interface defines the methods required for generating
  * and managing the structure of a maze. It provides functionality to fill

@@ -1,4 +1,4 @@
-package labioopint.model.Core.impl;
+package labioopint.model.core.impl;
 
 import java.util.HashMap;
 import java.util.Map;

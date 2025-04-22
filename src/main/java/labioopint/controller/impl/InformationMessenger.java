@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import labioopint.model.Core.impl.TurnManager;
-import labioopint.model.PowerUp.api.PowerUp;
 import labioopint.model.api.ActionType;
+import labioopint.model.core.impl.TurnManager;
+import labioopint.model.powerup.api.PowerUp;
 
 /**
  * The InformationMessenger class provides utility methods to retrieve

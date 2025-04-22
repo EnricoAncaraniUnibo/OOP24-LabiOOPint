@@ -1,11 +1,11 @@
-package labioopint.model.Block.impl;
+package labioopint.model.block.impl;
 
 import java.util.Random;
 
-import labioopint.model.Block.api.Block;
-import labioopint.model.Block.api.BlockType;
-import labioopint.model.Block.api.Rotation;
 import labioopint.model.api.Movable;
+import labioopint.model.block.api.Block;
+import labioopint.model.block.api.BlockType;
+import labioopint.model.block.api.Rotation;
 
 public class BlockImpl extends Movable implements Block {
     private BlockType type;

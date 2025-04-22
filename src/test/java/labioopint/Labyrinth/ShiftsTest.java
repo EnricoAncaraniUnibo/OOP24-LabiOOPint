@@ -6,14 +6,14 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import labioopint.model.Block.impl.BlockImpl;
-import labioopint.model.Core.impl.TurnManager;
-import labioopint.model.Enemy.api.EnemyDifficulty;
-import labioopint.model.Maze.api.Direction;
-import labioopint.model.Maze.api.Labyrinth;
-import labioopint.model.Maze.impl.LabyrinthImpl;
 import labioopint.model.api.Coordinate;
 import labioopint.model.api.Settings;
+import labioopint.model.block.impl.BlockImpl;
+import labioopint.model.core.impl.TurnManager;
+import labioopint.model.enemy.api.EnemyDifficulty;
+import labioopint.model.maze.api.Direction;
+import labioopint.model.maze.api.Labyrinth;
+import labioopint.model.maze.impl.LabyrinthImpl;
 /**
  * The ShiftsTest class contains unit tests for verifying the correct behavior
  * of shifting rows and columns in the labyrinth. It ensures that blocks are

@@ -1,4 +1,4 @@
-package labioopint.model.Core.api;
+package labioopint.model.core.api;
 
 import labioopint.model.api.Coordinate;
 

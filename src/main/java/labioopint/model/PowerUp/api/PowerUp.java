@@ -1,8 +1,8 @@
-package labioopint.model.PowerUp.api;
+package labioopint.model.powerup.api;
 
 import java.util.List;
 
-import labioopint.model.Player.impl.PlayerImpl;
+import labioopint.model.player.impl.PlayerImpl;
 
 public interface PowerUp {
     /**

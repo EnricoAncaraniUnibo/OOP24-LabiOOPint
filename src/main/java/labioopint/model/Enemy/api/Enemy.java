@@ -1,9 +1,9 @@
-package labioopint.model.Enemy.api;
+package labioopint.model.enemy.api;
 
 import java.util.List;
 
-import labioopint.model.Player.impl.PlayerImpl;
 import labioopint.model.api.Coordinate;
+import labioopint.model.player.impl.PlayerImpl;
 
 /**
  * The {@code Enemy} interface defines the behavior of an enemy in the game,

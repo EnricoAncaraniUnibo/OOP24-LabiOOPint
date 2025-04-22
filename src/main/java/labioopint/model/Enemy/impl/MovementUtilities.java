@@ -1,7 +1,7 @@
-package labioopint.model.Enemy.impl;
+package labioopint.model.enemy.impl;
 
-import labioopint.model.Maze.api.Direction;
 import labioopint.model.api.Coordinate;
+import labioopint.model.maze.api.Direction;
 
 /**
  * Utility class for handling movement-related operations, such as determining

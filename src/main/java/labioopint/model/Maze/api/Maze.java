@@ -1,11 +1,11 @@
-package labioopint.model.Maze.api;
+package labioopint.model.maze.api;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import labioopint.model.Block.impl.BlockImpl;
 import labioopint.model.api.Coordinate;
+import labioopint.model.block.impl.BlockImpl;
 /**
  * The Maze interface defines the structure and behavior of a maze.
  * It provides methods for managing blocks, their coordinates, and the overall

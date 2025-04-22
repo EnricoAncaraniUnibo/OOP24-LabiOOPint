@@ -1,4 +1,4 @@
-package labioopint.model.Enemy.api;
+package labioopint.model.enemy.api;
 
 /**
  * The {@code EnemyDifficulty} enum represents the difficulty levels for enemies

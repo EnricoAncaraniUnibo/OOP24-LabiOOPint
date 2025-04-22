@@ -9,17 +9,17 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import labioopint.model.Block.api.BlockType;
-import labioopint.model.Block.api.Rotation;
-import labioopint.model.Block.impl.BlockImpl;
-import labioopint.model.Core.impl.TurnManager;
-import labioopint.model.Enemy.api.Enemy;
-import labioopint.model.Enemy.api.EnemyDifficulty;
-import labioopint.model.Maze.api.Direction;
-import labioopint.model.Player.impl.PlayerImpl;
-import labioopint.model.PowerUp.api.PowerUp;
 import labioopint.model.api.Coordinate;
 import labioopint.model.api.Settings;
+import labioopint.model.block.api.BlockType;
+import labioopint.model.block.api.Rotation;
+import labioopint.model.block.impl.BlockImpl;
+import labioopint.model.core.impl.TurnManager;
+import labioopint.model.enemy.api.Enemy;
+import labioopint.model.enemy.api.EnemyDifficulty;
+import labioopint.model.maze.api.Direction;
+import labioopint.model.player.impl.PlayerImpl;
+import labioopint.model.powerup.api.PowerUp;
 
 public class EnemyTest {
 

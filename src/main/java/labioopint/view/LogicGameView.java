@@ -2,10 +2,10 @@ package labioopint.view;
 
 import labioopint.controller.impl.GameController;
 import labioopint.controller.impl.InformationMessenger;
-import labioopint.model.Core.impl.TurnManager;
-import labioopint.model.PowerUp.api.PowerUp;
 import labioopint.model.api.ActionType;
 import labioopint.model.api.Coordinate;
+import labioopint.model.core.impl.TurnManager;
+import labioopint.model.powerup.api.PowerUp;
 
 /**
  * The LogicGameView class acts as a bridge between the game logic and the

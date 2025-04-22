@@ -4,15 +4,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import labioopint.model.Core.impl.TurnManager;
-import labioopint.model.Enemy.api.EnemyDifficulty;
-import labioopint.model.Maze.api.Direction;
-import labioopint.model.Maze.impl.LabyrinthImpl;
-import labioopint.model.Player.api.Player;
-import labioopint.model.Player.impl.PlayerImpl;
-import labioopint.model.PowerUp.impl.SwapPositionPowerUp;
 import labioopint.model.api.Coordinate;
 import labioopint.model.api.Settings;
+import labioopint.model.core.impl.TurnManager;
+import labioopint.model.enemy.api.EnemyDifficulty;
+import labioopint.model.maze.api.Direction;
+import labioopint.model.maze.impl.LabyrinthImpl;
+import labioopint.model.player.api.Player;
+import labioopint.model.player.impl.PlayerImpl;
+import labioopint.model.powerup.impl.SwapPositionPowerUp;
 
 public class PlayerTest {
     private static Player p;

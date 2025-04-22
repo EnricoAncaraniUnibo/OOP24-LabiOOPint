@@ -1,17 +1,17 @@
-package labioopint.model.Core.impl;
+package labioopint.model.core.impl;
 
 import java.util.List;
 import java.util.Optional;
 
-import labioopint.model.Enemy.api.Enemy;
-import labioopint.model.Enemy.impl.ais.ChaseAI;
-import labioopint.model.Enemy.impl.ais.RandomAI;
-import labioopint.model.Enemy.impl.ais.SingleStepRandomAI;
-import labioopint.model.Maze.impl.LabyrinthImpl;
-import labioopint.model.Player.impl.PlayerImpl;
-import labioopint.model.PowerUp.api.PowerUp;
 import labioopint.model.api.ActionType;
 import labioopint.model.api.Settings;
+import labioopint.model.enemy.api.Enemy;
+import labioopint.model.enemy.impl.ais.ChaseAI;
+import labioopint.model.enemy.impl.ais.RandomAI;
+import labioopint.model.enemy.impl.ais.SingleStepRandomAI;
+import labioopint.model.maze.impl.LabyrinthImpl;
+import labioopint.model.player.impl.PlayerImpl;
+import labioopint.model.powerup.api.PowerUp;
 
 /**
  * Manages the turns and actions in the game, including players, enemies, and

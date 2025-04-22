@@ -1,18 +1,17 @@
-package labioopint.model.Enemy.impl;
+package labioopint.model.enemy.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import labioopint.controller.impl.ActionPredicate;
-import labioopint.model.Core.impl.TurnManager;
-import labioopint.model.Enemy.api.Enemy;
-import labioopint.model.Enemy.api.EnemyAI;
-import labioopint.model.Maze.api.Direction;
-
-import labioopint.model.Player.impl.PlayerImpl;
 import labioopint.model.api.Coordinate;
 import labioopint.model.api.Movable;
-import labioopint.model.Maze.impl.LabyrinthImpl;
+import labioopint.model.core.impl.TurnManager;
+import labioopint.model.enemy.api.Enemy;
+import labioopint.model.enemy.api.EnemyAI;
+import labioopint.model.maze.api.Direction;
+import labioopint.model.maze.impl.LabyrinthImpl;
+import labioopint.model.player.impl.PlayerImpl;
 
 /**
  * Implementation of the {@link Enemy} interface that provides the behavior

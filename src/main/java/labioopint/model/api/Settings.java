@@ -1,6 +1,6 @@
 package labioopint.model.api;
 
-import labioopint.model.Enemy.api.EnemyDifficulty;
+import labioopint.model.enemy.api.EnemyDifficulty;
 
 public class Settings {
     Integer playerNumber;

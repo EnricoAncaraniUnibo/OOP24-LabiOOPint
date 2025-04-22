@@ -1,8 +1,8 @@
 package labioopint;
 
-import labioopint.model.Core.impl.TurnManager;
-import labioopint.model.Enemy.api.EnemyDifficulty;
 import labioopint.model.api.Settings;
+import labioopint.model.core.impl.TurnManager;
+import labioopint.model.enemy.api.EnemyDifficulty;
 
 public class Prova {
     public static void main(String[] args) {

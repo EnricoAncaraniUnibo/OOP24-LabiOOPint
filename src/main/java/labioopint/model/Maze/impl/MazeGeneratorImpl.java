@@ -1,4 +1,4 @@
-package labioopint.model.Maze.impl;
+package labioopint.model.maze.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import labioopint.model.Block.api.BlockType;
-import labioopint.model.Block.api.Rotation;
-import labioopint.model.Block.impl.BlockImpl;
-import labioopint.model.Maze.api.MazeGenerator;
 import labioopint.model.api.Coordinate;
+import labioopint.model.block.api.BlockType;
+import labioopint.model.block.api.Rotation;
+import labioopint.model.block.impl.BlockImpl;
+import labioopint.model.maze.api.MazeGenerator;
 /**
  * The MazeGeneratorImpl class implements the MazeGenerator interface and provides
  * the logic for generating a maze with blocks and their respective coordinates.

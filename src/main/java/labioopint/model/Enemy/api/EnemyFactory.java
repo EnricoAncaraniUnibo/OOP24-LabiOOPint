@@ -1,6 +1,6 @@
-package labioopint.model.Enemy.api;
+package labioopint.model.enemy.api;
 
-import labioopint.model.Core.impl.TurnManager;
+import labioopint.model.core.impl.TurnManager;
 
 /**
  * The {@code EnemyFactory} interface defines methods for creating different

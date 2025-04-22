@@ -1,10 +1,10 @@
-package labioopint.model.Core.impl;
+package labioopint.model.core.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import labioopint.model.Player.impl.PlayerImpl;
+import labioopint.model.player.impl.PlayerImpl;
 
 /**
  * RandomTurnChooser is responsible for randomizing the order of players' turns.

@@ -8,15 +8,15 @@ import java.util.Objects;
 
 import org.junit.jupiter.api.Test;
 
-import labioopint.model.Core.impl.TurnManager;
-import labioopint.model.Enemy.api.Enemy;
-import labioopint.model.Enemy.api.EnemyDifficulty;
-import labioopint.model.Maze.api.Labyrinth;
-import labioopint.model.Maze.impl.LabyrinthImpl;
-import labioopint.model.Player.impl.PlayerImpl;
-import labioopint.model.PowerUp.api.PowerUp;
 import labioopint.model.api.Coordinate;
 import labioopint.model.api.Settings;
+import labioopint.model.core.impl.TurnManager;
+import labioopint.model.enemy.api.Enemy;
+import labioopint.model.enemy.api.EnemyDifficulty;
+import labioopint.model.maze.api.Labyrinth;
+import labioopint.model.maze.impl.LabyrinthImpl;
+import labioopint.model.player.impl.PlayerImpl;
+import labioopint.model.powerup.api.PowerUp;
 /**
  * The PositioningTest class contains unit tests for verifying the correct
  * positioning of players, enemies, and power-ups within the labyrinth.

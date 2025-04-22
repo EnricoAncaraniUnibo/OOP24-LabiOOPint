@@ -3,13 +3,13 @@ package labioopint.controller.impl;
 import java.util.Optional;
 
 import labioopint.controller.api.DirectionCheck;
-import labioopint.model.Block.impl.BlockImpl;
-import labioopint.model.Core.impl.TurnManager;
-import labioopint.model.Enemy.api.Enemy;
-import labioopint.model.Maze.api.Direction;
-import labioopint.model.Maze.impl.LabyrinthImpl;
-import labioopint.model.Player.impl.PlayerImpl;
 import labioopint.model.api.Coordinate;
+import labioopint.model.block.impl.BlockImpl;
+import labioopint.model.core.impl.TurnManager;
+import labioopint.model.enemy.api.Enemy;
+import labioopint.model.maze.api.Direction;
+import labioopint.model.maze.impl.LabyrinthImpl;
+import labioopint.model.player.impl.PlayerImpl;
 
 public class ActionPredicate{
     private LabyrinthImpl lab;

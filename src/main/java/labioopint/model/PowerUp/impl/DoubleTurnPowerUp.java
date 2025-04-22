@@ -1,6 +1,6 @@
-package labioopint.model.PowerUp.impl;
+package labioopint.model.powerup.impl;
 
-import labioopint.model.Player.impl.PlayerImpl;
+import labioopint.model.player.impl.PlayerImpl;
 
 public class DoubleTurnPowerUp extends PowerUpImpl {
     @Override

@@ -1,12 +1,12 @@
-package labioopint.model.Player.impl;
+package labioopint.model.player.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import labioopint.model.Core.impl.TurnManager;
-import labioopint.model.Player.api.Player;
-import labioopint.model.PowerUp.api.PowerUp;
 import labioopint.model.api.Movable;
+import labioopint.model.core.impl.TurnManager;
+import labioopint.model.player.api.Player;
+import labioopint.model.powerup.api.PowerUp;
 /**
  * The PlayerImpl class implements the Player interface and represents a player
  * in the game. It manages the player's ID, objectives, usable power-ups, and

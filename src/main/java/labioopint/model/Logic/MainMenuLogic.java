@@ -1,7 +1,7 @@
 package labioopint.logic;
 
-import labioopint.model.Core.impl.TurnManager;
 import labioopint.model.api.Settings;
+import labioopint.model.core.impl.TurnManager;
 import labioopint.view.SettingsMenu;
 
 public class MainMenuLogic {

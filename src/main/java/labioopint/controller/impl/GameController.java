@@ -1,11 +1,11 @@
 package labioopint.controller.impl;
 
-import labioopint.model.Block.api.Rotation;
-import labioopint.model.Core.impl.TurnManager;
-import labioopint.model.Maze.api.Direction;
-import labioopint.model.Maze.impl.LabyrinthImpl;
 import labioopint.model.api.ActionType;
 import labioopint.model.api.Coordinate;
+import labioopint.model.block.api.Rotation;
+import labioopint.model.core.impl.TurnManager;
+import labioopint.model.maze.api.Direction;
+import labioopint.model.maze.impl.LabyrinthImpl;
 
 
 public class GameController {

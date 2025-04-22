@@ -7,14 +7,14 @@ import java.awt.Image;
 import java.awt.geom.AffineTransform;
 import javax.swing.JPanel;
 
-import labioopint.model.Block.impl.BlockImpl;
-import labioopint.model.Core.impl.TurnManager;
-import labioopint.model.Enemy.api.Enemy;
-import labioopint.model.Maze.impl.MazeImpl;
-import labioopint.model.Player.impl.PlayerImpl;
-import labioopint.model.PowerUp.api.PowerUp;
 import labioopint.model.api.DualMap;
 import labioopint.model.api.Pair;
+import labioopint.model.block.impl.BlockImpl;
+import labioopint.model.core.impl.TurnManager;
+import labioopint.model.enemy.api.Enemy;
+import labioopint.model.maze.impl.MazeImpl;
+import labioopint.model.player.impl.PlayerImpl;
+import labioopint.model.powerup.api.PowerUp;
 
 /**
  * The DrawPanel class is responsible for rendering the labyrinth (maze) and its

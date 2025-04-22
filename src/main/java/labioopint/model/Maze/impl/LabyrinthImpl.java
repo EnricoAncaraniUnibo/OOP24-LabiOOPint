@@ -1,4 +1,4 @@
-package labioopint.model.Maze.impl;
+package labioopint.model.maze.impl;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -7,19 +7,19 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import labioopint.controller.impl.LabyrinthController;
-import labioopint.model.Block.api.Rotation;
-import labioopint.model.Block.impl.BlockImpl;
-import labioopint.model.Core.impl.TurnManager;
-import labioopint.model.Enemy.api.Enemy;
-import labioopint.model.Maze.api.Direction;
-import labioopint.model.Maze.api.Labyrinth;
-import labioopint.model.Player.api.Player;
-import labioopint.model.Player.impl.PlayerImpl;
-import labioopint.model.PowerUp.api.PowerUp;
-import labioopint.model.PowerUp.impl.SwapPositionPowerUp;
 import labioopint.model.api.Coordinate;
 import labioopint.model.api.CoordinateGenerator;
 import labioopint.model.api.DualMap;
+import labioopint.model.block.api.Rotation;
+import labioopint.model.block.impl.BlockImpl;
+import labioopint.model.core.impl.TurnManager;
+import labioopint.model.enemy.api.Enemy;
+import labioopint.model.maze.api.Direction;
+import labioopint.model.maze.api.Labyrinth;
+import labioopint.model.player.api.Player;
+import labioopint.model.player.impl.PlayerImpl;
+import labioopint.model.powerup.api.PowerUp;
+import labioopint.model.powerup.impl.SwapPositionPowerUp;
 /**
  * The LabyrinthImpl class implements the Labyrinth interface and provides
  * the logic for managing the maze, players, enemies, powerups, and their coordinates and interactions.

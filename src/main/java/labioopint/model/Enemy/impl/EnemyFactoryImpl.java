@@ -1,11 +1,11 @@
-package labioopint.model.Enemy.impl;
+package labioopint.model.enemy.impl;
 
-import labioopint.model.Core.impl.TurnManager;
-import labioopint.model.Enemy.api.Enemy;
-import labioopint.model.Enemy.api.EnemyFactory;
-import labioopint.model.Enemy.impl.ais.ChaseAI;
-import labioopint.model.Enemy.impl.ais.RandomAI;
-import labioopint.model.Enemy.impl.ais.SingleStepRandomAI;
+import labioopint.model.core.impl.TurnManager;
+import labioopint.model.enemy.api.Enemy;
+import labioopint.model.enemy.api.EnemyFactory;
+import labioopint.model.enemy.impl.ais.ChaseAI;
+import labioopint.model.enemy.impl.ais.RandomAI;
+import labioopint.model.enemy.impl.ais.SingleStepRandomAI;
 
 /**
  * Implementation of the {@link EnemyFactory} interface for creating different

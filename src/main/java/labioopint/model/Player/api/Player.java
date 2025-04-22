@@ -1,8 +1,8 @@
-package labioopint.model.Player.api;
+package labioopint.model.player.api;
 
 import java.util.List;
 
-import labioopint.model.PowerUp.api.PowerUp;
+import labioopint.model.powerup.api.PowerUp;
 /**
  * The Player interface defines the behavior and attributes of a player
  * within the game. It provides methods for managing objectives, power-ups,

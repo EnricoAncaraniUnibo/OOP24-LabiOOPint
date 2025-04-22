@@ -1,19 +1,19 @@
-package labioopint.model.Core.impl;
+package labioopint.model.core.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
-import labioopint.model.Enemy.api.Enemy;
-import labioopint.model.Enemy.api.EnemyDifficulty;
-import labioopint.model.Enemy.api.EnemyFactory;
-import labioopint.model.Enemy.impl.EnemyFactoryImpl;
-import labioopint.model.Maze.impl.LabyrinthImpl;
-import labioopint.model.Player.impl.PlayerImpl;
-import labioopint.model.PowerUp.api.PowerUp;
-import labioopint.model.PowerUp.impl.SwapPositionPowerUp;
 import labioopint.model.api.Settings;
+import labioopint.model.enemy.api.Enemy;
+import labioopint.model.enemy.api.EnemyDifficulty;
+import labioopint.model.enemy.api.EnemyFactory;
+import labioopint.model.enemy.impl.EnemyFactoryImpl;
+import labioopint.model.maze.impl.LabyrinthImpl;
+import labioopint.model.player.impl.PlayerImpl;
+import labioopint.model.powerup.api.PowerUp;
+import labioopint.model.powerup.impl.SwapPositionPowerUp;
 
 /**
  * BuilderImpl is responsible for creating various game components such as

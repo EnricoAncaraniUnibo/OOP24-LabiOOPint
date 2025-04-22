@@ -1,10 +1,10 @@
-package labioopint.model.Core.api;
+package labioopint.model.core.api;
 
 import java.util.List;
 
-import labioopint.model.Enemy.api.Enemy;
-import labioopint.model.Maze.impl.LabyrinthImpl;
-import labioopint.model.Player.impl.PlayerImpl;
+import labioopint.model.enemy.api.Enemy;
+import labioopint.model.maze.impl.LabyrinthImpl;
+import labioopint.model.player.impl.PlayerImpl;
 
 /**
  * The {@code Builder} interface defines methods for creating various game
