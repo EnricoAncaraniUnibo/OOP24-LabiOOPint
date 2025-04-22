@@ -1,4 +1,4 @@
-package labioopint.Labyrinth;
+package labioopint.labyrinth;
 
 import java.util.Optional;
 

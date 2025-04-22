@@ -1,4 +1,4 @@
-package labioopint.Builder;
+package labioopint.builder;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
