@@ -1,9 +1,8 @@
-package labioopint.view;
+package labioopint.controller.impl;
 
 import labioopint.controller.api.GameController;
 import labioopint.controller.api.InformationMessenger;
-import labioopint.controller.impl.GameControllerImpl;
-import labioopint.controller.impl.InformationMessengerImpl;
+import labioopint.controller.api.LogicGameView;
 import labioopint.model.api.ActionType;
 import labioopint.model.api.Coordinate;
 import labioopint.model.core.impl.TurnManager;
@@ -15,7 +14,7 @@ import labioopint.model.powerup.api.PowerUp;
  * It provides methods to retrieve game state information and perform actions
  * based on user input.
  */
-public class LogicGameView {
+public class LogicGameViewImpl implements LogicGameView {
 
     private final TurnManager turn;
     private final InformationMessenger ifm;
@@ -26,7 +25,7 @@ public class LogicGameView {
      *
      * @param tu the TurnManager instance used to manage the game's turns.
      */
-    public LogicGameView(final TurnManager tu) {
+    public LogicGameViewImpl(final TurnManager tu) {
         turn = tu;
         ifm = new InformationMessengerImpl(turn);
         gc = new GameControllerImpl(tu);
@@ -37,6 +36,7 @@ public class LogicGameView {
      *
      * @return the current turn information.
      */
+    @Override
     public String getTurn() {
         return ifm.getTurn();
     }
@@ -46,6 +46,7 @@ public class LogicGameView {
      *
      * @return the current action information.
      */
+    @Override
     public String getAction() {
         return ifm.getAction();
     }
@@ -55,6 +56,7 @@ public class LogicGameView {
      *
      * @return an array of power-up names.
      */
+    @Override
     public String[] getPowerUps() {
         return ifm.getPowerUpsList();
     }
@@ -64,6 +66,7 @@ public class LogicGameView {
      *
      * @param powerUp the name of the power-up to activate.
      */
+    @Override
     public void activatePowerUps(final String powerUp) {
         for (final PowerUp pu : turn.getPowerUps()) {
             if (pu.getName().equals(powerUp)) {
@@ -77,6 +80,7 @@ public class LogicGameView {
      *
      * @param name the name of the action to execute.
      */
+    @Override
     public void useAction(final String name) {
         gc.action(name);
     }
@@ -88,6 +92,7 @@ public class LogicGameView {
      * @param y    the y-coordinate of the mouse click.
      * @param size the size of a single block in the grid.
      */
+    @Override
     public void mouseAction(final int x, final int y, final int size) {
         final Coordinate newCoordinate = new Coordinate((y % size < size / 2) ? y / size - 1 : y / size, x / size);
         gc.action(newCoordinate);
@@ -98,6 +103,7 @@ public class LogicGameView {
      *
      * @return true if the current action is block placement, false otherwise.
      */
+    @Override
     public Boolean isBlockPlacement() {
         return turn.getCurrentAction() == ActionType.BLOCK_PLACEMENT;
     }
@@ -107,6 +113,7 @@ public class LogicGameView {
      *
      * @return true if a winner is present, false otherwise.
      */
+    @Override
     public Boolean isWinnerPresent() {
         return ifm.getWinner().isPresent();
     }
@@ -116,6 +123,7 @@ public class LogicGameView {
      *
      * @return the name of the winner.
      */
+    @Override
     public String getWinner() {
         return ifm.getWinner().get();
     }
@@ -123,6 +131,7 @@ public class LogicGameView {
     /**
      * Closes the game by terminating the application.
      */
+    @Override
     public void close() {
         System.exit(0);
     }

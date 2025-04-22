@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.event.MouseInputListener;
 
+import labioopint.controller.api.LogicGameView;
+import labioopint.controller.impl.LogicGameViewImpl;
 import labioopint.model.api.DualMap;
 import labioopint.model.block.impl.BlockImpl;
 import labioopint.model.core.impl.TurnManager;
@@ -65,7 +67,7 @@ public class GameView extends JFrame {
         super.setLayout(new BorderLayout());
         super.setResizable(false);
         super.setLocationByPlatform(true);
-        lgv = new LogicGameView(tu);
+        lgv = new LogicGameViewImpl(tu);
         labirintPanel = new DrawPanel(super.getSize(), tu);
         super.add(labirintPanel, BorderLayout.CENTER);
         final JPanel controlPanel = new JPanel();

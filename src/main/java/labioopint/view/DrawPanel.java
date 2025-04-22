@@ -7,6 +7,8 @@ import java.awt.Image;
 import java.awt.geom.AffineTransform;
 import javax.swing.JPanel;
 
+import labioopint.controller.api.LogicDrawPanel;
+import labioopint.controller.impl.LogicDrawPanelImpl;
 import labioopint.model.api.DualMap;
 import labioopint.model.api.Pair;
 import labioopint.model.block.impl.BlockImpl;
@@ -32,7 +34,7 @@ public final class DrawPanel extends JPanel {
          * @param tu   the TurnManager instance to manage turns
          */
         public DrawPanel(final Dimension size, final TurnManager tu) {
-                ldp = new LogicDrawPanel(tu, size);
+                ldp = new LogicDrawPanelImpl(tu, size);
         }
 
         /**

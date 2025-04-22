@@ -1,10 +1,11 @@
-package labioopint.view;
+package labioopint.controller.impl;
 
 import java.awt.Dimension;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
 
+import labioopint.controller.api.LogicDrawPanel;
 import labioopint.model.api.Coordinate;
 import labioopint.model.api.DualMap;
 import labioopint.model.api.Pair;
@@ -19,7 +20,7 @@ import labioopint.model.powerup.api.PowerUp;
  * The LogicDrawPanel class is responsible for managing the logic and data
  * required to draw the game panel, including blocks, players, enemies, and power-ups.
  */
-public class LogicDrawPanel {
+public class LogicDrawPanelImpl implements LogicDrawPanel {
 
     private final TurnManager turn;
     private final Integer pixelSize;
@@ -43,7 +44,7 @@ public class LogicDrawPanel {
      * @param tu   the TurnManager instance to manage turns
      * @param size the Dimension of the panel
      */
-    public LogicDrawPanel(final TurnManager tu, final Dimension size) {
+    public LogicDrawPanelImpl(final TurnManager tu, final Dimension size) {
         turn = tu;
         pixelSize = (int) size.getWidth() / CORRECT_BLOCK_DIVISION;
         ImageLoader.load();
@@ -53,6 +54,7 @@ public class LogicDrawPanel {
      *
      * @return the value as an Integer
      */
+    @Override
     public Integer getPixelSize() {
         return pixelSize;
     }
@@ -66,6 +68,7 @@ public class LogicDrawPanel {
      * @param mapPowerUps the DualMap containing power-up coordinates
      * @param outside     the BlockImpl representing the outside block
      */
+    @Override
     public void updateData(final MazeImpl m, final DualMap<PlayerImpl> mapPlayers,
             final DualMap<Enemy> mapEnemies, final DualMap<PowerUp> mapPowerUps,
             final BlockImpl outside) {
@@ -81,6 +84,7 @@ public class LogicDrawPanel {
      *
      * @return true if the maze is not null, false otherwise
      */
+    @Override
     public Boolean canDraw() {
         return maze != null;
     }
@@ -91,6 +95,7 @@ public class LogicDrawPanel {
      *
      * @return a List of Pairs containing image, rotation, position, and size information
      */
+    @Override
     public List<Pair<Pair<Image, Double>, Pair<Pair<Integer, Integer>, Pair<Integer, Integer>>>> getImagesBlocks() {
         List<Pair<Pair<Image, Double>, Pair<Pair<Integer, Integer>, Pair<Integer, Integer>>>> ls = new ArrayList<>();
         BlockImpl b;
