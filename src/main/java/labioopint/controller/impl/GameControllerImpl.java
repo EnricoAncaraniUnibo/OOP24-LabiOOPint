@@ -1,5 +1,7 @@
 package labioopint.controller.impl;
 
+import labioopint.controller.api.ActionPredicate;
+import labioopint.controller.api.GameController;
 import labioopint.model.api.ActionType;
 import labioopint.model.api.Coordinate;
 import labioopint.model.block.api.Rotation;
@@ -8,18 +10,19 @@ import labioopint.model.maze.api.Direction;
 import labioopint.model.maze.impl.LabyrinthImpl;
 
 
-public class GameController {
+public class GameControllerImpl implements GameController {
     //ActionType.MOVE_BLOCK;
     private LabyrinthImpl lab;
     private TurnManager turn;
     private ActionPredicate ap;
 
-    public GameController(TurnManager tu) {
+    public GameControllerImpl(TurnManager tu) {
         turn = tu;
     }
 
+    @Override
     public void action(Object action){
-        ap = new ActionPredicate(turn);
+        ap = new ActionPredicateImpl(turn);
         lab = turn.getLab();
         ActionType current_action = turn.getCurrentAction();
         switch (current_action) {

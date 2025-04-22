@@ -6,7 +6,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import labioopint.controller.impl.LabyrinthController;
+import labioopint.controller.api.LabyrinthController;
+import labioopint.controller.impl.LabyrinthControllerImpl;
 import labioopint.model.api.Coordinate;
 import labioopint.model.api.CoordinateGenerator;
 import labioopint.model.api.DualMap;
@@ -36,7 +37,7 @@ public final class LabyrinthImpl implements Labyrinth {
 
     @Override
     public void initialize() {
-        labyController = new LabyrinthController(turn);
+        labyController = new LabyrinthControllerImpl(turn);
         mapOfPowerUps = new DualMap<>();
         mapOfPlayers = new DualMap<>();
         mapOfEnemy = new DualMap<>();

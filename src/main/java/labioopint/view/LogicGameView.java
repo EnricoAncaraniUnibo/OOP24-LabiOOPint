@@ -1,7 +1,9 @@
 package labioopint.view;
 
-import labioopint.controller.impl.GameController;
-import labioopint.controller.impl.InformationMessenger;
+import labioopint.controller.api.GameController;
+import labioopint.controller.api.InformationMessenger;
+import labioopint.controller.impl.GameControllerImpl;
+import labioopint.controller.impl.InformationMessengerImpl;
 import labioopint.model.api.ActionType;
 import labioopint.model.api.Coordinate;
 import labioopint.model.core.impl.TurnManager;
@@ -26,8 +28,8 @@ public class LogicGameView {
      */
     public LogicGameView(final TurnManager tu) {
         turn = tu;
-        ifm = new InformationMessenger(turn);
-        gc = new GameController(tu);
+        ifm = new InformationMessengerImpl(turn);
+        gc = new GameControllerImpl(tu);
     }
 
     /**

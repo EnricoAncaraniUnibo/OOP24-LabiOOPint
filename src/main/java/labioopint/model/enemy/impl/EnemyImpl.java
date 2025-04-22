@@ -3,7 +3,8 @@ package labioopint.model.enemy.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import labioopint.controller.impl.ActionPredicate;
+import labioopint.controller.api.ActionPredicate;
+import labioopint.controller.impl.ActionPredicateImpl;
 import labioopint.model.api.Coordinate;
 import labioopint.model.api.Movable;
 import labioopint.model.core.impl.TurnManager;
@@ -54,7 +55,7 @@ public class EnemyImpl extends Movable implements Enemy {
      */
     @Override
     public List<Coordinate> move(final List<PlayerImpl> players) {
-        final ActionPredicate ap = new ActionPredicate(turn);
+        final ActionPredicate ap = new ActionPredicateImpl(turn);
         if (!ap.EnemyCanMove(Direction.UP) && !ap.EnemyCanMove(Direction.DOWN)
                 && !ap.EnemyCanMove(Direction.LEFT) && !ap.EnemyCanMove(Direction.RIGHT)) {
             return new ArrayList<>();

@@ -19,7 +19,8 @@ import labioopint.model.enemy.impl.MovementUtilities;
 import labioopint.model.maze.api.Direction;
 import labioopint.model.maze.impl.LabyrinthImpl;
 import labioopint.model.player.impl.PlayerImpl;
-import labioopint.controller.impl.ActionPredicate;
+import labioopint.controller.api.ActionPredicate;
+import labioopint.controller.impl.ActionPredicateImpl;
 
 /**
  * Implementation of the {@link EnemyAI} interface that allows an enemy to chase
@@ -49,7 +50,7 @@ public class ChaseAI implements EnemyAI {
      */
     @Override
     public List<Coordinate> getNextPosition(final List<PlayerImpl> players, final Coordinate current) {
-        ap = new ActionPredicate(turn);
+        ap = new ActionPredicateImpl(turn);
         final List<Coordinate> walkableCells = getWalkableCells(current);
 
         final var path = getPath(walkableCells, players, current);

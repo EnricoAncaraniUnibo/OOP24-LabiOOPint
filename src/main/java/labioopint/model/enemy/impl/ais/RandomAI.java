@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import labioopint.controller.impl.ActionPredicate;
+import labioopint.controller.api.ActionPredicate;
+import labioopint.controller.impl.ActionPredicateImpl;
 import labioopint.model.api.Coordinate;
 import labioopint.model.core.impl.TurnManager;
 import labioopint.model.enemy.api.EnemyAI;
@@ -41,7 +42,7 @@ public class RandomAI implements EnemyAI {
      */
     @Override
     public List<Coordinate> getNextPosition(final List<PlayerImpl> players, final Coordinate current) {
-        final ActionPredicate ap = new ActionPredicate(turn);
+        final ActionPredicate ap = new ActionPredicateImpl(turn);
         Coordinate newPos = new Coordinate(current.getRow(), current.getColumn());
         int direction = rand.nextInt(4);
         final int steps = rand.nextInt(4) + 2; // da 2 a 5

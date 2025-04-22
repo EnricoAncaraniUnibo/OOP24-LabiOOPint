@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import labioopint.controller.api.InformationMessenger;
 import labioopint.model.api.ActionType;
 import labioopint.model.core.impl.TurnManager;
 import labioopint.model.powerup.api.PowerUp;
@@ -15,7 +16,7 @@ import labioopint.model.powerup.api.PowerUp;
  * The informations provided by this class are transformed to permit the output
  * on the view.
  */
-public class InformationMessenger {
+public class InformationMessengerImpl implements InformationMessenger {
     private final TurnManager turn;
 
      /**
@@ -23,7 +24,7 @@ public class InformationMessenger {
      *
      * @param tu the TurnManager instance to manage game turns
      */
-    public InformationMessenger(final TurnManager tu) {
+    public InformationMessengerImpl(final TurnManager tu) {
         turn = tu;
     }
 
@@ -34,6 +35,7 @@ public class InformationMessenger {
      * @return a string representing the current player's ID(that is the player name
      *         too).
      */
+    @Override
     public String getTurn() {
         return "Player: " + turn.getCurrentPlayer().getID();
     }
@@ -44,6 +46,7 @@ public class InformationMessenger {
      * @return a string describing the current action, or an empty string if no
      *         action is set.
      */
+    @Override
     public String getAction() {
         if (turn.getCurrentAction() == ActionType.BLOCK_PLACEMENT) {
             return "Posizionare il blocco";
@@ -59,6 +62,7 @@ public class InformationMessenger {
      *
      * @return an array of strings containing the names of the usable power-ups.
      */
+    @Override
     public String[] getPowerUpsList() {
         final List<PowerUp> lpu = new ArrayList<>();
         lpu.addAll(turn.getCurrentPlayer().getUsablePowerUps());
@@ -71,6 +75,7 @@ public class InformationMessenger {
         return names;
     }
 
+    @Override
     public Optional<String> getWinner() {
         if(turn.getLab().getWinner().isPresent()) {
             return Optional.of("Ha vinto: " + turn.getLab().getWinner().get().getID());

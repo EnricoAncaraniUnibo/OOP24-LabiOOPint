@@ -2,6 +2,7 @@ package labioopint.controller.impl;
 
 import java.util.Optional;
 
+import labioopint.controller.api.ActionPredicate;
 import labioopint.controller.api.DirectionCheck;
 import labioopint.model.api.Coordinate;
 import labioopint.model.block.impl.BlockImpl;
@@ -11,19 +12,20 @@ import labioopint.model.maze.api.Direction;
 import labioopint.model.maze.impl.LabyrinthImpl;
 import labioopint.model.player.impl.PlayerImpl;
 
-public class ActionPredicate{
+public class ActionPredicateImpl implements ActionPredicate{
     private LabyrinthImpl lab;
     private Integer mazeSize;
     private DirectionCheck dc;
     private Optional<Enemy> e;
 
-    public ActionPredicate(TurnManager tu) {
+    public ActionPredicateImpl(TurnManager tu) {
         lab = tu.getLab();
         mazeSize = lab.getGrid().getSize();
         dc = new DirectionCheck(tu);
         e = tu.getEnemy();
     }
 
+    @Override
     public boolean PlayerCanMove(PlayerImpl p, Direction dir) {
         Coordinate playerCoordinate = new Coordinate(lab.getPlayerCoordinate(p));
         if(dir == Direction.LEFT){
@@ -54,6 +56,7 @@ public class ActionPredicate{
         return false;
     }
 
+    @Override
     public boolean BlockCanMove(Coordinate blockCoordinate) {
         BlockImpl b = lab.getGrid().getBlock(blockCoordinate).get();
         if(b.isMove() && (blockCoordinate.getColumn() == 0 || blockCoordinate.getColumn() == mazeSize-1
@@ -83,6 +86,7 @@ public class ActionPredicate{
          */
     }
 
+    @Override
     public boolean CanMoveFromPosition(Coordinate coor, Direction dir) {
         if(dir == Direction.LEFT){
             Coordinate targetBlock = new Coordinate(coor.getRow(),Integer.valueOf(coor.getColumn()-1));
@@ -112,6 +116,7 @@ public class ActionPredicate{
         return false;
     }
 
+    @Override
     public boolean EnemyCanMove(Direction dir) {
         Coordinate enemyCoordinate = new Coordinate(lab.getEnemyCoordinate(e.get()));
         return CanMoveFromPosition(enemyCoordinate, dir);
