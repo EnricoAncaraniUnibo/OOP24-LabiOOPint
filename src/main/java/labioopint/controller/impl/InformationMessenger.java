@@ -16,7 +16,7 @@ import labioopint.model.api.ActionType;
  * on the view.
  */
 public class InformationMessenger {
-    private TurnManager turn;
+    private final TurnManager turn;
 
      /**
      * Constructs an InformationMessenger with the specified TurnManager.
@@ -60,12 +60,12 @@ public class InformationMessenger {
      * @return an array of strings containing the names of the usable power-ups.
      */
     public String[] getPowerUpsList() {
-        List<PowerUp> lpu = new ArrayList<>();
+        final List<PowerUp> lpu = new ArrayList<>();
         lpu.addAll(turn.getCurrentPlayer().getUsablePowerUps());
-        String[] names = new String[lpu.size()];
+        final String[] names = new String[lpu.size()];
         int i = 0;
-        for (PowerUp pu : lpu) {
-            names[i] = (pu.getName());
+        for (final PowerUp pu : lpu) {
+            names[i] = pu.getName();
             i++;
         }
         return names;
