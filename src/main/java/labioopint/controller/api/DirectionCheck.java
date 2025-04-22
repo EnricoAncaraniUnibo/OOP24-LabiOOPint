@@ -20,7 +20,7 @@ public class DirectionCheck {
      */
     public boolean checkRightEntrance(Coordinate coord){
         MazeImpl grid = lab.getGrid();
-        BlockImpl block = grid.GetBlock(coord).get();
+        BlockImpl block = grid.getBlock(coord).get();
         BlockType BType = block.getType();
         Rotation rotation = block.getRotation();
 
@@ -47,7 +47,7 @@ public class DirectionCheck {
     }
     public boolean checkLeftEntrance(Coordinate coord){
         MazeImpl grid = lab.getGrid();
-        BlockImpl block = grid.GetBlock(coord).get();
+        BlockImpl block = grid.getBlock(coord).get();
         BlockType BType = block.getType();
         Rotation rotation = block.getRotation();
 
@@ -74,7 +74,7 @@ public class DirectionCheck {
     }
     public boolean checkBottomEntrance(Coordinate coord){
         MazeImpl grid = lab.getGrid();
-        BlockImpl block = grid.GetBlock(coord).get();
+        BlockImpl block = grid.getBlock(coord).get();
         BlockType BType = block.getType();
         Rotation rotation = block.getRotation();
 
@@ -101,7 +101,7 @@ public class DirectionCheck {
     }
     public boolean checkUpperEntrance(Coordinate coord){
         MazeImpl grid = lab.getGrid();
-        BlockImpl block = grid.GetBlock(coord).get();
+        BlockImpl block = grid.getBlock(coord).get();
         BlockType BType = block.getType();
         Rotation rotation = block.getRotation();
 

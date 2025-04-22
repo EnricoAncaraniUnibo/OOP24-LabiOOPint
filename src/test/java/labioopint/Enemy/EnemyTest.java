@@ -85,7 +85,7 @@ public class EnemyTest {
         Enemy hard = tm_hard.getEnemy().get();
         Coordinate initialPosition = tm_hard.getLab().getEnemyCoordinate(hard);
         List<PlayerImpl> players = tm_hard.getPlayers();
-        tm_hard.getLab().PlayerUpdateCoordinate(players.get(0),
+        tm_hard.getLab().playerUpdateCoordinate(players.get(0),
                 new Coordinate(initialPosition.getRow(), initialPosition.getColumn() - 2));
         BlockImpl b = new BlockImpl(BlockType.CORRIDOR);
         b.setRotation(Rotation.NINETY);
@@ -99,8 +99,8 @@ public class EnemyTest {
 
         List<Coordinate> ls = new ArrayList<>();
         ls.add(initialPosition);
-        tm_hard.getLab().EnemyUpdateCoordinate(hard, ls);
-        tm_hard.getLab().PlayerUpdateCoordinate(players.get(0),
+        tm_hard.getLab().enemyUpdateCoordinate(hard, ls);
+        tm_hard.getLab().playerUpdateCoordinate(players.get(0),
                 new Coordinate(initialPosition.getRow(), initialPosition.getColumn() + 2));
         b = new BlockImpl(BlockType.CORRIDOR);
         b.setRotation(Rotation.NINETY);
@@ -123,8 +123,8 @@ public class EnemyTest {
         tm.getLab().setBlock(b, new Coordinate(0, 2));
         tm.getLab().setBlock(b, new Coordinate(1, 2));
         tm.getLab().setBlock(b, new Coordinate(2, 2));
-        tm.getLab().PlayerUpdateCoordinate(players.get(0), new Coordinate(0, 2));
-        tm.getLab().PowerUpUpdateCoordinate(lPowerUps.get(0), new Coordinate(1, 2));
+        tm.getLab().playerUpdateCoordinate(players.get(0), new Coordinate(0, 2));
+        tm.getLab().powerUpUpdateCoordinate(lPowerUps.get(0), new Coordinate(1, 2));
         tm.getLab().movePlayer(players.get(0), Direction.DOWN);
         assertEquals(players.get(0).getObjetives().size(), 1);
         assertEquals(tm.getLab().getListOfPowerUps().size(), lPowerUps.size() - 1);

@@ -1,10 +1,10 @@
 package labioopint.model.api;
 
 public class Pair<X,Y> {
-    private X first;
-    private Y second;
+    private final X first;
+    private final Y second;
 
-    public Pair(X first, Y second) {
+    public Pair(final X first, final Y second) {
         this.first = first;
         this.second = second;
     }

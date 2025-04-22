@@ -12,8 +12,8 @@ import java.util.Set;
  * @param <X> the type of elements stored in the map
  */
 public final class DualMap<X> {
-    private Map<Coordinate, X> mapFromCoordinate;
-    private Map<X, Coordinate> mapFromElement;
+    private final Map<Coordinate, X> mapFromCoordinate;
+    private final Map<X, Coordinate> mapFromElement;
 
     /**
      * Constructs a new DualMap with empty mappings.
@@ -51,8 +51,8 @@ public final class DualMap<X> {
      * @return the element associated with the coordinate, or null if not found
      */
     public X getElemFromCoordinate(final Coordinate coor) {
-        for (Coordinate obj : mapFromCoordinate.keySet()) {
-            if (obj.getRow() == coor.getRow() && obj.getColumn() == coor.getColumn()) {
+        for (final Coordinate obj : mapFromCoordinate.keySet()) {
+            if (obj.equals(coor)) {
                 return mapFromCoordinate.get(obj);
             }
         }
@@ -76,8 +76,8 @@ public final class DualMap<X> {
      * @return true if the coordinate is present, false otherwise
      */
     public boolean isPresentByCoordinate(final Coordinate coor) {
-        for (Coordinate checkCoordinate : mapFromCoordinate.keySet()) {
-            if (coor.getRow() == checkCoordinate.getRow() && coor.getColumn() == checkCoordinate.getColumn()) {
+        for (final Coordinate checkCoordinate : mapFromCoordinate.keySet()) {
+            if (coor.equals(checkCoordinate)) {
                 return true;
             }
         }
@@ -91,10 +91,7 @@ public final class DualMap<X> {
      * @return true if the element is present, false otherwise
      */
     public boolean isPresentByObject(final X elem) {
-        if (mapFromElement.containsKey(elem)) {
-            return true;
-        }
-        return false;
+        return mapFromElement.containsKey(elem);
     }
 
     public Set<X> getElemets() {

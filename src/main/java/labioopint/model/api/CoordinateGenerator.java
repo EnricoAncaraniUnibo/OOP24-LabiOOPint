@@ -9,7 +9,7 @@ import java.util.Random;
  * and create specific coordinate patterns.
  */
 public class CoordinateGenerator {
-    private List<Coordinate> possibleCoordinate;
+    private final List<Coordinate> possibleCoordinate;
     /**
      * Constructs a CoordinateGenerator with a grid of the specified size.
      * Excludes the corners of the grid from the list of possible coordinates.
@@ -20,11 +20,9 @@ public class CoordinateGenerator {
         possibleCoordinate = new ArrayList<>();
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                if ((i != 0 || j != 0) && (i != size - 1 || j != size - 1)) {
-                    if ((i != 0 || j != size - 1) && (i != size - 1 || j != 0)) {
-                        Coordinate c = new Coordinate(i, j);
-                        possibleCoordinate.add(c);
-                    }
+                if (((i != 0 || j != 0) && (i != size - 1 || j != size - 1)) && ((i != 0 || j != size - 1) && (i != size - 1 || j != 0))) {
+                    final Coordinate c = new Coordinate(i, j);
+                    possibleCoordinate.add(c);
                 }
             }
         }
@@ -45,8 +43,8 @@ public class CoordinateGenerator {
      * @return a random Coordinate
      */
     public Coordinate getRandomCoordinate() {
-        Random r = new Random();
-        Coordinate c = possibleCoordinate.get(r.nextInt(0, possibleCoordinate.size()));
+        final Random r = new Random();
+        final Coordinate c = possibleCoordinate.get(r.nextInt(0, possibleCoordinate.size()));
         possibleCoordinate.remove(c);
         return c;
     }
@@ -58,7 +56,7 @@ public class CoordinateGenerator {
      * @return a list of spawn coordinates
      */
     public static List<Coordinate> createBasicSpawnCoordinate(final Integer size) {
-        List<Coordinate> ls = new ArrayList<>();
+        final List<Coordinate> ls = new ArrayList<>();
         ls.add(new Coordinate(0, 0));
         ls.add(new Coordinate(0, size - 1));
         ls.add(new Coordinate(size - 1, 0));
@@ -72,6 +70,6 @@ public class CoordinateGenerator {
      * @return the central Coordinate
      */
     public static Coordinate getCentralCoordinate(final Integer size) {
-        return new Coordinate((Integer) size / 2, (Integer) size / 2);
+        return new Coordinate(size / 2,size / 2);
     }
 }

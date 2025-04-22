@@ -11,6 +11,6 @@ public interface SimpleMaze {
      *
      * @return the outside block of the maze
      */
-    BlockImpl Generate();
+    BlockImpl generate();
 
 }

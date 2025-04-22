@@ -18,7 +18,7 @@ public interface Maze {
      * @param c the coordinate of the block to retrieve
      * @return an Optional containing the block if found, or an empty Optional if not found
      */
-    Optional<BlockImpl> GetBlock(Coordinate c);
+    Optional<BlockImpl> getBlock(Coordinate c);
     /**
      * Retrieves the coordinate of the specified block.
      *
@@ -50,12 +50,12 @@ public interface Maze {
      * @param coor the new coordinate to assign to the block
      * @param b the block whose coordinate is to be changed
      */
-    void ChangeCoordinate(Coordinate coor, BlockImpl b);
+    void changeCoordinate(Coordinate coor, BlockImpl b);
     /**
      * Generates a new block for the maze.
      *
      * @return the newly generated block as a BlockImpl
      */
-    BlockImpl Generate();
+    BlockImpl generate();
 
 }

@@ -112,7 +112,7 @@ public class LogicDrawPanel {
                         i = 0;
                         end = true;
                 } else {
-                        b = maze.GetBlock(new Coordinate(i, j)).get();
+                        b = maze.getBlock(new Coordinate(i, j)).get();
                 }
                 switch (b.getType()) {
                         case CORNER:

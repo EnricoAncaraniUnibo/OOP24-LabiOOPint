@@ -37,12 +37,12 @@ public class ShiftsTest {
 		BlockImpl initialOutsideBlock = lab.getOutsideBlock();
 		List<BlockImpl> ls = new ArrayList<BlockImpl>();
 		for(int i=0;i<SIZE;i++)  {
-			ls.add(lab.getGrid().GetBlock(new Coordinate(2,i)).get());
+			ls.add(lab.getGrid().getBlock(new Coordinate(2,i)).get());
 		}
 		lab.moveBlock(new Coordinate(2, 0), Direction.RIGHT);
-		assertEquals(initialOutsideBlock,lab.getGrid().GetBlock(new Coordinate(2,0)).get());
+		assertEquals(initialOutsideBlock,lab.getGrid().getBlock(new Coordinate(2,0)).get());
 		for(int i=0;i<SIZE-1;i++) {
-			assertEquals(ls.get(i),lab.getGrid().GetBlock(new Coordinate(2,i+1)).get());
+			assertEquals(ls.get(i),lab.getGrid().getBlock(new Coordinate(2,i+1)).get());
 		}
 		assertEquals(ls.get(ls.size()-1),lab.getOutsideBlock());
 	}
@@ -58,13 +58,13 @@ public class ShiftsTest {
 		BlockImpl initialOutsideBlock = lab.getOutsideBlock();
 		List<BlockImpl> ls = new ArrayList<BlockImpl>();
 		for(int i=SIZE-1;i>=0;i--)  {
-			ls.add(lab.getGrid().GetBlock(new Coordinate(2,i)).get());
+			ls.add(lab.getGrid().getBlock(new Coordinate(2,i)).get());
 		}
 		lab.moveBlock(new Coordinate(2, SIZE-1), Direction.LEFT);
-		assertEquals(initialOutsideBlock,lab.getGrid().GetBlock(new Coordinate(2,SIZE-1)).get());
+		assertEquals(initialOutsideBlock,lab.getGrid().getBlock(new Coordinate(2,SIZE-1)).get());
 		int index=0;
 		for(int i=SIZE-1;i>0;i--) {
-			assertEquals(ls.get(index),lab.getGrid().GetBlock(new Coordinate(2,i-1)).get());
+			assertEquals(ls.get(index),lab.getGrid().getBlock(new Coordinate(2,i-1)).get());
 			index++;
 		}
 		assertEquals(ls.get(ls.size()-1),lab.getOutsideBlock());
@@ -81,12 +81,12 @@ public class ShiftsTest {
 		BlockImpl initialOutsideBlock = lab.getOutsideBlock();
 		List<BlockImpl> ls = new ArrayList<BlockImpl>();
 		for(int i=0;i<SIZE;i++)  {
-			ls.add(lab.getGrid().GetBlock(new Coordinate(i,2)).get());
+			ls.add(lab.getGrid().getBlock(new Coordinate(i,2)).get());
 		}
 		lab.moveBlock(new Coordinate(0, 2), Direction.DOWN);
-		assertEquals(initialOutsideBlock,lab.getGrid().GetBlock(new Coordinate(0,2)).get());
+		assertEquals(initialOutsideBlock,lab.getGrid().getBlock(new Coordinate(0,2)).get());
 		for(int i=0;i<SIZE-1;i++) {
-			assertEquals(ls.get(i),lab.getGrid().GetBlock(new Coordinate(i+1,2)).get());
+			assertEquals(ls.get(i),lab.getGrid().getBlock(new Coordinate(i+1,2)).get());
 		}
 		assertEquals(ls.get(ls.size()-1),lab.getOutsideBlock());
 	}
@@ -102,13 +102,13 @@ public class ShiftsTest {
 		BlockImpl initialOutsideBlock = lab.getOutsideBlock();
 		List<BlockImpl> ls = new ArrayList<BlockImpl>();
 		for(int i=SIZE-1;i>=0;i--)  {
-			ls.add(lab.getGrid().GetBlock(new Coordinate(i,2)).get());
+			ls.add(lab.getGrid().getBlock(new Coordinate(i,2)).get());
 		}
 		lab.moveBlock(new Coordinate(SIZE-1, 2), Direction.UP);
-		assertEquals(initialOutsideBlock,lab.getGrid().GetBlock(new Coordinate(SIZE-1,2)).get());
+		assertEquals(initialOutsideBlock,lab.getGrid().getBlock(new Coordinate(SIZE-1,2)).get());
 		int index=0;
 		for(int i=SIZE-1;i>0;i--) {
-			assertEquals(ls.get(index),lab.getGrid().GetBlock(new Coordinate(i-1,2)).get());
+			assertEquals(ls.get(index),lab.getGrid().getBlock(new Coordinate(i-1,2)).get());
 			index++;
 		}
 		assertEquals(ls.get(ls.size()-1),lab.getOutsideBlock());

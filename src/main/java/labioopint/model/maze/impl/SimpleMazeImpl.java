@@ -23,7 +23,7 @@ public class SimpleMazeImpl extends MazeImpl implements SimpleMaze {
     }
 
     @Override
-    public final BlockImpl Generate() {
+    public final BlockImpl generate() {
         this.fillDefaultBlocks();
         MazeGeneratorImpl mg = new MazeGeneratorImpl(getListofBlocks());
         setMaze(mg.fill(getSize()));

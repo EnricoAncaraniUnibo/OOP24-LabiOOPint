@@ -89,7 +89,7 @@ public class GameController {
                                 (blockRotation == Rotation.NINETY) ? Rotation.ONE_HUNDRED_EIGHTY :
                                 (blockRotation == Rotation.ONE_HUNDRED_EIGHTY) ? Rotation.TWO_HUNDRED_SEVENTY :
                                 Rotation.ZERO;
-                lab.RotateOutsideBlock(blockRotation);       
+                lab.rotateOutsideBlock(blockRotation);       
                 break;
         
             case Direction.LEFT:
@@ -97,7 +97,7 @@ public class GameController {
                                 (blockRotation == Rotation.TWO_HUNDRED_SEVENTY) ? Rotation.ONE_HUNDRED_EIGHTY :
                                 (blockRotation == Rotation.ONE_HUNDRED_EIGHTY) ? Rotation.NINETY :
                                 Rotation.ZERO;
-                lab.RotateOutsideBlock(blockRotation);
+                lab.rotateOutsideBlock(blockRotation);
                 break;
             default:
                 break;
