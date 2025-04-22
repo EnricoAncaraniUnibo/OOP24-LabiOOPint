@@ -20,13 +20,13 @@ import labioopint.model.maze.impl.SimpleMazeImpl;
  * correctly, blocks are placed within valid ranges, no duplicate blocks exist,
  * and the outside block is correctly identified.
  */
-public class GenerateMazeTest {
+class GenerateMazeTest {
 	private final static Integer SIZE1 = 7;
 	private final static Integer SIZE2 = 5;
     private static Maze gridTest1;
     private static Maze gridTest2;
-    private static Block OutsideBlock1;
-    private static Block OutsideBlock2;
+    private static Block outsideBlock1;
+    private static Block outsideBlock2;
     
     /**
      * Initializes the test mazes and their outside blocks before all tests are executed.
@@ -35,20 +35,20 @@ public class GenerateMazeTest {
     static void init() {
     	gridTest1 = new SimpleMazeImpl(SIZE1);
     	gridTest2 = new SimpleMazeImpl(SIZE2);
-    	OutsideBlock1 = gridTest1.generate();
-    	OutsideBlock2 = gridTest2.generate();
+    	outsideBlock1 = gridTest1.generate();
+    	outsideBlock2 = gridTest2.generate();
     }
     
     /**
      * Tests that all blocks in the maze are correctly generated and not empty.
      */
     @Test
-    void CorrectGeneration() {
+    void correctGeneration() {
     	boolean correctGeneration1=true;
     	boolean correctGeneration2=true;
     	for (int i=0;i<SIZE1;i++) {
     		for(int j=0;j<SIZE1;j++) {
-    			Optional<BlockImpl> b = gridTest1.getBlock(new Coordinate(i,j));
+    			final Optional<BlockImpl> b = gridTest1.getBlock(new Coordinate(i,j));
     			if(b.isEmpty()) {
     				correctGeneration1=false;
     			}
@@ -57,7 +57,7 @@ public class GenerateMazeTest {
     	assertTrue(correctGeneration1);
     	for (int i=0;i<SIZE2;i++) {
     		for(int j=0;j<SIZE2;j++) {
-    			Optional<BlockImpl> b = gridTest2.getBlock(new Coordinate(i,j));
+    			final Optional<BlockImpl> b = gridTest2.getBlock(new Coordinate(i,j));
     			if(b.isEmpty()) {
     				correctGeneration2=false;
     			}
@@ -70,29 +70,29 @@ public class GenerateMazeTest {
      * Tests that no blocks are placed outside the valid range of the maze.
      */
     @Test
-    void NoBlockOutsideRange() {
+    void noBlockOutsideRange() {
     	boolean correctGeneration1=true;
     	boolean correctGeneration2=true;
     	for(int i=0;i<SIZE1;i++) {
-    		Optional<BlockImpl> b = gridTest1.getBlock(new Coordinate(i,-1));
+    		final Optional<BlockImpl> b = gridTest1.getBlock(new Coordinate(i,-1));
     		if(b.isPresent()) {
     			correctGeneration1=false;
     		}
     	}
     	for(int i=0;i<SIZE1;i++) {
-    		Optional<BlockImpl> b = gridTest1.getBlock(new Coordinate(i,SIZE1));
+    		final Optional<BlockImpl> b = gridTest1.getBlock(new Coordinate(i,SIZE1));
     		if(b.isPresent()) {
     			correctGeneration1=false;
     		}
     	}
     	for(int i=0;i<SIZE1;i++) {
-    		Optional<BlockImpl> b = gridTest1.getBlock(new Coordinate(-1,i));
+    		final Optional<BlockImpl> b = gridTest1.getBlock(new Coordinate(-1,i));
     		if(b.isPresent()) {
     			correctGeneration1=false;
     		}
     	}
     	for(int i=0;i<SIZE1;i++) {
-    		Optional<BlockImpl> b = gridTest1.getBlock(new Coordinate(SIZE1,i));
+    		final Optional<BlockImpl> b = gridTest1.getBlock(new Coordinate(SIZE1,i));
     		if(b.isPresent()) {
     			correctGeneration1=false;
     		}
@@ -100,25 +100,25 @@ public class GenerateMazeTest {
     	assertTrue(correctGeneration1);
     	
     	for(int i=0;i<SIZE2;i++) {
-    		Optional<BlockImpl> b = gridTest2.getBlock(new Coordinate(i,-1));
+    		final Optional<BlockImpl> b = gridTest2.getBlock(new Coordinate(i,-1));
     		if(b.isPresent()) {
     			correctGeneration2=false;
     		}
     	}
     	for(int i=0;i<SIZE2;i++) {
-    		Optional<BlockImpl> b = gridTest2.getBlock(new Coordinate(i,SIZE1));
+    		final Optional<BlockImpl> b = gridTest2.getBlock(new Coordinate(i,SIZE1));
     		if(b.isPresent()) {
     			correctGeneration2=false;
     		}
     	}
     	for(int i=0;i<SIZE2;i++) {
-    		Optional<BlockImpl> b = gridTest2.getBlock(new Coordinate(-1,i));
+    		final Optional<BlockImpl> b = gridTest2.getBlock(new Coordinate(-1,i));
     		if(b.isPresent()) {
     			correctGeneration2=false;
     		}
     	}
     	for(int i=0;i<SIZE2;i++) {
-    		Optional<BlockImpl> b = gridTest2.getBlock(new Coordinate(SIZE1,i));
+    		final Optional<BlockImpl> b = gridTest2.getBlock(new Coordinate(SIZE1,i));
     		if(b.isPresent()) {
     			correctGeneration2=false;
     		}
@@ -130,15 +130,15 @@ public class GenerateMazeTest {
      * Tests that no duplicate blocks exist within the maze.
      */
     @Test
-    void CheckNoDoubleBlocks() {
+    void checkNoDoubleBlocks() {
     	boolean correctGeneration1=true;
     	boolean correctGeneration2=true;
     	for(int i=0;i<SIZE1;i++) {
     		for(int j=0;j<SIZE1;j++) {
-    			Optional<BlockImpl> b = gridTest1.getBlock(new Coordinate(i,j));
-    			for(int x=0;i<SIZE1;i++) {
-    	    		for(int y=0;j<SIZE1;j++) {
-    	    			Optional<BlockImpl> test = gridTest1.getBlock(new Coordinate(x,y));
+    			final Optional<BlockImpl> b = gridTest1.getBlock(new Coordinate(i,j));
+    			for(int x=0;x<SIZE1;x++) {
+    	    		for(int y=0;y<SIZE1;y++) {
+    	    			final Optional<BlockImpl> test = gridTest1.getBlock(new Coordinate(x,y));
     	    			if(b.equals(test) && i!=x && j!=y) {
     	    				correctGeneration1=false;
     	    			}
@@ -150,10 +150,10 @@ public class GenerateMazeTest {
     	
     	for(int i=0;i<SIZE2;i++) {
     		for(int j=0;j<SIZE2;j++) {
-    			Optional<BlockImpl> b = gridTest2.getBlock(new Coordinate(i,j));
-    			for(int x=0;i<SIZE2;i++) {
-    	    		for(int y=0;j<SIZE2;j++) {
-    	    			Optional<BlockImpl> test = gridTest2.getBlock(new Coordinate(x,y));
+    			final Optional<BlockImpl> b = gridTest2.getBlock(new Coordinate(i,j));
+    			for(int x=0;x<SIZE2;x++) {
+    	    		for(int y=0;y<SIZE2;y++) {
+    	    			final Optional<BlockImpl> test = gridTest2.getBlock(new Coordinate(x,y));
     	    			if(b.equals(test) && i!=x && j!=y) {
     	    				correctGeneration2=false;
     	    			}
@@ -168,13 +168,13 @@ public class GenerateMazeTest {
      * Tests that the block outside the maze is not present within the maze.
      */
     @Test
-    void CorrectOutsideBlock() {
+    void correctOutsideBlock() {
     	boolean correctOutside1=true;
     	boolean correctOutside2=true;
     	for(int i=0;i<SIZE1;i++) {
     		for(int j=0;j<SIZE1;j++) {
-    			Optional<BlockImpl> b = gridTest1.getBlock(new Coordinate(i,j));
-    			if(b.get().equals(OutsideBlock1)) {
+    			final Optional<BlockImpl> b = gridTest1.getBlock(new Coordinate(i,j));
+    			if(b.get().equals(outsideBlock1)) {
     				correctOutside1=false;
     			}
     		}
@@ -183,8 +183,8 @@ public class GenerateMazeTest {
     	
     	for(int i=0;i<SIZE2;i++) {
     		for(int j=0;j<SIZE2;j++) {
-    			Optional<BlockImpl> b = gridTest2.getBlock(new Coordinate(i,j));
-    			if(b.get().equals(OutsideBlock2)) {
+    			final Optional<BlockImpl> b = gridTest2.getBlock(new Coordinate(i,j));
+    			if(b.get().equals(outsideBlock2)) {
     				correctOutside2=false;
     			}
     		}
@@ -196,7 +196,7 @@ public class GenerateMazeTest {
      * Tests that the starting blocks of the maze have the correct rotation and type.
      */
     @Test
-    void CorrectStartingBlockRotation() {
+    void correctStartingBlockRotation() {
     	boolean correctGeneration1=true;
     	boolean correctGeneration2=true;
     	Optional<BlockImpl> b = gridTest1.getBlock(new Coordinate(0,0));
