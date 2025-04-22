@@ -18,9 +18,8 @@ import labioopint.model.player.impl.PlayerImpl;
  */
 public class SingleStepRandomAI implements EnemyAI {
 
-    private Random rand = new Random();
-    private ActionPredicate ap;
-    private TurnManager turn;
+    private final Random rand = new Random();
+    private final TurnManager turn;
 
     /**
      * Constructs a SingleStepRandomAI with the given TurnManager.
@@ -41,21 +40,21 @@ public class SingleStepRandomAI implements EnemyAI {
      */
     @Override
     public List<Coordinate> getNextPosition(final List<PlayerImpl> players, final Coordinate current) {
-        Direction dir = Direction.UP;
+        Direction dir;
         int result;
-        ap = new ActionPredicate(turn);
+        final ActionPredicate ap = new ActionPredicate(turn);
         Coordinate newPos = new Coordinate(current.getRow(), current.getColumn());
         Boolean success = false;
         while (!success) {
             result = rand.nextInt(4);
             dir = MovementUtilities.createDirection(result);
-            Coordinate next = MovementUtilities.getNextCoordinate(newPos, dir);
+            final Coordinate next = MovementUtilities.getNextCoordinate(newPos, dir);
             if (ap.EnemyCanMove(dir)) {
                 newPos = next;
                 success = true;
             }
         }
-        List<Coordinate> ls = new ArrayList<>();
+        final List<Coordinate> ls = new ArrayList<>();
         ls.add(newPos);
         return ls;
     }

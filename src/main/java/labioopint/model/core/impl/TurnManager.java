@@ -18,10 +18,10 @@ import labioopint.model.powerup.api.PowerUp;
  * power-ups.
  */
 public class TurnManager {
-    private LabyrinthImpl maze;
+    private final LabyrinthImpl maze;
     private List<PlayerImpl> players;
-    private Optional<Enemy> enemy;
-    private List<PowerUp> powerUps;
+    private final Optional<Enemy> enemy;
+    private final List<PowerUp> powerUps;
     private ActionType currentAction;
     private int index;
 
@@ -33,7 +33,7 @@ public class TurnManager {
     public TurnManager(final Settings st) {
         currentAction = ActionType.BLOCK_PLACEMENT;
         index = 0;
-        BuilderImpl bi = new BuilderImpl(st, this);
+        final BuilderImpl bi = new BuilderImpl(st, this);
         players = bi.createPlayers();
         players = new RandomTurnChooser(players).randomOrder();
         enemy = bi.createEnemy();
@@ -83,8 +83,7 @@ public class TurnManager {
      * @return the current player
      */
     public PlayerImpl getCurrentPlayer() {
-        PlayerImpl p = players.get(index);
-        return p;
+        return players.get(index);
     }
 
     /**

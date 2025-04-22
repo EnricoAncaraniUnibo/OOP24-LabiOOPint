@@ -19,9 +19,8 @@ import labioopint.model.player.impl.PlayerImpl;
  */
 public class RandomAI implements EnemyAI {
 
-    private Random rand = new Random();
-    private TurnManager turn;
-    private ActionPredicate ap;
+    private final Random rand = new Random();
+    private final TurnManager turn;
 
     /**
      * Constructs a RandomAI with the given TurnManager.
@@ -42,16 +41,16 @@ public class RandomAI implements EnemyAI {
      */
     @Override
     public List<Coordinate> getNextPosition(final List<PlayerImpl> players, final Coordinate current) {
-        ap = new ActionPredicate(turn);
+        final ActionPredicate ap = new ActionPredicate(turn);
         Coordinate newPos = new Coordinate(current.getRow(), current.getColumn());
         int direction = rand.nextInt(4);
-        int steps = rand.nextInt(4) + 2; // da 2 a 5
-        List<Coordinate> ls = new ArrayList<>();
+        final int steps = rand.nextInt(4) + 2; // da 2 a 5
+        final List<Coordinate> ls = new ArrayList<>();
         for (int i = 0; i < steps; i++) {
             Boolean success = false;
             while (!success) {
-                Direction dir = MovementUtilities.createDirection(direction);
-                Coordinate next = MovementUtilities.getNextCoordinate(newPos, dir);
+                final Direction dir = MovementUtilities.createDirection(direction);
+                final Coordinate next = MovementUtilities.getNextCoordinate(newPos, dir);
                 if (ap.CanMoveFromPosition(newPos, dir)) {
                     newPos = next;
                     success = true;

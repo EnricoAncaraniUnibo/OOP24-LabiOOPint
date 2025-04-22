@@ -15,9 +15,9 @@ import labioopint.model.powerup.api.PowerUp;
  */
 public class LogicGameView {
 
-    private TurnManager turn;
-    private InformationMessenger ifm;
-    private GameController gc;
+    private final TurnManager turn;
+    private final InformationMessenger ifm;
+    private final GameController gc;
 
     /**
      * Constructs a new LogicGameView instance.
@@ -63,7 +63,7 @@ public class LogicGameView {
      * @param powerUp the name of the power-up to activate.
      */
     public void activatePowerUps(final String powerUp) {
-        for (PowerUp pu : turn.getPowerUps()) {
+        for (final PowerUp pu : turn.getPowerUps()) {
             if (pu.getName().equals(powerUp)) {
                 pu.activate(turn.getCurrentPlayer());
             }
@@ -87,7 +87,7 @@ public class LogicGameView {
      * @param size the size of a single block in the grid.
      */
     public void mouseAction(final int x, final int y, final int size) {
-        Coordinate newCoordinate = new Coordinate((y % size < size / 2) ? y / size - 1 : y / size, x / size);
+        final Coordinate newCoordinate = new Coordinate((y % size < size / 2) ? y / size - 1 : y / size, x / size);
         gc.action(newCoordinate);
     }
 

@@ -29,12 +29,11 @@ public class BuilderImpl {
      * The dimension of a big labyrinth.
      */
     public static final int BIG_LABYRINTH = 7;
-    private int definitiveDimension;
-    private int numberPlayer;
-    private int numberPowerUp;
-    private EnemyFactory enemyFactory;
-    private EnemyDifficulty type;
-    private TurnManager turn;
+    private final int numberPlayer;
+    private final int numberPowerUp;
+    private final EnemyFactory enemyFactory;
+    private final EnemyDifficulty type;
+    private final TurnManager turn;
 
     /**
      * Constructs a BuilderImpl instance. The number of players, enemy difficulty,
@@ -59,15 +58,9 @@ public class BuilderImpl {
      */
     public LabyrinthImpl createMaze() {
         if (numberPlayer == 2) {
-            definitiveDimension = SMALL_LABYRINTH;
-            LabyrinthImpl labyrint = new LabyrinthImpl(SMALL_LABYRINTH, turn);
-            getDimension(definitiveDimension);
-            return labyrint;
+            return new LabyrinthImpl(SMALL_LABYRINTH, turn);
         } else if (numberPlayer == 4) {
-            definitiveDimension = BIG_LABYRINTH;
-            LabyrinthImpl labyrint = new LabyrinthImpl(BIG_LABYRINTH, turn);
-            getDimension(definitiveDimension);
-            return labyrint;
+            return new LabyrinthImpl(BIG_LABYRINTH, turn);
         } else {
             throw new IllegalArgumentException();
         }
@@ -79,16 +72,16 @@ public class BuilderImpl {
      * @return a list of {@link PlayerImpl} instances
      */
     public List<PlayerImpl> createPlayers() {
-        List<String> nameList = new ArrayList<>();
+        final List<String> nameList = new ArrayList<>();
         nameList.add("Archer");
         nameList.add("Warrior");
         nameList.add("Thief");
         nameList.add("Mage");
-        Random x = new Random();
-        List<PlayerImpl> tm = new ArrayList<>();
+        final Random x = new Random();
+        final List<PlayerImpl> tm = new ArrayList<>();
         for (int i = 1; i <= numberPlayer; i++) {
-            int n = x.nextInt(0, nameList.size());
-            PlayerImpl a = new PlayerImpl(nameList.get(n), turn);
+            final int n = x.nextInt(0, nameList.size());
+            final PlayerImpl a = new PlayerImpl(nameList.get(n), turn);
             nameList.remove(n);
             tm.add(a);
         }
@@ -103,14 +96,11 @@ public class BuilderImpl {
      */
     public Optional<Enemy> createEnemy() {
         if (type == EnemyDifficulty.EASY) {
-            Optional<Enemy> enemy = Optional.of(enemyFactory.createSingleStepEnemy(turn));
-            return enemy;
+            return Optional.of(enemyFactory.createSingleStepEnemy(turn));
         } else if (type == EnemyDifficulty.MEDIUM) {
-            Optional<Enemy> enemy = Optional.of(enemyFactory.createRandomEnemy(turn));
-            return enemy;
+            return Optional.of(enemyFactory.createRandomEnemy(turn));
         } else if (type == EnemyDifficulty.HARD) {
-            Optional<Enemy> enemy = Optional.of(enemyFactory.createChaseEnemy(turn));
-            return enemy;
+            return Optional.of(enemyFactory.createChaseEnemy(turn));
         } else {
             return Optional.empty();
         }
@@ -122,22 +112,11 @@ public class BuilderImpl {
      * @return a list of {@link PowerUp} instances
      */
     public List<PowerUp> createPowerUps() {
-        List<PowerUp> powerUps = new ArrayList<>();
+        final List<PowerUp> powerUps = new ArrayList<>();
         for (int i = 0; i < numberPowerUp; i++) {
-            PowerUp powerUp = (PowerUp) new SwapPositionPowerUp(turn);
+            final PowerUp powerUp = new SwapPositionPowerUp(turn);
             powerUps.add(powerUp);
         }
         return powerUps;
     }
-
-    /**
-     * Retrieves the dimension of the labyrinth.
-     * 
-     * @param dim the dimension to retrieve.
-     * @return the dimension of the labyrinth.
-     */
-    public int getDimension(final int dim) {
-        return dim;
-    }
-
 }

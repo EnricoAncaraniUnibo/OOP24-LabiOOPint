@@ -21,9 +21,8 @@ import labioopint.model.player.impl.PlayerImpl;
  */
 public class EnemyImpl extends Movable implements Enemy {
 
-    private EnemyAI enemyAI;
-    private ActionPredicate ap;
-    private TurnManager turn;
+    private final EnemyAI enemyAI;
+    private final TurnManager turn;
 
     /**
      * Constructs a new EnemyImpl object with the specified EnemyAI and TurnManager.
@@ -42,6 +41,7 @@ public class EnemyImpl extends Movable implements Enemy {
      * 
      * @return the {@link EnemyAI} instance.
      */
+    @Override
     public EnemyAI getEnemyAI() {
         return enemyAI;
     }
@@ -54,7 +54,7 @@ public class EnemyImpl extends Movable implements Enemy {
      */
     @Override
     public List<Coordinate> move(final List<PlayerImpl> players) {
-        ap = new ActionPredicate(turn);
+        final ActionPredicate ap = new ActionPredicate(turn);
         if (!ap.EnemyCanMove(Direction.UP) && !ap.EnemyCanMove(Direction.DOWN)
                 && !ap.EnemyCanMove(Direction.LEFT) && !ap.EnemyCanMove(Direction.RIGHT)) {
             return new ArrayList<>();
@@ -76,10 +76,9 @@ public class EnemyImpl extends Movable implements Enemy {
      */
     @Override
     public void playerHit(final List<PlayerImpl> players) {
-        LabyrinthImpl maze = turn.getLab();
-        for (PlayerImpl player : players) {
-            if (maze.getEnemyCoordinate(this).getRow() == maze.getPlayerCoordinate(player).getRow()
-                    && maze.getEnemyCoordinate(this).getColumn() == maze.getPlayerCoordinate(player).getColumn()) {
+        final LabyrinthImpl maze = turn.getLab();
+        for (final PlayerImpl player : players) {
+            if (maze.getEnemyCoordinate(this).equals(maze.getPlayerCoordinate(player))) {
                 player.removeObjective();
             }
         }

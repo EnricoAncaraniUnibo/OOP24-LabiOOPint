@@ -11,8 +11,8 @@ import labioopint.model.player.impl.PlayerImpl;
  */
 public class RandomTurnChooser {
 
-    private List<PlayerImpl> players = new ArrayList<>();
-    private Random random = new Random();
+    private final List<PlayerImpl> players;
+    private final Random random = new Random();
 
     /**
      * Constructs a RandomTurnChooser instance with the specified list of players.
@@ -29,21 +29,21 @@ public class RandomTurnChooser {
      * @return a list of players in random order.
      */
     public List<PlayerImpl> randomOrder() {
-        List<String> idies = new ArrayList<>();
-        List<String> idiesRandomic = new ArrayList<>();
-        List<PlayerImpl> playerRandomic = new ArrayList<>();
-        for (PlayerImpl player : players) {
+        final List<String> idies = new ArrayList<>();
+        final List<String> idiesRandomic = new ArrayList<>();
+        final List<PlayerImpl> playerRandomic = new ArrayList<>();
+        for (final PlayerImpl player : players) {
             idies.add(player.getID());
         }
 
-        while (idies.size() != 0) {
-            int index = random.nextInt(0, idies.size());
+        while (!idies.isEmpty()) {
+            final int index = random.nextInt(0, idies.size());
             idiesRandomic.add(idies.get(index));
             idies.remove(index);
         }
 
-        for (String s : idiesRandomic) {
-            for (PlayerImpl player : players) {
+        for (final String s : idiesRandomic) {
+            for (final PlayerImpl player : players) {
                 if (player.getID().equals(s)) {
                     playerRandomic.add(player);
                 }

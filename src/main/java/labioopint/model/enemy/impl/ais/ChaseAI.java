@@ -28,7 +28,7 @@ import labioopint.controller.impl.ActionPredicate;
 public class ChaseAI implements EnemyAI {
 
     private ActionPredicate ap;
-    private TurnManager turn;
+    private final TurnManager turn;
 
     /**
      * Constructs a ChaseAI with the given TurnManager.
@@ -50,13 +50,13 @@ public class ChaseAI implements EnemyAI {
     @Override
     public List<Coordinate> getNextPosition(final List<PlayerImpl> players, final Coordinate current) {
         ap = new ActionPredicate(turn);
-        List<Coordinate> walkableCells = getWalkableCells(current);
+        final List<Coordinate> walkableCells = getWalkableCells(current);
 
-        var path = getPath(walkableCells, players, current);
+        final var path = getPath(walkableCells, players, current);
         if (path.isPresent()) {
             return path.get();
         } else {
-            List<Coordinate> ls = new ArrayList<>();
+            final List<Coordinate> ls = new ArrayList<>();
             ls.add(current);
             return ls;
         }
@@ -69,14 +69,14 @@ public class ChaseAI implements EnemyAI {
      * @return a list of walkable coordinates
      */
     private List<Coordinate> getWalkableCells(final Coordinate enemyCoordinate) {
-        List<Coordinate> output = new ArrayList<>();
-        Queue<Coordinate> queue = new ArrayDeque<>();
+        final List<Coordinate> output = new ArrayList<>();
+        final Queue<Coordinate> queue = new ArrayDeque<>();
         queue.add(enemyCoordinate);
         while (!queue.isEmpty()) {
-            Coordinate current = queue.poll();
+            final Coordinate current = queue.poll();
             output.add(current);
-            for (Direction dir : List.of(Direction.UP, Direction.DOWN, Direction.LEFT, Direction.RIGHT)) {
-                Coordinate next = MovementUtilities.getNextCoordinate(current, dir);
+            for (final Direction dir : List.of(Direction.UP, Direction.DOWN, Direction.LEFT, Direction.RIGHT)) {
+                final Coordinate next = MovementUtilities.getNextCoordinate(current, dir);
                 if (ap.CanMoveFromPosition(current, dir) && !output.contains(next)) {
                     queue.add(next);
                 }
@@ -100,36 +100,36 @@ public class ChaseAI implements EnemyAI {
      */
     private Optional<List<Coordinate>> getPath(final List<Coordinate> walkableCells, final List<PlayerImpl> players,
             final Coordinate start) {
-        LabyrinthImpl lab = turn.getLab();
-        List<Coordinate> playerPositions = players.stream()
-                .map(p -> lab.getPlayerCoordinate(p))
+        final LabyrinthImpl lab = turn.getLab();
+        final List<Coordinate> playerPositions = players.stream()
+                .map(lab::getPlayerCoordinate)
                 .toList();
 
         if (playerPositions.isEmpty() || walkableCells.isEmpty()) {
             return Optional.empty();
         }
-        Set<Coordinate> visited = new HashSet<>();
-        Map<Coordinate, Coordinate> predecessors = new HashMap<>();
-        Queue<Coordinate> queue = new LinkedList<>();
+        final Set<Coordinate> visited = new HashSet<>();
+        final Map<Coordinate, Coordinate> predecessors = new HashMap<>();
+        final Queue<Coordinate> queue = new LinkedList<>();
         queue.add(start);
         visited.add(start);
         predecessors.put(start, null);
         Coordinate targetPlayer = null;
         while (!queue.isEmpty() && targetPlayer == null) {
-            Coordinate current = queue.poll();
+            final Coordinate current = queue.poll();
             if (playerPositions.contains(current)) {
                 targetPlayer = current;
                 break;
             }
-            List<Coordinate> neighbors = getNeighbors(current, walkableCells, visited);
-            for (Coordinate neighbor : neighbors) {
+            final List<Coordinate> neighbors = getNeighbors(current, walkableCells, visited);
+            for (final Coordinate neighbor : neighbors) {
                 queue.add(neighbor);
                 visited.add(neighbor);
                 predecessors.put(neighbor, current);
             }
         }
         if (targetPlayer != null) {
-            List<Coordinate> path = new ArrayList<>();
+            final List<Coordinate> path = new ArrayList<>();
             Coordinate current = targetPlayer;
             while (current != null) {
                 path.add(current);
@@ -139,7 +139,7 @@ public class ChaseAI implements EnemyAI {
 
             return Optional.of(path);
         } else {
-            SingleStepRandomAI randomAI = new SingleStepRandomAI(turn);
+            final SingleStepRandomAI randomAI = new SingleStepRandomAI(turn);
             return Optional.of(randomAI.getNextPosition(players, start));
         }
     }
@@ -154,19 +154,19 @@ public class ChaseAI implements EnemyAI {
      */
     private List<Coordinate> getNeighbors(final Coordinate current, final List<Coordinate> walkableCells,
             final Set<Coordinate> visited) {
-        List<Coordinate> neighbors = new ArrayList<>();
-        int[][] directions = {
+        final List<Coordinate> neighbors = new ArrayList<>();
+        final int[][] directions = {
                 { -1, 0 },
                 { 0, 1 },
                 { 1, 0 },
                 { 0, -1 }
         };
 
-        for (int[] dir : directions) {
-            int newRow = current.getRow() + dir[0];
-            int newCol = current.getColumn() + dir[1];
+        for (final int[] dir : directions) {
+            final int newRow = current.getRow() + dir[0];
+            final int newCol = current.getColumn() + dir[1];
 
-            Coordinate neighbor = new Coordinate(newRow, newCol);
+            final Coordinate neighbor = new Coordinate(newRow, newCol);
             if (walkableCells.contains(neighbor) && !visited.contains(neighbor)) {
                 neighbors.add(neighbor);
             }
