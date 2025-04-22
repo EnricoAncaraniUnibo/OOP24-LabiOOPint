@@ -29,6 +29,7 @@ public class MainMenuLogic {
 
     public void openSettings(SettingsController settingsController) {
         new SettingsMenu(settingsController).setVisible(true);
+        this.settings = settingsController.getSettings();
     }
 
     public void quitGame() {
