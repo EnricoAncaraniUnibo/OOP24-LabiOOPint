@@ -33,8 +33,8 @@ class PositioningTest {
 	@Test
 	void checkPositionForAll() {
 		boolean passed=true;
-		TurnManager tu = new TurnManager(new Settings(1,4,5,EnemyDifficulty.EASY));
-		Labyrinth lab = new LabyrinthImpl(SIZE, tu);
+		final TurnManager tu = new TurnManager(new Settings(1,4,5,EnemyDifficulty.EASY));
+		final Labyrinth lab = new LabyrinthImpl(SIZE, tu);
 		for(final PlayerImpl p : tu.getPlayers()) {
 			final Coordinate c = lab.getPlayerCoordinate(p);
 			if(Objects.isNull(c)) {
@@ -63,8 +63,8 @@ class PositioningTest {
      */
 	@Test
 	void startingPlayerPositions() {
-		TurnManager tu = new TurnManager(new Settings(1,4,5,EnemyDifficulty.EASY));
-		Labyrinth lab = new LabyrinthImpl(SIZE, tu);
+		final TurnManager tu = new TurnManager(new Settings(1,4,5,EnemyDifficulty.EASY));
+		final Labyrinth lab = new LabyrinthImpl(SIZE, tu);
 		boolean passed=true;
 		for(final PlayerImpl p : tu.getPlayers()) {
 			final Coordinate c = lab.getPlayerCoordinate(p);
@@ -81,8 +81,8 @@ class PositioningTest {
      */
 	@Test 
 	void changePosition() {
-		TurnManager tu = new TurnManager(new Settings(1,4,5,EnemyDifficulty.EASY));
-		Labyrinth lab = new LabyrinthImpl(SIZE, tu);
+		final TurnManager tu = new TurnManager(new Settings(1,4,5,EnemyDifficulty.EASY));
+		final Labyrinth lab = new LabyrinthImpl(SIZE, tu);
 		final List<PlayerImpl> ls = tu.getPlayers();
 		final Enemy e = tu.getEnemy().get();
 		

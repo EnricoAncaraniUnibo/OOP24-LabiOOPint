@@ -29,8 +29,8 @@ class ShiftsTest {
      */
 	@Test
 	void testShiftRowRight() {
-		TurnManager tu = new TurnManager(new Settings(1,2,3,EnemyDifficulty.EASY));
-		Labyrinth lab = new LabyrinthImpl(SIZE, tu);
+		final TurnManager tu = new TurnManager(new Settings(1,2,3,EnemyDifficulty.EASY));
+		final Labyrinth lab = new LabyrinthImpl(SIZE, tu);
 		final BlockImpl initialOutsideBlock = lab.getOutsideBlock();
 		final List<BlockImpl> ls = new ArrayList<>();
 		for(int i=0;i<SIZE;i++)  {
@@ -50,8 +50,8 @@ class ShiftsTest {
      */
 	@Test
 	void testShiftRowLeft() {
-		TurnManager tu = new TurnManager(new Settings(1,2,3,EnemyDifficulty.EASY));
-		Labyrinth lab = new LabyrinthImpl(SIZE, tu);
+		final TurnManager tu = new TurnManager(new Settings(1,2,3,EnemyDifficulty.EASY));
+		final Labyrinth lab = new LabyrinthImpl(SIZE, tu);
 		final BlockImpl initialOutsideBlock = lab.getOutsideBlock();
 		final List<BlockImpl> ls = new ArrayList<>();
 		for(int i=SIZE-1;i>=0;i--)  {
@@ -73,8 +73,8 @@ class ShiftsTest {
      */
 	@Test
 	void testShiftColumnDown() {
-		TurnManager tu = new TurnManager(new Settings(1,2,3,EnemyDifficulty.EASY));
-		Labyrinth lab = new LabyrinthImpl(SIZE, tu);
+		final TurnManager tu = new TurnManager(new Settings(1,2,3,EnemyDifficulty.EASY));
+		final Labyrinth lab = new LabyrinthImpl(SIZE, tu);
 		final BlockImpl initialOutsideBlock = lab.getOutsideBlock();
 		final List<BlockImpl> ls = new ArrayList<>();
 		for(int i=0;i<SIZE;i++)  {
@@ -94,8 +94,8 @@ class ShiftsTest {
      */
 	@Test
 	void testShiftColumnUp() {
-		TurnManager tu = new TurnManager(new Settings(1,2,3,EnemyDifficulty.EASY));
-		Labyrinth lab = new LabyrinthImpl(SIZE, tu);
+		final TurnManager tu = new TurnManager(new Settings(1,2,3,EnemyDifficulty.EASY));
+		final Labyrinth lab = new LabyrinthImpl(SIZE, tu);
 		final BlockImpl initialOutsideBlock = lab.getOutsideBlock();
 		final List<BlockImpl> ls = new ArrayList<>();
 		for(int i=SIZE-1;i>=0;i--)  {

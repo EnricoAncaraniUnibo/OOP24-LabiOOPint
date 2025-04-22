@@ -24,7 +24,7 @@ class PlayerTest {
     @Test
     void pickUpObjective() {
 		tu = new TurnManager(new Settings(1,4,5,EnemyDifficulty.EASY));
-		Player p = new PlayerImpl("Archer",tu);
+		final Player p = new PlayerImpl("Archer",tu);
     	p.addObjective(new SwapPositionPowerUp(tu));
     	assertEquals(p.getUsablePowerUps().size(),1);
     	assertEquals(p.getObjetives().size(),1);
@@ -32,8 +32,8 @@ class PlayerTest {
     
     @Test
     void consumePowerUp() {
-		Player p = new PlayerImpl("Archer",tu);
-    	SwapPositionPowerUp pu = new SwapPositionPowerUp(tu);
+		final Player p = new PlayerImpl("Archer",tu);
+    	final SwapPositionPowerUp pu = new SwapPositionPowerUp(tu);
     	p.addObjective(pu);
     	p.removePowerUp(pu);
     	assertEquals(p.getUsablePowerUps().size(),0);
@@ -43,16 +43,16 @@ class PlayerTest {
     @Test
     void movePlayer() {
 		tu = new TurnManager(new Settings(0,2,0,EnemyDifficulty.EASY));
-		List<PlayerImpl> ls = tu.getPlayers();
-		BlockImpl b1 = new BlockImpl(BlockType.CORRIDOR);
-		b1.setRotation(Rotation.ZERO);
-		tu.getLab().setBlock(b1, new Coordinate(0,0));
-		BlockImpl b2 = new BlockImpl(BlockType.CORNER);
-		b2.setRotation(Rotation.TWO_HUNDRED_SEVENTY);
-		tu.getLab().setBlock(b2, new Coordinate(1,0));
-		BlockImpl b3 = new BlockImpl(BlockType.CORRIDOR);
-		b3.setRotation(Rotation.NINETY);
-		tu.getLab().setBlock(b3, new Coordinate(1,1));
+		final List<PlayerImpl> ls = tu.getPlayers();
+		BlockImpl b = new BlockImpl(BlockType.CORRIDOR);
+		b.setRotation(Rotation.ZERO);
+		tu.getLab().setBlock(b, new Coordinate(0,0));
+		b = new BlockImpl(BlockType.CORNER);
+		b.setRotation(Rotation.TWO_HUNDRED_SEVENTY);
+		tu.getLab().setBlock(b, new Coordinate(1,0));
+		b = new BlockImpl(BlockType.CORRIDOR);
+		b.setRotation(Rotation.NINETY);
+		tu.getLab().setBlock(b, new Coordinate(1,1));
     	tu.getLab().playerUpdateCoordinate(ls.get(0), new Coordinate(0,0));
     	tu.getLab().movePlayer(ls.get(0), Direction.DOWN);
     	assertEquals(tu.getLab().getPlayerCoordinate(ls.get(0)).getRow(),1);
