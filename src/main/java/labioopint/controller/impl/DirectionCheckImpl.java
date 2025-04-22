@@ -10,9 +10,9 @@ import labioopint.model.maze.impl.LabyrinthImpl;
 import labioopint.model.maze.impl.MazeImpl;
 
 public class DirectionCheckImpl implements DirectionCheck {
-    private LabyrinthImpl lab;
+    private final LabyrinthImpl lab;
 
-    public DirectionCheckImpl(TurnManager tu){
+    public DirectionCheckImpl(final TurnManager tu){
         this.lab = tu.getLab();
     }
 

@@ -20,7 +20,7 @@ public class GameControllerImpl implements GameController {
 
     @Override
     public void action(final Object action){
-        ActionPredicate ap = new ActionPredicateImpl(turn);
+        final ActionPredicate ap = new ActionPredicateImpl(turn);
         lab = turn.getLab();
         final ActionType currentAction = turn.getCurrentAction();
         switch (currentAction) {
@@ -65,11 +65,9 @@ public class GameControllerImpl implements GameController {
                 }
                 break;
             case ActionType.ENEMY_MOVEMENT:
-                if(action instanceof Direction){
-                    if(turn.getEnemy().isPresent()){
-                        turn.getEnemy().get().move(turn.getPlayers());
-                        turn.nextAction();
-                    }
+                if(action instanceof Direction && turn.getEnemy().isPresent()){
+                    turn.getEnemy().get().move(turn.getPlayers());
+                    turn.nextAction();
                 }
             default:
                 break;

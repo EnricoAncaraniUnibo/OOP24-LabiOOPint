@@ -25,7 +25,8 @@ import labioopint.model.powerup.api.PowerUp;
  * It extends the JPanel class and uses the Graphics2D API for drawing.
  */
 public final class DrawPanel extends JPanel {
-        private LogicDrawPanel ldp;
+        private final LogicDrawPanel ldp;
+        public static final long serialVersionUID = 42L;
 
         /**
          * Constructs a DrawPanel with the specified panel size and TurnManager.
@@ -52,12 +53,12 @@ public final class DrawPanel extends JPanel {
                 ldp.updateData(m, mapPlayers, mapEnemies, mapPowerUps, outside);
                 repaint();
         }
-
-        protected void paintComponent(Graphics g) {
+        @Override
+        protected void paintComponent(final Graphics g) {
                 super.paintComponent(g);
-                Graphics2D g2 = (Graphics2D) g;
-                AffineTransform old = g2.getTransform();
-                for (Pair<Pair<Image, Double>, Pair<Pair<Integer, Integer>, Pair<Integer, Integer>>> element : ldp
+                final Graphics2D g2 = (Graphics2D) g;
+                final AffineTransform old = g2.getTransform();
+                for (final Pair<Pair<Image, Double>, Pair<Pair<Integer, Integer>, Pair<Integer, Integer>>> element : ldp
                                 .getImagesBlocks()) {
                         g2.rotate(element.getFirst().getSecond());
                         g2.drawImage(element.getFirst().getFirst(), element.getSecond().getFirst().getFirst(),

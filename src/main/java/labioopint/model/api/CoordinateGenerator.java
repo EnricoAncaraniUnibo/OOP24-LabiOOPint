@@ -20,7 +20,7 @@ public class CoordinateGenerator {
         possibleCoordinate = new ArrayList<>();
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                if (((i != 0 || j != 0) && (i != size - 1 || j != size - 1)) && ((i != 0 || j != size - 1) && (i != size - 1 || j != 0))) {
+                if ((i != 0 || j != 0) && (i != size - 1 || j != size - 1) && (i != 0 || j != size - 1) && (i != size - 1 || j != 0)) {
                     final Coordinate c = new Coordinate(i, j);
                     possibleCoordinate.add(c);
                 }

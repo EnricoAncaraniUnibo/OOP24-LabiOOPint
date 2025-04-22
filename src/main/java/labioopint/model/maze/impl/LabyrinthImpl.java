@@ -207,7 +207,7 @@ public final class LabyrinthImpl implements Labyrinth {
         if (i == -1) {
             return grid.getSize() - 1;
         }
-        if (i == grid.getSize()) {
+        if (i.equals(grid.getSize())) {
             return 0;
         }
         return i;
@@ -225,8 +225,8 @@ public final class LabyrinthImpl implements Labyrinth {
 
     @Override
     public List<PowerUp> getListOfPowerUps() {
-        List<PowerUp> lpu = new ArrayList<>();
-        for (PowerUp powerUp : turn.getPowerUps()) {
+        final List<PowerUp> lpu = new ArrayList<>();
+        for (final PowerUp powerUp : turn.getPowerUps()) {
             if (mapOfPowerUps.isPresentByObject(powerUp)) {
                 lpu.add(powerUp);
             }
@@ -244,7 +244,7 @@ public final class LabyrinthImpl implements Labyrinth {
 
     @Override
     public void movePlayer(final PlayerImpl p, final Direction dir) {
-        Coordinate newCoor = calculateNewCoordinate(mapOfPlayers.getCoordinateFromElement(p), dir);
+        final Coordinate newCoor = calculateNewCoordinate(mapOfPlayers.getCoordinateFromElement(p), dir);
         mapOfPlayers.remove(p);
         mapOfPlayers.addElemWithCoordinate(p, newCoor);
         pickUpPowerUp(p, newCoor);
@@ -256,7 +256,7 @@ public final class LabyrinthImpl implements Labyrinth {
             mapOfPowerUps.getElemFromCoordinate(c).collect();
             p.addObjective(mapOfPowerUps.getElemFromCoordinate(c));
             mapOfPowerUps.remove(mapOfPowerUps.getElemFromCoordinate(c));
-            Optional<Player> pl = checkWinner();
+            final Optional<Player> pl = checkWinner();
             winner = pl;
         }
     }
@@ -274,7 +274,7 @@ public final class LabyrinthImpl implements Labyrinth {
 
     @Override
     public void addPowerUp(final PowerUp p) {
-        CoordinateGenerator cg = new CoordinateGenerator(grid.getSize());
+        final CoordinateGenerator cg = new CoordinateGenerator(grid.getSize());
         mapOfPowerUps.addElemWithCoordinate(p, cg.getRandomCoordinate());
     }
 
@@ -287,7 +287,7 @@ public final class LabyrinthImpl implements Labyrinth {
 
     @Override
     public void enemyUpdateCoordinate(final Enemy e, final List<Coordinate> coor) {
-        for (Coordinate coordinate : coor) {
+        for (final Coordinate coordinate : coor) {
             mapOfEnemy.remove(e);
             mapOfEnemy.addElemWithCoordinate(e, coordinate);
             labyController.updateGraphics(grid, mapOfPlayers, mapOfEnemy, mapOfPowerUps, outsideBlock);
@@ -296,11 +296,11 @@ public final class LabyrinthImpl implements Labyrinth {
 
     private Optional<Player> checkWinner() {
         if(mapOfPowerUps.getElemets().isEmpty()) {
-            List<PlayerImpl> sortedPlayers = turn.getPlayers().stream()
+            final List<PlayerImpl> sortedPlayers = turn.getPlayers().stream()
             .sorted(Comparator.comparing(p -> p.getObjetives().size(), Comparator.reverseOrder()))
             .collect(Collectors.toList());
             if (sortedPlayers.get(0).getObjetives().size()==sortedPlayers.get(1).getObjetives().size()) {
-                PowerUp pou = new SwapPositionPowerUp(turn);
+                final PowerUp pou = new SwapPositionPowerUp(turn);
                 turn.addAddictionalPowerUp(pou);
                 addPowerUp(pou);
                 labyController.updateGraphics(grid, mapOfPlayers, mapOfEnemy, mapOfPowerUps, outsideBlock);
@@ -316,9 +316,9 @@ public final class LabyrinthImpl implements Labyrinth {
         return winner;
     }
     @Override
-    public void powerUpUpdateCoordinate(PowerUp p, Coordinate coor) {
-        mapOfPowerUps.remove((PowerUp) p);
-        mapOfPowerUps.addElemWithCoordinate((PowerUp) p, coor);
+    public void powerUpUpdateCoordinate(final PowerUp p, final Coordinate coor) {
+        mapOfPowerUps.remove(p);
+        mapOfPowerUps.addElemWithCoordinate(p, coor);
         labyController.updateGraphics(grid, mapOfPlayers, mapOfEnemy, mapOfPowerUps, outsideBlock);
     }
 }

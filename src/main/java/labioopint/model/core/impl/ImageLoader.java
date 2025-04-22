@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 
 import java.awt.Image;
 import java.io.File;
+import java.io.IOException;
 
 /**
  * The ImageLoader class is responsible for loading and managing images used in
@@ -55,8 +56,8 @@ public final class ImageLoader {
                     new File("src/main/java/labioopint/resources/Characters/monster.png")));
             imageMap.put("Teleport", ImageIO.read(
                     new File("src/main/java/labioopint/resources/PowerUps/teleport.png")));
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException e) {
+                System.exit(0);
         }
     }
 
