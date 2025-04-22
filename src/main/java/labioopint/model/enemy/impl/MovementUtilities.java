@@ -28,10 +28,9 @@ public final class MovementUtilities {
                 return new Coordinate(c.getRow() + 1, c.getColumn());
             case Direction.RIGHT:
                 return new Coordinate(c.getRow(), c.getColumn() + 1);
-            case Direction.LEFT:
+            default:
                 return new Coordinate(c.getRow(), c.getColumn() - 1);
         }
-        return c;
     }
 
     /**
