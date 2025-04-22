@@ -97,7 +97,7 @@ public class LogicDrawPanelImpl implements LogicDrawPanel {
      */
     @Override
     public List<Pair<Pair<Image, Double>, Pair<Pair<Integer, Integer>, Pair<Integer, Integer>>>> getImagesBlocks() {
-        List<Pair<Pair<Image, Double>, Pair<Pair<Integer, Integer>, Pair<Integer, Integer>>>> ls = new ArrayList<>();
+        final List<Pair<Pair<Image, Double>, Pair<Pair<Integer, Integer>, Pair<Integer, Integer>>>> ls = new ArrayList<>();
         BlockImpl b;
         boolean end = false;
         Image imageTemp = null;
@@ -121,16 +121,14 @@ public class LogicDrawPanelImpl implements LogicDrawPanel {
                 }
                 switch (b.getType()) {
                         case CORNER:
-                                imageTemp = (ImageLoader.getImage("Corner").get());
+                                imageTemp = ImageLoader.getImage("Corner").get();
                                 break;
                         case CORRIDOR:
-                                imageTemp = (ImageLoader.getImage("Corridor").get());
+                                imageTemp = ImageLoader.getImage("Corridor").get();
                                 break;
                         case CROSSING:
-                                imageTemp = (ImageLoader.getImage("Crossing").get());
+                                imageTemp = ImageLoader.getImage("Crossing").get();
                                 break;
-                        default:
-                            break;
                 }
                 switch (b.getRotation()) {
                     case ZERO:
@@ -153,60 +151,57 @@ public class LogicDrawPanelImpl implements LogicDrawPanel {
                             valuePrint1 = i * pixelSize;
                             valuePrint2 = (-j * pixelSize) - pixelSize;
                             break;
-                    default:
-                        break;
                 }
-                pImageRotation = new Pair<Image, Double>(imageTemp, rotationTemp);
-                pPositions = new Pair<Integer, Integer>(valuePrint1, valuePrint2);
-                pSize = new Pair<Integer, Integer>(pixelSize, pixelSize);
-                pNumbers = new Pair<Pair<Integer, Integer>, Pair<Integer, Integer>>(pPositions, pSize);
-                pFinal = new Pair<Pair<Image, Double>, Pair<Pair<Integer, Integer>, Pair<Integer, Integer>>>(
-                    pImageRotation, pNumbers);
+                pImageRotation = new Pair<>(imageTemp, rotationTemp);
+                pPositions = new Pair<>(valuePrint1, valuePrint2);
+                pSize = new Pair<>(pixelSize, pixelSize);
+                pNumbers = new Pair<>(pPositions, pSize);
+                pFinal = new Pair<>(pImageRotation, pNumbers);
                 ls.add(pFinal);
             }
         }
-        for (PlayerImpl p : coorPlayers.getElemets()) {
-            Coordinate c = coorPlayers.getCoordinateFromElement(p);
-            if (p == turn.getCurrentPlayer()) {
-                pImageRotation = new Pair<Image, Double>(
-                    ImageLoader.getImage("" + p.getID() + "Turn").get(), Math.toRadians(ZERO_ROTATION));
+        for (final PlayerImpl p : coorPlayers.getElemets()) {
+            final Coordinate c = coorPlayers.getCoordinateFromElement(p);
+            if (p.equals(turn.getCurrentPlayer())) {
+                pImageRotation = new Pair<>(
+                    ImageLoader.getImage(p.getID() + "Turn").get(), Math.toRadians(ZERO_ROTATION));
             } else {
-                pImageRotation = new Pair<Image, Double>(
-                    ImageLoader.getImage("" + p.getID() + "").get(), Math.toRadians(ZERO_ROTATION));
+                pImageRotation = new Pair<>(
+                    ImageLoader.getImage(p.getID()).get(), Math.toRadians(ZERO_ROTATION));
             }
-            pPositions = new Pair<Integer, Integer>(
+            pPositions = new Pair<>(
                 c.getColumn() * pixelSize + pixelSize / REDUCTION_SCALE_NUMBER, 
                 c.getRow() * pixelSize + pixelSize / REDUCTION_SCALE_NUMBER);
-            pSize = new Pair<Integer, Integer>(pixelSize * PERCENTILE_NUMERATOR / PERCENTILE_DENOMINATOR, pixelSize * 3/5);
-            pNumbers = new Pair<Pair<Integer, Integer>, Pair<Integer, Integer>>(pPositions, pSize);
-            pFinal = new Pair<Pair<Image, Double>, Pair<Pair<Integer, Integer>, Pair<Integer, Integer>>>(
+            pSize = new Pair<>(pixelSize * PERCENTILE_NUMERATOR / PERCENTILE_DENOMINATOR, pixelSize * 3/5);
+            pNumbers = new Pair<>(pPositions, pSize);
+            pFinal = new Pair<>(
                 pImageRotation, pNumbers);
             ls.add(pFinal);
         }
-        for (Enemy e : coorEnemies.getElemets()) {
-            Coordinate c = coorEnemies.getCoordinateFromElement(e);
-            pImageRotation = new Pair<Image, Double>(ImageLoader.getImage("Monster").get(), Math.toRadians(ZERO_ROTATION));
-            pPositions = new Pair<Integer, Integer>(
+        for (final Enemy e : coorEnemies.getElemets()) {
+            final Coordinate c = coorEnemies.getCoordinateFromElement(e);
+            pImageRotation = new Pair<>(ImageLoader.getImage("Monster").get(), Math.toRadians(ZERO_ROTATION));
+            pPositions = new Pair<>(
                 c.getColumn() * pixelSize + pixelSize / REDUCTION_SCALE_NUMBER, 
                 c.getRow() * pixelSize + pixelSize / REDUCTION_SCALE_NUMBER);
-            pSize = new Pair<Integer, Integer>(pixelSize * PERCENTILE_NUMERATOR / PERCENTILE_DENOMINATOR, 
+            pSize = new Pair<>(pixelSize * PERCENTILE_NUMERATOR / PERCENTILE_DENOMINATOR, 
             pixelSize * PERCENTILE_NUMERATOR / PERCENTILE_DENOMINATOR);
-            pNumbers = new Pair<Pair<Integer, Integer>, Pair<Integer, Integer>>(pPositions, pSize);
-            pFinal = new Pair<Pair<Image, Double>, Pair<Pair<Integer, Integer>, Pair<Integer, Integer>>>(
+            pNumbers = new Pair<>(pPositions, pSize);
+            pFinal = new Pair<>(
                 pImageRotation, pNumbers);
             ls.add(pFinal);
         }
-        for (PowerUp po : coorPowerUps.getElemets()) {
-            Coordinate c = coorPowerUps.getCoordinateFromElement(po);
-            pImageRotation = new Pair<Image, Double>(
-                ImageLoader.getImage("" + po.getName() + "").get(), Math.toRadians(ZERO_ROTATION));
-            pPositions = new Pair<Integer, Integer>(
+        for (final PowerUp po : coorPowerUps.getElemets()) {
+            final Coordinate c = coorPowerUps.getCoordinateFromElement(po);
+            pImageRotation = new Pair<>(
+                ImageLoader.getImage(po.getName()).get(), Math.toRadians(ZERO_ROTATION));
+            pPositions = new Pair<>(
                 c.getColumn() * pixelSize + pixelSize / REDUCTION_SCALE_NUMBER, 
                 c.getRow() * pixelSize + pixelSize / REDUCTION_SCALE_NUMBER);
-            pSize = new Pair<Integer, Integer>(pixelSize * PERCENTILE_NUMERATOR / PERCENTILE_DENOMINATOR, 
+            pSize = new Pair<>(pixelSize * PERCENTILE_NUMERATOR / PERCENTILE_DENOMINATOR, 
             pixelSize * PERCENTILE_NUMERATOR / PERCENTILE_DENOMINATOR);
-            pNumbers = new Pair<Pair<Integer, Integer>, Pair<Integer, Integer>>(pPositions, pSize);
-            pFinal = new Pair<Pair<Image, Double>, Pair<Pair<Integer, Integer>, Pair<Integer, Integer>>>(
+            pNumbers = new Pair<>(pPositions, pSize);
+            pFinal = new Pair<>(
                 pImageRotation, pNumbers);
             ls.add(pFinal);
         }

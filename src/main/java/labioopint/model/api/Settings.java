@@ -8,7 +8,7 @@ public class Settings {
     Integer powerUp;
     EnemyDifficulty enemyDifficulty;
 
-    public Settings(Integer enemyNumber, Integer playerNumber, Integer powerUp, EnemyDifficulty enemyDifficulty){
+    public Settings(final Integer enemyNumber, final Integer playerNumber, final Integer powerUp, final EnemyDifficulty enemyDifficulty){
         this.enemyNumber = enemyNumber;
         this.playerNumber = playerNumber;
         this.powerUp = powerUp;

@@ -33,7 +33,7 @@ public abstract class MazeImpl implements Maze {
 
     @Override
     public final Optional<BlockImpl> getBlock(final Coordinate c) {
-        for (Coordinate coor : grid.keySet()) {
+        for (final Coordinate coor : grid.keySet()) {
             if (c.getRow().equals(coor.getRow()) && c.getColumn().equals(coor.getColumn())) {
                 return Optional.of(grid.get(coor));
             }
@@ -43,7 +43,7 @@ public abstract class MazeImpl implements Maze {
 
     @Override
     public final Coordinate getCoordinate(final BlockImpl b) {
-        for (Map.Entry<Coordinate, BlockImpl> iterableItem : grid.entrySet()) {
+        for (final Map.Entry<Coordinate, BlockImpl> iterableItem : grid.entrySet()) {
             if (iterableItem.getValue().equals(b)) {
                 return iterableItem.getKey();
             }
@@ -69,16 +69,13 @@ public abstract class MazeImpl implements Maze {
     @Override
     public final void changeCoordinate(final Coordinate coor, final BlockImpl b) {
         Coordinate removable = new Coordinate(-1, -1);
-        for (Coordinate test : grid.keySet()) {
-            if (test.getRow() == coor.getRow() && test.getColumn() == coor.getColumn()) {
+        for (final Coordinate test : grid.keySet()) {
+            if (test.equals(coor)) {
                 removable = test;
             }
         }
-        try {
-            grid.remove(removable);
-            grid.put(coor, b);
-        } catch (Exception e) {
-        }
+        grid.remove(removable);
+        grid.put(coor, b);
     }
     @Override
     public abstract BlockImpl generate();

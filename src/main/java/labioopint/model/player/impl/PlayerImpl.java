@@ -53,8 +53,8 @@ public final class PlayerImpl extends Movable implements Player {
 
     @Override
     public void removeObjective() {
-        if (objectives.size() != 0) {
-            PowerUp p = objectives.get(0);
+        if (!objectives.isEmpty()) {
+            final PowerUp p = objectives.get(0);
             if (usablePowerUps.contains(p)) {
                 usablePowerUps.remove(p);
             }

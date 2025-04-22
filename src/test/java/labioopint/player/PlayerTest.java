@@ -1,4 +1,4 @@
-package labioopint.Player;
+package labioopint.player;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

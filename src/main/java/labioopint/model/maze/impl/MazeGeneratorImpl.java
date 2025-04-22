@@ -32,13 +32,13 @@ public final class MazeGeneratorImpl implements MazeGenerator {
 
     @Override
     public Map<Coordinate, BlockImpl> fill(final Integer size) {
-        Map<Coordinate, BlockImpl> map = new HashMap<>();
+        final Map<Coordinate, BlockImpl> map = new HashMap<>();
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 if (!((i == 0 && j == 0) || (i == size - 1 && j == 0) || (i == 0 && j == size - 1) || (i == size - 1 && j == size - 1))) {
-                    BlockImpl b = selectableBlocks.get(r.nextInt(0, selectableBlocks.size()));
+                   final  BlockImpl b = selectableBlocks.get(r.nextInt(0, selectableBlocks.size()));
                     selectableBlocks.remove(b);
-                    Coordinate c = new Coordinate(i, j);
+                    final Coordinate c = new Coordinate(i, j);
                     b.randomRotation();
                     map.put(c, b);
                 }   
@@ -64,7 +64,7 @@ public final class MazeGeneratorImpl implements MazeGenerator {
 
     @Override
     public BlockImpl getOutsideBlock() {
-        BlockImpl b = selectableBlocks.get(r.nextInt(0, selectableBlocks.size()));
+        final BlockImpl b = selectableBlocks.get(r.nextInt(0, selectableBlocks.size()));
         selectableBlocks.remove(b);
         return b;
     }

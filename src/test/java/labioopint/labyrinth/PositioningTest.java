@@ -1,4 +1,4 @@
-package labioopint.Labyrinth;
+package labioopint.labyrinth;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
