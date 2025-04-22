@@ -18,7 +18,9 @@ public class MainMenuLogic {
         if (this.settings == null) {
             new TurnManager(new Settings(1,4,6,EnemyDifficulty.MEDIUM));
         }
-        new TurnManager(settings);
+        else {
+            new TurnManager(settings);
+        }
     }
 
     public void loadGame() {
