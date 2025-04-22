@@ -13,14 +13,14 @@ import labioopint.model.enemy.api.EnemyDifficulty;
 import labioopint.model.player.impl.PlayerImpl;
 import labioopint.model.powerup.api.PowerUp;
 
-public class BuilderImplTest {
+class BuilderImplTest {
 
     private BuilderImpl builder;
     private static TurnManager tm;
 
     @BeforeEach
     void setUp() {
-        Settings settings = new Settings(2, 2, 3, EnemyDifficulty.MEDIUM);
+        final Settings settings = new Settings(2, 2, 3, EnemyDifficulty.MEDIUM);
         tm = new TurnManager(settings);
         builder = new BuilderImpl(settings, tm);
     }
@@ -29,8 +29,8 @@ public class BuilderImplTest {
     void testCreatePlayers() {
         builder.createPlayers();
         assertEquals(tm.getPlayers().size(), 2);
-        List<PlayerImpl> players = tm.getPlayers();
-        for (PlayerImpl playerImpl : players) {
+        final List<PlayerImpl> players = tm.getPlayers();
+        for (final PlayerImpl playerImpl : players) {
             assertNotNull(playerImpl);
         }
     }
@@ -39,7 +39,7 @@ public class BuilderImplTest {
     void testCreateEnemy() {
         builder.createEnemy();
         assertTrue(tm.getEnemy().isPresent());
-        Enemy enemy = tm.getEnemy().get();
+        final Enemy enemy = tm.getEnemy().get();
         assertNotNull(enemy);
     }
 
@@ -47,8 +47,8 @@ public class BuilderImplTest {
     void testCreatePowerUps() {
         builder.createPowerUps();
         assertEquals(tm.getPowerUps().size(), 3);
-        List<PowerUp> powerUps = tm.getPowerUps();
-        for (PowerUp power : powerUps) {
+        final List<PowerUp> powerUps = tm.getPowerUps();
+        for (final PowerUp power : powerUps) {
             assertNotNull(power);
         }
     }

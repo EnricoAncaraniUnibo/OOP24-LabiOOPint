@@ -11,12 +11,12 @@ import labioopint.model.core.impl.TurnManager;
 import labioopint.model.enemy.api.EnemyDifficulty;
 import labioopint.model.powerup.impl.SwapPositionPowerUp;
 
-public class TurnManagerTest {
+class TurnManagerTest {
     private static TurnManager tm;
 
     @BeforeAll
     static void setUp() {
-        Settings settings = new Settings(2, 2, 3, EnemyDifficulty.MEDIUM);
+        final Settings settings = new Settings(2, 2, 3, EnemyDifficulty.MEDIUM);
         tm = new TurnManager(settings);
     }
 
@@ -31,7 +31,7 @@ public class TurnManagerTest {
 
     @Test
     void testTurnManagerAddPowerUp() {
-        Integer powerUpNumber = tm.getPowerUps().size();
+        final Integer powerUpNumber = tm.getPowerUps().size();
         tm.addAddictionalPowerUp(new SwapPositionPowerUp(tm));
         assertEquals(powerUpNumber + 1, tm.getPowerUps().size());
     }
