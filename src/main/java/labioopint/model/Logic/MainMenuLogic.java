@@ -1,7 +1,9 @@
-package labioopint.logic;
+package labioopint.model.logic;
 
+import labioopint.controller.impl.SettingsController;
 import labioopint.model.api.Settings;
 import labioopint.model.core.impl.TurnManager;
+import labioopint.model.enemy.api.EnemyDifficulty;
 import labioopint.view.SettingsMenu;
 
 public class MainMenuLogic {
@@ -14,7 +16,7 @@ public class MainMenuLogic {
 
     public void startGame() {
         if (this.settings == null) {
-            new TurnManager(new Settings(1,4,6,EnemyDifficulty.NORMAL));
+            new TurnManager(new Settings(1,4,6,EnemyDifficulty.MEDIUM));
         }
         new TurnManager(settings);
     }

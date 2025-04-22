@@ -1,7 +1,6 @@
-package labioopint.controller;
+package labioopint.controller.impl;
 
-import labioopint.logic.MainMenuLogic;
-import labioopint.controller.SettingsController;
+import labioopint.model.logic.MainMenuLogic;
 
 public class MainMenuController {
 
