@@ -50,7 +50,7 @@ public class SingleStepRandomAI implements EnemyAI {
             result = rand.nextInt(4);
             dir = MovementUtilities.createDirection(result);
             final Coordinate next = MovementUtilities.getNextCoordinate(newPos, dir);
-            if (ap.EnemyCanMove(dir)) {
+            if (ap.enemyCanMove(dir)) {
                 newPos = next;
                 success = true;
             }

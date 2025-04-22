@@ -52,7 +52,7 @@ public class RandomAI implements EnemyAI {
             while (!success) {
                 final Direction dir = MovementUtilities.createDirection(direction);
                 final Coordinate next = MovementUtilities.getNextCoordinate(newPos, dir);
-                if (ap.CanMoveFromPosition(newPos, dir)) {
+                if (ap.canMoveFromPosition(newPos, dir)) {
                     newPos = next;
                     success = true;
                 } else {

@@ -56,8 +56,8 @@ public class EnemyImpl extends Movable implements Enemy {
     @Override
     public List<Coordinate> move(final List<PlayerImpl> players) {
         final ActionPredicate ap = new ActionPredicateImpl(turn);
-        if (!ap.EnemyCanMove(Direction.UP) && !ap.EnemyCanMove(Direction.DOWN)
-                && !ap.EnemyCanMove(Direction.LEFT) && !ap.EnemyCanMove(Direction.RIGHT)) {
+        if (!ap.enemyCanMove(Direction.UP) && !ap.enemyCanMove(Direction.DOWN)
+                && !ap.enemyCanMove(Direction.LEFT) && !ap.enemyCanMove(Direction.RIGHT)) {
             return new ArrayList<>();
         } else {
             return enemyAI.getNextPosition(players, turn.getLab().getEnemyCoordinate(this));

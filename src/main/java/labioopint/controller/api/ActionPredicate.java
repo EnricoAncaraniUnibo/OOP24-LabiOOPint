@@ -6,12 +6,12 @@ import labioopint.model.player.impl.PlayerImpl;
 
 public interface ActionPredicate {
 
-    boolean PlayerCanMove(PlayerImpl p, Direction dir);
+    boolean playerCanMove(PlayerImpl p, Direction dir);
 
-    boolean BlockCanMove(Coordinate blockCoordinate);
+    boolean blockCanMove(Coordinate blockCoordinate);
 
-    boolean CanMoveFromPosition(Coordinate coor, Direction dir);
+    boolean canMoveFromPosition(Coordinate coor, Direction dir);
 
-    boolean EnemyCanMove(Direction dir);
+    boolean enemyCanMove(Direction dir);
 
 }

@@ -11,29 +11,27 @@ import labioopint.model.maze.impl.LabyrinthImpl;
 
 
 public class GameControllerImpl implements GameController {
-    //ActionType.MOVE_BLOCK;
     private LabyrinthImpl lab;
-    private TurnManager turn;
-    private ActionPredicate ap;
+    private final TurnManager turn;
 
-    public GameControllerImpl(TurnManager tu) {
+    public GameControllerImpl(final TurnManager tu) {
         turn = tu;
     }
 
     @Override
-    public void action(Object action){
-        ap = new ActionPredicateImpl(turn);
+    public void action(final Object action){
+        ActionPredicate ap = new ActionPredicateImpl(turn);
         lab = turn.getLab();
-        ActionType current_action = turn.getCurrentAction();
-        switch (current_action) {
+        final ActionType currentAction = turn.getCurrentAction();
+        switch (currentAction) {
             case ActionType.BLOCK_PLACEMENT:
                 if(action instanceof String){
-                    Direction dir = (action.equals("←")) ? Direction.LEFT :
+                    final Direction dir = "←".equals(action) ? Direction.LEFT :
                                     Direction.RIGHT;
-                    RotateBlock(dir);
+                    rotateBlock(dir);
                 } else if(action instanceof Coordinate){
-                    Coordinate blockCoordinate = (Coordinate)action;
-                    if(ap.BlockCanMove(blockCoordinate)){
+                    final Coordinate blockCoordinate = (Coordinate)action;
+                    if(ap.blockCanMove(blockCoordinate)){
                         if(blockCoordinate.getColumn() == 0){
                             turn.nextAction();
                             lab.moveBlock(blockCoordinate, Direction.RIGHT);
@@ -46,8 +44,6 @@ public class GameControllerImpl implements GameController {
                         }else if(blockCoordinate.getRow() == lab.getGrid().getSize()-1){
                             turn.nextAction();
                             lab.moveBlock(blockCoordinate, Direction.UP);
-                        }else{
-                            //TurnManager.invalidBlockPosition();
                         }
                     } 
                 }
@@ -55,17 +51,15 @@ public class GameControllerImpl implements GameController {
         
             case ActionType.PLAYER_MOVEMENT:
                 if(action instanceof String){
-                    if(action.equals("←") || action.equals("→") || action.equals("↑") || action.equals("↓")){
-                        Direction dir = (action.equals("←")) ? Direction.LEFT :
-                                        (action.equals("→")) ? Direction.RIGHT :
-                                        (action.equals("↑")) ? Direction.UP :
+                    if("←".equals(action) || "→".equals(action) || "↑".equals(action) || "↓".equals(action)){
+                        final Direction dir = "←".equals(action) ? Direction.LEFT :
+                                        "→".equals(action) ? Direction.RIGHT :
+                                        "↑".equals(action) ? Direction.UP :
                                         Direction.DOWN;
-                        if(ap.PlayerCanMove(turn.getCurrentPlayer(), dir)){
+                        if(ap.playerCanMove(turn.getCurrentPlayer(), dir)){
                             lab.movePlayer(turn.getCurrentPlayer(), dir);
-                        }else{
-                            //TurnManager.invalidMovement();
                         }
-                    }else if(action.equals("End Turn")){
+                    }else if("End Turn".equals(action)){
                         turn.nextAction();
                     }
                 }
@@ -75,8 +69,6 @@ public class GameControllerImpl implements GameController {
                     if(turn.getEnemy().isPresent()){
                         turn.getEnemy().get().move(turn.getPlayers());
                         turn.nextAction();
-                    }else{
-                        //TurnManager.invalidMovement();
                     }
                 }
             default:
@@ -84,7 +76,7 @@ public class GameControllerImpl implements GameController {
         }
     }
 
-    private void RotateBlock(Direction dir){
+    private void rotateBlock(final Direction dir){
         Rotation blockRotation = lab.getOutsideBlock().getRotation();
         switch (dir) {
             case Direction.RIGHT:
@@ -107,46 +99,4 @@ public class GameControllerImpl implements GameController {
         }
 
     }
-
-    /* ENEMY MOVEMENT
-     * Return true if the enemy can move in a specific direction
-     * Otherwise it returns false
-     */
-    /*private static boolean MoveEnemy(Direction dir){
-        Enemy e = TurnManager.GetEnemy().get();
-        switch (dir) {
-            case Direction.LEFT:
-                if(ActionPredicate.EnemyCanMove(dir)){
-                    lab.updateCoordinate(e,dir);
-                    return true;
-                }
-                break;
-            case Direction.RIGHT:
-                if(ActionPredicate.EnemyCanMove(dir)){
-                    lab.updateCoordinate(e,dir);
-                    return true;
-                }
-                break;
-            case Direction.UP:
-                if(ActionPredicate.EnemyCanMove(dir)){
-                    lab.updateCoordinate(e,dir);
-                    return true;
-                }
-                break;
-            case Direction.DOWN:
-                if(ActionPredicate.EnemyCanMove(dir)){
-                    lab.updateCoordinate(e,dir);
-                    return true;
-                }
-                break;
-        }
-        return false;
-    }  
-
-    /*
-     * USE POWER UP
-     *
-    private static boolean UsePowerUp(PowerUp pUP){
-        return false;
-    }*/
 }

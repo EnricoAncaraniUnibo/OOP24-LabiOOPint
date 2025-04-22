@@ -78,7 +78,7 @@ public class ChaseAI implements EnemyAI {
             output.add(current);
             for (final Direction dir : List.of(Direction.UP, Direction.DOWN, Direction.LEFT, Direction.RIGHT)) {
                 final Coordinate next = MovementUtilities.getNextCoordinate(current, dir);
-                if (ap.CanMoveFromPosition(current, dir) && !output.contains(next)) {
+                if (ap.canMoveFromPosition(current, dir) && !output.contains(next)) {
                     queue.add(next);
                 }
             }
