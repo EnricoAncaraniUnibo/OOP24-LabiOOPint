@@ -9,7 +9,6 @@ import labioopint.model.core.impl.TurnManager;
 import labioopint.model.maze.api.Direction;
 import labioopint.model.maze.impl.LabyrinthImpl;
 
-
 public class GameControllerImpl implements GameController {
     private LabyrinthImpl lab;
     private final TurnManager turn;
@@ -19,77 +18,76 @@ public class GameControllerImpl implements GameController {
     }
 
     @Override
-    public void action(final Object action){
-        final ActionPredicate ap = new ActionPredicateImpl(turn);
+    public void action(final Object action) {
+        ActionPredicate ap = new ActionPredicateImpl(turn);
         lab = turn.getLab();
         final ActionType currentAction = turn.getCurrentAction();
         switch (currentAction) {
             case ActionType.BLOCK_PLACEMENT:
-                if(action instanceof String){
-                    final Direction dir = "←".equals(action) ? Direction.LEFT :
-                                    Direction.RIGHT;
+                if (action instanceof String) {
+                    final Direction dir = "←".equals(action) ? Direction.LEFT : Direction.RIGHT;
                     rotateBlock(dir);
-                } else if(action instanceof Coordinate){
-                    final Coordinate blockCoordinate = (Coordinate)action;
-                    if(ap.blockCanMove(blockCoordinate)){
-                        if(blockCoordinate.getColumn() == 0){
+                } else if (action instanceof Coordinate) {
+                    final Coordinate blockCoordinate = (Coordinate) action;
+                    if (ap.blockCanMove(blockCoordinate)) {
+                        if (blockCoordinate.getColumn() == 0) {
                             turn.nextAction();
                             lab.moveBlock(blockCoordinate, Direction.RIGHT);
-                        }else if(blockCoordinate.getColumn() == lab.getGrid().getSize()-1){
+                        } else if (blockCoordinate.getColumn() == lab.getGrid().getSize() - 1) {
                             turn.nextAction();
                             lab.moveBlock(blockCoordinate, Direction.LEFT);
-                        }else if(blockCoordinate.getRow() == 0){
+                        } else if (blockCoordinate.getRow() == 0) {
                             turn.nextAction();
                             lab.moveBlock(blockCoordinate, Direction.DOWN);
-                        }else if(blockCoordinate.getRow() == lab.getGrid().getSize()-1){
+                        } else if (blockCoordinate.getRow() == lab.getGrid().getSize() - 1) {
                             turn.nextAction();
                             lab.moveBlock(blockCoordinate, Direction.UP);
                         }
-                    } 
+                    }
                 }
                 break;
-        
+
             case ActionType.PLAYER_MOVEMENT:
-                if(action instanceof String){
-                    if("←".equals(action) || "→".equals(action) || "↑".equals(action) || "↓".equals(action)){
-                        final Direction dir = "←".equals(action) ? Direction.LEFT :
-                                        "→".equals(action) ? Direction.RIGHT :
-                                        "↑".equals(action) ? Direction.UP :
-                                        Direction.DOWN;
-                        if(ap.playerCanMove(turn.getCurrentPlayer(), dir)){
+                if (action instanceof String) {
+                    if ("←".equals(action) || "→".equals(action) || "↑".equals(action) || "↓".equals(action)) {
+                        final Direction dir = "←".equals(action) ? Direction.LEFT
+                                : "→".equals(action) ? Direction.RIGHT
+                                        : "↑".equals(action) ? Direction.UP : Direction.DOWN;
+                        if (ap.playerCanMove(turn.getCurrentPlayer(), dir)) {
                             lab.movePlayer(turn.getCurrentPlayer(), dir);
                         }
-                    }else if("End Turn".equals(action)){
+                    } else if ("End Turn".equals(action)) {
                         turn.nextAction();
                     }
                 }
                 break;
             case ActionType.ENEMY_MOVEMENT:
-                if(action instanceof Direction && turn.getEnemy().isPresent()){
-                    turn.getEnemy().get().move(turn.getPlayers());
-                    turn.nextAction();
+                if (action instanceof Direction) {
+                    if (turn.getEnemy().isPresent()) {
+                        turn.getEnemy().get().move(turn.getPlayers());
+                        turn.nextAction();
+                    }
                 }
             default:
                 break;
         }
     }
 
-    private void rotateBlock(final Direction dir){
+    private void rotateBlock(final Direction dir) {
         Rotation blockRotation = lab.getOutsideBlock().getRotation();
         switch (dir) {
             case Direction.RIGHT:
-                blockRotation = (blockRotation == Rotation.ZERO) ? Rotation.NINETY : 
-                                (blockRotation == Rotation.NINETY) ? Rotation.ONE_HUNDRED_EIGHTY :
-                                (blockRotation == Rotation.ONE_HUNDRED_EIGHTY) ? Rotation.TWO_HUNDRED_SEVENTY :
-                                Rotation.ZERO;
-                lab.rotateOutsideBlock(blockRotation);       
+                blockRotation = (blockRotation == Rotation.ZERO) ? Rotation.NINETY
+                        : (blockRotation == Rotation.NINETY) ? Rotation.ONE_HUNDRED_EIGHTY
+                                : (blockRotation == Rotation.ONE_HUNDRED_EIGHTY) ? Rotation.TWO_HUNDRED_SEVENTY
+                                        : Rotation.ZERO;
+                lab.rotateOutsideBlock(blockRotation);
                 break;
-        
+
             case Direction.LEFT:
-                blockRotation = (blockRotation == Rotation.ZERO) ? Rotation.TWO_HUNDRED_SEVENTY : 
-                                (blockRotation == Rotation.TWO_HUNDRED_SEVENTY) ? Rotation.ONE_HUNDRED_EIGHTY :
-                                (blockRotation == Rotation.ONE_HUNDRED_EIGHTY) ? Rotation.NINETY :
-                                Rotation.ZERO;
+                blockRotation = (blockRotation == Rotation.ZERO) ? Rotation.TWO_HUNDRED_SEVENTY
+                        : (blockRotation == Rotation.TWO_HUNDRED_SEVENTY) ? Rotation.ONE_HUNDRED_EIGHTY
+                                : (blockRotation == Rotation.ONE_HUNDRED_EIGHTY) ? Rotation.NINETY : Rotation.ZERO;
                 lab.rotateOutsideBlock(blockRotation);
                 break;
             default:

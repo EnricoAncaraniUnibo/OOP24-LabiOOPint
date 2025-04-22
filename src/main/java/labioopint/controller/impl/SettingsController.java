@@ -1,6 +1,7 @@
-package labioopint.controller;
+package labioopint.controller.impl;
 
-import labioopint.logic.SettingsLogic;
+import labioopint.model.api.Settings;
+import labioopint.model.logic.SettingsLogic;
 
 public class SettingsController {
 

@@ -1,8 +1,9 @@
 package labioopint.view;
 
-import labioopint.controller.MainMenuController;
-
 import javax.swing.*;
+
+import labioopint.controller.impl.MainMenuController;
+
 import java.awt.*;
 
 public class MainMenu extends JFrame {

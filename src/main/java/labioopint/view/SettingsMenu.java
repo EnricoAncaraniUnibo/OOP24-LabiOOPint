@@ -2,7 +2,8 @@ package labioopint.view;
 
 import javax.swing.*;
 
-import labioopint.controller.SettingsController;
+import labioopint.controller.impl.SettingsController;
+
 import java.awt.*;
 
 public class SettingsMenu extends JFrame {
@@ -15,7 +16,7 @@ public class SettingsMenu extends JFrame {
         JComboBox<String> difficultyComboBox = new JComboBox<>(new String[]{"EASY", "MEDIUM", "HARD"});
         JSpinner playersSpinner = new JSpinner(new SpinnerNumberModel(1, 1, 4, 1));
         JSpinner powerUpSpinner = new JSpinner(new SpinnerNumberModel(0, 0, 10, 1));
-        JSpinner enemySpinner = new JSpinner(new SpinnerNumberModel(0, 0, 1, 1))
+        JSpinner enemySpinner = new JSpinner(new SpinnerNumberModel(0, 0, 1, 1));
 
         JButton saveButton = new JButton("Save");
         saveButton.addActionListener(e -> controller.saveSettings(
