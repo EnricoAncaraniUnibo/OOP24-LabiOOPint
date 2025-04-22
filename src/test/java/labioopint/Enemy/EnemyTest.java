@@ -17,6 +17,7 @@ import labioopint.model.Enemy.api.Enemy;
 import labioopint.model.Enemy.api.EnemyDifficulty;
 import labioopint.model.Maze.api.Direction;
 import labioopint.model.Player.impl.PlayerImpl;
+import labioopint.model.PowerUp.api.PowerUp;
 import labioopint.model.api.Coordinate;
 import labioopint.model.api.Settings;
 
@@ -29,34 +30,25 @@ public class EnemyTest {
         assertNotNull(easy);
         Coordinate initialPosition = tm_easy.getLab().getEnemyCoordinate(easy);
         Coordinate newCoordinate = tm_easy.getLab().getEnemyCoordinate(easy);
-        while(initialPosition == newCoordinate) {
-            initialPosition = tm_easy.getLab().getEnemyCoordinate(easy);
-            assertEquals(initialPosition, newCoordinate);
-            tm_easy.nextAction();
-            tm_easy.nextAction();
-            tm_easy.nextAction();
-            newCoordinate = tm_easy.getLab().getEnemyCoordinate(easy);
-            tm_easy.getLab().moveBlock(new Coordinate(initialPosition.getRow()+1, 0), Direction.RIGHT);
-            tm_easy.nextAction();
-            tm_easy.nextAction();
-            tm_easy.nextAction();
-            newCoordinate = tm_easy.getLab().getEnemyCoordinate(easy);
-            tm_easy.getLab().moveBlock(new Coordinate(initialPosition.getRow()-1, 0), Direction.RIGHT);
-            tm_easy.nextAction();
-            tm_easy.nextAction();
-            tm_easy.nextAction();
-            newCoordinate = tm_easy.getLab().getEnemyCoordinate(easy);
-            tm_easy.getLab().moveBlock(new Coordinate(0, initialPosition.getColumn()-1), Direction.DOWN);
-            tm_easy.nextAction();
-            tm_easy.nextAction();
-            tm_easy.nextAction();
-            newCoordinate = tm_easy.getLab().getEnemyCoordinate(easy);
-            tm_easy.getLab().moveBlock(new Coordinate(0, initialPosition.getColumn()+1), Direction.DOWN);
-            tm_easy.nextAction();
-            tm_easy.nextAction();
-            tm_easy.nextAction();
-            newCoordinate = tm_easy.getLab().getEnemyCoordinate(easy);
-        }
+        BlockImpl b = new BlockImpl(BlockType.CORNER);
+        b.setRotation(Rotation.ZERO);
+        tm_easy.getLab().setBlock(b, new Coordinate(2,3));
+        tm_easy.getLab().setBlock(b, new Coordinate(2,2));
+        tm_easy.getLab().setBlock(b, new Coordinate(3,2));
+        assertEquals(initialPosition, newCoordinate);
+        tm_easy.nextAction();
+        tm_easy.nextAction();
+        tm_easy.nextAction();
+        newCoordinate = tm_easy.getLab().getEnemyCoordinate(easy);
+        assertEquals(initialPosition, newCoordinate);
+        BlockImpl b1 = new BlockImpl(BlockType.CORRIDOR);
+        b1.setRotation(Rotation.ZERO);
+        tm_easy.getLab().setBlock(b1, new Coordinate(2,2));
+        tm_easy.getLab().setBlock(b1, new Coordinate(1,2));
+        tm_easy.nextAction();
+        tm_easy.nextAction();
+        tm_easy.nextAction();
+        newCoordinate = tm_easy.getLab().getEnemyCoordinate(easy);
         assertNotEquals(initialPosition, newCoordinate);
     }
 
@@ -67,34 +59,25 @@ public class EnemyTest {
         assertNotNull(medium);
         Coordinate initialPosition = tm_medium.getLab().getEnemyCoordinate(medium);
         Coordinate newCoordinate = tm_medium.getLab().getEnemyCoordinate(medium);
-        while(initialPosition == newCoordinate) {
-            initialPosition = tm_medium.getLab().getEnemyCoordinate(medium);
-            assertEquals(initialPosition, newCoordinate);
-            tm_medium.nextAction();
-            tm_medium.nextAction();
-            tm_medium.nextAction();
-            newCoordinate = tm_medium.getLab().getEnemyCoordinate(medium);
-            tm_medium.getLab().moveBlock(new Coordinate(initialPosition.getRow()+1, 0), Direction.RIGHT);
-            tm_medium.nextAction();
-            tm_medium.nextAction();
-            tm_medium.nextAction();
-            newCoordinate = tm_medium.getLab().getEnemyCoordinate(medium);
-            tm_medium.getLab().moveBlock(new Coordinate(initialPosition.getRow()-1, 0), Direction.RIGHT);
-            tm_medium.nextAction();
-            tm_medium.nextAction();
-            tm_medium.nextAction();
-            newCoordinate = tm_medium.getLab().getEnemyCoordinate(medium);
-            tm_medium.getLab().moveBlock(new Coordinate(0, initialPosition.getColumn()-1), Direction.DOWN);
-            tm_medium.nextAction();
-            tm_medium.nextAction();
-            tm_medium.nextAction();
-            newCoordinate = tm_medium.getLab().getEnemyCoordinate(medium);
-            tm_medium.getLab().moveBlock(new Coordinate(0, initialPosition.getColumn()+1), Direction.DOWN);
-            tm_medium.nextAction();
-            tm_medium.nextAction();
-            tm_medium.nextAction();
-            newCoordinate = tm_medium.getLab().getEnemyCoordinate(medium);
-        }
+        BlockImpl b = new BlockImpl(BlockType.CORNER);
+        b.setRotation(Rotation.ZERO);
+        tm_medium.getLab().setBlock(b, new Coordinate(2,3));
+        tm_medium.getLab().setBlock(b, new Coordinate(2,2));
+        tm_medium.getLab().setBlock(b, new Coordinate(3,2));
+        assertEquals(initialPosition, newCoordinate);
+        tm_medium.nextAction();
+        tm_medium.nextAction();
+        tm_medium.nextAction();
+        newCoordinate = tm_medium.getLab().getEnemyCoordinate(medium);
+        assertEquals(initialPosition, newCoordinate);
+        BlockImpl b1 = new BlockImpl(BlockType.CORRIDOR);
+        b1.setRotation(Rotation.ZERO);
+        tm_medium.getLab().setBlock(b1, new Coordinate(2,2));
+        tm_medium.getLab().setBlock(b1, new Coordinate(1,2));
+        tm_medium.nextAction();
+        tm_medium.nextAction();
+        tm_medium.nextAction();
+        newCoordinate = tm_medium.getLab().getEnemyCoordinate(medium);
         assertNotEquals(initialPosition, newCoordinate);
     }
 
@@ -132,6 +115,23 @@ public class EnemyTest {
 
     @Test
     void TestPlayerHit() {
-
+        TurnManager tm = new TurnManager(new Settings(1, 2, 3, EnemyDifficulty.HARD));
+        List<PlayerImpl> players = tm.getPlayers();
+        List<PowerUp> lPowerUps = tm.getPowerUps();
+        BlockImpl b = new BlockImpl(BlockType.CORRIDOR);
+        b.setRotation(Rotation.ZERO);
+        tm.getLab().setBlock(b, new Coordinate(0, 2));
+        tm.getLab().setBlock(b, new Coordinate(1, 2));
+        tm.getLab().setBlock(b, new Coordinate(2, 2));
+        tm.getLab().PlayerUpdateCoordinate(players.get(0), new Coordinate(0, 2));
+        tm.getLab().PowerUpUpdateCoordinate(lPowerUps.get(0), new Coordinate(1,2));
+        tm.getLab().movePlayer(players.get(0), Direction.DOWN);
+        assertEquals(players.get(0).getObjetives().size(), 1);
+        assertEquals(tm.getLab().getListOfPowerUps().size(), lPowerUps.size()-1);
+        tm.nextAction();
+        tm.nextAction();
+        tm.nextAction();
+        assertEquals(players.get(0).getObjetives().size(), 0);
+        assertEquals(tm.getLab().getListOfPowerUps().size(), lPowerUps.size());
     }
 }
