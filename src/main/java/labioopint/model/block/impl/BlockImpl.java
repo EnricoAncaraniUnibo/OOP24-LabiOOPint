@@ -8,7 +8,7 @@ import labioopint.model.block.api.BlockType;
 import labioopint.model.block.api.Rotation;
 
 public class BlockImpl extends Movable implements Block {
-    private BlockType type;
+    private final BlockType type;
     private Rotation rotation;
 
     public BlockImpl(final BlockType ty) {
@@ -28,9 +28,9 @@ public class BlockImpl extends Movable implements Block {
     }
 
     @Override
-    public void RandomRotation() {
-        Random r = new Random();
-        Integer value = r.nextInt(0, 4);
+    public void randomRotation() {
+        final Random r = new Random();
+        final Integer value = r.nextInt(0, 4);
         switch (value) {
             case 0:
                 rotation = Rotation.ZERO;
@@ -44,11 +44,13 @@ public class BlockImpl extends Movable implements Block {
             case 3:
                 rotation = Rotation.TWO_HUNDRED_SEVENTY;
                 break;
+            default:
+                break;
         }
     }
 
     @Override
-    public void setRotation(Rotation blockRotation) {
+    public void setRotation(final Rotation blockRotation) {
         rotation = blockRotation;
     }
 }

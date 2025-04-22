@@ -42,7 +42,7 @@ public class PlayerTest {
 		tu = new TurnManager(new Settings(0,2,0,EnemyDifficulty.EASY));
 		p = new PlayerImpl("Archer",tu);
     	LabyrinthImpl lab = new LabyrinthImpl(5,tu);
-    	lab.PlayerUpdateCoordinate(tu.getCurrentPlayer(), new Coordinate(0,0));
+    	lab.playerUpdateCoordinate(tu.getCurrentPlayer(), new Coordinate(0,0));
     	lab.movePlayer(tu.getCurrentPlayer(), Direction.DOWN);
     	assertEquals(lab.getPlayerCoordinate(tu.getCurrentPlayer()).getRow(),1);
     	lab.movePlayer(tu.getCurrentPlayer(), Direction.RIGHT);

@@ -39,7 +39,7 @@ public final class MazeGeneratorImpl implements MazeGenerator {
                     BlockImpl b = selectableBlocks.get(r.nextInt(0, selectableBlocks.size()));
                     selectableBlocks.remove(b);
                     Coordinate c = new Coordinate(i, j);
-                    b.RandomRotation();
+                    b.randomRotation();
                     map.put(c, b);
                 }   
             }

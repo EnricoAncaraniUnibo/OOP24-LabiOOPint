@@ -31,11 +31,11 @@ public final class LabyrinthImpl implements Labyrinth {
     private DualMap<PlayerImpl> mapOfPlayers;
     private DualMap<Enemy> mapOfEnemy;
     private LabyrinthController labyController;
-    private TurnManager turn;
+    private final TurnManager turn;
     private Optional<Player> winner;
 
     @Override
-    public void Initialize() {
+    public void initialize() {
         labyController = new LabyrinthController(turn);
         mapOfPowerUps = new DualMap<>();
         mapOfPlayers = new DualMap<>();
@@ -51,19 +51,19 @@ public final class LabyrinthImpl implements Labyrinth {
      */
     public LabyrinthImpl(final Integer size, final TurnManager tu) {
         turn = tu;
-        this.Initialize();
+        this.initialize();
         grid = new SimpleMazeImpl(size);
-        outsideBlock = grid.Generate();
+        outsideBlock = grid.generate();
         this.start();
     }
 
     private void start() {
         CoordinateGenerator cg = new CoordinateGenerator(grid.getSize()); 
-        for (PowerUp pu : turn.getPowerUps()) {
+        for (final PowerUp pu : turn.getPowerUps()) {
             mapOfPowerUps.addElemWithCoordinate(pu, cg.getRandomCoordinate());
         }
         cg = new CoordinateGenerator(CoordinateGenerator.createBasicSpawnCoordinate(grid.getSize()));
-        for (PlayerImpl p : turn.getPlayers()) {
+        for (final PlayerImpl p : turn.getPlayers()) {
             mapOfPlayers.addElemWithCoordinate(p, cg.getRandomCoordinate());
         }
         if (turn.getEnemy().isPresent()) {
@@ -92,37 +92,35 @@ public final class LabyrinthImpl implements Labyrinth {
             case LEFT:
                 outsideBlock = shiftRow(c.getRow(), d);
                 break;
-            default:
-                break;
         }
         labyController.updateGraphics(grid, mapOfPlayers, mapOfEnemy, mapOfPowerUps, outsideBlock);
         return true;
     }
 
-    public void setBlock(BlockImpl b, Coordinate coor) {
-        grid.ChangeCoordinate(coor, b);
+    public void setBlock(final BlockImpl b, final Coordinate coor) {
+        grid.changeCoordinate(coor, b);
     }
 
     private BlockImpl shiftRow(final Integer number, final Direction d) {
         if (d.equals(Direction.RIGHT)) {
-            BlockImpl last = grid.GetBlock(new Coordinate(number, 0)).get();
+            BlockImpl last = grid.getBlock(new Coordinate(number, 0)).get();
             moveObjectBlock(new Coordinate(number, 0), d);
             BlockImpl saved;
-            grid.ChangeCoordinate(new Coordinate(number, 0), outsideBlock);
+            grid.changeCoordinate(new Coordinate(number, 0), outsideBlock);
             for (int i = 1; i < grid.getSize(); i++) {
-                saved = grid.GetBlock(new Coordinate(number, i)).get();
-                grid.ChangeCoordinate(new Coordinate(number, i), last);
+                saved = grid.getBlock(new Coordinate(number, i)).get();
+                grid.changeCoordinate(new Coordinate(number, i), last);
                 last = saved;
             }
             return last;
         } else {
-            BlockImpl last = grid.GetBlock(new Coordinate(number, grid.getSize() - 1)).get();
+            BlockImpl last = grid.getBlock(new Coordinate(number, grid.getSize() - 1)).get();
             moveObjectBlock(new Coordinate(number, grid.getSize() - 1), d);
             BlockImpl saved;
-            grid.ChangeCoordinate(new Coordinate(number, grid.getSize() - 1), outsideBlock);
+            grid.changeCoordinate(new Coordinate(number, grid.getSize() - 1), outsideBlock);
             for (int i = grid.getSize() - 2; i >= 0; i--) {
-                saved = grid.GetBlock(new Coordinate(number, i)).get();
-                grid.ChangeCoordinate(new Coordinate(number, i), last);
+                saved = grid.getBlock(new Coordinate(number, i)).get();
+                grid.changeCoordinate(new Coordinate(number, i), last);
                 last = saved;
             }
             return last;
@@ -131,24 +129,24 @@ public final class LabyrinthImpl implements Labyrinth {
 
     private BlockImpl shiftColumn(final Integer number, final Direction d) {
         if (d.equals(Direction.UP)) {
-            BlockImpl last = grid.GetBlock(new Coordinate(grid.getSize() - 1, number)).get();
+            BlockImpl last = grid.getBlock(new Coordinate(grid.getSize() - 1, number)).get();
             moveObjectBlock(new Coordinate(grid.getSize() - 1, number), d);
             BlockImpl saved;
-            grid.ChangeCoordinate(new Coordinate(grid.getSize() - 1, number), outsideBlock);
+            grid.changeCoordinate(new Coordinate(grid.getSize() - 1, number), outsideBlock);
             for (int i = grid.getSize() - 2; i >= 0; i--) {
-                saved = grid.GetBlock(new Coordinate(i, number)).get();
-                grid.ChangeCoordinate(new Coordinate(i, number), last);
+                saved = grid.getBlock(new Coordinate(i, number)).get();
+                grid.changeCoordinate(new Coordinate(i, number), last);
                 last = saved;
             }
             return last;
         } else {
-            BlockImpl last = grid.GetBlock(new Coordinate(0, number)).get();
+            BlockImpl last = grid.getBlock(new Coordinate(0, number)).get();
             moveObjectBlock(new Coordinate(0, number), d);
             BlockImpl saved;
-            grid.ChangeCoordinate(new Coordinate(0, number), outsideBlock);
+            grid.changeCoordinate(new Coordinate(0, number), outsideBlock);
             for (int i = 1; i < grid.getSize(); i++) {
-                saved = grid.GetBlock(new Coordinate(i, number)).get();
-                grid.ChangeCoordinate(new Coordinate(i, number), last);
+                saved = grid.getBlock(new Coordinate(i, number)).get();
+                grid.changeCoordinate(new Coordinate(i, number), last);
                 last = saved;
             }
             return last;
@@ -156,39 +154,33 @@ public final class LabyrinthImpl implements Labyrinth {
     }
 
     private void moveObjectBlock(final Coordinate c, final Direction d) {
-        List<PlayerImpl> lp = new ArrayList<>();
-        List<Enemy> le = new ArrayList<>();
-        List<PowerUp> lpu = new ArrayList<>();
+        final List<PlayerImpl> lp = new ArrayList<>();
+        final List<Enemy> le = new ArrayList<>();
+        final List<PowerUp> lpu = new ArrayList<>();
         Optional<PlayerImpl> p;
         Optional<Enemy> e;
         Optional<PowerUp> pu;
         Coordinate coor = new Coordinate(c);
         for (int j = 0; j < grid.getSize(); j++) {
             p = Optional.ofNullable(mapOfPlayers.getElemFromCoordinate(coor));
-            if (p.isPresent()) {
-                if (!lp.contains(p.get())) {
-                    lp.add(p.get());
-                    mapOfPlayers.remove(p.get());
-                    mapOfPlayers.addElemWithCoordinate(p.get(), calculateNewCoordinate(coor, d));
-                }
+            if (p.isPresent() && !lp.contains(p.get())) {
+                lp.add(p.get());
+                mapOfPlayers.remove(p.get());
+                mapOfPlayers.addElemWithCoordinate(p.get(), calculateNewCoordinate(coor, d));
             }
 
             e = Optional.ofNullable(mapOfEnemy.getElemFromCoordinate(coor));
-            if (e.isPresent()) {
-                if (!le.contains(e.get())) {
-                    le.add(e.get());
-                    mapOfEnemy.remove(e.get());
-                    mapOfEnemy.addElemWithCoordinate(e.get(), calculateNewCoordinate(coor, d));
-                }
+            if (e.isPresent() && !le.contains(e.get())) {
+                le.add(e.get());
+                mapOfEnemy.remove(e.get());
+                mapOfEnemy.addElemWithCoordinate(e.get(), calculateNewCoordinate(coor, d));
             }
 
             pu = Optional.ofNullable(mapOfPowerUps.getElemFromCoordinate(coor));
-            if (pu.isPresent()) {
-                if (!lpu.contains(pu.get())) {
-                    lpu.add(pu.get());
-                    mapOfPowerUps.remove(pu.get());
-                    mapOfPowerUps.addElemWithCoordinate(pu.get(), calculateNewCoordinate(coor, d));
-                }
+            if (pu.isPresent() && !lpu.contains(pu.get())) {
+                lpu.add(pu.get());
+                mapOfPowerUps.remove(pu.get());
+                mapOfPowerUps.addElemWithCoordinate(pu.get(), calculateNewCoordinate(coor, d));
             }
             coor = calculateNewCoordinate(coor, d);
         }
@@ -274,7 +266,7 @@ public final class LabyrinthImpl implements Labyrinth {
     }
 
     @Override
-    public void RotateOutsideBlock(final Rotation blockRotation) {
+    public void rotateOutsideBlock(final Rotation blockRotation) {
         outsideBlock.setRotation(blockRotation);
         labyController.updateGraphics(grid, mapOfPlayers, mapOfEnemy, mapOfPowerUps, outsideBlock);
     }
@@ -286,14 +278,14 @@ public final class LabyrinthImpl implements Labyrinth {
     }
 
     @Override
-    public void PlayerUpdateCoordinate(final Player p, final Coordinate coor) {
+    public void playerUpdateCoordinate(final Player p, final Coordinate coor) {
         mapOfPlayers.remove((PlayerImpl) p);
         mapOfPlayers.addElemWithCoordinate((PlayerImpl) p, coor);
         labyController.updateGraphics(grid, mapOfPlayers, mapOfEnemy, mapOfPowerUps, outsideBlock);
     }
 
     @Override
-    public void EnemyUpdateCoordinate(final Enemy e, final List<Coordinate> coor) {
+    public void enemyUpdateCoordinate(final Enemy e, final List<Coordinate> coor) {
         for (Coordinate coordinate : coor) {
             mapOfEnemy.remove(e);
             mapOfEnemy.addElemWithCoordinate(e, coordinate);
@@ -323,7 +315,7 @@ public final class LabyrinthImpl implements Labyrinth {
         return winner;
     }
     @Override
-    public void PowerUpUpdateCoordinate(PowerUp p, Coordinate coor) {
+    public void powerUpUpdateCoordinate(PowerUp p, Coordinate coor) {
         mapOfPowerUps.remove((PowerUp) p);
         mapOfPowerUps.addElemWithCoordinate((PowerUp) p, coor);
         labyController.updateGraphics(grid, mapOfPlayers, mapOfEnemy, mapOfPowerUps, outsideBlock);

@@ -19,7 +19,7 @@ public interface Labyrinth {
 	/**
      * Initializes the labyrinth attributes.
      */
-    void Initialize();
+    void initialize();
     /**
      * Retrieves the block currently outside the labyrinth.
      *
@@ -74,14 +74,14 @@ public interface Labyrinth {
      * @param p the player whose coordinate is to be updated
      * @param coor the new coordinate to assign to the object
      */
-    void PlayerUpdateCoordinate(Player p, Coordinate coor);
+    void playerUpdateCoordinate(Player p, Coordinate coor);
     /**
      * Updates the absolute coordinate of an enemy in the labyrinth.
      *
      * @param e the enemy whose coordinate is to be updated
      * @param coor the new coordinate to assign to the object
      */
-    void EnemyUpdateCoordinate(Enemy e, List<Coordinate> coor);
+    void enemyUpdateCoordinate(Enemy e, List<Coordinate> coor);
     /**
      * Retrieves the grid representation of the labyrinth.
      *
@@ -93,7 +93,7 @@ public interface Labyrinth {
      *
      * @param blockRotation the new rotation to apply to the outside block
      */
-    void RotateOutsideBlock(Rotation blockRotation);
+    void rotateOutsideBlock(Rotation blockRotation);
     /**
      * Adds a power-up to the labyrinth.
      *
@@ -101,6 +101,6 @@ public interface Labyrinth {
      */
     void addPowerUp(PowerUp p);
 
-    void PowerUpUpdateCoordinate(PowerUp p, Coordinate coor);
+    void powerUpUpdateCoordinate(PowerUp p, Coordinate coor);
 
 }

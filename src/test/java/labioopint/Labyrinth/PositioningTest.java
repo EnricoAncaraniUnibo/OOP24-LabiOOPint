@@ -90,7 +90,7 @@ public class PositioningTest {
 		Enemy e = tu.getEnemy().get();
 		
 		Coordinate old = lab.getPlayerCoordinate(ls.get(0));
-		lab.PlayerUpdateCoordinate(ls.get(0), new Coordinate(3,3));
+		lab.playerUpdateCoordinate(ls.get(0), new Coordinate(3,3));
 		boolean oldRemoved=true;
 		if(lab.getPlayerCoordinate(ls.get(0)).getRow()==old.getRow() && lab.getPlayerCoordinate(ls.get(0)).getColumn()==old.getColumn()) {
 			oldRemoved=false;
@@ -106,7 +106,7 @@ public class PositioningTest {
 		old = lab.getEnemyCoordinate(e);
 		List<Coordinate> lCoor = new ArrayList<>();
 		lCoor.add(new Coordinate(Math.abs(old.getRow()-1),Math.abs(old.getColumn()-1)));
-		lab.EnemyUpdateCoordinate(e, lCoor);
+		lab.enemyUpdateCoordinate(e, lCoor);
 		oldRemoved=true;
 		if(lab.getEnemyCoordinate(e).getRow()==old.getRow() && lab.getEnemyCoordinate(e).getColumn()==old.getColumn()) {
 			oldRemoved=false;

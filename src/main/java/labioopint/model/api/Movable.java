@@ -5,13 +5,13 @@ package labioopint.model.api;
  * for movement. It provides methods to check and modify its movable state.
  */
 public class Movable {
-    private boolean movable;
+    private boolean move;
 
     /**
      * Constructs a new Movable object with the default state set to movable.
      */
     public Movable() {
-        movable = true;
+        move = true;
     }
 
     /**
@@ -19,19 +19,19 @@ public class Movable {
      *
      * @return true if the object is movable, false otherwise
      */
-    public final boolean isMovable() {
-        return movable;
+    public final boolean isMove() {
+        return move;
     }
 
     public void enable() {
-        movable = true;
+        move = true;
     }
 
     /**
      * Disables movement for the object by setting its state to not movable.
      */
     public void disable() {
-        movable = false;
+        move = false;
     }
 }
 

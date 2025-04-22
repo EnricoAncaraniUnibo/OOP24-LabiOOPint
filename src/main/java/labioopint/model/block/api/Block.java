@@ -19,7 +19,7 @@ public interface Block {
     /**
      * Applies a random rotation to the block.
      */
-    void RandomRotation();
+    void randomRotation();
     /**
      * Sets the rotation of the block to the specified value.
      *

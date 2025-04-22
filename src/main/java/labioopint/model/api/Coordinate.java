@@ -5,8 +5,8 @@ package labioopint.model.api;
  * with row and column values.
  */
 public class Coordinate {
-    private Integer row;
-    private Integer column;
+    private final Integer row;
+    private final Integer column;
 
     /**
      * Constructs a new Coordinate by copying the values from another Coordinate.
@@ -84,7 +84,7 @@ public class Coordinate {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        Coordinate other = (Coordinate) obj;
+        final Coordinate other = (Coordinate) obj;
         if (row == null) {
             if (other.row != null) {
                 return false;
