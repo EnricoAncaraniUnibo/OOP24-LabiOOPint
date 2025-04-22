@@ -322,4 +322,10 @@ public final class LabyrinthImpl implements Labyrinth {
     public Optional<Player> getWinner() {
         return winner;
     }
+    @Override
+    public void PowerUpUpdateCoordinate(PowerUp p, Coordinate coor) {
+        mapOfPowerUps.remove((PowerUp) p);
+        mapOfPowerUps.addElemWithCoordinate((PowerUp) p, coor);
+        labyController.updateGraphics(grid, mapOfPlayers, mapOfEnemy, mapOfPowerUps, outsideBlock);
+    }
 }

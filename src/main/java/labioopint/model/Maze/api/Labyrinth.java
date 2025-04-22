@@ -101,4 +101,6 @@ public interface Labyrinth {
      */
     void addPowerUp(PowerUp p);
 
+    void PowerUpUpdateCoordinate(PowerUp p, Coordinate coor);
+
 }
