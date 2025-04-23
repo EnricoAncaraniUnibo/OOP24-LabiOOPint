@@ -160,6 +160,7 @@ public class GameView extends JFrame {
                 for (final String option : options) {
                     comboBox.addItem(option);
                 }
+                updateScoreLabel();
                 endTurnButton.setVisible(false);
                 upButton.setVisible(false);
                 downButton.setVisible(false);
