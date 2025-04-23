@@ -1,7 +1,6 @@
 package labioopint.controller.impl;
 
 import labioopint.model.api.Settings;
-import labioopint.model.logic.SettingsLogic;
 
 public class SettingsController {
 

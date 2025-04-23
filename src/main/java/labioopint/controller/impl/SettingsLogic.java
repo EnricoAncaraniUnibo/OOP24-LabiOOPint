@@ -1,4 +1,4 @@
-package labioopint.model.logic;
+package labioopint.controller.impl;
 
 import labioopint.model.api.Settings;
 import labioopint.model.enemy.api.EnemyDifficulty;

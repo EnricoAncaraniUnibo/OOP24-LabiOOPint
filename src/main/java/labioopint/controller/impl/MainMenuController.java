@@ -1,7 +1,5 @@
 package labioopint.controller.impl;
 
-import labioopint.model.logic.MainMenuLogic;
-
 public class MainMenuController {
 
     private final MainMenuLogic logic;
