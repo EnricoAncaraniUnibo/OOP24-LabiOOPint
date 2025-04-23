@@ -124,11 +124,6 @@ public class GameView extends JFrame {
         comboBox = new JComboBox<>(lgv.getPowerUps());
         controlPanel.add(comboBox);
 
-        // Aggiunta un ActionListener alla ComboBox per gestire l'evento di selezione
-        // comboBox.addActionListener(
-        // e -> JOptionPane.showMessageDialog(this, "Hai selezionato: " + (String)
-        // comboBox.getSelectedItem()));
-
         final JButton powerUpButton = new JButton("Use PowerUp");
         powerUpButton.setAlignmentX(CENTER_ALIGNMENT);
         controlPanel.add(powerUpButton);
