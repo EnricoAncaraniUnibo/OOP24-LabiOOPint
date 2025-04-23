@@ -63,11 +63,7 @@ public class EnemyImpl extends Movable implements Enemy {
             return enemyAI.getNextPosition(players, turn.getLab().getEnemyCoordinate(this));
         }
     }
-    /*
-     * Quando un player viene mangiato dal nemico, il player perde il primo PowerUp
-     * che è in coda. Se la lista fosse vuota allora il player sta fermo un turno.
-     */
-
+    
     /**
      * Handles the interaction when the enemy hits a player. If a player is at the
      * same position as the enemy, the player loses their first objective. If the
@@ -80,7 +76,12 @@ public class EnemyImpl extends Movable implements Enemy {
         final LabyrinthImpl maze = turn.getLab();
         for (final PlayerImpl player : players) {
             if (maze.getEnemyCoordinate(this).equals(maze.getPlayerCoordinate(player))) {
-                player.removeObjective();
+                if (!player.getInvincibilityStatus()) {
+                    player.removeObjective();
+                } else {
+                    player.disableInvincible();
+                }
+
             }
         }
     }
