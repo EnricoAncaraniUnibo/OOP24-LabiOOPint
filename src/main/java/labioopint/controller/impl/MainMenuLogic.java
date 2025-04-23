@@ -9,10 +9,6 @@ public class MainMenuLogic {
 
     private Settings settings;
 
-    public MainMenuLogic(Settings settings) {
-        this.settings = settings;
-    }
-
     public void startGame() {
         if (this.settings == null) {
             new TurnManager(new Settings(1,4,6,EnemyDifficulty.MEDIUM));
