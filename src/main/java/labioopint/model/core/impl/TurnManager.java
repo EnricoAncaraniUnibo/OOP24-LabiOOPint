@@ -40,6 +40,7 @@ public class TurnManager {
         enemy = bi.createEnemy();
         powerUps = bi.createPowerUps();
         maze = bi.createMaze();
+        indexNext = Optional.empty();
     }
 
     /**
