@@ -63,7 +63,7 @@ public class EnemyImpl extends Movable implements Enemy {
             return enemyAI.getNextPosition(players, turn.getLab().getEnemyCoordinate(this));
         }
     }
-    
+
     /**
      * Handles the interaction when the enemy hits a player. If a player is at the
      * same position as the enemy, the player loses their first objective. If the

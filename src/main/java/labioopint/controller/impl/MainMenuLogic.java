@@ -1,6 +1,5 @@
-package labioopint.model.logic;
+package labioopint.controller.impl;
 
-import labioopint.controller.impl.SettingsController;
 import labioopint.model.api.Settings;
 import labioopint.model.core.impl.TurnManager;
 import labioopint.model.enemy.api.EnemyDifficulty;
