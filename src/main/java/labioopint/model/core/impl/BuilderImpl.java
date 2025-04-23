@@ -59,7 +59,7 @@ public class BuilderImpl {
     public LabyrinthImpl createMaze() {
         if (numberPlayer == 2) {
             return new LabyrinthImpl(SMALL_LABYRINTH, turn);
-        } else if (numberPlayer == 4) {
+        } else if (numberPlayer == 4 || numberPlayer == 3) {
             return new LabyrinthImpl(BIG_LABYRINTH, turn);
         } else {
             throw new IllegalArgumentException();

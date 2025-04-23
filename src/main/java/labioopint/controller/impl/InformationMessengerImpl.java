@@ -7,6 +7,7 @@ import java.util.Optional;
 import labioopint.controller.api.InformationMessenger;
 import labioopint.model.api.ActionType;
 import labioopint.model.core.impl.TurnManager;
+import labioopint.model.player.api.Player;
 import labioopint.model.powerup.api.PowerUp;
 
 /**
@@ -81,5 +82,13 @@ public class InformationMessengerImpl implements InformationMessenger {
             return Optional.of("Ha vinto: " + turn.getLab().getWinner().get().getID());
         }
         return Optional.empty();
+    }
+
+    public String getNamesScores() {
+        StringBuilder sb = new StringBuilder();
+        for (Player p : turn.getPlayers()) {
+            sb.append(p.getID()).append(": ").append(p.getObjetives().size());
+        }
+        return sb.toString();
     }
 }
