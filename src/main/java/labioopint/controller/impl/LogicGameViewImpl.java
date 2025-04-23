@@ -135,4 +135,9 @@ public class LogicGameViewImpl implements LogicGameView {
     public void close() {
         System.exit(0);
     }
+
+    @Override
+    public String getScores() {
+        return ifm.getNamesScores().replace("\n", "<br>");
+    }
 }

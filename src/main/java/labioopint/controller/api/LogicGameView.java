@@ -72,4 +72,6 @@ public interface LogicGameView {
      */
     void close();
 
+    String getScores();
+
 }
