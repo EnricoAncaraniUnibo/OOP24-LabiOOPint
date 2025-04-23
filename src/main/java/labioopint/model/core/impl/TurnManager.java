@@ -24,6 +24,7 @@ public class TurnManager {
     private final List<PowerUp> powerUps;
     private ActionType currentAction;
     private int index;
+    private Optional<Integer> indexNext;
 
     /**
      * Constructs a TurnManager with the given settings.
@@ -39,6 +40,13 @@ public class TurnManager {
         enemy = bi.createEnemy();
         powerUps = bi.createPowerUps();
         maze = bi.createMaze();
+    }
+
+    /**
+     * Sets the next player to take their turn.
+     */
+    public void setNextTurnPlayer() {
+        indexNext = Optional.of(index);
     }
 
     /**
@@ -96,13 +104,19 @@ public class TurnManager {
     }
 
     /**
-     * Advances the game to the next action or turn.
+     * Advances the game to the next action or turn. This method handles the
+     * transition between different phases of the game, such as block placement,
+     * player movement, and enemy movement.
      */
     public void nextAction() {
         if (currentAction == ActionType.BLOCK_PLACEMENT) {
             currentAction = ActionType.PLAYER_MOVEMENT;
         } else if (currentAction == ActionType.PLAYER_MOVEMENT) {
             index = (index + 1) % players.size();
+            if (indexNext.isPresent()) {
+                index = indexNext.get();
+                indexNext = Optional.empty();
+            }
             if (enemy.isPresent()) {
                 if (enemy.get().getEnemyAI() instanceof SingleStepRandomAI) {
                     maze.enemyUpdateCoordinate(enemy.get(), enemy.get().move(players));
