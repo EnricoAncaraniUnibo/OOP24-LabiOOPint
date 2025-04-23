@@ -7,6 +7,7 @@ import labioopint.model.api.Movable;
 import labioopint.model.core.impl.TurnManager;
 import labioopint.model.player.api.Player;
 import labioopint.model.powerup.api.PowerUp;
+
 /**
  * The PlayerImpl class implements the Player interface and represents a player
  * in the game. It manages the player's ID, objectives, usable power-ups, and
@@ -17,6 +18,8 @@ public final class PlayerImpl extends Movable implements Player {
     private final List<PowerUp> objectives;
     private final List<PowerUp> usablePowerUps;
     private final TurnManager turn;
+    private boolean invicible;
+
     /**
      * Constructs a PlayerImpl with the specified ID and TurnManager.
      *
@@ -28,6 +31,19 @@ public final class PlayerImpl extends Movable implements Player {
         objectives = new ArrayList<>();
         usablePowerUps = new ArrayList<>();
         turn = tu;
+        invicible = false;
+    }
+
+    public void enableInvincible() {
+        invicible = true;
+    }
+
+    public void disableInvincible() {
+        invicible = false;
+    }
+
+    public boolean getInvincibilityStatus() {
+        return invicible;
     }
 
     @Override
