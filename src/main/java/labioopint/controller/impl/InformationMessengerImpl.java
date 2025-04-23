@@ -87,7 +87,7 @@ public class InformationMessengerImpl implements InformationMessenger {
     public String getNamesScores() {
         StringBuilder sb = new StringBuilder();
         for (Player p : turn.getPlayers()) {
-            sb.append(p.getID()).append(": ").append(p.getObjetives().size());
+            sb.append(p.getID()).append(": ").append(p.getObjetives().size()).append("\n");
         }
         return sb.toString();
     }
