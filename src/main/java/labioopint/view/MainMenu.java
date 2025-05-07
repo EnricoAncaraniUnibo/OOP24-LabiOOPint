@@ -21,7 +21,10 @@ public class MainMenu extends JFrame {
         buttonPanel.setLayout(new GridLayout(4, 1, 10, 10));
 
         JButton startGameButton = new JButton("Start Game");
-        startGameButton.addActionListener(e -> controller.startGame());
+        startGameButton.addActionListener(e -> {
+            controller.startGame();
+            this.setVisible(false);
+        });
         buttonPanel.add(startGameButton);
 
         JButton loadGameButton = new JButton("Load Game");
