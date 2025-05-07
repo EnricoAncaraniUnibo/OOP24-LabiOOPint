@@ -94,15 +94,15 @@ public class BuilderImpl {
      * @return an {@link Optional} containing the created {@link Enemy}, or empty if
      *         no enemy is created
      */
-    public Optional<Enemy> createEnemy() {
+    public Enemy createEnemy() {
         if (type == EnemyDifficulty.EASY) {
-            return Optional.of(enemyFactory.createSingleStepEnemy(turn));
+            return enemyFactory.createSingleStepEnemy(turn);
         } else if (type == EnemyDifficulty.MEDIUM) {
-            return Optional.of(enemyFactory.createRandomEnemy(turn));
+            return enemyFactory.createRandomEnemy(turn);
         } else if (type == EnemyDifficulty.HARD) {
-            return Optional.of(enemyFactory.createChaseEnemy(turn));
+            return enemyFactory.createChaseEnemy(turn);
         } else {
-            return Optional.empty();
+            throw new IllegalArgumentException("Enemy Difficulty not properly selected");
         }
     }
 

@@ -8,7 +8,7 @@ import labioopint.model.powerup.api.PowerUp;
  * within the game. It provides methods for managing objectives, power-ups,
  * and player identification.
  */
-public interface Player {
+public interface Player{
 /**
     * Adds a power-up to the player's list of objectives.
     *

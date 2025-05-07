@@ -1,5 +1,6 @@
 package labioopint.model.player.impl;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import labioopint.model.powerup.api.PowerUp;
  * in the game. It manages the player's ID, objectives, usable power-ups, and
  * interactions with the TurnManager.
  */
-public final class PlayerImpl extends Movable implements Player {
+public final class PlayerImpl extends Movable implements Player,Serializable {
     private final String id;
     private final List<PowerUp> objectives;
     private final List<PowerUp> usablePowerUps;

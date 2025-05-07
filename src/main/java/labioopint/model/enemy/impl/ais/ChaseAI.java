@@ -1,5 +1,6 @@
 package labioopint.model.enemy.impl.ais;
 
+import java.io.Serializable;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,7 +27,7 @@ import labioopint.controller.impl.ActionPredicateImpl;
  * Implementation of the {@link EnemyAI} interface that allows an enemy to chase
  * players in the labyrinth using pathfinding.
  */
-public class ChaseAI implements EnemyAI {
+public class ChaseAI implements EnemyAI,Serializable {
 
     private ActionPredicate ap;
     private final TurnManager turn;

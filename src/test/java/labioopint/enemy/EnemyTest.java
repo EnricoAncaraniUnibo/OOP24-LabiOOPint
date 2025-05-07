@@ -26,7 +26,7 @@ class EnemyTest {
     @Test
     void testEasyEnemyMovement() {
         final TurnManager tmEasy = new TurnManager(new Settings(1, 2, 3, EnemyDifficulty.EASY));
-        final Enemy easy = tmEasy.getEnemy().get();
+        final Enemy easy = tmEasy.getEnemy().getSecond();
         assertNotNull(easy);
         final Coordinate initialPosition = tmEasy.getLab().getEnemyCoordinate(easy);
         Coordinate newCoordinate = tmEasy.getLab().getEnemyCoordinate(easy);
@@ -53,7 +53,7 @@ class EnemyTest {
     @Test
     void testMediumEnemyMovement() {
         final TurnManager tmMedium = new TurnManager(new Settings(1, 2, 3, EnemyDifficulty.MEDIUM));
-        final Enemy medium = tmMedium.getEnemy().get();
+        final Enemy medium = tmMedium.getEnemy().getSecond();
         assertNotNull(medium);
         final Coordinate initialPosition = tmMedium.getLab().getEnemyCoordinate(medium);
         Coordinate newCoordinate = tmMedium.getLab().getEnemyCoordinate(medium);
@@ -82,7 +82,7 @@ class EnemyTest {
     @Test
     void testHardEnemyMovement() {
         final TurnManager tmHard = new TurnManager(new Settings(1, 2, 3, EnemyDifficulty.HARD));
-        final Enemy hard = tmHard.getEnemy().get();
+        final Enemy hard = tmHard.getEnemy().getSecond();
         final Coordinate initialPosition = tmHard.getLab().getEnemyCoordinate(hard);
         final List<PlayerImpl> players = tmHard.getPlayers();
         tmHard.getLab().playerUpdateCoordinate(players.get(0),

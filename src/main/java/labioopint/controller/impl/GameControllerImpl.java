@@ -12,8 +12,10 @@ import labioopint.model.maze.impl.LabyrinthImpl;
 public class GameControllerImpl implements GameController {
     private LabyrinthImpl lab;
     private final TurnManager turn;
+    private SaveControllerImpl saveController;
 
     public GameControllerImpl(final TurnManager tu) {
+        saveController = new SaveControllerImpl(tu);
         turn = tu;
     }
 
@@ -43,6 +45,7 @@ public class GameControllerImpl implements GameController {
                             turn.nextAction();
                             lab.moveBlock(blockCoordinate, Direction.UP);
                         }
+                        saveController.save();
                     }
                 }
                 break;
@@ -58,13 +61,15 @@ public class GameControllerImpl implements GameController {
                         }
                     } else if ("End Turn".equals(action)) {
                         turn.nextAction();
+                        saveController.save();
                     }
                 }
                 break;
             case ActionType.ENEMY_MOVEMENT:
-                if (action instanceof Direction && turn.getEnemy().isPresent()) {
-                    turn.getEnemy().get().move(turn.getPlayers());
+                if (action instanceof Direction && turn.getEnemy().getFirst() == Boolean.TRUE) {
+                    turn.getEnemy().getSecond().move(turn.getPlayers());
                     turn.nextAction();
+                    saveController.save();
                 }
             default:
                 break;

@@ -41,8 +41,8 @@ class BuilderImplTest {
     @Test
     void testCreateEnemy() {
         builder.createEnemy();
-        assertTrue(tm.getEnemy().isPresent());
-        final Enemy enemy = tm.getEnemy().get();
+        assertTrue(tm.getEnemy().getFirst() == Boolean.TRUE);
+        final Enemy enemy = tm.getEnemy().getSecond();
         assertNotNull(enemy);
     }
 

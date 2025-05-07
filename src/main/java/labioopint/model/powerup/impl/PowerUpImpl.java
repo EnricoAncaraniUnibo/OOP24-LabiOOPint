@@ -1,12 +1,13 @@
 package labioopint.model.powerup.impl;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import labioopint.model.player.impl.PlayerImpl;
 import labioopint.model.powerup.api.PowerUp;
 
-public abstract class PowerUpImpl implements PowerUp {
+public abstract class PowerUpImpl implements PowerUp,Serializable {
     private boolean collected;
     private List<PowerUp> collectedPowerUps;
     private String name;

@@ -1,5 +1,6 @@
 package labioopint.model.enemy.impl;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +21,7 @@ import labioopint.model.player.impl.PlayerImpl;
  * controlled
  * by an {@link EnemyAI}.
  */
-public class EnemyImpl extends Movable implements Enemy {
+public class EnemyImpl extends Movable implements Enemy,Serializable {
 
     private final EnemyAI enemyAI;
     private final TurnManager turn;

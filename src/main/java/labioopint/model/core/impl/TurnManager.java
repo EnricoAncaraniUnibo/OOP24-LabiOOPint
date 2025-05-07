@@ -1,9 +1,12 @@
 package labioopint.model.core.impl;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
+import labioopint.controller.api.SaveController;
 import labioopint.model.api.ActionType;
+import labioopint.model.api.Pair;
 import labioopint.model.api.Settings;
 import labioopint.model.enemy.api.Enemy;
 import labioopint.model.enemy.impl.ais.ChaseAI;
@@ -17,14 +20,16 @@ import labioopint.model.powerup.api.PowerUp;
  * Manages the turns and actions in the game, including players, enemies, and
  * power-ups.
  */
-public class TurnManager {
+public class TurnManager implements Serializable {
     private final LabyrinthImpl maze;
     private List<PlayerImpl> players;
-    private final Optional<Enemy> enemy;
+    //private final Optional<Enemy> enemy;
+    private Pair<Boolean,Enemy> enemy;
     private final List<PowerUp> powerUps;
     private ActionType currentAction;
     private int index;
-    private Optional<Integer> indexNext;
+    //private Optional<Integer> indexNext;
+    private SaveController saveController;
 
     /**
      * Constructs a TurnManager with the given settings.
@@ -37,17 +42,19 @@ public class TurnManager {
         final BuilderImpl bi = new BuilderImpl(st, this);
         players = bi.createPlayers();
         players = new RandomTurnChooser(players).randomOrder();
-        enemy = bi.createEnemy();
+        if(enemy.getFirst() == true){
+            enemy = new Pair<>(true, bi.createEnemy());
+        }
         powerUps = bi.createPowerUps();
         maze = bi.createMaze();
-        indexNext = Optional.empty();
+        //indexNext = Optional.empty();
     }
 
     /**
      * Sets the next player to take their turn.
      */
     public void setNextTurnPlayer() {
-        indexNext = Optional.of(index);
+        //indexNext = Optional.of(index);
     }
 
     /**
@@ -73,7 +80,7 @@ public class TurnManager {
      *
      * @return an Optional containing the enemy, or empty if no enemy exists
      */
-    public Optional<Enemy> getEnemy() {
+    public Pair<Boolean,Enemy> getEnemy() {
         return enemy;
     }
 
@@ -114,26 +121,28 @@ public class TurnManager {
             currentAction = ActionType.PLAYER_MOVEMENT;
         } else if (currentAction == ActionType.PLAYER_MOVEMENT) {
             index = (index + 1) % players.size();
-            if (indexNext.isPresent()) {
+            /*if (indexNext.isPresent()) {
                 index = indexNext.get();
                 indexNext = Optional.empty();
-            }
-            if (enemy.isPresent()) {
-                if (enemy.get().getEnemyAI() instanceof SingleStepRandomAI) {
-                    maze.enemyUpdateCoordinate(enemy.get(), enemy.get().move(players));
-                    enemy.get().playerHit(players);
+            }*/
+            if (enemy.getFirst() == Boolean.TRUE) {
+                if (enemy.getSecond().getEnemyAI() instanceof SingleStepRandomAI) {
+                    maze.enemyUpdateCoordinate(enemy.getSecond(), enemy.getSecond().move(players));
+                    enemy.getSecond().playerHit(players);
                 }
-                if (enemy.get().getEnemyAI() instanceof RandomAI) {
-                    maze.enemyUpdateCoordinate(enemy.get(), enemy.get().move(players));
-                    enemy.get().playerHit(players);
+                if (enemy.getSecond().getEnemyAI() instanceof RandomAI) {
+                    maze.enemyUpdateCoordinate(enemy.getSecond(), enemy.getSecond().move(players));
+                    enemy.getSecond().playerHit(players);
                 }
-                if (enemy.get().getEnemyAI() instanceof ChaseAI) {
-                    maze.enemyUpdateCoordinate(enemy.get(), enemy.get().move(players));
-                    enemy.get().playerHit(players);
+                if (enemy.getSecond().getEnemyAI() instanceof ChaseAI) {
+                    maze.enemyUpdateCoordinate(enemy.getSecond(), enemy.getSecond().move(players));
+                    enemy.getSecond().playerHit(players);
                 }
                 currentAction = ActionType.BLOCK_PLACEMENT;
+                saveController.save();
             } else {
                 currentAction = ActionType.BLOCK_PLACEMENT;
+                saveController.save();
             }
         } else if (currentAction == ActionType.ENEMY_MOVEMENT) {
             currentAction = ActionType.BLOCK_PLACEMENT;

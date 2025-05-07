@@ -43,7 +43,7 @@ class PositioningTest {
 		}
 		assertTrue(passed);
 		passed=true;
-		Coordinate c = lab.getEnemyCoordinate(tu.getEnemy().get());
+		Coordinate c = lab.getEnemyCoordinate(tu.getEnemy().getSecond());
 		if(Objects.isNull(c)) {
 			passed=false;
 		}
@@ -84,7 +84,7 @@ class PositioningTest {
 		final TurnManager tu = new TurnManager(new Settings(1,4,5,EnemyDifficulty.EASY));
 		final Labyrinth lab = new LabyrinthImpl(SIZE, tu);
 		final List<PlayerImpl> ls = tu.getPlayers();
-		final Enemy e = tu.getEnemy().get();
+		final Enemy e = tu.getEnemy().getSecond();
 		
 		Coordinate old = lab.getPlayerCoordinate(ls.get(0));
 		lab.playerUpdateCoordinate(ls.get(0), new Coordinate(3,3));

@@ -5,6 +5,7 @@ import java.util.Optional;
 import labioopint.controller.api.ActionPredicate;
 import labioopint.controller.api.DirectionCheck;
 import labioopint.model.api.Coordinate;
+import labioopint.model.api.Pair;
 import labioopint.model.block.impl.BlockImpl;
 import labioopint.model.core.impl.TurnManager;
 import labioopint.model.enemy.api.Enemy;
@@ -16,7 +17,7 @@ public class ActionPredicateImpl implements ActionPredicate {
     private final LabyrinthImpl lab;
     private final Integer mazeSize;
     private final DirectionCheck dc;
-    private final Optional<Enemy> e;
+    private final Pair<Boolean,Enemy> e;
 
     public ActionPredicateImpl(final TurnManager tu) {
         lab = tu.getLab();
@@ -103,7 +104,7 @@ public class ActionPredicateImpl implements ActionPredicate {
 
     @Override
     public boolean enemyCanMove(final Direction dir) {
-        final Coordinate enemyCoordinate = new Coordinate(lab.getEnemyCoordinate(e.get()));
+        final Coordinate enemyCoordinate = new Coordinate(lab.getEnemyCoordinate(e.getSecond()));
         return canMoveFromPosition(enemyCoordinate, dir);
     }
 

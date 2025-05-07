@@ -1,5 +1,6 @@
 package labioopint.model.block.impl;
 
+import java.io.Serializable;
 import java.util.Random;
 
 import labioopint.model.api.Movable;
@@ -7,7 +8,7 @@ import labioopint.model.block.api.Block;
 import labioopint.model.block.api.BlockType;
 import labioopint.model.block.api.Rotation;
 
-public class BlockImpl extends Movable implements Block {
+public class BlockImpl extends Movable implements Block,Serializable {
     private final BlockType type;
     private Rotation rotation;
 
