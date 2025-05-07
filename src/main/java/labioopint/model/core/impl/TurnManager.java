@@ -2,9 +2,9 @@ package labioopint.model.core.impl;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Optional;
 
 import labioopint.controller.api.SaveController;
+import labioopint.controller.impl.SaveControllerImpl;
 import labioopint.model.api.ActionType;
 import labioopint.model.api.Pair;
 import labioopint.model.api.Settings;
@@ -29,7 +29,7 @@ public class TurnManager implements Serializable {
     private ActionType currentAction;
     private int index;
     //private Optional<Integer> indexNext;
-    private SaveController saveController;
+    private final SaveController saveController;
 
     /**
      * Constructs a TurnManager with the given settings.
@@ -37,11 +37,13 @@ public class TurnManager implements Serializable {
      * @param st the game settings used to initialize the game components
      */
     public TurnManager(final Settings st) {
+        saveController = new SaveControllerImpl(this);
         currentAction = ActionType.BLOCK_PLACEMENT;
         index = 0;
         final BuilderImpl bi = new BuilderImpl(st, this);
         players = bi.createPlayers();
         players = new RandomTurnChooser(players).randomOrder();
+        enemy = new Pair<Boolean,Enemy>(true, null);
         if(enemy.getFirst() == true){
             enemy = new Pair<>(true, bi.createEnemy());
         }

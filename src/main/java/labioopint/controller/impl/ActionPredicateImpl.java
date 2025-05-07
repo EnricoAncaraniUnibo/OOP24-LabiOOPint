@@ -1,6 +1,6 @@
 package labioopint.controller.impl;
 
-import java.util.Optional;
+import java.io.Serializable;
 
 import labioopint.controller.api.ActionPredicate;
 import labioopint.controller.api.DirectionCheck;
@@ -13,7 +13,7 @@ import labioopint.model.maze.api.Direction;
 import labioopint.model.maze.impl.LabyrinthImpl;
 import labioopint.model.player.impl.PlayerImpl;
 
-public class ActionPredicateImpl implements ActionPredicate {
+public class ActionPredicateImpl implements ActionPredicate,Serializable {
     private final LabyrinthImpl lab;
     private final Integer mazeSize;
     private final DirectionCheck dc;

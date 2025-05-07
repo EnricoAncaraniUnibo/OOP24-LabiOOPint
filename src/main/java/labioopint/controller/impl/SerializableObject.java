@@ -2,8 +2,8 @@ package labioopint.controller.impl;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Optional;
 
+import labioopint.model.api.Pair;
 import labioopint.model.block.impl.BlockImpl;
 import labioopint.model.core.impl.TurnManager;
 import labioopint.model.enemy.api.Enemy;
@@ -12,7 +12,7 @@ import labioopint.model.player.impl.PlayerImpl;
 public class SerializableObject implements Serializable{
     private TurnManager turnManager;
     private List<PlayerImpl> playersList;
-    private Optional<Enemy> enemy;
+    private Pair<Boolean,Enemy> enemy;
     private List<BlockImpl> labyrinthList;
 
     public SerializableObject(){

@@ -1,5 +1,6 @@
 package labioopint.controller.impl;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -17,7 +18,7 @@ import labioopint.model.powerup.api.PowerUp;
  * The informations provided by this class are transformed to permit the output
  * on the view.
  */
-public class InformationMessengerImpl implements InformationMessenger {
+public class InformationMessengerImpl implements InformationMessenger,Serializable {
     private final TurnManager turn;
 
      /**

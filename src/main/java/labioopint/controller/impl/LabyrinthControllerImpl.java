@@ -1,5 +1,7 @@
 package labioopint.controller.impl;
 
+import java.io.Serializable;
+
 import labioopint.controller.api.LabyrinthController;
 import labioopint.model.api.DualMap;
 import labioopint.model.block.impl.BlockImpl;
@@ -13,7 +15,7 @@ import labioopint.view.GameView;
  * The LabyrinthController class is responsible for managing the interaction between the game model
  * and the game view. It updates the graphical representation of the game state.
  */
-public class LabyrinthControllerImpl implements LabyrinthController {
+public class LabyrinthControllerImpl implements LabyrinthController,Serializable {
 
     private final GameView gtv;
     /**

@@ -2,6 +2,7 @@ package labioopint.controller.impl;
 
 import java.awt.Dimension;
 import java.awt.Image;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +21,7 @@ import labioopint.model.powerup.api.PowerUp;
  * The LogicDrawPanel class is responsible for managing the logic and data
  * required to draw the game panel, including blocks, players, enemies, and power-ups.
  */
-public class LogicDrawPanelImpl implements LogicDrawPanel {
+public class LogicDrawPanelImpl implements LogicDrawPanel,Serializable {
 
     private final TurnManager turn;
     private final Integer pixelSize;

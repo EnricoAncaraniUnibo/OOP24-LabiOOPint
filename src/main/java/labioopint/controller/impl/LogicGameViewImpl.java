@@ -1,5 +1,7 @@
 package labioopint.controller.impl;
 
+import java.io.Serializable;
+
 import labioopint.controller.api.GameController;
 import labioopint.controller.api.InformationMessenger;
 import labioopint.controller.api.LogicGameView;
@@ -14,7 +16,7 @@ import labioopint.model.powerup.api.PowerUp;
  * It provides methods to retrieve game state information and perform actions
  * based on user input.
  */
-public class LogicGameViewImpl implements LogicGameView {
+public class LogicGameViewImpl implements LogicGameView,Serializable {
 
     private final TurnManager turn;
     private final InformationMessenger ifm;

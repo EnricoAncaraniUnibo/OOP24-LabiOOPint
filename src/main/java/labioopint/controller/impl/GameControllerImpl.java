@@ -1,5 +1,7 @@
 package labioopint.controller.impl;
 
+import java.io.Serializable;
+
 import labioopint.controller.api.ActionPredicate;
 import labioopint.controller.api.GameController;
 import labioopint.model.api.ActionType;
@@ -9,7 +11,7 @@ import labioopint.model.core.impl.TurnManager;
 import labioopint.model.maze.api.Direction;
 import labioopint.model.maze.impl.LabyrinthImpl;
 
-public class GameControllerImpl implements GameController {
+public class GameControllerImpl implements GameController,Serializable {
     private LabyrinthImpl lab;
     private final TurnManager turn;
     private SaveControllerImpl saveController;

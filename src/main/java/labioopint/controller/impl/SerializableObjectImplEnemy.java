@@ -2,7 +2,6 @@ package labioopint.controller.impl;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Optional;
 
 import labioopint.controller.api.SerializableObject;
 import labioopint.model.block.impl.BlockImpl;

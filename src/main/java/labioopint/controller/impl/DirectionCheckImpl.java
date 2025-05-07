@@ -1,5 +1,7 @@
 package labioopint.controller.impl;
 
+import java.io.Serializable;
+
 import labioopint.controller.api.DirectionCheck;
 import labioopint.model.api.Coordinate;
 import labioopint.model.block.api.BlockType;
@@ -9,7 +11,7 @@ import labioopint.model.core.impl.TurnManager;
 import labioopint.model.maze.impl.LabyrinthImpl;
 import labioopint.model.maze.impl.MazeImpl;
 
-public class DirectionCheckImpl implements DirectionCheck {
+public class DirectionCheckImpl implements DirectionCheck,Serializable {
     private final LabyrinthImpl lab;
 
     public DirectionCheckImpl(final TurnManager tu) {
