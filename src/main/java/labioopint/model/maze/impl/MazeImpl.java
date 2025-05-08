@@ -1,5 +1,6 @@
 package labioopint.model.maze.impl;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +15,7 @@ import labioopint.model.maze.api.Maze;
  * It manages the maze grid, block selection, and size, and provides methods for
  * interacting with the maze's blocks and coordinates.
  */
-public abstract class MazeImpl implements Maze {
+public abstract class MazeImpl implements Maze,Serializable {
     private final Map<Coordinate, BlockImpl> grid;
     private final List<BlockImpl> blockSelection;
     private final Integer size;

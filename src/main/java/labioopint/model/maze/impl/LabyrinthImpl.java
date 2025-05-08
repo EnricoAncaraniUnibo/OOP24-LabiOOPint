@@ -331,4 +331,9 @@ public final class LabyrinthImpl implements Labyrinth,Serializable {
         mapOfPowerUps.addElemWithCoordinate(p, coor);
         labyController.updateGraphics(grid, mapOfPlayers, mapOfEnemy, mapOfPowerUps, outsideBlock);
     }
+    
+    public void startView() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'startView'");
+    }
 }

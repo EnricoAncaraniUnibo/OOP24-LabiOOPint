@@ -11,14 +11,14 @@ import labioopint.controller.api.SaveController;
 import labioopint.model.core.impl.TurnManager;
 
 public class SaveControllerImpl implements SaveController,Serializable{
-    private TurnManager turnManager;
+    //private TurnManager turnManager;
 
     public SaveControllerImpl(TurnManager tManager){
-        this.turnManager = tManager;
+        //this.turnManager = tManager;
     }
 
     @Override
-    public void save() {
+    public void save(TurnManager turnManager) {
         SerializableObject newSerialization;
         /*if(turnManager.getEnemy().getFirst() == Boolean.TRUE){
             newSerialization = new SerializableObjectImplEnemy(turnManager);

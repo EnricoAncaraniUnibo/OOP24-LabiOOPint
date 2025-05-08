@@ -47,7 +47,7 @@ public class GameControllerImpl implements GameController,Serializable {
                             turn.nextAction();
                             lab.moveBlock(blockCoordinate, Direction.UP);
                         }
-                        saveController.save();
+                        saveController.save(turn);
                     }
                 }
                 break;
@@ -63,7 +63,7 @@ public class GameControllerImpl implements GameController,Serializable {
                         }
                     } else if ("End Turn".equals(action)) {
                         turn.nextAction();
-                        saveController.save();
+                        saveController.save(turn);
                     }
                 }
                 break;
@@ -71,7 +71,7 @@ public class GameControllerImpl implements GameController,Serializable {
                 if (action instanceof Direction && turn.getEnemy().getFirst() == Boolean.TRUE) {
                     turn.getEnemy().getSecond().move(turn.getPlayers());
                     turn.nextAction();
-                    saveController.save();
+                    saveController.save(turn);
                 }
             default:
                 break;

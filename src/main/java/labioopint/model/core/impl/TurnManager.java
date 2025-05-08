@@ -53,13 +53,20 @@ public class TurnManager implements Serializable {
     }
 
     public TurnManager(final TurnManager loadedTurnManager){
-        saveController = new SaveControllerImpl(this);
         currentAction = loadedTurnManager.getCurrentAction();
         players = loadedTurnManager.getPlayers();
         enemy = loadedTurnManager.getEnemy();
         powerUps = loadedTurnManager.getPowerUps();
         maze = loadedTurnManager.getLab();
-        //index = loadedTurnManager.getCurrentPlayer();
+        int i = 0;
+        for (PlayerImpl playerImpl : players) {
+            if(playerImpl == loadedTurnManager.getCurrentPlayer()){
+                index = i;
+            }
+            i++;
+        }
+        saveController = new SaveControllerImpl(this);
+        maze.startView();
     }
 
     /**
@@ -154,10 +161,10 @@ public class TurnManager implements Serializable {
                     enemy.getSecond().playerHit(players);
                 }
                 currentAction = ActionType.BLOCK_PLACEMENT;
-                saveController.save();
+                saveController.save(this);
             } else {
                 currentAction = ActionType.BLOCK_PLACEMENT;
-                saveController.save();
+                saveController.save(this);
             }
         } else if (currentAction == ActionType.ENEMY_MOVEMENT) {
             currentAction = ActionType.BLOCK_PLACEMENT;
