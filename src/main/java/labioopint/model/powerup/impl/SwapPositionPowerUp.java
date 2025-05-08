@@ -6,37 +6,49 @@ import labioopint.model.api.Coordinate;
 import labioopint.model.core.impl.TurnManager;
 import labioopint.model.player.impl.PlayerImpl;
 
-public class SwapPositionPowerUp extends PowerUpImpl {
+/**
+ * This class represents a power-up that swaps the position of the current player with another random player.
+ */
+public final class SwapPositionPowerUp extends PowerUpImpl {
 
     private boolean condition = true;
-	private TurnManager turn;
+    private final TurnManager turn;
 
-    public SwapPositionPowerUp(TurnManager tu) {
+    /**
+     * Constructs a new SwapPositionPowerUp instance.
+     *
+     * @param tu the TurnManager instance to manage turns, must not be null
+     */
+    public SwapPositionPowerUp(final TurnManager tu) {
         super();
         super.setName("Teleport");
-		this.turn = tu;
+        this.turn = tu;
     }
 
+    /**
+     * Activates the power-up for the specified player.
+     *
+     * @param currentPlayer the player for whom the power-up is activated, must not be null
+     */
     @Override
-    public void activate(PlayerImpl currentPlayer) {
-    	if(currentPlayer.getUsablePowerUps().contains(this)) {
-    		if (isCollected()) {
-	            Coordinate currentPlayerCoordinate = turn.getLab().getPlayerCoordinate(currentPlayer);
-	            Random random = new Random();
-	            while(this.condition) {
-	                PlayerImpl playerSwap = turn.getPlayers().get(random.nextInt(turn.getPlayers().size()));
-	                Coordinate playerSwapCoordinate = turn.getLab().getPlayerCoordinate(playerSwap);
-	                if(turn.getPlayers().size() < 2) {
-	                    this.condition = false;
-	                } 
-	                else if(turn.getPlayers().size() > 1 && !currentPlayer.equals(playerSwap)){
-	                    turn.getLab().playerUpdateCoordinate(playerSwap,currentPlayerCoordinate);
-	                    turn.getLab().playerUpdateCoordinate(currentPlayer,playerSwapCoordinate);
-	                    this.condition = false;
-	                }
-	            }
-	        }
-    		currentPlayer.removePowerUp(this);
-    	}
+    public void activate(final PlayerImpl currentPlayer) {
+        if (currentPlayer.getUsablePowerUps().contains(this)) {
+            if (isCollected()) {
+                Coordinate currentPlayerCoordinate = turn.getLab().getPlayerCoordinate(currentPlayer);
+                Random random = new Random();
+                while (this.condition) {
+                    PlayerImpl playerSwap = turn.getPlayers().get(random.nextInt(turn.getPlayers().size()));
+                    Coordinate playerSwapCoordinate = turn.getLab().getPlayerCoordinate(playerSwap);
+                    if (turn.getPlayers().size() < 2) {
+                        this.condition = false;
+                    } else if (turn.getPlayers().size() > 1 && !currentPlayer.equals(playerSwap)) {
+                        turn.getLab().playerUpdateCoordinate(playerSwap, currentPlayerCoordinate);
+                        turn.getLab().playerUpdateCoordinate(currentPlayer, playerSwapCoordinate);
+                        this.condition = false;
+                    }
+                }
+            }
+            currentPlayer.removePowerUp(this);
+        }
     }
 }

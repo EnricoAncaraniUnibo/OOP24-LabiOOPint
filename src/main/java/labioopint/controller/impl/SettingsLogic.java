@@ -3,18 +3,37 @@ package labioopint.controller.impl;
 import labioopint.model.api.Settings;
 import labioopint.model.enemy.api.EnemyDifficulty;
 
-public class SettingsLogic {
+/**
+ * This class handles the logic for managing and saving new settings.
+ */
+public final class SettingsLogic {
 
     private final SettingsController controller;
 
-    public SettingsLogic(SettingsController controller){
+    /**
+     * Constructs a new SettingsLogic instance.
+     *
+     * @param controller the settings controller, must not be null
+     */
+    public SettingsLogic(final SettingsController controller) {
         this.controller = controller;
     }
 
-    public void saveNewSettings(int enemyNumber,int playersNummber, int powerUpNumber, String enemyDifficultyString){
-        EnemyDifficulty enemyDifficulty = (enemyDifficultyString == "EASY") ? EnemyDifficulty.EASY :
-                                          (enemyDifficultyString == "MEDIUM") ? EnemyDifficulty.MEDIUM :
-                                          EnemyDifficulty.HARD;
-        controller.changeSettings(new Settings(enemyNumber,playersNummber,powerUpNumber,enemyDifficulty));
+    /**
+     * Saves new settings based on the provided parameters.
+     *
+     * @param enemyNumber           the number of enemies
+     * @param playersNumber         the number of players
+     * @param powerUpNumber         the number of power-ups
+     * @param enemyDifficultyString the difficulty level as a string ("EASY", "MEDIUM", "HARD")
+     */
+    public void saveNewSettings(final int enemyNumber, final int playersNumber, 
+                                final int powerUpNumber, final String enemyDifficultyString) {
+        EnemyDifficulty enemyDifficulty = enemyDifficultyString.equals("EASY") 
+                ? EnemyDifficulty.EASY 
+                : enemyDifficultyString.equals("MEDIUM") 
+                    ? EnemyDifficulty.MEDIUM 
+                    : EnemyDifficulty.HARD;
+        controller.changeSettings(new Settings(enemyNumber, playersNumber, powerUpNumber, enemyDifficulty));
     }
 }

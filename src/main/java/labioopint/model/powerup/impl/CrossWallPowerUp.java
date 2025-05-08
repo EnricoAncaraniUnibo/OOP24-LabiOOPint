@@ -2,17 +2,28 @@ package labioopint.model.powerup.impl;
 
 import labioopint.model.player.impl.PlayerImpl;
 
-public class CrossWallPowerUp extends PowerUpImpl {
+/**
+ * This class represents a power-up that allows a player to cross walls.
+ */
+public final class CrossWallPowerUp extends PowerUpImpl {
 
+    /**
+     * Constructs a new CrossWallPowerUp instance.
+     */
     public CrossWallPowerUp() {
         super();
         super.setName("Cross Wall");
     }
-    
+
+    /**
+     * Activates the power-up for the specified player.
+     * 
+     * @param currentPlayer the player for whom the power-up is activated, must not be null
+     */
     @Override
-    public void activate(PlayerImpl currentPlayer) {
+    public void activate(final PlayerImpl currentPlayer) {
         if (isCollected()) {
-            // Logica specifica per attraversare un muro
+            // Specific logic for crossing a wall
         }
     }
 }
