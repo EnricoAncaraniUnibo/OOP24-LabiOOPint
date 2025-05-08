@@ -21,4 +21,6 @@ public interface LabyrinthController {
     void updateGraphics(MazeImpl grid, DualMap<PlayerImpl> mapPlayers, DualMap<Enemy> mapEnemy,
             DualMap<PowerUp> mapPowerUps, BlockImpl outside);
 
+    void show();
+
 }

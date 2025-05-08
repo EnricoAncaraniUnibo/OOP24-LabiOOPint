@@ -17,12 +17,13 @@ import labioopint.view.GameView;
  */
 public class LabyrinthControllerImpl implements LabyrinthController,Serializable {
 
-    private final GameView gtv;
+    private GameView gtv;
+    private final TurnManager tu;
     /**
      * Constructs a new LabyrinthController and initializes the game view.
      */
     public LabyrinthControllerImpl(final TurnManager tu) {
-        gtv = new GameView(tu);
+        this.tu = tu;
     }
     /**
      * Updates the graphical representation of the game state.
@@ -36,5 +37,9 @@ public class LabyrinthControllerImpl implements LabyrinthController,Serializable
     @Override
     public void updateGraphics(final MazeImpl grid, final DualMap<PlayerImpl> mapPlayers, final DualMap<Enemy> mapEnemy, final DualMap<PowerUp> mapPowerUps, final BlockImpl outside) {
         gtv.update(grid,mapPlayers ,mapEnemy,mapPowerUps,outside);
+    }
+    @Override
+    public void show() {
+        gtv = new GameView(tu);
     }
 }

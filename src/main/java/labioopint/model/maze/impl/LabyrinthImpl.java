@@ -40,6 +40,7 @@ public final class LabyrinthImpl implements Labyrinth,Serializable {
     @Override
     public void initialize() {
         labyController = new LabyrinthControllerImpl(turn);
+        labyController.show();
         mapOfPowerUps = new DualMap<>();
         mapOfPlayers = new DualMap<>();
         mapOfEnemy = new DualMap<>();
@@ -333,7 +334,7 @@ public final class LabyrinthImpl implements Labyrinth,Serializable {
     }
     
     public void startView() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'startView'");
+        labyController.show();
+        labyController.updateGraphics(grid, mapOfPlayers, mapOfEnemy, mapOfPowerUps, outsideBlock);
     }
 }
