@@ -1,41 +1,28 @@
 package labioopint.controller.impl;
 
-import labioopint.model.api.Settings;
-import labioopint.model.core.impl.TurnManager;
-import labioopint.model.enemy.api.EnemyDifficulty;
-import labioopint.view.SettingsMenu;
-
 public class MainMenuLogic {
 
-    private Settings settings;
+    private SettingsController settingsController;
+    private MainMenuController controller;
+
+    public MainMenuLogic(MainMenuController controller){
+        settingsController = new SettingsController();
+        this.controller = controller;
+    }
 
     public void startGame() {
-        if (this.settings == null) {
-            new TurnManager(new Settings(1,4,6,EnemyDifficulty.MEDIUM));
-        }
-        else {
-            new TurnManager(settings);
-        }
+        controller.startGame(settingsController.getSettings());
     }
 
     public void loadGame() {
-        // logica per caricare una partita salvata
+        controller.loadGame(settingsController.getLoadedSettings());
     }
 
-    public void openSettings(SettingsController settingsController) {
-        new SettingsMenu(settingsController).setVisible(true);
-        this.settings = settingsController.getSettings();
+    public void openSettings() {
+        settingsController.load();
     }
 
     public void quitGame() {
         System.exit(0);
-    }
-
-    public void setSettings(Settings settings) {
-        this.settings = settings;
-    }
-
-    public Settings getSettings() {
-        return this.settings;
     }
 }

@@ -1,28 +1,26 @@
 package labioopint.controller.impl;
 
+import labioopint.model.api.Settings;
+import labioopint.model.core.impl.TurnManager;
+import labioopint.view.MainMenu;
+
 public class MainMenuController {
 
-    private final MainMenuLogic logic;
-    private final SettingsController settingsController;
+    private final MainMenu view;
 
-    public MainMenuController(MainMenuLogic logic, SettingsController settingsController) {
-        this.logic = logic;
-        this.settingsController = settingsController;
+    public MainMenuController() {
+        view = new MainMenu(this);
     }
 
-    public void startGame() {
-        logic.startGame();
+    public void load(){
+        view.setVisible(true);
     }
 
-    public void loadGame() {
-        logic.loadGame();
+    public void startGame(Settings settings) {
+        new TurnManager(settings);
     }
 
-    public void openSettings() {
-        logic.openSettings(settingsController);
-    }
-
-    public void quitGame() {
-        logic.quitGame();
+    public void loadGame(Settings settings) {
+        new TurnManager(settings);
     }
 }
