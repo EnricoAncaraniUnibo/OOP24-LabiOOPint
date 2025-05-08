@@ -9,9 +9,11 @@ public final class CrossWallPowerUp extends PowerUpImpl {
 
     /**
      * Constructs a new CrossWallPowerUp instance.
+     * 
+     * @param id the unique identifier for this power-up
      */
-    public CrossWallPowerUp() {
-        super();
+    public CrossWallPowerUp(final int id) {
+        super(id);
         super.setName("Cross Wall");
     }
 

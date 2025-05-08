@@ -18,9 +18,10 @@ public final class SwapPositionPowerUp extends PowerUpImpl {
      * Constructs a new SwapPositionPowerUp instance.
      *
      * @param tu the TurnManager instance to manage turns, must not be null
+     * @param id the unique identifier for this power-up
      */
-    public SwapPositionPowerUp(final TurnManager tu) {
-        super();
+    public SwapPositionPowerUp(final TurnManager tu, final int id) {
+        super(id);
         super.setName("Teleport");
         this.turn = tu;
     }

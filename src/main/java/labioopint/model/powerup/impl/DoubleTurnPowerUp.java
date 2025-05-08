@@ -14,9 +14,10 @@ public final class DoubleTurnPowerUp extends PowerUpImpl {
      * Constructs a new DoubleTurnPowerUp instance.
      *
      * @param tu the TurnManager instance to manage turns, must not be null
+     * @param id the unique identifier for this power-up
      */
-    public DoubleTurnPowerUp(final TurnManager tu) {
-        super();
+    public DoubleTurnPowerUp(final TurnManager tu, final int id) {
+        super(id);
         super.setName("Double Turn");
         this.turn = tu;
     }

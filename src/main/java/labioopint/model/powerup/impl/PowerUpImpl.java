@@ -12,16 +12,29 @@ import labioopint.model.powerup.api.PowerUp;
  * It includes common functionality such as tracking collection status and managing collected power-ups.
  */
 public abstract class PowerUpImpl implements PowerUp, Serializable {
+    private final int id;
     private boolean collected;
     private List<PowerUp> collectedPowerUps;
     private String name;
 
     /**
      * Constructs a new PowerUpImpl instance with default values.
+     *
+     * @param id the unique identifier for the power-up
      */
-    public PowerUpImpl() {
+    public PowerUpImpl(final int id) {
+        this.id = id;
         this.collected = false;
         this.collectedPowerUps = new ArrayList<>();
+    }
+
+    /**
+     * Returns the ID of the power-up.
+     *
+     * @return the unique ID of the power-up
+     */
+    public int getID() {
+        return id;
     }
 
     /**
