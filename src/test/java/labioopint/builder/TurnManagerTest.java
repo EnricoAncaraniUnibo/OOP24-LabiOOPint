@@ -32,7 +32,7 @@ class TurnManagerTest {
     @Test
     void testTurnManagerAddPowerUp() {
         final Integer powerUpNumber = tm.getPowerUps().size();
-        tm.addAddictionalPowerUp(new SwapPositionPowerUp(tm));
+        tm.addAddictionalPowerUp(new SwapPositionPowerUp(tm,0));
         assertEquals(powerUpNumber + 1, tm.getPowerUps().size());
     }
 }

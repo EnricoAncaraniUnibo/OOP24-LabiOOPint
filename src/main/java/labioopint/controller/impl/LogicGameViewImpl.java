@@ -72,7 +72,10 @@ public class LogicGameViewImpl implements LogicGameView,Serializable {
     public void activatePowerUps(final String powerUp) {
         for (final PowerUp pu : turn.getPowerUps()) {
             if (pu.getName().equals(powerUp)) {
-                pu.activate(turn.getCurrentPlayer());
+                if(turn.getCurrentPlayer().getUsablePowerUps().contains(pu)){
+                    pu.activate(turn.getCurrentPlayer());
+                    break;
+                }
             }
         }
     }

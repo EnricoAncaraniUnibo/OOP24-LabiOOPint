@@ -295,6 +295,26 @@ public final class LabyrinthImpl implements Labyrinth,Serializable {
     @Override
     public void addPowerUp(final PowerUp p) {
         final CoordinateGenerator cg = new CoordinateGenerator(grid.getSize());
+        boolean repeat = false;
+        do {
+            repeat = false;
+            Coordinate c = cg.getRandomCoordinate();
+            for (PlayerImpl playerImpl : mapOfPlayers.getElemets()) {
+                if (c.equals(mapOfPlayers.getCoordinateFromElement(playerImpl))) {
+                    repeat = true;
+                }
+            }
+            for (PowerUp po : mapOfPowerUps.getElemets()) {
+                if (c.equals(mapOfPowerUps.getCoordinateFromElement(po))) {
+                    repeat = true;
+                }
+            }
+            for (Enemy e : mapOfEnemy.getElemets()) {
+                if (c.equals(mapOfEnemy.getCoordinateFromElement(e))) {
+                    repeat = true;
+                }
+            }
+        } while (repeat);
         mapOfPowerUps.addElemWithCoordinate(p, cg.getRandomCoordinate());
     }
 
@@ -322,16 +342,17 @@ public final class LabyrinthImpl implements Labyrinth,Serializable {
             if (sortedPlayers.get(0).getObjetives().size()==sortedPlayers.get(1).getObjetives().size()) {
                 Random r = new Random();
                 final PowerUp pou;
+                int i = turn.getPowerUps().size();
                 int value = r.nextInt(3);
                 switch (value) {
                     case 0:
-                        pou = new SwapPositionPowerUp(turn);
+                        pou = new SwapPositionPowerUp(turn,i);
                         break;
                     case 1:
-                        pou = new DoubleTurnPowerUp(turn);
+                        pou = new DoubleTurnPowerUp(turn,i);
                         break;
                     default:
-                        pou = new InvulnerabilityPowerUp();
+                        pou = new InvulnerabilityPowerUp(i);
                         break;
                 }
                 turn.addAddictionalPowerUp(pou);

@@ -121,13 +121,13 @@ public class BuilderImpl {
             int value = r.nextInt(3);
             switch (value) {
                 case 0:
-                    powerUp = new SwapPositionPowerUp(turn);
+                    powerUp = new SwapPositionPowerUp(turn,i);
                     break;
                 case 1:
-                    powerUp = new DoubleTurnPowerUp(turn);
+                    powerUp = new DoubleTurnPowerUp(turn,i);
                     break;
                 default:
-                    powerUp = new InvulnerabilityPowerUp();
+                    powerUp = new InvulnerabilityPowerUp(i);
                     break;
             }
             

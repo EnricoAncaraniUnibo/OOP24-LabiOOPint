@@ -41,4 +41,6 @@ public interface PowerUp {
      * @return the name of the power-up
      */
     String getName();
+
+    public int getID();
 }

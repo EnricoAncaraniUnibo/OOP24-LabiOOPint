@@ -25,7 +25,7 @@ class PlayerTest {
     void pickUpObjective() {
 		tu = new TurnManager(new Settings(1,4,5,EnemyDifficulty.EASY));
 		final Player p = new PlayerImpl("Archer",tu);
-    	p.addObjective(new SwapPositionPowerUp(tu));
+    	p.addObjective(new SwapPositionPowerUp(tu,0));
     	assertEquals(p.getUsablePowerUps().size(),1);
     	assertEquals(p.getObjetives().size(),1);
     }
@@ -33,7 +33,7 @@ class PlayerTest {
     @Test
     void consumePowerUp() {
 		final Player p = new PlayerImpl("Archer",tu);
-    	final SwapPositionPowerUp pu = new SwapPositionPowerUp(tu);
+    	final SwapPositionPowerUp pu = new SwapPositionPowerUp(tu,0);
     	p.addObjective(pu);
     	p.removePowerUp(pu);
     	assertEquals(p.getUsablePowerUps().size(),0);
