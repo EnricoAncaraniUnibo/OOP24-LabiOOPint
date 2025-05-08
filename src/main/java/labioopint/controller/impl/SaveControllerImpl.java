@@ -6,25 +6,17 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.io.File;
 
-import labioopint.controller.api.SerializableObject;
 import labioopint.controller.api.SaveController;
 import labioopint.model.core.impl.TurnManager;
 
 public class SaveControllerImpl implements SaveController,Serializable{
-    //private TurnManager turnManager;
 
     public SaveControllerImpl(TurnManager tManager){
-        //this.turnManager = tManager;
+
     }
 
     @Override
     public void save(TurnManager turnManager) {
-        SerializableObject newSerialization;
-        /*if(turnManager.getEnemy().getFirst() == Boolean.TRUE){
-            newSerialization = new SerializableObjectImplEnemy(turnManager);
-        } else {
-            newSerialization = new SerializableObjectImplNoEnemy(turnManager);
-        }*/
         try{
             FileOutputStream fos = new FileOutputStream(new File("src/main/java/labioopint/saving/lastGame.txt"),false);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
