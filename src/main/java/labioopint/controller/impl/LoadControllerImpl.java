@@ -11,9 +11,11 @@ import labioopint.model.core.impl.TurnManager;
 public class LoadControllerImpl implements LoadController{
 
     private Optional<TurnManager> loadedTurnManager;
+    private boolean isLoaded;
 
     public LoadControllerImpl(){
         this.loadLastGame();
+        isLoaded = false;
     }
     
     @Override
@@ -25,16 +27,24 @@ public class LoadControllerImpl implements LoadController{
             ois.close();
             fis.close();
             System.out.println("Sono fortissimo");
+            isLoaded = true;
         }catch(Exception e){
+            System.out.println(e);
             loadingNotPossible();
         }
     }
     
+    @Override
+    public boolean isLoaded(){
+        if(isLoaded){return true;}
+        return false;
+    }
+
+    @Override
     public TurnManager getTurnManager(){
         if(loadedTurnManager.isPresent()){
             return loadedTurnManager.get();
-        }
-        else{
+        }else{
             return null;
         }
     }

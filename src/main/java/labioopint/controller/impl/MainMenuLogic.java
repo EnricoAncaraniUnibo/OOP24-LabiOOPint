@@ -15,7 +15,7 @@ public class MainMenuLogic {
     }
 
     public void loadGame() {
-        controller.loadGame(settingsController.getLoadedSettings());
+        controller.loadGame();
     }
 
     public void openSettings() {

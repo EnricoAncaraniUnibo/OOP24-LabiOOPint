@@ -20,15 +20,15 @@ public class SaveControllerImpl implements SaveController,Serializable{
     @Override
     public void save() {
         SerializableObject newSerialization;
-        if(turnManager.getEnemy().getFirst() == Boolean.TRUE){
+        /*if(turnManager.getEnemy().getFirst() == Boolean.TRUE){
             newSerialization = new SerializableObjectImplEnemy(turnManager);
         } else {
             newSerialization = new SerializableObjectImplNoEnemy(turnManager);
-        }
+        }*/
         try{
-            FileOutputStream fos = new FileOutputStream(new File("src/main/java/labioopint/saving/output.txt"),false);
+            FileOutputStream fos = new FileOutputStream(new File("src/main/java/labioopint/saving/lastGame.txt"),false);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(newSerialization);
+            oos.writeObject(turnManager);
             oos.close();
             fos.close();
         } catch(IOException e) {
