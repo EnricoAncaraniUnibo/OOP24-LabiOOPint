@@ -17,7 +17,7 @@ public class DoubleTurnPowerUp extends PowerUpImpl {
     public void activate(PlayerImpl currentPlayer) {
         if(currentPlayer.getUsablePowerUps().contains(this)) {
     		if (isCollected()) {
-                turn.setNextTurnPlayer();
+                turn.repeatPlayerTurn();
             }
             currentPlayer.removePowerUp(this);
         }

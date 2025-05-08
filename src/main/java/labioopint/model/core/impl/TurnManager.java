@@ -65,8 +65,11 @@ public class TurnManager implements Serializable {
     /**
      * Sets the next player to take their turn.
      */
-    public void setNextTurnPlayer() {
-        //indexNext = Optional.of(index);
+    public void repeatPlayerTurn() {
+        index--;
+        if (index<0) {
+            index = players.size()-1;
+        }
     }
 
     /**

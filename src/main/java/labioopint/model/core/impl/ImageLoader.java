@@ -56,6 +56,10 @@ public final class ImageLoader {
                     new File("src/main/java/labioopint/resources/Characters/monster.png")));
             imageMap.put("Teleport", ImageIO.read(
                     new File("src/main/java/labioopint/resources/PowerUps/teleport.png")));
+            imageMap.put("Double Turn", ImageIO.read(
+                    new File("src/main/java/labioopint/resources/PowerUps/double.png")));
+            imageMap.put("Invulnerability", ImageIO.read(
+                    new File("src/main/java/labioopint/resources/PowerUps/invincible.png")));
         } catch (IOException e) {
                 System.exit(0);
         }
