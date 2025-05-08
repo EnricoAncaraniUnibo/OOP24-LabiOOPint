@@ -76,6 +76,7 @@ public class GameControllerImpl implements GameController,Serializable {
             default:
                 break;
         }
+        lab.updateView();
     }
 
     private void rotateBlock(final Direction dir) {

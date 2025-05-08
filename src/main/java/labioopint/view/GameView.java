@@ -160,6 +160,7 @@ public class GameView extends JFrame {
                 upButton.setVisible(false);
                 downButton.setVisible(false);
                 actionLabel.setText(lgv.getAction());
+                updateScoreLabel();
             }
 
         });

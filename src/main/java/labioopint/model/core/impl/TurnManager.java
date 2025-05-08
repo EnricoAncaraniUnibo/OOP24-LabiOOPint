@@ -78,6 +78,7 @@ public class TurnManager implements Serializable {
         if (index<0) {
             index = players.size()-1;
         }
+        nextAction();
     }
 
     /**
@@ -170,6 +171,7 @@ public class TurnManager implements Serializable {
         } else if (currentAction == ActionType.ENEMY_MOVEMENT) {
             currentAction = ActionType.BLOCK_PLACEMENT;
         }
+        this.getLab().updateView();
     }
 
     /**

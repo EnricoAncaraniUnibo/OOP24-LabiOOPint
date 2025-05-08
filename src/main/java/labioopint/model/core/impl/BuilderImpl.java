@@ -123,8 +123,11 @@ public class BuilderImpl {
                 case 0:
                     powerUp = new SwapPositionPowerUp(turn);
                     break;
-                default:
+                case 1:
                     powerUp = new DoubleTurnPowerUp(turn);
+                    break;
+                default:
+                    powerUp = new InvulnerabilityPowerUp();
                     break;
             }
             
