@@ -52,6 +52,16 @@ public class TurnManager implements Serializable {
         //indexNext = Optional.empty();
     }
 
+    public TurnManager(final TurnManager loadedTurnManager){
+        saveController = new SaveControllerImpl(this);
+        currentAction = loadedTurnManager.getCurrentAction();
+        players = loadedTurnManager.getPlayers();
+        enemy = loadedTurnManager.getEnemy();
+        powerUps = loadedTurnManager.getPowerUps();
+        maze = loadedTurnManager.getLab();
+        //index = loadedTurnManager.getCurrentPlayer();
+    }
+
     /**
      * Sets the next player to take their turn.
      */

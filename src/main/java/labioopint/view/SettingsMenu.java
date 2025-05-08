@@ -17,7 +17,6 @@ public class SettingsMenu extends JFrame {
     public SettingsMenu(SettingsController controller) {
         settingsLogic = new SettingsLogic(controller);
         super.setTitle("Settings");
-        //super.setDefaultCloseOperation();
         super.setLayout(new GridLayout(0,3,20,20));
         super.setSize((int) screenSize.getWidth() * RATIO_NUMERATOR / RATIO_DENOMINATOR,
                       (int) screenSize.getHeight() * RATIO_NUMERATOR / RATIO_DENOMINATOR);
@@ -25,9 +24,8 @@ public class SettingsMenu extends JFrame {
         JPanel choosePanel = new JPanel();
         choosePanel.setLayout(new GridLayout(15,0,0,10));
         JComboBox<String> difficultyComboBox = new JComboBox<>(new String[]{"EASY", "MEDIUM", "HARD"});
-        difficultyComboBox.setPreferredSize(new Dimension(40,10));
-        JSpinner playersSpinner = new JSpinner(new SpinnerNumberModel(1, 1, 4, 1));
-        JSpinner powerUpSpinner = new JSpinner(new SpinnerNumberModel(0, 0, 10, 1));
+        JSpinner playersSpinner = new JSpinner(new SpinnerNumberModel(2, 2, 4, 1));
+        JSpinner powerUpSpinner = new JSpinner(new SpinnerNumberModel(1, 1, 10, 1));
         JSpinner enemySpinner = new JSpinner(new SpinnerNumberModel(0, 0, 1, 1));
         
         JButton saveButton = new JButton("Save");
@@ -37,9 +35,8 @@ public class SettingsMenu extends JFrame {
             (int) playersSpinner.getValue(),
             (int) powerUpSpinner.getValue(),
             (String) difficultyComboBox.getSelectedItem()
+            //ADD EXIT
         ));
-
-        //JPanel settingsPanel = new JPanel(new GridLayout(3, 2, 10, 10));
         
         JLabel textLabel = new JLabel("Settings");
         textLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -48,15 +45,10 @@ public class SettingsMenu extends JFrame {
         choosePanel.add(textLabel);
         choosePanel.add(new JLabel("Scegli la difficolta' di gioco"));
         choosePanel.add(difficultyComboBox);
-        //textLabel.setHorizontalAlignment(SwingConstants.LEFT);
-        //textLabel.setText("Scegli il numero dei giocatori:");
-        //textLabel.setFont(new Font(Font.SANS_SERIF,Font.PLAIN,15));
         choosePanel.add(new JLabel("Scegli il numero dei giocatori"));
         choosePanel.add(playersSpinner);
-        //textLabel.setText("Scegli il numero di power");
         choosePanel.add(new JLabel("Scegli il numero di PowerUp"));
         choosePanel.add(powerUpSpinner);
-        //textLabel.setText("Scegli il numero di nemici");
         choosePanel.add(new JLabel("Scegli il numero dei nemici"));
         choosePanel.add(enemySpinner);
         choosePanel.add(Box.createRigidArea(new Dimension(1,10)));

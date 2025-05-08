@@ -8,12 +8,10 @@ public class SettingsController {
 
     private Settings settings;
     private final SettingsMenu view;
-    //private final SettingsLogic logic;
 
     public SettingsController() {
         view = new SettingsMenu(this);
         settings = new Settings(1,4,6,EnemyDifficulty.MEDIUM);
-        //this.logic = logic;
     }
 
     public void load(){
