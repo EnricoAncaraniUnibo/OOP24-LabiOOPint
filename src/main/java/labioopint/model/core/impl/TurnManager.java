@@ -43,9 +43,10 @@ public class TurnManager implements Serializable {
         final BuilderImpl bi = new BuilderImpl(st, this);
         players = bi.createPlayers();
         players = new RandomTurnChooser(players).randomOrder();
-        enemy = new Pair<Boolean,Enemy>(true, null);
-        if(enemy.getFirst() == true){
+        if(st.getEnemy() == 1){
             enemy = new Pair<>(true, bi.createEnemy());
+        }else{
+            enemy = new Pair<>(false, null);
         }
         powerUps = bi.createPowerUps();
         maze = bi.createMaze();
