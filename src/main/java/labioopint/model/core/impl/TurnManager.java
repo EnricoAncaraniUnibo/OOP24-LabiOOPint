@@ -30,6 +30,7 @@ public class TurnManager implements Serializable {
     private int index;
     //private Optional<Integer> indexNext;
     private final SaveController saveController;
+    private boolean enemyMove;
 
     /**
      * Constructs a TurnManager with the given settings.
@@ -37,6 +38,7 @@ public class TurnManager implements Serializable {
      * @param st the game settings used to initialize the game components
      */
     public TurnManager(final Settings st) {
+        enemyMove = true;
         saveController = new SaveControllerImpl(this);
         currentAction = ActionType.BLOCK_PLACEMENT;
         index = 0;
@@ -54,6 +56,7 @@ public class TurnManager implements Serializable {
     }
 
     public TurnManager(final TurnManager loadedTurnManager){
+        enemyMove = true;
         currentAction = loadedTurnManager.getCurrentAction();
         players = loadedTurnManager.getPlayers();
         enemy = loadedTurnManager.getEnemy();
@@ -78,7 +81,9 @@ public class TurnManager implements Serializable {
         if (index<0) {
             index = players.size()-1;
         }
+        enemyMove = false;
         nextAction();
+        enemyMove = true;
     }
 
     /**
@@ -149,7 +154,7 @@ public class TurnManager implements Serializable {
                 index = indexNext.get();
                 indexNext = Optional.empty();
             }*/
-            if (enemy.getFirst() == Boolean.TRUE) {
+            if (enemy.getFirst() == Boolean.TRUE && enemyMove == true) {
                 if (enemy.getSecond().getEnemyAI() instanceof SingleStepRandomAI) {
                     maze.enemyUpdateCoordinate(enemy.getSecond(), enemy.getSecond().move(players));
                     enemy.getSecond().playerHit(players);

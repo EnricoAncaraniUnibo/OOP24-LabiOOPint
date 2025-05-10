@@ -45,6 +45,7 @@ public final class SwapPositionPowerUp extends PowerUpImpl {
                     } else if (turn.getPlayers().size() > 1 && !currentPlayer.equals(playerSwap)) {
                         turn.getLab().playerUpdateCoordinate(playerSwap, currentPlayerCoordinate);
                         turn.getLab().playerUpdateCoordinate(currentPlayer, playerSwapCoordinate);
+                        turn.getLab().playerUpdateCoordinate(playerSwap, currentPlayerCoordinate);
                         this.condition = false;
                     }
                 }

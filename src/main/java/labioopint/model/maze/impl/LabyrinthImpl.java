@@ -296,9 +296,10 @@ public final class LabyrinthImpl implements Labyrinth,Serializable {
     public void addPowerUp(final PowerUp p) {
         final CoordinateGenerator cg = new CoordinateGenerator(grid.getSize());
         boolean repeat = false;
+        Coordinate c;
         do {
             repeat = false;
-            Coordinate c = cg.getRandomCoordinate();
+            c = cg.getRandomCoordinate();
             for (PlayerImpl playerImpl : mapOfPlayers.getElemets()) {
                 if (c.equals(mapOfPlayers.getCoordinateFromElement(playerImpl))) {
                     repeat = true;
@@ -315,7 +316,7 @@ public final class LabyrinthImpl implements Labyrinth,Serializable {
                 }
             }
         } while (repeat);
-        mapOfPowerUps.addElemWithCoordinate(p, cg.getRandomCoordinate());
+        mapOfPowerUps.addElemWithCoordinate(p, c);
     }
 
     @Override
