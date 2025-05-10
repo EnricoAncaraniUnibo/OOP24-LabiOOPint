@@ -33,4 +33,10 @@ public interface Enemy {
      * @return the {@link EnemyAI} instance
      */
     EnemyAI getEnemyAI();
+
+    public PlayerImpl getLastHit();
+
+    public void clearLastHit();
+
+    boolean isPresentLastHit();
 }

@@ -25,6 +25,7 @@ public class EnemyImpl extends Movable implements Enemy,Serializable {
 
     private final EnemyAI enemyAI;
     private final TurnManager turn;
+    private PlayerImpl lastHit;
 
     /**
      * Constructs a new EnemyImpl object with the specified EnemyAI and TurnManager.
@@ -36,6 +37,7 @@ public class EnemyImpl extends Movable implements Enemy,Serializable {
     public EnemyImpl(final EnemyAI enemyAI, final TurnManager tu) {
         this.enemyAI = enemyAI;
         turn = tu;
+        lastHit = null;
     }
 
     /**
@@ -77,13 +79,30 @@ public class EnemyImpl extends Movable implements Enemy,Serializable {
         final LabyrinthImpl maze = turn.getLab();
         for (final PlayerImpl player : players) {
             if (maze.getEnemyCoordinate(this).equals(maze.getPlayerCoordinate(player))) {
-                if (!player.getInvincibilityStatus()) {
+                if (!player.getInvincibilityStatus() && !player.equals(lastHit)) {
                     player.removeObjective();
+                    lastHit = player;
                 } else {
                     player.disableInvincible();
                 }
 
             }
         }
+    }
+
+    public PlayerImpl getLastHit(){
+        return lastHit;
+    }
+
+    public void clearLastHit(){
+        lastHit = null;
+    }
+
+    @Override
+    public boolean isPresentLastHit() {
+        if(lastHit == null) {
+            return false;
+        }
+        return true;
     }
 }
