@@ -6,12 +6,44 @@ import labioopint.model.player.impl.PlayerImpl;
 
 public interface ActionPredicate {
 
-    boolean playerCanMove(PlayerImpl p, Direction dir);
+    /**
+     * Check if the player can move
+     * 
+     * @param player        it is the player that want to move
+     * @param dir           the direction for the movement 
+     * 
+     * @return true if the movement is possible, false otherwise
+     */
+    boolean playerCanMove(PlayerImpl player, Direction direction);
 
+    /**
+     * Check if the block selected by the player is movable
+     * In particular this contol check if the target block is in the 
+     * border of the labyrinth and check if the block is movable
+     * 
+     * @param blockCoordinate       the coordinate of the block to move
+     * 
+     * @return true if the movement is possible, false otherwise
+     */
     boolean blockCanMove(Coordinate blockCoordinate);
 
-    boolean canMoveFromPosition(Coordinate coor, Direction dir);
+    /**
+     * Check if there is an entrance from a specific place in the
+     * labyrinth in a direction
+     * 
+     * @param coor          the coordinate of the origin place
+     * @param dir           the direction to check
+     * 
+     * @return true if there is an entrance, false otherwise
+     */
+    boolean enemyCanMoveFromPosition(Coordinate coordinate, Direction direction);
 
-    boolean enemyCanMove(Direction dir);
+    /**
+     * Check if the enemy can move in a specific direction
+     * 
+     * @param dir           the direction where the enemy want to move
+     * @return true if it can move in the direction, false otherwise
+     */
+    boolean enemyCanMove(Direction direction);
 
 }

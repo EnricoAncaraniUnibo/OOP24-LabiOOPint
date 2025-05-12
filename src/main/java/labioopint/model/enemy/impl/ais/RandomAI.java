@@ -53,7 +53,7 @@ public class RandomAI implements EnemyAI, Serializable {
             while (!success) {
                 final Direction dir = MovementUtilities.createDirection(direction);
                 final Coordinate next = MovementUtilities.getNextCoordinate(newPos, dir);
-                if (ap.canMoveFromPosition(newPos, dir)) {
+                if (ap.enemyCanMoveFromPosition(newPos, dir)) {
                     newPos = next;
                     success = true;
                 } else {

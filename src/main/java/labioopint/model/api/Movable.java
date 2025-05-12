@@ -19,11 +19,11 @@ public class Movable {
      *
      * @return true if the object is movable, false otherwise
      */
-    public final boolean isMove() {
+    public final boolean isMovable() {
         return move;
     }
 
-    public void enable() {
+    public final void enable() {
         move = true;
     }
 

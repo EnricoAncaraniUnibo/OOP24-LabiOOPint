@@ -2,7 +2,7 @@ package labioopint.model.api;
 
 import labioopint.model.enemy.api.EnemyDifficulty;
 
-public class Settings {
+public final class Settings {
     private final Integer playerNumber;
     private final Integer enemyNumber;
     private final Integer powerUp;

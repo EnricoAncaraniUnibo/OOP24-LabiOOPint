@@ -21,15 +21,15 @@ public class ActionPredicateImpl implements ActionPredicate, Serializable {
     public static final long serialVersionUID = 4328743;
 
     public ActionPredicateImpl(final TurnManager turnManager) {
-        labybinth = turnManager.getLab();
-        mazeSize = labybinth.getGrid().getSize();
+        labyrinth = turnManager.getLab();
+        mazeSize = labyrinth.getGrid().getSize();
         directionCheck = new DirectionCheckImpl(turnManager);
         enemy = turnManager.getEnemy();
     }
 
     @Override
     public boolean playerCanMove(final PlayerImpl player, final Direction dir) {
-        final Coordinate playerCoordinate = new Coordinate(labybinth.getPlayerCoordinate(player));
+        final Coordinate playerCoordinate = new Coordinate(labyrinth.getPlayerCoordinate(player));
         if (dir == Direction.LEFT) {
             final Coordinate targetBlock = new Coordinate(playerCoordinate.getRow(), playerCoordinate.getColumn() - 1);
             if (playerCoordinate.getColumn() != 0
@@ -64,13 +64,13 @@ public class ActionPredicateImpl implements ActionPredicate, Serializable {
 
     @Override
     public boolean blockCanMove(final Coordinate blockCoordinate) {
-        final BlockImpl b = labybinth.getGrid().getBlock(blockCoordinate).get();
-        return b.isMove() && (blockCoordinate.getColumn() == 0 || blockCoordinate.getColumn() == mazeSize - 1
+        final BlockImpl b = labyrinth.getGrid().getBlock(blockCoordinate).get();
+        return b.isMovable() && (blockCoordinate.getColumn() == 0 || blockCoordinate.getColumn() == mazeSize - 1
                 || blockCoordinate.getRow() == 0 || blockCoordinate.getRow() == mazeSize - 1);
     }
 
     @Override
-    public boolean canMoveFromPosition(final Coordinate coor, final Direction dir) {
+    public boolean enemyCanMoveFromPosition(final Coordinate coor, final Direction dir) {
         if (dir == Direction.LEFT) {
             final Coordinate targetBlock = new Coordinate(coor.getRow(), coor.getColumn() - 1);
             if (coor.getColumn() != 0
@@ -105,8 +105,8 @@ public class ActionPredicateImpl implements ActionPredicate, Serializable {
 
     @Override
     public boolean enemyCanMove(final Direction dir) {
-        final Coordinate enemyCoordinate = new Coordinate(labybinth.getEnemyCoordinate(enemy.getSecond()));
-        return canMoveFromPosition(enemyCoordinate, dir);
+        final Coordinate enemyCoordinate = new Coordinate(labyrinth.getEnemyCoordinate(enemy.getSecond()));
+        return enemyCanMoveFromPosition(enemyCoordinate, dir);
     }
 
 }

@@ -18,7 +18,7 @@ import labioopint.model.powerup.api.PowerUp;
  * The informations provided by this class are transformed to permit the output
  * on the view.
  */
-public class InformationMessengerImpl implements InformationMessenger, Serializable {
+public final class InformationMessengerImpl implements InformationMessenger, Serializable {
     private final TurnManager turn;
 
     /**
