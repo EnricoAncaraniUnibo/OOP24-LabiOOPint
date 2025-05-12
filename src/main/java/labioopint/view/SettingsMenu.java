@@ -46,11 +46,14 @@ public class SettingsMenu extends JFrame {
 
         JButton saveButton = new JButton("Save");
         saveButton.setAlignmentX(CENTER_ALIGNMENT);
-        saveButton.addActionListener(e -> settingsLogic.saveNewSettings(
+        saveButton.addActionListener(e -> {
+                settingsLogic.saveNewSettings(
                 (int) enemySpinner.getValue(),
                 (int) playersSpinner.getValue(),
                 (int) powerUpSpinner.getValue(),
-                (String) difficultyComboBox.getSelectedItem()));
+                (String) difficultyComboBox.getSelectedItem());
+                this.setVisible(false);
+                });
 
         JLabel textLabel = new JLabel("Settings");
         textLabel.setHorizontalAlignment(SwingConstants.CENTER);
