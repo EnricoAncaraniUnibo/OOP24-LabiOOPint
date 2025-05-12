@@ -37,6 +37,8 @@ public class MainMenu extends JFrame {
         super.setLayout(new BorderLayout());
         super.setResizable(false);
         super.setLocationByPlatform(true);
+        super.setTitle("Main Menu");
+        super.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         final JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(4, 1, 10, 10));
