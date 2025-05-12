@@ -80,6 +80,15 @@ public final class PlayerImpl extends Movable implements Player, Serializable {
         }
     }
 
+    public void removeObjectiveSelect(PowerUp pou) {
+        if (!objectives.isEmpty()) {
+            if (usablePowerUps.contains(pou)) {
+                usablePowerUps.remove(pou);
+            }
+            objectives.remove(pou);
+        }
+    }
+
     @Override
     public void removePowerUp(final PowerUp pu) {
         usablePowerUps.remove(pu);
