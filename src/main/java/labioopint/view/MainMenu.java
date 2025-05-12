@@ -48,7 +48,10 @@ public class MainMenu extends JFrame {
         buttonPanel.add(startGameButton);
 
         JButton loadGameButton = new JButton("Load Game");
-        loadGameButton.addActionListener(e -> logic.loadGame());
+        loadGameButton.addActionListener(e -> {
+            logic.loadGame();
+            this.setVisible(false);
+        });
         buttonPanel.add(loadGameButton);
 
         JButton settingsButton = new JButton("Settings");
