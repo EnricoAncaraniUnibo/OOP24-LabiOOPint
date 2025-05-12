@@ -21,9 +21,10 @@ import labioopint.model.powerup.api.PowerUp;
  * power-ups.
  */
 public class TurnManager implements Serializable {
+    public static final long serialVersionUID = 1L;
     private final LabyrinthImpl labyrinth;
     private List<PlayerImpl> players;
-    private Pair<Boolean, Enemy> enemy;
+    private final Pair<Boolean, Enemy> enemy;
     private final List<PowerUp> powerUps;
     private ActionType currentAction;
     private int currentPlayer;
@@ -37,7 +38,7 @@ public class TurnManager implements Serializable {
      */
     public TurnManager(final Settings st) {
         enemyMove = true;
-        saveController = new SaveControllerImpl(this);
+        saveController = new SaveControllerImpl();
         currentAction = ActionType.BLOCK_PLACEMENT;
         currentPlayer = 0;
         final BuilderImpl bi = new BuilderImpl(st, this);
@@ -63,13 +64,13 @@ public class TurnManager implements Serializable {
         powerUps = loadedTurnManager.getPowerUps();
         labyrinth = loadedTurnManager.getLab();
         int i = 0;
-        for (PlayerImpl playerImpl : players) {
-            if (playerImpl == loadedTurnManager.getCurrentPlayer()) {
+        for (final PlayerImpl playerImpl : players) {
+            if (playerImpl.equals(loadedTurnManager.getCurrentPlayer())) {
                 currentPlayer = i;
             }
             i++;
         }
-        saveController = new SaveControllerImpl(this);
+        saveController = new SaveControllerImpl();
         labyrinth.startView();
     }
 
@@ -150,7 +151,7 @@ public class TurnManager implements Serializable {
             currentAction = ActionType.PLAYER_MOVEMENT;
         } else if (currentAction == ActionType.PLAYER_MOVEMENT) {
             currentPlayer = (currentPlayer + 1) % players.size();
-            if (enemy.getFirst() == Boolean.TRUE && enemyMove == true) {
+            if (enemy.getFirst() && enemyMove) {
                 if (enemy.getSecond().getEnemyAI() instanceof SingleStepRandomAI) {
                     labyrinth.enemyUpdateCoordinate(enemy.getSecond(), enemy.getSecond().move(players));
                     enemy.getSecond().playerHit(players);
@@ -163,10 +164,9 @@ public class TurnManager implements Serializable {
                     labyrinth.enemyUpdateCoordinate(enemy.getSecond(), enemy.getSecond().move(players));
                     enemy.getSecond().playerHit(players);
                 }
-                if (enemy.getSecond().isPresentLastHit()) {
-                    if (enemy.getSecond().getLastHit().equals(this.getCurrentPlayer())) {
-                        enemy.getSecond().clearLastHit();
-                    }
+                if (enemy.getSecond().isPresentLastHit()
+                        && enemy.getSecond().getLastHit().equals(this.getCurrentPlayer())) {
+                    enemy.getSecond().clearLastHit();
                 }
                 currentAction = ActionType.BLOCK_PLACEMENT;
                 saveController.save(this);

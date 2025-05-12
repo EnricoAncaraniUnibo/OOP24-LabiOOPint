@@ -22,7 +22,7 @@ import labioopint.model.player.impl.PlayerImpl;
  * by an {@link EnemyAI}.
  */
 public class EnemyImpl extends Movable implements Enemy, Serializable {
-
+    public static final long serialVersionUID = 1L;
     private final EnemyAI enemyAI;
     private final TurnManager turn;
     private PlayerImpl lastHit;
@@ -79,7 +79,7 @@ public class EnemyImpl extends Movable implements Enemy, Serializable {
         final LabyrinthImpl maze = turn.getLab();
         for (final PlayerImpl player : players) {
             if (maze.getEnemyCoordinate(this).equals(maze.getPlayerCoordinate(player))) {
-                if (!player.getInvincibilityStatus() && !player.equals(lastHit)) {
+                if (!player.isInvincibilityStatus() && !player.equals(lastHit)) {
                     player.removeObjective();
                     lastHit = player;
                 } else {
@@ -96,6 +96,7 @@ public class EnemyImpl extends Movable implements Enemy, Serializable {
      * @return the {@link PlayerImpl} instance representing the last player hit, or
      *         {@code null} if no player has been hit.
      */
+    @Override
     public PlayerImpl getLastHit() {
         return lastHit;
     }
@@ -103,6 +104,7 @@ public class EnemyImpl extends Movable implements Enemy, Serializable {
     /**
      * Clears the record of the last player hit by the enemy.
      */
+    @Override
     public void clearLastHit() {
         lastHit = null;
     }
@@ -114,9 +116,6 @@ public class EnemyImpl extends Movable implements Enemy, Serializable {
      */
     @Override
     public boolean isPresentLastHit() {
-        if (lastHit == null) {
-            return false;
-        }
-        return true;
+        return lastHit != null;
     }
 }

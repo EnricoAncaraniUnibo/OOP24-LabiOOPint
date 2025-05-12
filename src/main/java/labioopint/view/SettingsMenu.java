@@ -51,15 +51,15 @@ public class SettingsMenu extends JFrame {
         super.setSize((int) screenSize.getWidth() * RATIO_NUMERATOR / RATIO_DENOMINATOR,
                 (int) screenSize.getHeight() * RATIO_NUMERATOR / RATIO_DENOMINATOR);
 
-        JPanel choosePanel = new JPanel();
+        final JPanel choosePanel = new JPanel();
         choosePanel.setLayout(new GridLayout(GRID_ROWS, GRID_COLUMNS, GRID_HGAP, GRID_VGAP));
 
-        JComboBox<String> difficultyComboBox = new JComboBox<>(new String[] { "EASY", "MEDIUM", "HARD" });
-        JSpinner playersSpinner = new JSpinner(new SpinnerNumberModel(2, 2, 4, 1));
-        JSpinner powerUpSpinner = new JSpinner(new SpinnerNumberModel(1, 1, 10, 1));
-        JSpinner enemySpinner = new JSpinner(new SpinnerNumberModel(0, 0, 1, 1));
+        final JComboBox<String> difficultyComboBox = new JComboBox<>(new String[] { "EASY", "MEDIUM", "HARD" });
+        final JSpinner playersSpinner = new JSpinner(new SpinnerNumberModel(2, 2, 4, 1));
+        final JSpinner powerUpSpinner = new JSpinner(new SpinnerNumberModel(1, 1, 10, 1));
+        final JSpinner enemySpinner = new JSpinner(new SpinnerNumberModel(0, 0, 1, 1));
 
-        JButton saveButton = new JButton("Save");
+        final JButton saveButton = new JButton("Save");
         saveButton.setAlignmentX(CENTER_ALIGNMENT);
         saveButton.addActionListener(e -> {
             settingsLogic.saveNewSettings(
@@ -70,7 +70,7 @@ public class SettingsMenu extends JFrame {
             this.setVisible(false);
         });
 
-        JLabel textLabel = new JLabel("Settings");
+        final JLabel textLabel = new JLabel("Settings");
         textLabel.setHorizontalAlignment(SwingConstants.CENTER);
         textLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, TITLE_FONT_SIZE));
 

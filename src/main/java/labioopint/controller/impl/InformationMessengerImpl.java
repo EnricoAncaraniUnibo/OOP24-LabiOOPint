@@ -19,6 +19,7 @@ import labioopint.model.powerup.api.PowerUp;
  * on the view.
  */
 public final class InformationMessengerImpl implements InformationMessenger, Serializable {
+    public static final long serialVersionUID = 1L;
     private final TurnManager turnManager;
 
     /**
@@ -67,10 +68,12 @@ public final class InformationMessengerImpl implements InformationMessenger, Ser
         return Optional.empty();
     }
 
+    @Override
     public String getNamesScores() {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (Player player : turnManager.getPlayers()) {
-            stringBuilder.append(player.getID()).append(": ").append(player.getObjetives().size()).append("\n");
+        final StringBuilder stringBuilder = new StringBuilder();
+        for (final Player player : turnManager.getPlayers()) {
+            stringBuilder.append(player.getID()).append(": ").append(player.getObjetives().size()).append('\n');
+            //stringBuilder.append(player.getID() + ": " + player.getObjetives().size() + '\n');
         }
         return stringBuilder.toString();
     }

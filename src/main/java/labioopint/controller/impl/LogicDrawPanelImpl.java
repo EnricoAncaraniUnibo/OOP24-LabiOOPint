@@ -24,7 +24,7 @@ import labioopint.model.powerup.api.PowerUp;
  * power-ups.
  */
 public class LogicDrawPanelImpl implements LogicDrawPanel, Serializable {
-
+    public static final long serialVersionUID = 1L;
     private final TurnManager turn;
     private final Integer pixelSize;
     private MazeImpl maze;

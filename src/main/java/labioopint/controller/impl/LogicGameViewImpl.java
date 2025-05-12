@@ -17,7 +17,7 @@ import labioopint.model.powerup.api.PowerUp;
  * based on user input.
  */
 public class LogicGameViewImpl implements LogicGameView, Serializable {
-
+    public static final long serialVersionUID = 1L;
     private final TurnManager turn;
     private final InformationMessenger ifm;
     private final GameController gc;
@@ -71,11 +71,10 @@ public class LogicGameViewImpl implements LogicGameView, Serializable {
     @Override
     public void activatePowerUps(final String powerUp) {
         for (final PowerUp pu : turn.getPowerUps()) {
-            if (pu.getName().equals(powerUp)) {
-                if (turn.getCurrentPlayer().getUsablePowerUps().contains(pu)) {
-                    pu.activate();
-                    break;
-                }
+            if (pu.getName().equals(powerUp) && turn.getCurrentPlayer().getUsablePowerUps().contains(pu)) {
+                pu.activate();
+                break;
+
             }
         }
     }

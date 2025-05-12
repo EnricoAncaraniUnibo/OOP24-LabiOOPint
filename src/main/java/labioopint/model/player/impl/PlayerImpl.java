@@ -15,6 +15,7 @@ import labioopint.model.powerup.api.PowerUp;
  * interactions with the TurnManager.
  */
 public final class PlayerImpl extends Movable implements Player, Serializable {
+    public static final long serialVersionUID = 1L;
     private final String id;
     private final List<PowerUp> objectives;
     private final List<PowerUp> usablePowerUps;
@@ -43,7 +44,7 @@ public final class PlayerImpl extends Movable implements Player, Serializable {
         invicible = false;
     }
 
-    public boolean getInvincibilityStatus() {
+    public boolean isInvincibilityStatus() {
         return invicible;
     }
 
@@ -80,7 +81,7 @@ public final class PlayerImpl extends Movable implements Player, Serializable {
         }
     }
 
-    public void removeObjectiveSelect(PowerUp pou) {
+    public void removeObjectiveSelect(final PowerUp pou) {
         if (!objectives.isEmpty()) {
             if (usablePowerUps.contains(pou)) {
                 usablePowerUps.remove(pou);

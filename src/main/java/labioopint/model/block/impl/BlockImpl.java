@@ -9,6 +9,7 @@ import labioopint.model.block.api.BlockType;
 import labioopint.model.block.api.Rotation;
 
 public final class BlockImpl extends Movable implements Block, Serializable {
+    public static final long serialVersionUID = 1L;
     private final BlockType type;
     private Rotation rotation;
 

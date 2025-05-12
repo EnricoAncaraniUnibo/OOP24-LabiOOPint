@@ -20,11 +20,8 @@ public final class Starter {
      * @param args the command-line arguments, must not be null
      */
     public static void main(final String[] args) {
-        try {
-            MainMenuController controller = new MainMenuController();
-            controller.load();
-        } catch (Exception e) {
-            // Handle exception (optional: log or rethrow)
-        }
+
+        final MainMenuController controller = new MainMenuController();
+        controller.load();
     }
 }

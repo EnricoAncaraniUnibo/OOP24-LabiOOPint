@@ -10,7 +10,7 @@ import labioopint.model.player.impl.PlayerImpl;
  * This class represents a power-up that swaps the position of the current player with another random player.
  */
 public final class SwapPositionPowerUp extends PowerUpImpl {
-
+    public static final long serialVersionUID = 1L;
     private boolean condition = true;
     private final TurnManager turn;
 
@@ -34,11 +34,11 @@ public final class SwapPositionPowerUp extends PowerUpImpl {
     public void activate() {
         if (turn.getCurrentPlayer().getUsablePowerUps().contains(this)) {
             if (isCollected()) {
-                Coordinate currentPlayerCoordinate = turn.getLab().getPlayerCoordinate(turn.getCurrentPlayer());
-                Random random = new Random();
+                final Coordinate currentPlayerCoordinate = turn.getLab().getPlayerCoordinate(turn.getCurrentPlayer());
+                final Random random = new Random();
                 while (this.condition) {
-                    PlayerImpl playerSwap = turn.getPlayers().get(random.nextInt(turn.getPlayers().size()));
-                    Coordinate playerSwapCoordinate = turn.getLab().getPlayerCoordinate(playerSwap);
+                    final PlayerImpl playerSwap = turn.getPlayers().get(random.nextInt(turn.getPlayers().size()));
+                    final Coordinate playerSwapCoordinate = turn.getLab().getPlayerCoordinate(playerSwap);
                     if (turn.getPlayers().size() < 2) {
                         this.condition = false;
                     } else if (turn.getPlayers().size() > 1 && !turn.getCurrentPlayer().equals(playerSwap)) {

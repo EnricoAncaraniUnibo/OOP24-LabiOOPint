@@ -20,6 +20,7 @@ import labioopint.model.player.impl.PlayerImpl;
  */
 public class SingleStepRandomAI implements EnemyAI, Serializable {
 
+    public static final long serialVersionUID = 1L;
     private final Random rand = new Random();
     private final TurnManager turn;
 

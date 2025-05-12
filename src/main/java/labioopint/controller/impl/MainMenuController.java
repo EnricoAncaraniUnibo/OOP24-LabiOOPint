@@ -49,9 +49,6 @@ public final class MainMenuController {
     }
 
     public boolean isLoaded() {
-        if(loadController.isLoaded()){
-            return true;
-        }
-        return false;
+        return loadController.isLoaded();
     }
 }

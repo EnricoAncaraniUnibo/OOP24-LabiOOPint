@@ -12,12 +12,13 @@ import labioopint.model.maze.api.Direction;
 import labioopint.model.maze.impl.LabyrinthImpl;
 
 public final class GameControllerImpl implements GameController, Serializable {
+    public static final long serialVersionUID = 1L;
     private LabyrinthImpl labyrinth;
     private final TurnManager turnManager;
-    private SaveControllerImpl saveController;
+    private final SaveControllerImpl saveController;
 
     public GameControllerImpl(final TurnManager tu) {
-        saveController = new SaveControllerImpl(tu);
+        saveController = new SaveControllerImpl();
         turnManager = tu;
     }
 

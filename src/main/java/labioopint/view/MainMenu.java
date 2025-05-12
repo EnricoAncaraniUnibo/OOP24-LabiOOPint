@@ -17,7 +17,7 @@ import labioopint.controller.impl.MainMenuLogic;
  * It provides buttons to start a game, load a game, open settings, or quit the application.
  */
 public class MainMenu extends JFrame {
-
+    public static final long serialVersionUID = 1L;
     private static final int WIDTH_RATIO = 4;
     private static final int HEIGHT_RATIO = 5;
 
@@ -30,25 +30,25 @@ public class MainMenu extends JFrame {
      */
     public MainMenu(final MainMenuController controller) {
         logic = new MainMenuLogic(controller);
-        setTitle("Main Menu");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-        setSize((int) d.getWidth() * WIDTH_RATIO / HEIGHT_RATIO, (int) d.getHeight() * WIDTH_RATIO / HEIGHT_RATIO);
-        setLayout(new BorderLayout());
-        setResizable(false);
-        setLocationByPlatform(true);
+        super.setTitle("Main Menu");
+        super.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        final Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+        super.setSize((int) d.getWidth() * WIDTH_RATIO / HEIGHT_RATIO, (int) d.getHeight() * WIDTH_RATIO / HEIGHT_RATIO);
+        super.setLayout(new BorderLayout());
+        super.setResizable(false);
+        super.setLocationByPlatform(true);
 
-        JPanel buttonPanel = new JPanel();
+        final JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(4, 1, 10, 10));
 
-        JButton startGameButton = new JButton("Start Game");
+        final JButton startGameButton = new JButton("Start Game");
         startGameButton.addActionListener(e -> {
             logic.startGame();
             this.setVisible(false);
         });
         buttonPanel.add(startGameButton);
 
-        JButton loadGameButton = new JButton("Load Game");
+        final JButton loadGameButton = new JButton("Load Game");
         loadGameButton.addActionListener(e -> {
             logic.loadGame();
             if(logic.isLoaded()){
@@ -59,15 +59,15 @@ public class MainMenu extends JFrame {
         });
         buttonPanel.add(loadGameButton);
 
-        JButton settingsButton = new JButton("Settings");
+        final JButton settingsButton = new JButton("Settings");
         settingsButton.addActionListener(e -> logic.openSettings());
         buttonPanel.add(settingsButton);
 
-        JButton quitButton = new JButton("Quit");
+        final JButton quitButton = new JButton("Quit");
         quitButton.addActionListener(e -> logic.quitGame());
         buttonPanel.add(quitButton);
 
-        add(buttonPanel, BorderLayout.CENTER);
+        super.add(buttonPanel, BorderLayout.CENTER);
     }
 
     private void showNoFileFound(){

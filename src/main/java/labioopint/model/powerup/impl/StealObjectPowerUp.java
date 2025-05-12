@@ -12,7 +12,7 @@ import labioopint.model.powerup.api.PowerUp;
  * (Usable power-up) from another player.
  */
 public class StealObjectPowerUp extends PowerUpImpl {
-
+    public static final long serialVersionUID = 1L;
     private final TurnManager turn;
 
     /**
@@ -39,8 +39,8 @@ public class StealObjectPowerUp extends PowerUpImpl {
                         .filter(player -> !player.equals(turn.getCurrentPlayer()) && !player.getUsablePowerUps().isEmpty())
                         .toList();
             if (!targetPlayers.isEmpty()) {
-                PlayerImpl targetPlayer = targetPlayers.get(new Random().nextInt(targetPlayers.size()));
-                Optional<PowerUp> stolenObjective = Optional.of(targetPlayer.getObjetives().get(0));
+                final PlayerImpl targetPlayer = targetPlayers.get(new Random().nextInt(targetPlayers.size()));
+                final Optional<PowerUp> stolenObjective = Optional.of(targetPlayer.getObjetives().get(0));
                 if (stolenObjective.isPresent()) {
                     targetPlayer.removeObjectiveSelect(stolenObjective.get());
                     turn.getCurrentPlayer().addObjective(stolenObjective.get());

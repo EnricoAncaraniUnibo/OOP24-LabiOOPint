@@ -7,6 +7,7 @@ import java.io.Serializable;
  * with row and column values.
  */
 public class Coordinate implements Serializable {
+    public static final long serialVersionUID = 1L;
     private final Integer row;
     private final Integer column;
 

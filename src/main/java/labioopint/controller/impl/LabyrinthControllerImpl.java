@@ -13,7 +13,7 @@ import labioopint.model.powerup.api.PowerUp;
 import labioopint.view.GameView;
 
 public final class LabyrinthControllerImpl implements LabyrinthController, Serializable {
-
+    public static final long serialVersionUID = 1L;
     private GameView gameView;
     private final TurnManager turnManager;
 

@@ -28,7 +28,8 @@ import labioopint.controller.impl.ActionPredicateImpl;
  * players in the labyrinth using pathfinding.
  */
 public class ChaseAI implements EnemyAI, Serializable {
-
+    
+    public static final long serialVersionUID = 1L;
     private ActionPredicate ap;
     private final TurnManager turn;
 

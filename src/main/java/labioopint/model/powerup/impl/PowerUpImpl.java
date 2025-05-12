@@ -10,9 +10,10 @@ import labioopint.model.powerup.api.PowerUp;
  * It includes common functionality such as tracking collection status and managing collected power-ups.
  */
 public abstract class PowerUpImpl implements PowerUp, Serializable {
+    public static final long serialVersionUID = 1L;
     private final int id;
     private boolean collected;
-    private List<PowerUp> collectedPowerUps;
+    private final List<PowerUp> collectedPowerUps;
     private String name;
 
     /**
@@ -31,6 +32,7 @@ public abstract class PowerUpImpl implements PowerUp, Serializable {
      *
      * @return the unique ID of the power-up
      */
+    @Override
     public int getID() {
         return id;
     }
@@ -40,6 +42,7 @@ public abstract class PowerUpImpl implements PowerUp, Serializable {
      *
      * @return the name of the power-up
      */
+    @Override
     public String getName() {
         return name;
     }

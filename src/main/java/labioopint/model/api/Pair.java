@@ -3,6 +3,7 @@ package labioopint.model.api;
 import java.io.Serializable;
 
 public final class Pair<X, Y> implements Serializable {
+    public static final long serialVersionUID = 1L;
     private final X first;
     private final Y second;
 

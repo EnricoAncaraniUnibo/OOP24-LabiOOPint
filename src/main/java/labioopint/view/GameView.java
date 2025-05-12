@@ -38,14 +38,14 @@ import java.awt.event.MouseEvent;
  */
 public class GameView extends JFrame {
 
-    public static final long serialVersionUID = 0;
+    public static final long serialVersionUID = 1L;
     private final JLabel turnLabel;
     private final DrawPanel labirintPanel;
     private final LogicGameView lgv;
     private final JButton upButton;
     private final JButton downButton;
     private final JLabel actionLabel;
-    private JLabel scoreLabel;
+    private final JLabel scoreLabel;
     private final JButton endTurnButton;
     private final JComboBox<String> comboBox;
     private static final int RATIO_NUMERATOR = 4;

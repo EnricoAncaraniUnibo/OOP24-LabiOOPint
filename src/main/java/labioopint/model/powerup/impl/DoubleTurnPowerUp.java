@@ -6,7 +6,7 @@ import labioopint.model.core.impl.TurnManager;
  * This class represents a power-up that allows a player to take an additional turn.
  */
 public final class DoubleTurnPowerUp extends PowerUpImpl {
-
+    public static final long serialVersionUID = 1L;
     private final TurnManager turn;
 
     /**

@@ -10,23 +10,19 @@ import labioopint.controller.api.SaveController;
 import labioopint.model.core.impl.TurnManager;
 
 public final class SaveControllerImpl implements SaveController, Serializable {
-
-    public SaveControllerImpl(final TurnManager tManager) {
-
-    }
+    public static final long serialVersionUID = 1L;
 
     @Override
-    public void save(TurnManager turnManager) {
+    public void save(final TurnManager turnManager) {
         try {
-            FileOutputStream fos = new FileOutputStream(new File("src/main/java/labioopint/saving/lastGame.txt"),
+            final FileOutputStream fos = new FileOutputStream(new File("src/main/java/labioopint/saving/lastGame.txt"),
                     false);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            final ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(turnManager);
             oos.close();
             fos.close();
         } catch (IOException e) {
-            System.out.println("An error occured.");
-            e.printStackTrace();
+            //TODO
         }
     }
 }

@@ -2,6 +2,7 @@ package labioopint.controller.impl;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import labioopint.controller.api.LoadController;
 import labioopint.model.core.impl.TurnManager;
@@ -18,24 +19,24 @@ public final class LoadControllerImpl implements LoadController {
     @Override
     public void loadLastGame() {
         try {
-            FileInputStream fis = new FileInputStream(new File("src/main/java/labioopint/saving/lastGame.txt"));
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            loadedTurnManager = (TurnManager) ois.readObject();
+            final FileInputStream fis = new FileInputStream(new File("src/main/java/labioopint/saving/lastGame.txt"));
+            final ObjectInputStream ois = new ObjectInputStream(fis);
+            try {
+                loadedTurnManager = (TurnManager) ois.readObject();
+            } catch (ClassNotFoundException e) {
+                //TODO
+            }
             ois.close();
             fis.close();
             isLoaded = true;
-            System.out.println("Loaded success");
-        } catch (Exception e) {
-        
+        } catch (IOException e) {
+            //TODO
         }
     }
 
     @Override
     public boolean isLoaded() {
-        if (isLoaded) {
-            return true;
-        }
-        return false;
+        return isLoaded;
     }
 
     @Override

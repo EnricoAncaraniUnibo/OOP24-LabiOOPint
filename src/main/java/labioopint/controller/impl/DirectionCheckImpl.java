@@ -12,6 +12,7 @@ import labioopint.model.maze.impl.LabyrinthImpl;
 import labioopint.model.maze.impl.MazeImpl;
 
 public final class DirectionCheckImpl implements DirectionCheck, Serializable {
+    public static final long serialVersionUID = 1L;
     private final LabyrinthImpl labyrinth;
 
     public DirectionCheckImpl(final TurnManager tu) {

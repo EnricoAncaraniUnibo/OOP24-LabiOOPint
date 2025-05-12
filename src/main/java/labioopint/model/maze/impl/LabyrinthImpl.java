@@ -34,6 +34,7 @@ import labioopint.model.powerup.impl.SwapPositionPowerUp;
  * coordinates and interactions.
  */
 public final class LabyrinthImpl implements Labyrinth, Serializable {
+    public static final long serialVersionUID = 1L;
     private final MazeImpl grid;
     private BlockImpl outsideBlock;
     private DualMap<PowerUp> mapOfPowerUps;
@@ -173,9 +174,9 @@ public final class LabyrinthImpl implements Labyrinth, Serializable {
         Optional<Enemy> e;
         Optional<PowerUp> pu;
         Coordinate coor = new Coordinate(c);
-        DualMap<PlayerImpl> tempMapOfPlayers = new DualMap<>();
-        DualMap<Enemy> tempMapOfEnemy = new DualMap<>();
-        DualMap<PowerUp> tempMapOfPowerUps = new DualMap<>();
+        final DualMap<PlayerImpl> tempMapOfPlayers = new DualMap<>();
+        final DualMap<Enemy> tempMapOfEnemy = new DualMap<>();
+        final DualMap<PowerUp> tempMapOfPowerUps = new DualMap<>();
         for (int j = 0; j < grid.getSize(); j++) {
             p = Optional.ofNullable(mapOfPlayers.getElemFromCoordinate(coor));
             if (p.isPresent() && !lp.contains(p.get())) {
@@ -199,13 +200,13 @@ public final class LabyrinthImpl implements Labyrinth, Serializable {
             }
             coor = calculateNewCoordinate(coor, d);
         }
-        for (PowerUp powerUp : tempMapOfPowerUps.getElemets()) {
+        for (final PowerUp powerUp : tempMapOfPowerUps.getElemets()) {
             mapOfPowerUps.addElemWithCoordinate(powerUp, tempMapOfPowerUps.getCoordinateFromElement(powerUp));
         }
-        for (PlayerImpl player : tempMapOfPlayers.getElemets()) {
+        for (final PlayerImpl player : tempMapOfPlayers.getElemets()) {
             mapOfPlayers.addElemWithCoordinate(player, tempMapOfPlayers.getCoordinateFromElement(player));
         }
-        for (Enemy en : tempMapOfEnemy.getElemets()) {
+        for (final Enemy en : tempMapOfEnemy.getElemets()) {
             mapOfEnemy.addElemWithCoordinate(en, tempMapOfEnemy.getCoordinateFromElement(en));
         }
     }
@@ -281,7 +282,7 @@ public final class LabyrinthImpl implements Labyrinth, Serializable {
             mapOfPowerUps.remove(mapOfPowerUps.getElemFromCoordinate(c));
             final Optional<Player> pl = checkWinner();
             if (pl.isPresent()) {
-                winner = new Pair<Boolean, Player>(true, pl.get());
+                winner = new Pair<>(true, pl.get());
             }
         }
     }
@@ -300,22 +301,22 @@ public final class LabyrinthImpl implements Labyrinth, Serializable {
     @Override
     public void addPowerUp(final PowerUp p) {
         final CoordinateGenerator cg = new CoordinateGenerator(grid.getSize());
-        boolean repeat = false;
+        boolean repeat;
         Coordinate c;
         do {
             repeat = false;
             c = cg.getRandomCoordinate();
-            for (PlayerImpl playerImpl : mapOfPlayers.getElemets()) {
+            for (final PlayerImpl playerImpl : mapOfPlayers.getElemets()) {
                 if (c.equals(mapOfPlayers.getCoordinateFromElement(playerImpl))) {
                     repeat = true;
                 }
             }
-            for (PowerUp po : mapOfPowerUps.getElemets()) {
+            for (final PowerUp po : mapOfPowerUps.getElemets()) {
                 if (c.equals(mapOfPowerUps.getCoordinateFromElement(po))) {
                     repeat = true;
                 }
             }
-            for (Enemy e : mapOfEnemy.getElemets()) {
+            for (final Enemy e : mapOfEnemy.getElemets()) {
                 if (c.equals(mapOfEnemy.getCoordinateFromElement(e))) {
                     repeat = true;
                 }
@@ -346,10 +347,10 @@ public final class LabyrinthImpl implements Labyrinth, Serializable {
                     .sorted(Comparator.comparing(p -> p.getObjetives().size(), Comparator.reverseOrder()))
                     .collect(Collectors.toList());
             if (sortedPlayers.get(0).getObjetives().size() == sortedPlayers.get(1).getObjetives().size()) {
-                Random r = new Random();
+                final Random r = new Random();
                 final PowerUp pou;
-                int i = turn.getPowerUps().size();
-                int value = r.nextInt(4);
+                final int i = turn.getPowerUps().size();
+                final int value = r.nextInt(4);
                 switch (value) {
                     case 0:
                         pou = new SwapPositionPowerUp(turn, i);
@@ -377,8 +378,7 @@ public final class LabyrinthImpl implements Labyrinth, Serializable {
 
     public Optional<Player> getWinner() {
         if (winner.getFirst()) {
-            Optional<Player> pl = Optional.of(winner.getSecond());
-            return pl;
+            return Optional.of(winner.getSecond());
         }
         return Optional.empty();
 

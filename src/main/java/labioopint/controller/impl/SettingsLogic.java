@@ -29,9 +29,9 @@ public final class SettingsLogic {
      */
     public void saveNewSettings(final int enemyNumber, final int playersNumber, 
                                 final int powerUpNumber, final String enemyDifficultyString) {
-        EnemyDifficulty enemyDifficulty = enemyDifficultyString.equals("EASY") 
+        final EnemyDifficulty enemyDifficulty = "EASY".equals(enemyDifficultyString) 
                 ? EnemyDifficulty.EASY 
-                : enemyDifficultyString.equals("MEDIUM") 
+                : "MEDIUM".equals(enemyDifficultyString) 
                     ? EnemyDifficulty.MEDIUM 
                     : EnemyDifficulty.HARD;
         controller.changeSettings(new Settings(enemyNumber, playersNumber, powerUpNumber, enemyDifficulty));

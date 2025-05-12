@@ -13,6 +13,7 @@ import java.util.Set;
  * @param <X> the type of elements stored in the map
  */
 public final class DualMap<X> implements Serializable {
+    public static final long serialVersionUID = 1L;
     private final Map<Coordinate, X> mapFromCoordinate;
     private final Map<X, Coordinate> mapFromElement;
 

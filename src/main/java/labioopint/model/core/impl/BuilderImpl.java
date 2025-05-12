@@ -116,10 +116,10 @@ public class BuilderImpl {
      */
     public List<PowerUp> createPowerUps() {
         final List<PowerUp> powerUps = new ArrayList<>();
-        Random r = new Random();
+        final Random r = new Random();
         PowerUp powerUp;
         for (int i = 0; i < numberPowerUp; i++) {
-            int value = r.nextInt(4);
+            final int value = r.nextInt(4);
             switch (value) {
                 case 0:
                     powerUp = new SwapPositionPowerUp(turn, i);

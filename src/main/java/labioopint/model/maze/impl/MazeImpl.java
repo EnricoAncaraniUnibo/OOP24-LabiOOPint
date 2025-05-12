@@ -17,6 +17,7 @@ import labioopint.model.maze.api.Maze;
  * interacting with the maze's blocks and coordinates.
  */
 public abstract class MazeImpl implements Maze, Serializable {
+    public static final long serialVersionUID = 1L;
     private final Map<Coordinate, BlockImpl> grid;
     private final List<BlockImpl> blockSelection;
     private final Integer size;
