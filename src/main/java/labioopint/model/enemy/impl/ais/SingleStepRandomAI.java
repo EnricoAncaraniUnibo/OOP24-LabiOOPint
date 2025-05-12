@@ -18,7 +18,7 @@ import labioopint.model.player.impl.PlayerImpl;
  * Implementation of the {@link EnemyAI} interface that moves the enemy one step
  * in a random direction.
  */
-public class SingleStepRandomAI implements EnemyAI,Serializable {
+public class SingleStepRandomAI implements EnemyAI, Serializable {
 
     private final Random rand = new Random();
     private final TurnManager turn;

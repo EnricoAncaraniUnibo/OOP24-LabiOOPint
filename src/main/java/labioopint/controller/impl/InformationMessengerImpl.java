@@ -18,10 +18,10 @@ import labioopint.model.powerup.api.PowerUp;
  * The informations provided by this class are transformed to permit the output
  * on the view.
  */
-public class InformationMessengerImpl implements InformationMessenger,Serializable {
+public class InformationMessengerImpl implements InformationMessenger, Serializable {
     private final TurnManager turn;
 
-     /**
+    /**
      * Constructs an InformationMessenger with the specified TurnManager.
      *
      * @param tu the TurnManager instance to manage game turns
@@ -79,7 +79,7 @@ public class InformationMessengerImpl implements InformationMessenger,Serializab
 
     @Override
     public Optional<String> getWinner() {
-        if(turn.getLab().getWinner().isPresent()) {
+        if (turn.getLab().getWinner().isPresent()) {
             return Optional.of("Ha vinto: " + turn.getLab().getWinner().get().getID());
         }
         return Optional.empty();

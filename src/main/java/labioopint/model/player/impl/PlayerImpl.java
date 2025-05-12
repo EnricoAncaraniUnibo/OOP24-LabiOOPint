@@ -14,7 +14,7 @@ import labioopint.model.powerup.api.PowerUp;
  * in the game. It manages the player's ID, objectives, usable power-ups, and
  * interactions with the TurnManager.
  */
-public final class PlayerImpl extends Movable implements Player,Serializable {
+public final class PlayerImpl extends Movable implements Player, Serializable {
     private final String id;
     private final List<PowerUp> objectives;
     private final List<PowerUp> usablePowerUps;
@@ -77,6 +77,15 @@ public final class PlayerImpl extends Movable implements Player,Serializable {
             }
             objectives.remove(p);
             turn.getLab().addPowerUp(p);
+        }
+    }
+
+    public void removeObjectiveSelect(PowerUp pou) {
+        if (!objectives.isEmpty()) {
+            if (usablePowerUps.contains(pou)) {
+                usablePowerUps.remove(pou);
+            }
+            objectives.remove(pou);
         }
     }
 

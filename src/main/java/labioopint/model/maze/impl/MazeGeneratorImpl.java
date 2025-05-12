@@ -11,8 +11,10 @@ import labioopint.model.block.api.BlockType;
 import labioopint.model.block.api.Rotation;
 import labioopint.model.block.impl.BlockImpl;
 import labioopint.model.maze.api.MazeGenerator;
+
 /**
- * The MazeGeneratorImpl class implements the MazeGenerator interface and provides
+ * The MazeGeneratorImpl class implements the MazeGenerator interface and
+ * provides
  * the logic for generating a maze with blocks and their respective coordinates.
  */
 public final class MazeGeneratorImpl implements MazeGenerator {
@@ -35,13 +37,14 @@ public final class MazeGeneratorImpl implements MazeGenerator {
         final Map<Coordinate, BlockImpl> map = new HashMap<>();
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                if (!((i == 0 && j == 0) || (i == size - 1 && j == 0) || (i == 0 && j == size - 1) || (i == size - 1 && j == size - 1))) {
-                   final  BlockImpl b = selectableBlocks.get(r.nextInt(0, selectableBlocks.size()));
+                if (!((i == 0 && j == 0) || (i == size - 1 && j == 0)
+                        || (i == 0 && j == size - 1) || (i == size - 1 && j == size - 1))) {
+                    final BlockImpl b = selectableBlocks.get(r.nextInt(0, selectableBlocks.size()));
                     selectableBlocks.remove(b);
                     final Coordinate c = new Coordinate(i, j);
                     b.randomRotation();
                     map.put(c, b);
-                }   
+                }
             }
         }
         BlockImpl b = new BlockImpl(BlockType.CORNER);

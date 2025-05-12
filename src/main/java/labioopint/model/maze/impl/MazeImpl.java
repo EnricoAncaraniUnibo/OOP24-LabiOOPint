@@ -10,17 +10,18 @@ import java.util.Optional;
 import labioopint.model.api.Coordinate;
 import labioopint.model.block.impl.BlockImpl;
 import labioopint.model.maze.api.Maze;
+
 /**
  * The MazeImpl class provides an abstract implementation of the Maze interface.
  * It manages the maze grid, block selection, and size, and provides methods for
  * interacting with the maze's blocks and coordinates.
  */
-public abstract class MazeImpl implements Maze,Serializable {
+public abstract class MazeImpl implements Maze, Serializable {
     private final Map<Coordinate, BlockImpl> grid;
     private final List<BlockImpl> blockSelection;
     private final Integer size;
 
-     /**
+    /**
      * Constructs a MazeImpl with the specified size.
      * Initializes the grid and block selection.
      *
@@ -78,6 +79,7 @@ public abstract class MazeImpl implements Maze,Serializable {
         grid.remove(removable);
         grid.put(coor, b);
     }
+
     @Override
     public abstract BlockImpl generate();
 }

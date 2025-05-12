@@ -16,7 +16,7 @@ import labioopint.model.powerup.api.PowerUp;
  * It provides methods to retrieve game state information and perform actions
  * based on user input.
  */
-public class LogicGameViewImpl implements LogicGameView,Serializable {
+public class LogicGameViewImpl implements LogicGameView, Serializable {
 
     private final TurnManager turn;
     private final InformationMessenger ifm;
@@ -72,8 +72,8 @@ public class LogicGameViewImpl implements LogicGameView,Serializable {
     public void activatePowerUps(final String powerUp) {
         for (final PowerUp pu : turn.getPowerUps()) {
             if (pu.getName().equals(powerUp)) {
-                if(turn.getCurrentPlayer().getUsablePowerUps().contains(pu)){
-                    pu.activate(turn.getCurrentPlayer());
+                if (turn.getCurrentPlayer().getUsablePowerUps().contains(pu)) {
+                    pu.activate();
                     break;
                 }
             }
@@ -141,6 +141,12 @@ public class LogicGameViewImpl implements LogicGameView,Serializable {
         System.exit(0);
     }
 
+    /**
+     * Retrieves the current scores of the game as a string.
+     * The scores are formatted with HTML line breaks for display purposes.
+     *
+     * @return a string representation of the scores.
+     */
     @Override
     public String getScores() {
         return ifm.getNamesScores().replace("\n", "<br>");

@@ -21,7 +21,7 @@ import labioopint.model.player.impl.PlayerImpl;
  * controlled
  * by an {@link EnemyAI}.
  */
-public class EnemyImpl extends Movable implements Enemy,Serializable {
+public class EnemyImpl extends Movable implements Enemy, Serializable {
 
     private final EnemyAI enemyAI;
     private final TurnManager turn;
@@ -90,17 +90,31 @@ public class EnemyImpl extends Movable implements Enemy,Serializable {
         }
     }
 
-    public PlayerImpl getLastHit(){
+    /**
+     * Retrieves the last player hit by the enemy.
+     * 
+     * @return the {@link PlayerImpl} instance representing the last player hit, or
+     *         {@code null} if no player has been hit.
+     */
+    public PlayerImpl getLastHit() {
         return lastHit;
     }
 
-    public void clearLastHit(){
+    /**
+     * Clears the record of the last player hit by the enemy.
+     */
+    public void clearLastHit() {
         lastHit = null;
     }
 
+    /**
+     * Checks if there is a record of the last player hit by the enemy.
+     * 
+     * @return {@code true} if a player was hit, {@code false} otherwise.
+     */
     @Override
     public boolean isPresentLastHit() {
-        if(lastHit == null) {
+        if (lastHit == null) {
             return false;
         }
         return true;

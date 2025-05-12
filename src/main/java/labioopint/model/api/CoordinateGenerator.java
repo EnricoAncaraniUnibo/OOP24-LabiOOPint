@@ -3,13 +3,17 @@ package labioopint.model.api;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
 /**
- * The CoordinateGenerator class is responsible for generating and managing a list of possible
- * coordinates in a two-dimensional grid. It provides methods to retrieve random coordinates
+ * The CoordinateGenerator class is responsible for generating and managing a
+ * list of possible
+ * coordinates in a two-dimensional grid. It provides methods to retrieve random
+ * coordinates
  * and create specific coordinate patterns.
  */
 public class CoordinateGenerator {
     private final List<Coordinate> possibleCoordinate;
+
     /**
      * Constructs a CoordinateGenerator with a grid of the specified size.
      * Excludes the corners of the grid from the list of possible coordinates.
@@ -20,13 +24,15 @@ public class CoordinateGenerator {
         possibleCoordinate = new ArrayList<>();
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                if ((i != 0 || j != 0) && (i != size - 1 || j != size - 1) && (i != 0 || j != size - 1) && (i != size - 1 || j != 0)) {
+                if ((i != 0 || j != 0) && (i != size - 1 || j != size - 1)
+                        && (i != 0 || j != size - 1) && (i != size - 1 || j != 0)) {
                     final Coordinate c = new Coordinate(i, j);
                     possibleCoordinate.add(c);
                 }
             }
         }
     }
+
     /**
      * Constructs a CoordinateGenerator with a predefined list of coordinates.
      *
@@ -36,6 +42,7 @@ public class CoordinateGenerator {
         possibleCoordinate = new ArrayList<>();
         possibleCoordinate.addAll(coor);
     }
+
     /**
      * Retrieves a random coordinate from the list of possible coordinates
      * and removes it from the list.
@@ -48,6 +55,7 @@ public class CoordinateGenerator {
         possibleCoordinate.remove(c);
         return c;
     }
+
     /**
      * Creates a list of basic spawn coordinates for a grid of the specified size.
      * The spawn coordinates are the four corners of the grid.
@@ -63,6 +71,7 @@ public class CoordinateGenerator {
         ls.add(new Coordinate(size - 1, size - 1));
         return ls;
     }
+
     /**
      * Retrieves the central coordinate of a grid with the specified size.
      *
@@ -70,6 +79,6 @@ public class CoordinateGenerator {
      * @return the central Coordinate
      */
     public static Coordinate getCentralCoordinate(final Integer size) {
-        return new Coordinate(size / 2,size / 2);
+        return new Coordinate(size / 2, size / 2);
     }
 }

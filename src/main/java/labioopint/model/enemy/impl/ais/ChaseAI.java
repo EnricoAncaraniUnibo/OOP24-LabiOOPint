@@ -27,7 +27,7 @@ import labioopint.controller.impl.ActionPredicateImpl;
  * Implementation of the {@link EnemyAI} interface that allows an enemy to chase
  * players in the labyrinth using pathfinding.
  */
-public class ChaseAI implements EnemyAI,Serializable {
+public class ChaseAI implements EnemyAI, Serializable {
 
     private ActionPredicate ap;
     private final TurnManager turn;

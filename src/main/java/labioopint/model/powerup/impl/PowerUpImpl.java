@@ -3,8 +3,6 @@ package labioopint.model.powerup.impl;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import labioopint.model.player.impl.PlayerImpl;
 import labioopint.model.powerup.api.PowerUp;
 
 /**
@@ -52,7 +50,7 @@ public abstract class PowerUpImpl implements PowerUp, Serializable {
      * @param currentPlayer the player for whom the power-up is activated, must not be null
      */
     @Override
-    public abstract void activate(PlayerImpl currentPlayer);
+    public abstract void activate();
 
     /**
      * Checks if the power-up has been collected.

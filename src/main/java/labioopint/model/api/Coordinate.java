@@ -6,7 +6,7 @@ import java.io.Serializable;
  * The Coordinate class represents a position in a two-dimensional grid
  * with row and column values.
  */
-public class Coordinate implements Serializable{
+public class Coordinate implements Serializable {
     private final Integer row;
     private final Integer column;
 

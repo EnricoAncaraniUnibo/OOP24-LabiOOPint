@@ -23,12 +23,12 @@ import labioopint.model.powerup.api.PowerUp;
 public class TurnManager implements Serializable {
     private final LabyrinthImpl labyrinth;
     private List<PlayerImpl> players;
-    private Pair<Boolean,Enemy> enemy;
+    private Pair<Boolean, Enemy> enemy;
     private final List<PowerUp> powerUps;
     private ActionType currentAction;
     private int currentPlayer;
     private final SaveController saveController;
-    private boolean enemyMove;                      //If true the enemy have the permission to move                     
+    private boolean enemyMove; // If true the enemy have the permission to move
 
     /**
      * Constructs a TurnManager with the given settings.
@@ -43,18 +43,16 @@ public class TurnManager implements Serializable {
         final BuilderImpl bi = new BuilderImpl(st, this);
         players = bi.createPlayers();
         players = new RandomTurnChooser(players).randomOrder();
-        if(st.getEnemy() == 1){
+        if (st.getEnemy() == 1) {
             enemy = new Pair<>(true, bi.createEnemy());
-        }else{
+        } else {
             enemy = new Pair<>(false, null);
         }
         powerUps = bi.createPowerUps();
         labyrinth = bi.createMaze();
     }
-    /*
-     * Constructor of TurnManager with the loaded game
-     */
-    public TurnManager(final TurnManager loadedTurnManager){
+
+    public TurnManager(final TurnManager loadedTurnManager) {
         enemyMove = true;
         currentAction = loadedTurnManager.getCurrentAction();
         players = loadedTurnManager.getPlayers();
@@ -63,7 +61,7 @@ public class TurnManager implements Serializable {
         labyrinth = loadedTurnManager.getLab();
         int i = 0;
         for (PlayerImpl playerImpl : players) {
-            if(playerImpl == loadedTurnManager.getCurrentPlayer()){
+            if (playerImpl == loadedTurnManager.getCurrentPlayer()) {
                 currentPlayer = i;
             }
             i++;
@@ -77,8 +75,8 @@ public class TurnManager implements Serializable {
      */
     public void repeatPlayerTurn() {
         currentPlayer--;
-        if (currentPlayer<0) {
-            currentPlayer = players.size()-1;
+        if (currentPlayer < 0) {
+            currentPlayer = players.size() - 1;
         }
         enemyMove = false;
         nextAction();
@@ -108,7 +106,7 @@ public class TurnManager implements Serializable {
      *
      * @return an Optional containing the enemy, or empty if no enemy exists
      */
-    public Pair<Boolean,Enemy> getEnemy() {
+    public Pair<Boolean, Enemy> getEnemy() {
         return enemy;
     }
 

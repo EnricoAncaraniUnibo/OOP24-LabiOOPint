@@ -11,7 +11,7 @@ import labioopint.model.powerup.api.PowerUp;
  * This class represents a power-up that allows a player to steal an objective
  * (Usable power-up) from another player.
  */
-public class StoleObjectPowerUp extends PowerUpImpl {
+public class StealObjectPowerUp extends PowerUpImpl {
 
     private final TurnManager turn;
 
@@ -21,33 +21,32 @@ public class StoleObjectPowerUp extends PowerUpImpl {
      * @param turn the TurnManager instance to manage turns, must not be null
      * @param id   the unique identifier for this power-up
      */
-    public StoleObjectPowerUp(final TurnManager turn, final int id) {
+    public StealObjectPowerUp(final TurnManager turn, final int id) {
         super(id);
-        super.setName("Stole Object");
+        super.setName("Steal Object");
         this.turn = turn;
     }
 
     /**
      * Activates the power-up for the specified player.
      *
-     * @param currentPlayer the player for whom the power-up is activated, must not be null
      */
     @Override
-    public void activate(final PlayerImpl currentPlayer) {
+    public void activate() {
         if (isCollected()) {
             final List<PlayerImpl> players = turn.getPlayers();
             final List<PlayerImpl> targetPlayers = players.stream()
-                        .filter(player -> !player.equals(currentPlayer) && !player.getUsablePowerUps().isEmpty())
+                        .filter(player -> !player.equals(turn.getCurrentPlayer()) && !player.getUsablePowerUps().isEmpty())
                         .toList();
             if (!targetPlayers.isEmpty()) {
                 PlayerImpl targetPlayer = targetPlayers.get(new Random().nextInt(targetPlayers.size()));
-                Optional<PowerUp> stolenObjective = Optional.of(targetPlayer.getUsablePowerUps().getFirst());
+                Optional<PowerUp> stolenObjective = Optional.of(targetPlayer.getObjetives().get(0));
                 if (stolenObjective.isPresent()) {
-                    targetPlayer.removePowerUp(stolenObjective.get());
-                    currentPlayer.addObjective(stolenObjective.get());
+                    targetPlayer.removeObjectiveSelect(stolenObjective.get());
+                    turn.getCurrentPlayer().addObjective(stolenObjective.get());
                 }
             }
-            currentPlayer.removePowerUp(this);
+            turn.getCurrentPlayer().removePowerUp(this);
         }
     }
 }

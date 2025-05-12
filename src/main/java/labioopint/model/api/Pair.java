@@ -2,7 +2,7 @@ package labioopint.model.api;
 
 import java.io.Serializable;
 
-public class Pair<X, Y> implements Serializable{
+public class Pair<X, Y> implements Serializable {
     private final X first;
     private final Y second;
 

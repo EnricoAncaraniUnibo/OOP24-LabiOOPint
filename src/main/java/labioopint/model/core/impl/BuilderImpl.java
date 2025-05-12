@@ -15,6 +15,7 @@ import labioopint.model.player.impl.PlayerImpl;
 import labioopint.model.powerup.api.PowerUp;
 import labioopint.model.powerup.impl.DoubleTurnPowerUp;
 import labioopint.model.powerup.impl.InvulnerabilityPowerUp;
+import labioopint.model.powerup.impl.StealObjectPowerUp;
 import labioopint.model.powerup.impl.SwapPositionPowerUp;
 
 /**
@@ -115,22 +116,24 @@ public class BuilderImpl {
      */
     public List<PowerUp> createPowerUps() {
         final List<PowerUp> powerUps = new ArrayList<>();
-        Random r=new Random();
+        Random r = new Random();
         PowerUp powerUp;
         for (int i = 0; i < numberPowerUp; i++) {
-            int value = r.nextInt(3);
+            int value = r.nextInt(4);
             switch (value) {
                 case 0:
-                    powerUp = new SwapPositionPowerUp(turn,i);
+                    powerUp = new SwapPositionPowerUp(turn, i);
                     break;
                 case 1:
-                    powerUp = new DoubleTurnPowerUp(turn,i);
+                    powerUp = new DoubleTurnPowerUp(turn, i);
+                    break;
+                case 2:
+                    powerUp = new InvulnerabilityPowerUp(turn, i);
                     break;
                 default:
-                    powerUp = new InvulnerabilityPowerUp(i);
+                    powerUp = new StealObjectPowerUp(turn, i);
                     break;
             }
-            
             powerUps.add(powerUp);
         }
         return powerUps;
