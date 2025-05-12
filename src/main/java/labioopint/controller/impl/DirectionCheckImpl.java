@@ -12,18 +12,15 @@ import labioopint.model.maze.impl.LabyrinthImpl;
 import labioopint.model.maze.impl.MazeImpl;
 
 public final class DirectionCheckImpl implements DirectionCheck, Serializable {
-    private final LabyrinthImpl lab;
+    private final LabyrinthImpl labyrinth;
 
     public DirectionCheckImpl(final TurnManager tu) {
-        this.lab = tu.getLab();
+        this.labyrinth = tu.getLab();
     }
 
-    /*
-     * Every functions check if there are an entrance in the specified direction
-     */
     @Override
     public boolean checkRightEntrance(final Coordinate coord) {
-        final MazeImpl grid = lab.getGrid();
+        final MazeImpl grid = labyrinth.getGrid();
         final BlockImpl block = grid.getBlock(coord).get();
         final BlockType bType = block.getType();
         final Rotation rotation = block.getRotation();
@@ -51,7 +48,7 @@ public final class DirectionCheckImpl implements DirectionCheck, Serializable {
 
     @Override
     public boolean checkLeftEntrance(final Coordinate coord) {
-        final MazeImpl grid = lab.getGrid();
+        final MazeImpl grid = labyrinth.getGrid();
         final BlockImpl block = grid.getBlock(coord).get();
         final BlockType bType = block.getType();
         final Rotation rotation = block.getRotation();
@@ -79,7 +76,7 @@ public final class DirectionCheckImpl implements DirectionCheck, Serializable {
 
     @Override
     public boolean checkBottomEntrance(final Coordinate coord) {
-        final MazeImpl grid = lab.getGrid();
+        final MazeImpl grid = labyrinth.getGrid();
         final BlockImpl block = grid.getBlock(coord).get();
         final BlockType bType = block.getType();
         final Rotation rotation = block.getRotation();
@@ -107,7 +104,7 @@ public final class DirectionCheckImpl implements DirectionCheck, Serializable {
 
     @Override
     public boolean checkUpperEntrance(final Coordinate coord) {
-        final MazeImpl grid = lab.getGrid();
+        final MazeImpl grid = labyrinth.getGrid();
         final BlockImpl block = grid.getBlock(coord).get();
         final BlockType bType = block.getType();
         final Rotation rotation = block.getRotation();

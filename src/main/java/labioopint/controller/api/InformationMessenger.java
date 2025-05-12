@@ -28,8 +28,20 @@ public interface InformationMessenger {
      */
     String[] getPowerUpsList();
 
+    /**
+     * Set the winner string if there is a winner
+     * 
+     * @return an optional of a string if there is a winner, an empty optional otherwise
+     */
     Optional<String> getWinner();
 
+    /**
+     * 
+     * @return a String with
+     * player 1 : powerUp taken
+     * player 2 : powerUp taken
+     * ...
+     */
     String getNamesScores();
 
 }

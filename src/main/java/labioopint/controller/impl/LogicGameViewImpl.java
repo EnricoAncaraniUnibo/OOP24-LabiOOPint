@@ -40,7 +40,7 @@ public class LogicGameViewImpl implements LogicGameView, Serializable {
      */
     @Override
     public String getTurn() {
-        return ifm.getTurn();
+        return ifm.getTurnManager();
     }
 
     /**
