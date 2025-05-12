@@ -79,7 +79,7 @@ public class ChaseAI implements EnemyAI, Serializable {
             output.add(current);
             for (final Direction dir : List.of(Direction.UP, Direction.DOWN, Direction.LEFT, Direction.RIGHT)) {
                 final Coordinate next = MovementUtilities.getNextCoordinate(current, dir);
-                if (ap.canMoveFromPosition(current, dir) && !output.contains(next)) {
+                if (ap.enemyCanMoveFromPosition(current, dir) && !output.contains(next)) {
                     queue.add(next);
                 }
             }

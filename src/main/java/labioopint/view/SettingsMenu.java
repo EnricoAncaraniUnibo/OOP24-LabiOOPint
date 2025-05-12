@@ -26,8 +26,8 @@ import java.awt.Toolkit;
 public class SettingsMenu extends JFrame {
 
     private static final long serialVersionUID = 1L;
-    private static final int RATIO_NUMERATOR = 4;
-    private static final int RATIO_DENOMINATOR = 5;
+    private static final int RATIO_NUMERATOR = 4;       //It's a ratio number for the dimension
+    private static final int RATIO_DENOMINATOR = 5;     //of the screen
     private static final int GRID_ROWS = 15;
     private static final int GRID_COLUMNS = 0;
     private static final int GRID_HGAP = 0;

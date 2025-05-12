@@ -23,7 +23,8 @@ public interface LogicDrawPanel {
     /**
      * Updates the data required for drawing the panel, including the maze, players,
      * enemy, powerups, and the outside block.
-     *
+     * 
+     * 
      * @param m           the MazeImpl instance representing the maze
      * @param mapPlayers  the DualMap containing player coordinates
      * @param mapEnemies  the DualMap containing enemy coordinates

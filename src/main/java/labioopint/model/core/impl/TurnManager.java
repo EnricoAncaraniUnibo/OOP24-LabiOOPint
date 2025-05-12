@@ -52,6 +52,9 @@ public class TurnManager implements Serializable {
         labyrinth = bi.createMaze();
     }
 
+    /*
+     * Constucts a Turn Manager with a loaded game
+     */
     public TurnManager(final TurnManager loadedTurnManager) {
         enemyMove = true;
         currentAction = loadedTurnManager.getCurrentAction();
