@@ -3,11 +3,10 @@ package labioopint.controller.impl;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
-
 import labioopint.controller.api.LoadController;
 import labioopint.model.core.impl.TurnManager;
 
-public class LoadControllerImpl implements LoadController {
+public final class LoadControllerImpl implements LoadController {
 
     private TurnManager loadedTurnManager;
     private boolean isLoaded;

@@ -133,7 +133,7 @@ public class LogicDrawPanelImpl implements LogicDrawPanel, Serializable {
                     case CORRIDOR:
                         imageTemp = ImageLoader.getImage("Corridor").get();
                         break;
-                    case CROSSING:
+                    default:
                         imageTemp = ImageLoader.getImage("Crossing").get();
                         break;
                 }
@@ -153,7 +153,7 @@ public class LogicDrawPanelImpl implements LogicDrawPanel, Serializable {
                         valuePrint1 = (-j * pixelSize) - pixelSize;
                         valuePrint2 = (-i * pixelSize) - pixelSize;
                         break;
-                    case TWO_HUNDRED_SEVENTY:
+                    default:
                         rotationTemp = Math.toRadians(TWO_HUNDRED_SEVENTY);
                         valuePrint1 = i * pixelSize;
                         valuePrint2 = (-j * pixelSize) - pixelSize;

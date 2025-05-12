@@ -11,7 +11,7 @@ import labioopint.model.core.impl.TurnManager;
 import labioopint.model.maze.api.Direction;
 import labioopint.model.maze.impl.LabyrinthImpl;
 
-public class GameControllerImpl implements GameController, Serializable {
+public final class GameControllerImpl implements GameController, Serializable {
     private LabyrinthImpl lab;
     private final TurnManager turn;
     private SaveControllerImpl saveController;

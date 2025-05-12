@@ -17,7 +17,7 @@ import labioopint.view.GameView;
  * between the game model
  * and the game view. It updates the graphical representation of the game state.
  */
-public class LabyrinthControllerImpl implements LabyrinthController, Serializable {
+public final class LabyrinthControllerImpl implements LabyrinthController, Serializable {
 
     private GameView gtv;
     private final TurnManager tu;

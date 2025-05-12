@@ -9,7 +9,7 @@ import java.io.File;
 import labioopint.controller.api.SaveController;
 import labioopint.model.core.impl.TurnManager;
 
-public class SaveControllerImpl implements SaveController, Serializable {
+public final class SaveControllerImpl implements SaveController, Serializable {
 
     public SaveControllerImpl(final TurnManager tManager) {
 
