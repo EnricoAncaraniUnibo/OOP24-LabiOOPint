@@ -41,9 +41,9 @@ public class StealObjectPowerUp extends PowerUpImpl {
                         .toList();
             if (!targetPlayers.isEmpty()) {
                 PlayerImpl targetPlayer = targetPlayers.get(new Random().nextInt(targetPlayers.size()));
-                Optional<PowerUp> stolenObjective = Optional.of(targetPlayer.getUsablePowerUps().getFirst());
+                Optional<PowerUp> stolenObjective = Optional.of(targetPlayer.getObjetives().get(0));
                 if (stolenObjective.isPresent()) {
-                    targetPlayer.removePowerUp(stolenObjective.get());
+                    targetPlayer.removeObjective();
                     currentPlayer.addObjective(stolenObjective.get());
                 }
             }
