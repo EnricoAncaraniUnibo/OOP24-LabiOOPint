@@ -11,7 +11,7 @@ import labioopint.model.core.impl.TurnManager;
 import labioopint.model.maze.impl.LabyrinthImpl;
 import labioopint.model.maze.impl.MazeImpl;
 
-public class DirectionCheckImpl implements DirectionCheck, Serializable {
+public final class DirectionCheckImpl implements DirectionCheck, Serializable {
     private final LabyrinthImpl lab;
 
     public DirectionCheckImpl(final TurnManager tu) {
@@ -39,7 +39,7 @@ public class DirectionCheckImpl implements DirectionCheck, Serializable {
                     return true;
                 }
                 break;
-            case BlockType.CROSSING:
+            default:
                 if (rotation == Rotation.ZERO || rotation == Rotation.NINETY
                         || rotation == Rotation.ONE_HUNDRED_EIGHTY) {
                     return true;
@@ -67,7 +67,7 @@ public class DirectionCheckImpl implements DirectionCheck, Serializable {
                     return true;
                 }
                 break;
-            case BlockType.CROSSING:
+            default:
                 if (rotation == Rotation.ZERO || rotation == Rotation.ONE_HUNDRED_EIGHTY
                         || rotation == Rotation.TWO_HUNDRED_SEVENTY) {
                     return true;
@@ -95,7 +95,7 @@ public class DirectionCheckImpl implements DirectionCheck, Serializable {
                     return true;
                 }
                 break;
-            case BlockType.CROSSING:
+            default:
                 if (rotation == Rotation.ZERO || rotation == Rotation.NINETY
                         || rotation == Rotation.TWO_HUNDRED_SEVENTY) {
                     return true;
@@ -123,7 +123,7 @@ public class DirectionCheckImpl implements DirectionCheck, Serializable {
                     return true;
                 }
                 break;
-            case BlockType.CROSSING:
+            default:
                 if (rotation == Rotation.NINETY || rotation == Rotation.ONE_HUNDRED_EIGHTY
                         || rotation == Rotation.TWO_HUNDRED_SEVENTY) {
                     return true;

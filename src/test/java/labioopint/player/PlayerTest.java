@@ -19,44 +19,45 @@ import labioopint.model.player.impl.PlayerImpl;
 import labioopint.model.powerup.impl.SwapPositionPowerUp;
 
 class PlayerTest {
-	private TurnManager tu;
-    
+    private static final int POWERUP_COUNT = 5;
+    private TurnManager tu;
+
     @Test
-    void pickUpObjective() {
-		tu = new TurnManager(new Settings(1,4,5,EnemyDifficulty.EASY));
-		final Player p = new PlayerImpl("Archer",tu);
-    	p.addObjective(new SwapPositionPowerUp(tu,0));
-    	assertEquals(p.getUsablePowerUps().size(),1);
-    	assertEquals(p.getObjetives().size(),1);
-    }
-    
-    @Test
-    void consumePowerUp() {
-		final Player p = new PlayerImpl("Archer",tu);
-    	final SwapPositionPowerUp pu = new SwapPositionPowerUp(tu,0);
-    	p.addObjective(pu);
-    	p.removePowerUp(pu);
-    	assertEquals(p.getUsablePowerUps().size(),0);
-    	assertEquals(p.getObjetives().size(),1);
-    }
-    
-    @Test
-    void movePlayer() {
-		tu = new TurnManager(new Settings(0,2,0,EnemyDifficulty.EASY));
+	void pickUpObjective() {
+		tu = new TurnManager(new Settings(1, 4, POWERUP_COUNT, EnemyDifficulty.EASY));
+		final Player p = new PlayerImpl("Archer", tu);
+		p.addObjective(new SwapPositionPowerUp(tu, 0));
+		assertEquals(p.getUsablePowerUps().size(), 1);
+		assertEquals(p.getObjetives().size(), 1);
+	}
+
+	@Test
+	void consumePowerUp() {
+		final Player p = new PlayerImpl("Archer", tu);
+		final SwapPositionPowerUp pu = new SwapPositionPowerUp(tu, 0);
+		p.addObjective(pu);
+		p.removePowerUp(pu);
+		assertEquals(p.getUsablePowerUps().size(), 0);
+		assertEquals(p.getObjetives().size(), 1);
+	}
+
+	@Test
+	void movePlayer() {
+		tu = new TurnManager(new Settings(0, 2, 0, EnemyDifficulty.EASY));
 		final List<PlayerImpl> ls = tu.getPlayers();
 		BlockImpl b = new BlockImpl(BlockType.CORRIDOR);
 		b.setRotation(Rotation.ZERO);
-		tu.getLab().setBlock(b, new Coordinate(0,0));
+		tu.getLab().setBlock(b, new Coordinate(0, 0));
 		b = new BlockImpl(BlockType.CORNER);
 		b.setRotation(Rotation.TWO_HUNDRED_SEVENTY);
-		tu.getLab().setBlock(b, new Coordinate(1,0));
+		tu.getLab().setBlock(b, new Coordinate(1, 0));
 		b = new BlockImpl(BlockType.CORRIDOR);
 		b.setRotation(Rotation.NINETY);
-		tu.getLab().setBlock(b, new Coordinate(1,1));
-    	tu.getLab().playerUpdateCoordinate(ls.get(0), new Coordinate(0,0));
-    	tu.getLab().movePlayer(ls.get(0), Direction.DOWN);
-    	assertEquals(tu.getLab().getPlayerCoordinate(ls.get(0)).getRow(),1);
-    	tu.getLab().movePlayer(tu.getCurrentPlayer(), Direction.RIGHT);
-    	assertEquals(tu.getLab().getPlayerCoordinate(ls.get(0)).getColumn(),1);
-    }
+		tu.getLab().setBlock(b, new Coordinate(1, 1));
+		tu.getLab().playerUpdateCoordinate(ls.get(0), new Coordinate(0, 0));
+		tu.getLab().movePlayer(ls.get(0), Direction.DOWN);
+		assertEquals(tu.getLab().getPlayerCoordinate(ls.get(0)).getRow(), 1);
+		tu.getLab().movePlayer(tu.getCurrentPlayer(), Direction.RIGHT);
+		assertEquals(tu.getLab().getPlayerCoordinate(ls.get(0)).getColumn(), 1);
+	}
 }

@@ -17,7 +17,7 @@ public class ActionPredicateImpl implements ActionPredicate,Serializable {
     private final LabyrinthImpl labyrinth;
     private final Integer mazeSize;
     private final DirectionCheck directionCheck;
-    private final Pair<Boolean,Enemy> enemy;
+    private final Pair<Boolean, Enemy> enemy;
     public static final long serialVersionUID = 4328743;
 
     public ActionPredicateImpl(final TurnManager turnManager) {

@@ -23,7 +23,7 @@ public class Movable {
         return move;
     }
 
-    public void enable() {
+    public final void enable() {
         move = true;
     }
 
