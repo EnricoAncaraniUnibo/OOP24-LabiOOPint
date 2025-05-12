@@ -25,6 +25,7 @@ import labioopint.model.player.impl.PlayerImpl;
 import labioopint.model.powerup.api.PowerUp;
 import labioopint.model.powerup.impl.DoubleTurnPowerUp;
 import labioopint.model.powerup.impl.InvulnerabilityPowerUp;
+import labioopint.model.powerup.impl.StealObjectPowerUp;
 import labioopint.model.powerup.impl.SwapPositionPowerUp;
 
 /**
@@ -348,7 +349,7 @@ public final class LabyrinthImpl implements Labyrinth, Serializable {
                 Random r = new Random();
                 final PowerUp pou;
                 int i = turn.getPowerUps().size();
-                int value = r.nextInt(3);
+                int value = r.nextInt(4);
                 switch (value) {
                     case 0:
                         pou = new SwapPositionPowerUp(turn, i);
@@ -356,8 +357,11 @@ public final class LabyrinthImpl implements Labyrinth, Serializable {
                     case 1:
                         pou = new DoubleTurnPowerUp(turn, i);
                         break;
-                    default:
+                    case 2:
                         pou = new InvulnerabilityPowerUp(i);
+                        break;
+                    default:
+                        pou = new StealObjectPowerUp(turn, i);
                         break;
                 }
                 turn.addAddictionalPowerUp(pou);

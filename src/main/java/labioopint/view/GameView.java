@@ -140,6 +140,7 @@ public class GameView extends JFrame {
                 final String name = (String) comboBox.getSelectedItem();
                 lgv.activatePowerUps(name);
                 updateComboBox();
+                updateScoreLabel();
             }
         });
 

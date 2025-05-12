@@ -60,6 +60,8 @@ public final class ImageLoader {
                     new File("src/main/java/labioopint/resources/PowerUps/double.png")));
             imageMap.put("Invulnerability", ImageIO.read(
                     new File("src/main/java/labioopint/resources/PowerUps/invincible.png")));
+            imageMap.put("Steal Object", ImageIO.read(
+                    new File("src/main/java/labioopint/resources/PowerUps/steal.png")));
         } catch (IOException e) {
                 System.exit(0);
         }
