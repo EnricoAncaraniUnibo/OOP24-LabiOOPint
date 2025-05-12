@@ -47,4 +47,11 @@ public final class MainMenuController {
             new TurnManager(loadController.getTurnManager());
         }
     }
+
+    public boolean isLoaded() {
+        if(loadController.isLoaded()){
+            return true;
+        }
+        return false;
+    }
 }

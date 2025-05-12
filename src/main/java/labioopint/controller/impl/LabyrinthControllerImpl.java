@@ -12,28 +12,22 @@ import labioopint.model.player.impl.PlayerImpl;
 import labioopint.model.powerup.api.PowerUp;
 import labioopint.view.GameView;
 
-/**
- * The LabyrinthController class is responsible for managing the interaction
- * between the game model
- * and the game view. It updates the graphical representation of the game state.
- */
 public final class LabyrinthControllerImpl implements LabyrinthController, Serializable {
 
-    private GameView gtv;
-    private final TurnManager tu;
+    private GameView gameView;
+    private final TurnManager turnManager;
 
     /**
      * Constructs a new LabyrinthController and initializes the game view.
      */
     public LabyrinthControllerImpl(final TurnManager tu) {
-        this.tu = tu;
+        this.turnManager = tu;
     }
 
     /**
      * Updates the graphical representation of the game state.
      *
-     * @param grid        the maze representing the current state of the labyrinth
-     *                    blocks
+     * @param grid        the maze representing the current state of the labyrinth blocks                  
      * @param mapPlayers  a DualMap containing the players and their positions
      * @param mapEnemy    a DualMap containing the enemy and his position
      * @param mapPowerUps a DualMap containing the power-ups and their positions
@@ -42,11 +36,14 @@ public final class LabyrinthControllerImpl implements LabyrinthController, Seria
     @Override
     public void updateGraphics(final MazeImpl grid, final DualMap<PlayerImpl> mapPlayers, final DualMap<Enemy> mapEnemy,
             final DualMap<PowerUp> mapPowerUps, final BlockImpl outside) {
-        gtv.update(grid, mapPlayers, mapEnemy, mapPowerUps, outside);
+        gameView.update(grid, mapPlayers, mapEnemy, mapPowerUps, outside);
     }
-
+    
+    /**
+     * This method start the game view of the game
+     */
     @Override
     public void show() {
-        gtv = new GameView(tu);
+        gameView = new GameView(turnManager);
     }
 }

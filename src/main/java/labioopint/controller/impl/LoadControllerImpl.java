@@ -26,8 +26,7 @@ public final class LoadControllerImpl implements LoadController {
             isLoaded = true;
             System.out.println("Loaded success");
         } catch (Exception e) {
-            System.out.println(e);
-            loadingNotPossible();
+        
         }
     }
 
@@ -42,10 +41,5 @@ public final class LoadControllerImpl implements LoadController {
     @Override
     public TurnManager getTurnManager() {
         return loadedTurnManager;
-    }
-
-    private void loadingNotPossible() {
-        System.out.println("No such file found");
-
     }
 }

@@ -2,6 +2,7 @@ package labioopint.view;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -50,7 +51,11 @@ public class MainMenu extends JFrame {
         JButton loadGameButton = new JButton("Load Game");
         loadGameButton.addActionListener(e -> {
             logic.loadGame();
-            this.setVisible(false);
+            if(logic.isLoaded()){
+                this.setVisible(false);
+            } else{
+                showNoFileFound();
+            }
         });
         buttonPanel.add(loadGameButton);
 
@@ -63,5 +68,9 @@ public class MainMenu extends JFrame {
         buttonPanel.add(quitButton);
 
         add(buttonPanel, BorderLayout.CENTER);
+    }
+
+    private void showNoFileFound(){
+        JOptionPane.showMessageDialog(null,"No file found, it's not possible to load the game");
     }
 }

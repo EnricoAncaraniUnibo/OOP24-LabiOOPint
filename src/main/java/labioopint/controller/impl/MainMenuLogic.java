@@ -33,6 +33,10 @@ public final class MainMenuLogic {
         controller.loadGame();
     }
 
+    public boolean isLoaded() {
+        return controller.isLoaded();
+    }
+
     /**
      * Opens the settings menu.
      */
