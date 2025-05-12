@@ -11,7 +11,7 @@ import labioopint.model.core.impl.TurnManager;
 
 public class SaveControllerImpl implements SaveController, Serializable {
 
-    public SaveControllerImpl(TurnManager tManager) {
+    public SaveControllerImpl(final TurnManager tManager) {
 
     }
 

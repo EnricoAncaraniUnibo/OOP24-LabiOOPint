@@ -34,9 +34,23 @@ public interface Enemy {
      */
     EnemyAI getEnemyAI();
 
-    public PlayerImpl getLastHit();
+    /**
+     * Retrieves the last player hit by the enemy.
+     *
+     * @return the {@link PlayerImpl} instance representing the last player hit,
+     *         or {@code null} if no player has been hit
+     */
+    PlayerImpl getLastHit();
 
-    public void clearLastHit();
+    /**
+     * Clears the record of the last player hit by the enemy.
+     */
+    void clearLastHit();
 
+    /**
+     * Checks if there is a record of the last player hit by the enemy.
+     *
+     * @return {@code true} if a player was hit, {@code false} otherwise
+     */
     boolean isPresentLastHit();
 }

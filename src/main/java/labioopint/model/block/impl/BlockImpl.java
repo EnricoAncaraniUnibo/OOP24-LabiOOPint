@@ -8,7 +8,7 @@ import labioopint.model.block.api.Block;
 import labioopint.model.block.api.BlockType;
 import labioopint.model.block.api.Rotation;
 
-public class BlockImpl extends Movable implements Block,Serializable {
+public class BlockImpl extends Movable implements Block, Serializable {
     private final BlockType type;
     private Rotation rotation;
 

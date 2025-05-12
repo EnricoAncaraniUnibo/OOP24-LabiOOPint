@@ -1,5 +1,11 @@
 package labioopint.controller.api;
 
+/**
+ * The {@code LogicGameView} interface defines the methods required to manage
+ * the logic and interaction between the game view and the underlying game
+ * logic. It provides methods for retrieving game state, handling user actions,
+ * and managing game flow.
+ */
 public interface LogicGameView {
 
     /**
@@ -72,6 +78,11 @@ public interface LogicGameView {
      */
     void close();
 
+    /**
+     * Retrieves the current scores of the game as a string.
+     *
+     * @return a string representation of the scores.
+     */
     String getScores();
 
 }

@@ -19,7 +19,7 @@ import labioopint.model.player.impl.PlayerImpl;
  * random
  * direction for a random number of steps.
  */
-public class RandomAI implements EnemyAI,Serializable {
+public class RandomAI implements EnemyAI, Serializable {
 
     private final Random rand = new Random();
     private final TurnManager turn;

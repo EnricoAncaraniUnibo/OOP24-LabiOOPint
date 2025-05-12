@@ -162,8 +162,8 @@ public class TurnManager implements Serializable {
                 maze.enemyUpdateCoordinate(enemy.getSecond(), enemy.getSecond().move(players));
                 enemy.getSecond().playerHit(players);
 
-                if (enemy.getSecond().isPresentLastHit() &&
-                        enemy.getSecond().getLastHit().equals(this.getCurrentPlayer())) {
+                if (enemy.getSecond().isPresentLastHit()
+                        && enemy.getSecond().getLastHit().equals(this.getCurrentPlayer())) {
                     enemy.getSecond().clearLastHit();
                 }
             }

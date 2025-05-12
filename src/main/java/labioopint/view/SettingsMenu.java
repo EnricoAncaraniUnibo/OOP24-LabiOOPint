@@ -1,9 +1,22 @@
 package labioopint.view;
 
-import javax.swing.*;
+import javax.swing.Box;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingConstants;
+
 import labioopint.controller.impl.SettingsController;
 import labioopint.controller.impl.SettingsLogic;
-import java.awt.*;
+
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Toolkit;
 
 /**
  * The SettingsMenu class represents the settings menu of the application.
