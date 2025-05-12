@@ -11,7 +11,7 @@ import labioopint.model.powerup.api.PowerUp;
  * This class represents a power-up that allows a player to steal an objective
  * (Usable power-up) from another player.
  */
-public class StoleObjectPowerUp extends PowerUpImpl {
+public class StealObjectPowerUp extends PowerUpImpl {
 
     private final TurnManager turn;
 
@@ -21,9 +21,9 @@ public class StoleObjectPowerUp extends PowerUpImpl {
      * @param turn the TurnManager instance to manage turns, must not be null
      * @param id   the unique identifier for this power-up
      */
-    public StoleObjectPowerUp(final TurnManager turn, final int id) {
+    public StealObjectPowerUp(final TurnManager turn, final int id) {
         super(id);
-        super.setName("Stole Object");
+        super.setName("Steal Object");
         this.turn = turn;
     }
 
