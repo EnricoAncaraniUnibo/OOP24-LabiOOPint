@@ -4,5 +4,5 @@ import labioopint.model.core.impl.TurnManager;
 
 public interface SaveController {
     
-    public void save(TurnManager turnManager);
+    void save(TurnManager turnManager);
 }

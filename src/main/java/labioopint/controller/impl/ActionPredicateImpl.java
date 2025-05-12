@@ -14,47 +14,48 @@ import labioopint.model.maze.impl.LabyrinthImpl;
 import labioopint.model.player.impl.PlayerImpl;
 
 public class ActionPredicateImpl implements ActionPredicate,Serializable {
-    private final LabyrinthImpl lab;
+    private final LabyrinthImpl labybinth;
     private final Integer mazeSize;
-    private final DirectionCheck dc;
-    private final Pair<Boolean,Enemy> e;
+    private final DirectionCheck directionCheck;
+    private final Pair<Boolean,Enemy> enemy;
+    public static final long serialVersionUID = 4328743;
 
-    public ActionPredicateImpl(final TurnManager tu) {
-        lab = tu.getLab();
-        mazeSize = lab.getGrid().getSize();
-        dc = new DirectionCheckImpl(tu);
-        e = tu.getEnemy();
+    public ActionPredicateImpl(final TurnManager turnManager) {
+        labybinth = turnManager.getLab();
+        mazeSize = labybinth.getGrid().getSize();
+        directionCheck = new DirectionCheckImpl(turnManager);
+        enemy = turnManager.getEnemy();
     }
 
     @Override
-    public boolean playerCanMove(final PlayerImpl p, final Direction dir) {
-        final Coordinate playerCoordinate = new Coordinate(lab.getPlayerCoordinate(p));
+    public boolean playerCanMove(final PlayerImpl player, final Direction dir) {
+        final Coordinate playerCoordinate = new Coordinate(labybinth.getPlayerCoordinate(player));
         if (dir == Direction.LEFT) {
             final Coordinate targetBlock = new Coordinate(playerCoordinate.getRow(), playerCoordinate.getColumn() - 1);
             if (playerCoordinate.getColumn() != 0
-                    && dc.checkLeftEntrance(playerCoordinate)
-                    && dc.checkRightEntrance(targetBlock)) {
+                    && directionCheck.checkLeftEntrance(playerCoordinate)
+                    && directionCheck.checkRightEntrance(targetBlock)) {
                 return true;
             }
         } else if (dir == Direction.RIGHT) {
             final Coordinate targetBlock = new Coordinate(playerCoordinate.getRow(), playerCoordinate.getColumn() + 1);
             if (playerCoordinate.getColumn() != mazeSize - 1
-                    && dc.checkRightEntrance(playerCoordinate)
-                    && dc.checkLeftEntrance(targetBlock)) {
+                    && directionCheck.checkRightEntrance(playerCoordinate)
+                    && directionCheck.checkLeftEntrance(targetBlock)) {
                 return true;
             }
         } else if (dir == Direction.UP) {
             final Coordinate targetBlock = new Coordinate(playerCoordinate.getRow() - 1, playerCoordinate.getColumn());
             if (playerCoordinate.getRow() != 0
-                    && dc.checkUpperEntrance(playerCoordinate)
-                    && dc.checkBottomEntrance(targetBlock)) {
+                    && directionCheck.checkUpperEntrance(playerCoordinate)
+                    && directionCheck.checkBottomEntrance(targetBlock)) {
                 return true;
             }
         } else if (dir == Direction.DOWN) {
             final Coordinate targetBlock = new Coordinate(playerCoordinate.getRow() + 1, playerCoordinate.getColumn());
             if (playerCoordinate.getRow() != mazeSize - 1
-                    && dc.checkBottomEntrance(playerCoordinate)
-                    && dc.checkUpperEntrance(targetBlock)) {
+                    && directionCheck.checkBottomEntrance(playerCoordinate)
+                    && directionCheck.checkUpperEntrance(targetBlock)) {
                 return true;
             }
         }
@@ -63,7 +64,7 @@ public class ActionPredicateImpl implements ActionPredicate,Serializable {
 
     @Override
     public boolean blockCanMove(final Coordinate blockCoordinate) {
-        final BlockImpl b = lab.getGrid().getBlock(blockCoordinate).get();
+        final BlockImpl b = labybinth.getGrid().getBlock(blockCoordinate).get();
         return b.isMove() && (blockCoordinate.getColumn() == 0 || blockCoordinate.getColumn() == mazeSize - 1
                 || blockCoordinate.getRow() == 0 || blockCoordinate.getRow() == mazeSize - 1);
     }
@@ -73,29 +74,29 @@ public class ActionPredicateImpl implements ActionPredicate,Serializable {
         if (dir == Direction.LEFT) {
             final Coordinate targetBlock = new Coordinate(coor.getRow(), coor.getColumn() - 1);
             if (coor.getColumn() != 0
-                    && dc.checkLeftEntrance(coor)
-                    && dc.checkRightEntrance(targetBlock)) {
+                    && directionCheck.checkLeftEntrance(coor)
+                    && directionCheck.checkRightEntrance(targetBlock)) {
                 return true;
             }
         } else if (dir == Direction.RIGHT) {
             final Coordinate targetBlock = new Coordinate(coor.getRow(), coor.getColumn() + 1);
             if (coor.getColumn() != mazeSize - 1
-                    && dc.checkRightEntrance(coor)
-                    && dc.checkLeftEntrance(targetBlock)) {
+                    && directionCheck.checkRightEntrance(coor)
+                    && directionCheck.checkLeftEntrance(targetBlock)) {
                 return true;
             }
         } else if (dir == Direction.UP) {
             final Coordinate targetBlock = new Coordinate(coor.getRow() - 1, coor.getColumn());
             if (coor.getRow() != 0
-                    && dc.checkUpperEntrance(coor)
-                    && dc.checkBottomEntrance(targetBlock)) {
+                    && directionCheck.checkUpperEntrance(coor)
+                    && directionCheck.checkBottomEntrance(targetBlock)) {
                 return true;
             }
         } else if (dir == Direction.DOWN) {
             final Coordinate targetBlock = new Coordinate(coor.getRow() + 1, coor.getColumn());
             if (coor.getRow() != mazeSize - 1
-                    && dc.checkBottomEntrance(coor)
-                    && dc.checkUpperEntrance(targetBlock)) {
+                    && directionCheck.checkBottomEntrance(coor)
+                    && directionCheck.checkUpperEntrance(targetBlock)) {
                 return true;
             }
         }
@@ -104,7 +105,7 @@ public class ActionPredicateImpl implements ActionPredicate,Serializable {
 
     @Override
     public boolean enemyCanMove(final Direction dir) {
-        final Coordinate enemyCoordinate = new Coordinate(lab.getEnemyCoordinate(e.getSecond()));
+        final Coordinate enemyCoordinate = new Coordinate(labybinth.getEnemyCoordinate(enemy.getSecond()));
         return canMoveFromPosition(enemyCoordinate, dir);
     }
 

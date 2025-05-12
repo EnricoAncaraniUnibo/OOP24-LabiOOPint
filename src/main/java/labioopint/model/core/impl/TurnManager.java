@@ -21,16 +21,14 @@ import labioopint.model.powerup.api.PowerUp;
  * power-ups.
  */
 public class TurnManager implements Serializable {
-    private final LabyrinthImpl maze;
+    private final LabyrinthImpl labyrinth;
     private List<PlayerImpl> players;
-    //private final Optional<Enemy> enemy;
     private Pair<Boolean,Enemy> enemy;
     private final List<PowerUp> powerUps;
     private ActionType currentAction;
-    private int index;
-    //private Optional<Integer> indexNext;
+    private int currentPlayer;
     private final SaveController saveController;
-    private boolean enemyMove;
+    private boolean enemyMove;                      //If true the enemy have the permission to move                     
 
     /**
      * Constructs a TurnManager with the given settings.
@@ -41,7 +39,7 @@ public class TurnManager implements Serializable {
         enemyMove = true;
         saveController = new SaveControllerImpl(this);
         currentAction = ActionType.BLOCK_PLACEMENT;
-        index = 0;
+        currentPlayer = 0;
         final BuilderImpl bi = new BuilderImpl(st, this);
         players = bi.createPlayers();
         players = new RandomTurnChooser(players).randomOrder();
@@ -51,35 +49,36 @@ public class TurnManager implements Serializable {
             enemy = new Pair<>(false, null);
         }
         powerUps = bi.createPowerUps();
-        maze = bi.createMaze();
-        //indexNext = Optional.empty();
+        labyrinth = bi.createMaze();
     }
-
+    /*
+     * Constructor of TurnManager with the loaded game
+     */
     public TurnManager(final TurnManager loadedTurnManager){
         enemyMove = true;
         currentAction = loadedTurnManager.getCurrentAction();
         players = loadedTurnManager.getPlayers();
         enemy = loadedTurnManager.getEnemy();
         powerUps = loadedTurnManager.getPowerUps();
-        maze = loadedTurnManager.getLab();
+        labyrinth = loadedTurnManager.getLab();
         int i = 0;
         for (PlayerImpl playerImpl : players) {
             if(playerImpl == loadedTurnManager.getCurrentPlayer()){
-                index = i;
+                currentPlayer = i;
             }
             i++;
         }
         saveController = new SaveControllerImpl(this);
-        maze.startView();
+        labyrinth.startView();
     }
 
     /**
      * Sets the next player to take their turn.
      */
     public void repeatPlayerTurn() {
-        index--;
-        if (index<0) {
-            index = players.size()-1;
+        currentPlayer--;
+        if (currentPlayer<0) {
+            currentPlayer = players.size()-1;
         }
         enemyMove = false;
         nextAction();
@@ -92,7 +91,7 @@ public class TurnManager implements Serializable {
      * @return the labyrinth
      */
     public LabyrinthImpl getLab() {
-        return maze;
+        return labyrinth;
     }
 
     /**
@@ -128,7 +127,7 @@ public class TurnManager implements Serializable {
      * @return the current player
      */
     public PlayerImpl getCurrentPlayer() {
-        return players.get(index);
+        return players.get(currentPlayer);
     }
 
     /**
@@ -149,22 +148,18 @@ public class TurnManager implements Serializable {
         if (currentAction == ActionType.BLOCK_PLACEMENT) {
             currentAction = ActionType.PLAYER_MOVEMENT;
         } else if (currentAction == ActionType.PLAYER_MOVEMENT) {
-            index = (index + 1) % players.size();
-            /*if (indexNext.isPresent()) {
-                index = indexNext.get();
-                indexNext = Optional.empty();
-            }*/
+            currentPlayer = (currentPlayer + 1) % players.size();
             if (enemy.getFirst() == Boolean.TRUE && enemyMove == true) {
                 if (enemy.getSecond().getEnemyAI() instanceof SingleStepRandomAI) {
-                    maze.enemyUpdateCoordinate(enemy.getSecond(), enemy.getSecond().move(players));
+                    labyrinth.enemyUpdateCoordinate(enemy.getSecond(), enemy.getSecond().move(players));
                     enemy.getSecond().playerHit(players);
                 }
                 if (enemy.getSecond().getEnemyAI() instanceof RandomAI) {
-                    maze.enemyUpdateCoordinate(enemy.getSecond(), enemy.getSecond().move(players));
+                    labyrinth.enemyUpdateCoordinate(enemy.getSecond(), enemy.getSecond().move(players));
                     enemy.getSecond().playerHit(players);
                 }
                 if (enemy.getSecond().getEnemyAI() instanceof ChaseAI) {
-                    maze.enemyUpdateCoordinate(enemy.getSecond(), enemy.getSecond().move(players));
+                    labyrinth.enemyUpdateCoordinate(enemy.getSecond(), enemy.getSecond().move(players));
                     enemy.getSecond().playerHit(players);
                 }
                 if (enemy.getSecond().isPresentLastHit()) {
@@ -178,8 +173,6 @@ public class TurnManager implements Serializable {
                 currentAction = ActionType.BLOCK_PLACEMENT;
                 saveController.save(this);
             }
-        } else if (currentAction == ActionType.ENEMY_MOVEMENT) {
-            currentAction = ActionType.BLOCK_PLACEMENT;
         }
         this.getLab().updateView();
     }

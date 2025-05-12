@@ -30,6 +30,6 @@ public interface InformationMessenger {
 
     Optional<String> getWinner();
 
-    public String getNamesScores();
+    String getNamesScores();
 
 }

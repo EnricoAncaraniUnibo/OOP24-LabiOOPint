@@ -4,9 +4,9 @@ import labioopint.model.core.impl.TurnManager;
 
 public interface LoadController {
     
-    public void loadLastGame();
+    void loadLastGame();
 
-    public boolean isLoaded();
+    boolean isLoaded();
 
-    public TurnManager getTurnManager();
+    TurnManager getTurnManager();
 }
