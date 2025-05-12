@@ -9,9 +9,6 @@ import labioopint.model.api.ActionType;
 import labioopint.model.api.Pair;
 import labioopint.model.api.Settings;
 import labioopint.model.enemy.api.Enemy;
-import labioopint.model.enemy.impl.ais.ChaseAI;
-import labioopint.model.enemy.impl.ais.RandomAI;
-import labioopint.model.enemy.impl.ais.SingleStepRandomAI;
 import labioopint.model.maze.impl.LabyrinthImpl;
 import labioopint.model.player.impl.PlayerImpl;
 import labioopint.model.powerup.api.PowerUp;
@@ -23,12 +20,10 @@ import labioopint.model.powerup.api.PowerUp;
 public class TurnManager implements Serializable {
     private final LabyrinthImpl maze;
     private List<PlayerImpl> players;
-    //private final Optional<Enemy> enemy;
-    private Pair<Boolean,Enemy> enemy;
+    private Pair<Boolean, Enemy> enemy;
     private final List<PowerUp> powerUps;
     private ActionType currentAction;
     private int index;
-    //private Optional<Integer> indexNext;
     private final SaveController saveController;
     private boolean enemyMove;
 
@@ -45,17 +40,24 @@ public class TurnManager implements Serializable {
         final BuilderImpl bi = new BuilderImpl(st, this);
         players = bi.createPlayers();
         players = new RandomTurnChooser(players).randomOrder();
-        if(st.getEnemy() == 1){
+        if (st.getEnemy() == 1) {
             enemy = new Pair<>(true, bi.createEnemy());
-        }else{
+        } else {
             enemy = new Pair<>(false, null);
         }
         powerUps = bi.createPowerUps();
         maze = bi.createMaze();
-        //indexNext = Optional.empty();
     }
 
-    public TurnManager(final TurnManager loadedTurnManager){
+    /**
+     * Constructs a TurnManager by loading the state from an existing TurnManager.
+     * This constructor is used to restore the game state from a previously saved
+     * instance.
+     *
+     * @param loadedTurnManager the TurnManager instance containing the saved game
+     *                          state
+     */
+    public TurnManager(final TurnManager loadedTurnManager) {
         enemyMove = true;
         currentAction = loadedTurnManager.getCurrentAction();
         players = loadedTurnManager.getPlayers();
@@ -64,7 +66,7 @@ public class TurnManager implements Serializable {
         maze = loadedTurnManager.getLab();
         int i = 0;
         for (PlayerImpl playerImpl : players) {
-            if(playerImpl == loadedTurnManager.getCurrentPlayer()){
+            if (playerImpl == loadedTurnManager.getCurrentPlayer()) {
                 index = i;
             }
             i++;
@@ -78,8 +80,8 @@ public class TurnManager implements Serializable {
      */
     public void repeatPlayerTurn() {
         index--;
-        if (index<0) {
-            index = players.size()-1;
+        if (index < 0) {
+            index = players.size() - 1;
         }
         enemyMove = false;
         nextAction();
@@ -109,7 +111,7 @@ public class TurnManager implements Serializable {
      *
      * @return an Optional containing the enemy, or empty if no enemy exists
      */
-    public Pair<Boolean,Enemy> getEnemy() {
+    public Pair<Boolean, Enemy> getEnemy() {
         return enemy;
     }
 
@@ -143,41 +145,25 @@ public class TurnManager implements Serializable {
     /**
      * Advances the game to the next action or turn. This method handles the
      * transition between different phases of the game, such as block placement,
-     * player movement, and enemy movement.
+     * player movement, and enemy movement. It also manages enemy behavior and
+     * interactions with players.
      */
     public void nextAction() {
         if (currentAction == ActionType.BLOCK_PLACEMENT) {
             currentAction = ActionType.PLAYER_MOVEMENT;
         } else if (currentAction == ActionType.PLAYER_MOVEMENT) {
             index = (index + 1) % players.size();
-            /*if (indexNext.isPresent()) {
-                index = indexNext.get();
-                indexNext = Optional.empty();
-            }*/
-            if (enemy.getFirst() == Boolean.TRUE && enemyMove == true) {
-                if (enemy.getSecond().getEnemyAI() instanceof SingleStepRandomAI) {
-                    maze.enemyUpdateCoordinate(enemy.getSecond(), enemy.getSecond().move(players));
-                    enemy.getSecond().playerHit(players);
+            if (enemy.getFirst() && enemyMove) {
+                maze.enemyUpdateCoordinate(enemy.getSecond(), enemy.getSecond().move(players));
+                enemy.getSecond().playerHit(players);
+
+                if (enemy.getSecond().isPresentLastHit() &&
+                        enemy.getSecond().getLastHit().equals(this.getCurrentPlayer())) {
+                    enemy.getSecond().clearLastHit();
                 }
-                if (enemy.getSecond().getEnemyAI() instanceof RandomAI) {
-                    maze.enemyUpdateCoordinate(enemy.getSecond(), enemy.getSecond().move(players));
-                    enemy.getSecond().playerHit(players);
-                }
-                if (enemy.getSecond().getEnemyAI() instanceof ChaseAI) {
-                    maze.enemyUpdateCoordinate(enemy.getSecond(), enemy.getSecond().move(players));
-                    enemy.getSecond().playerHit(players);
-                }
-                if (enemy.getSecond().isPresentLastHit()) {
-                    if (enemy.getSecond().getLastHit().equals(this.getCurrentPlayer())) {
-                        enemy.getSecond().clearLastHit();
-                    }
-                }
-                currentAction = ActionType.BLOCK_PLACEMENT;
-                saveController.save(this);
-            } else {
-                currentAction = ActionType.BLOCK_PLACEMENT;
-                saveController.save(this);
             }
+            currentAction = ActionType.BLOCK_PLACEMENT;
+            saveController.save(this);
         } else if (currentAction == ActionType.ENEMY_MOVEMENT) {
             currentAction = ActionType.BLOCK_PLACEMENT;
         }

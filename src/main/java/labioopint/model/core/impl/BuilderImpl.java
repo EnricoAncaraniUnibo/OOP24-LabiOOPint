@@ -115,22 +115,21 @@ public class BuilderImpl {
      */
     public List<PowerUp> createPowerUps() {
         final List<PowerUp> powerUps = new ArrayList<>();
-        Random r=new Random();
+        Random r = new Random();
         PowerUp powerUp;
         for (int i = 0; i < numberPowerUp; i++) {
             int value = r.nextInt(3);
             switch (value) {
                 case 0:
-                    powerUp = new SwapPositionPowerUp(turn,i);
+                    powerUp = new SwapPositionPowerUp(turn, i);
                     break;
                 case 1:
-                    powerUp = new DoubleTurnPowerUp(turn,i);
+                    powerUp = new DoubleTurnPowerUp(turn, i);
                     break;
                 default:
                     powerUp = new InvulnerabilityPowerUp(i);
                     break;
             }
-            
             powerUps.add(powerUp);
         }
         return powerUps;

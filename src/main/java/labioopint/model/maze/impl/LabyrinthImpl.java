@@ -26,11 +26,13 @@ import labioopint.model.powerup.api.PowerUp;
 import labioopint.model.powerup.impl.DoubleTurnPowerUp;
 import labioopint.model.powerup.impl.InvulnerabilityPowerUp;
 import labioopint.model.powerup.impl.SwapPositionPowerUp;
+
 /**
  * The LabyrinthImpl class implements the Labyrinth interface and provides
- * the logic for managing the maze, players, enemies, powerups, and their coordinates and interactions.
+ * the logic for managing the maze, players, enemies, powerups, and their
+ * coordinates and interactions.
  */
-public final class LabyrinthImpl implements Labyrinth,Serializable {
+public final class LabyrinthImpl implements Labyrinth, Serializable {
     private final MazeImpl grid;
     private BlockImpl outsideBlock;
     private DualMap<PowerUp> mapOfPowerUps;
@@ -38,7 +40,7 @@ public final class LabyrinthImpl implements Labyrinth,Serializable {
     private DualMap<Enemy> mapOfEnemy;
     private LabyrinthController labyController;
     private final TurnManager turn;
-    private Pair<Boolean,Player> winner;
+    private Pair<Boolean, Player> winner;
 
     @Override
     public void initialize() {
@@ -49,6 +51,7 @@ public final class LabyrinthImpl implements Labyrinth,Serializable {
         mapOfEnemy = new DualMap<>();
         winner = new Pair<>(false, null);
     }
+
     /**
      * Constructs a LabyrinthImpl with the specified size and TurnManager.
      * Initializes the maze, outside block, and other game elements.
@@ -65,7 +68,7 @@ public final class LabyrinthImpl implements Labyrinth,Serializable {
     }
 
     private void start() {
-        CoordinateGenerator cg = new CoordinateGenerator(grid.getSize()); 
+        CoordinateGenerator cg = new CoordinateGenerator(grid.getSize());
         for (final PowerUp pu : turn.getPowerUps()) {
             mapOfPowerUps.addElemWithCoordinate(pu, cg.getRandomCoordinate());
         }
@@ -74,7 +77,8 @@ public final class LabyrinthImpl implements Labyrinth,Serializable {
             mapOfPlayers.addElemWithCoordinate(p, cg.getRandomCoordinate());
         }
         if (turn.getEnemy().getFirst() == Boolean.TRUE) {
-            mapOfEnemy.addElemWithCoordinate(turn.getEnemy().getSecond(), CoordinateGenerator.getCentralCoordinate(grid.getSize()));
+            mapOfEnemy.addElemWithCoordinate(turn.getEnemy().getSecond(),
+                    CoordinateGenerator.getCentralCoordinate(grid.getSize()));
         }
         labyController.updateGraphics(grid, mapOfPlayers, mapOfEnemy, mapOfPowerUps, outsideBlock);
     }
@@ -275,8 +279,8 @@ public final class LabyrinthImpl implements Labyrinth,Serializable {
             p.addObjective(mapOfPowerUps.getElemFromCoordinate(c));
             mapOfPowerUps.remove(mapOfPowerUps.getElemFromCoordinate(c));
             final Optional<Player> pl = checkWinner();
-            if(pl.isPresent()){
-                winner = new Pair<Boolean,Player>(true, pl.get());
+            if (pl.isPresent()) {
+                winner = new Pair<Boolean, Player>(true, pl.get());
             }
         }
     }
@@ -336,21 +340,21 @@ public final class LabyrinthImpl implements Labyrinth,Serializable {
     }
 
     private Optional<Player> checkWinner() {
-        if(mapOfPowerUps.getElemets().isEmpty()) {
+        if (mapOfPowerUps.getElemets().isEmpty()) {
             final List<PlayerImpl> sortedPlayers = turn.getPlayers().stream()
-            .sorted(Comparator.comparing(p -> p.getObjetives().size(), Comparator.reverseOrder()))
-            .collect(Collectors.toList());
-            if (sortedPlayers.get(0).getObjetives().size()==sortedPlayers.get(1).getObjetives().size()) {
+                    .sorted(Comparator.comparing(p -> p.getObjetives().size(), Comparator.reverseOrder()))
+                    .collect(Collectors.toList());
+            if (sortedPlayers.get(0).getObjetives().size() == sortedPlayers.get(1).getObjetives().size()) {
                 Random r = new Random();
                 final PowerUp pou;
                 int i = turn.getPowerUps().size();
                 int value = r.nextInt(3);
                 switch (value) {
                     case 0:
-                        pou = new SwapPositionPowerUp(turn,i);
+                        pou = new SwapPositionPowerUp(turn, i);
                         break;
                     case 1:
-                        pou = new DoubleTurnPowerUp(turn,i);
+                        pou = new DoubleTurnPowerUp(turn, i);
                         break;
                     default:
                         pou = new InvulnerabilityPowerUp(i);
@@ -368,12 +372,12 @@ public final class LabyrinthImpl implements Labyrinth,Serializable {
     }
 
     public Optional<Player> getWinner() {
-        if(winner.getFirst()){
-            Optional<Player> pl=Optional.of(winner.getSecond());
+        if (winner.getFirst()) {
+            Optional<Player> pl = Optional.of(winner.getSecond());
             return pl;
         }
         return Optional.empty();
-       
+
     }
 
     @Override
@@ -382,7 +386,7 @@ public final class LabyrinthImpl implements Labyrinth,Serializable {
         mapOfPowerUps.addElemWithCoordinate(p, coor);
         labyController.updateGraphics(grid, mapOfPlayers, mapOfEnemy, mapOfPowerUps, outsideBlock);
     }
-    
+
     public void startView() {
         labyController.show();
         labyController.updateGraphics(grid, mapOfPlayers, mapOfEnemy, mapOfPowerUps, outsideBlock);

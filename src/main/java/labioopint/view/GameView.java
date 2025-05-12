@@ -88,7 +88,7 @@ public class GameView extends JFrame {
         actionLabel.setAlignmentX(CENTER_ALIGNMENT);
         controlPanel.add(actionLabel);
 
-        scoreLabel = new JLabel("<html>"+lgv.getScores()+"</html>", SwingConstants.CENTER);
+        scoreLabel = new JLabel("<html>" + lgv.getScores() + "</html>", SwingConstants.CENTER);
         scoreLabel.setFont(newFont);
         scoreLabel.setAlignmentX(CENTER_ALIGNMENT);
         controlPanel.add(scoreLabel);
@@ -235,7 +235,7 @@ public class GameView extends JFrame {
     }
 
     private void updateScoreLabel() {
-        scoreLabel.setText("<html>"+lgv.getScores()+"</html>");
+        scoreLabel.setText("<html>" + lgv.getScores() + "</html>");
     }
 
     /**
