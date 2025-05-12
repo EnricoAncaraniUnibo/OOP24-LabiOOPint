@@ -1,7 +1,6 @@
 package labioopint.model.powerup.impl;
 
 import labioopint.model.core.impl.TurnManager;
-import labioopint.model.player.impl.PlayerImpl;
 
 /**
  * This class represents a power-up that allows a player to take an additional turn.
@@ -25,15 +24,14 @@ public final class DoubleTurnPowerUp extends PowerUpImpl {
     /**
      * Activates the power-up for the specified player.
      *
-     * @param currentPlayer the player for whom the power-up is activated, must not be null
      */
     @Override
-    public void activate(final PlayerImpl currentPlayer) {
-        if (currentPlayer.getUsablePowerUps().contains(this)) {
+    public void activate() {
+        if (turn.getCurrentPlayer().getUsablePowerUps().contains(this)) {
             if (isCollected()) {
                 turn.repeatPlayerTurn();
             }
-            currentPlayer.removePowerUp(this);
+            turn.getCurrentPlayer().removePowerUp(this);
         }
     }
 

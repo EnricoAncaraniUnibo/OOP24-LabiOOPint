@@ -30,24 +30,23 @@ public class StealObjectPowerUp extends PowerUpImpl {
     /**
      * Activates the power-up for the specified player.
      *
-     * @param currentPlayer the player for whom the power-up is activated, must not be null
      */
     @Override
-    public void activate(final PlayerImpl currentPlayer) {
+    public void activate() {
         if (isCollected()) {
             final List<PlayerImpl> players = turn.getPlayers();
             final List<PlayerImpl> targetPlayers = players.stream()
-                        .filter(player -> !player.equals(currentPlayer) && !player.getUsablePowerUps().isEmpty())
+                        .filter(player -> !player.equals(turn.getCurrentPlayer()) && !player.getUsablePowerUps().isEmpty())
                         .toList();
             if (!targetPlayers.isEmpty()) {
                 PlayerImpl targetPlayer = targetPlayers.get(new Random().nextInt(targetPlayers.size()));
                 Optional<PowerUp> stolenObjective = Optional.of(targetPlayer.getObjetives().get(0));
                 if (stolenObjective.isPresent()) {
                     targetPlayer.removeObjectiveSelect(stolenObjective.get());
-                    currentPlayer.addObjective(stolenObjective.get());
+                    turn.getCurrentPlayer().addObjective(stolenObjective.get());
                 }
             }
-            currentPlayer.removePowerUp(this);
+            turn.getCurrentPlayer().removePowerUp(this);
         }
     }
 }

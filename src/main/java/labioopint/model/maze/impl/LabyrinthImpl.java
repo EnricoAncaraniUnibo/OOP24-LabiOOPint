@@ -358,7 +358,7 @@ public final class LabyrinthImpl implements Labyrinth, Serializable {
                         pou = new DoubleTurnPowerUp(turn, i);
                         break;
                     case 2:
-                        pou = new InvulnerabilityPowerUp(i);
+                        pou = new InvulnerabilityPowerUp(turn, i);
                         break;
                     default:
                         pou = new StealObjectPowerUp(turn, i);

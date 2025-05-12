@@ -1,4 +1,6 @@
-package labioopint.controller.impl;
+package labioopint.model.core.impl;
+
+import labioopint.controller.impl.MainMenuController;
 
 /**
  * This class serves as the entry point for the application.

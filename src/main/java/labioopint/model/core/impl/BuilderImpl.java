@@ -128,7 +128,7 @@ public class BuilderImpl {
                     powerUp = new DoubleTurnPowerUp(turn, i);
                     break;
                 case 2:
-                    powerUp = new InvulnerabilityPowerUp(i);
+                    powerUp = new InvulnerabilityPowerUp(turn, i);
                     break;
                 default:
                     powerUp = new StealObjectPowerUp(turn, i);

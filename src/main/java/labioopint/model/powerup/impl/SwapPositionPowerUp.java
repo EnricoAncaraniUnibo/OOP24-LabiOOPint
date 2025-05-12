@@ -28,29 +28,28 @@ public final class SwapPositionPowerUp extends PowerUpImpl {
 
     /**
      * Activates the power-up for the specified player.
-     *
-     * @param currentPlayer the player for whom the power-up is activated, must not be null
+     * 
      */
     @Override
-    public void activate(final PlayerImpl currentPlayer) {
-        if (currentPlayer.getUsablePowerUps().contains(this)) {
+    public void activate() {
+        if (turn.getCurrentPlayer().getUsablePowerUps().contains(this)) {
             if (isCollected()) {
-                Coordinate currentPlayerCoordinate = turn.getLab().getPlayerCoordinate(currentPlayer);
+                Coordinate currentPlayerCoordinate = turn.getLab().getPlayerCoordinate(turn.getCurrentPlayer());
                 Random random = new Random();
                 while (this.condition) {
                     PlayerImpl playerSwap = turn.getPlayers().get(random.nextInt(turn.getPlayers().size()));
                     Coordinate playerSwapCoordinate = turn.getLab().getPlayerCoordinate(playerSwap);
                     if (turn.getPlayers().size() < 2) {
                         this.condition = false;
-                    } else if (turn.getPlayers().size() > 1 && !currentPlayer.equals(playerSwap)) {
+                    } else if (turn.getPlayers().size() > 1 && !turn.getCurrentPlayer().equals(playerSwap)) {
                         turn.getLab().playerUpdateCoordinate(playerSwap, currentPlayerCoordinate);
-                        turn.getLab().playerUpdateCoordinate(currentPlayer, playerSwapCoordinate);
+                        turn.getLab().playerUpdateCoordinate(turn.getCurrentPlayer(), playerSwapCoordinate);
                         turn.getLab().playerUpdateCoordinate(playerSwap, currentPlayerCoordinate);
                         this.condition = false;
                     }
                 }
             }
-            currentPlayer.removePowerUp(this);
+            turn.getCurrentPlayer().removePowerUp(this);
         }
     }
 }
