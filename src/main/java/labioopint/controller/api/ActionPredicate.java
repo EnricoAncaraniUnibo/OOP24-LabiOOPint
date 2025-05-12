@@ -45,5 +45,4 @@ public interface ActionPredicate {
      * @return true if it can move in the direction, false otherwise
      */
     boolean enemyCanMove(Direction direction);
-
 }

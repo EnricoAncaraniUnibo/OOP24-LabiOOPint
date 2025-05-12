@@ -12,20 +12,20 @@ import labioopint.model.maze.api.Direction;
 import labioopint.model.maze.impl.LabyrinthImpl;
 
 public final class GameControllerImpl implements GameController, Serializable {
-    private LabyrinthImpl lab;
-    private final TurnManager turn;
+    private LabyrinthImpl labyrinth;
+    private final TurnManager turnManager;
     private SaveControllerImpl saveController;
 
     public GameControllerImpl(final TurnManager tu) {
         saveController = new SaveControllerImpl(tu);
-        turn = tu;
+        turnManager = tu;
     }
 
     @Override
     public void action(final Object action) {
-        final ActionPredicate ap = new ActionPredicateImpl(turn);
-        lab = turn.getLab();
-        final ActionType currentAction = turn.getCurrentAction();
+        final ActionPredicate actionPredicate = new ActionPredicateImpl(turnManager);
+        labyrinth = turnManager.getLab();
+        final ActionType currentAction = turnManager.getCurrentAction();
         switch (currentAction) {
             case ActionType.BLOCK_PLACEMENT:
                 if (action instanceof String) {
@@ -33,21 +33,21 @@ public final class GameControllerImpl implements GameController, Serializable {
                     rotateBlock(dir);
                 } else if (action instanceof Coordinate) {
                     final Coordinate blockCoordinate = (Coordinate) action;
-                    if (ap.blockCanMove(blockCoordinate)) {
+                    if (actionPredicate.blockCanMove(blockCoordinate)) {
                         if (blockCoordinate.getColumn() == 0) {
-                            turn.nextAction();
-                            lab.moveBlock(blockCoordinate, Direction.RIGHT);
-                        } else if (blockCoordinate.getColumn() == lab.getGrid().getSize() - 1) {
-                            turn.nextAction();
-                            lab.moveBlock(blockCoordinate, Direction.LEFT);
+                            turnManager.nextAction();
+                            labyrinth.moveBlock(blockCoordinate, Direction.RIGHT);
+                        } else if (blockCoordinate.getColumn() == labyrinth.getGrid().getSize() - 1) {
+                            turnManager.nextAction();
+                            labyrinth.moveBlock(blockCoordinate, Direction.LEFT);
                         } else if (blockCoordinate.getRow() == 0) {
-                            turn.nextAction();
-                            lab.moveBlock(blockCoordinate, Direction.DOWN);
-                        } else if (blockCoordinate.getRow() == lab.getGrid().getSize() - 1) {
-                            turn.nextAction();
-                            lab.moveBlock(blockCoordinate, Direction.UP);
+                            turnManager.nextAction();
+                            labyrinth.moveBlock(blockCoordinate, Direction.DOWN);
+                        } else if (blockCoordinate.getRow() == labyrinth.getGrid().getSize() - 1) {
+                            turnManager.nextAction();
+                            labyrinth.moveBlock(blockCoordinate, Direction.UP);
                         }
-                        saveController.save(turn);
+                        saveController.save(turnManager);
                     }
                 }
                 break;
@@ -58,43 +58,43 @@ public final class GameControllerImpl implements GameController, Serializable {
                         final Direction dir = "←".equals(action) ? Direction.LEFT
                                 : "→".equals(action) ? Direction.RIGHT
                                         : "↑".equals(action) ? Direction.UP : Direction.DOWN;
-                        if (ap.playerCanMove(turn.getCurrentPlayer(), dir)) {
-                            lab.movePlayer(turn.getCurrentPlayer(), dir);
+                        if (actionPredicate.playerCanMove(turnManager.getCurrentPlayer(), dir)) {
+                            labyrinth.movePlayer(turnManager.getCurrentPlayer(), dir);
                         }
                     } else if ("End Turn".equals(action)) {
-                        turn.nextAction();
-                        saveController.save(turn);
+                        turnManager.nextAction();
+                        saveController.save(turnManager);
                     }
                 }
                 break;
             case ActionType.ENEMY_MOVEMENT:
-                if (action instanceof Direction && turn.getEnemy().getFirst() == Boolean.TRUE) {
-                    turn.getEnemy().getSecond().move(turn.getPlayers());
-                    turn.nextAction();
-                    saveController.save(turn);
+                if (action instanceof Direction && turnManager.getEnemy().getFirst() == Boolean.TRUE) {
+                    turnManager.getEnemy().getSecond().move(turnManager.getPlayers());
+                    turnManager.nextAction();
+                    saveController.save(turnManager);
                 }
             default:
                 break;
         }
-        lab.updateView();
+        labyrinth.updateView();
     }
 
     private void rotateBlock(final Direction dir) {
-        Rotation blockRotation = lab.getOutsideBlock().getRotation();
+        Rotation blockRotation = labyrinth.getOutsideBlock().getRotation();
         switch (dir) {
             case Direction.RIGHT:
                 blockRotation = (blockRotation == Rotation.ZERO) ? Rotation.NINETY
                         : (blockRotation == Rotation.NINETY) ? Rotation.ONE_HUNDRED_EIGHTY
                                 : (blockRotation == Rotation.ONE_HUNDRED_EIGHTY) ? Rotation.TWO_HUNDRED_SEVENTY
                                         : Rotation.ZERO;
-                lab.rotateOutsideBlock(blockRotation);
+                labyrinth.rotateOutsideBlock(blockRotation);
                 break;
 
             case Direction.LEFT:
                 blockRotation = (blockRotation == Rotation.ZERO) ? Rotation.TWO_HUNDRED_SEVENTY
                         : (blockRotation == Rotation.TWO_HUNDRED_SEVENTY) ? Rotation.ONE_HUNDRED_EIGHTY
                                 : (blockRotation == Rotation.ONE_HUNDRED_EIGHTY) ? Rotation.NINETY : Rotation.ZERO;
-                lab.rotateOutsideBlock(blockRotation);
+                labyrinth.rotateOutsideBlock(blockRotation);
                 break;
             default:
                 break;

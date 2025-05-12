@@ -35,5 +35,4 @@ public interface DirectionCheck {
      * @return true if there is the entrance, false otherwise
      */
     boolean checkUpperEntrance(Coordinate coord);
-
 }
