@@ -12,7 +12,7 @@ import java.util.Set;
  *
  * @param <X> the type of elements stored in the map
  */
-public final class DualMap<X> implements Serializable{
+public final class DualMap<X> implements Serializable {
     private final Map<Coordinate, X> mapFromCoordinate;
     private final Map<X, Coordinate> mapFromElement;
 
