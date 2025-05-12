@@ -179,7 +179,7 @@ public class LogicDrawPanelImpl implements LogicDrawPanel, Serializable {
             pPositions = new Pair<>(
                     c.getColumn() * pixelSize + pixelSize / REDUCTION_SCALE_NUMBER,
                     c.getRow() * pixelSize + pixelSize / REDUCTION_SCALE_NUMBER);
-            pSize = new Pair<>(pixelSize * PERCENTILE_NUMERATOR / PERCENTILE_DENOMINATOR, pixelSize * 3 / 5);
+            pSize = new Pair<>(pixelSize * PERCENTILE_NUMERATOR / PERCENTILE_DENOMINATOR, pixelSize * 3 / PERCENTILE_DENOMINATOR);
             pNumbers = new Pair<>(pPositions, pSize);
             pFinal = new Pair<>(
                     pImageRotation, pNumbers);
