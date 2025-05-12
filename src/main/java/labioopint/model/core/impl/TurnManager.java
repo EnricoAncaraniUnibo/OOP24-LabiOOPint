@@ -84,7 +84,12 @@ public class TurnManager implements Serializable {
             index = players.size() - 1;
         }
         enemyMove = false;
-        nextAction();
+        if (currentAction == ActionType.BLOCK_PLACEMENT) {
+            nextAction();
+            nextAction();
+        } else {
+            nextAction();
+        }
         enemyMove = true;
     }
 
