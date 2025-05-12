@@ -33,6 +33,8 @@ public class SettingsMenu extends JFrame {
     private static final int GRID_HGAP = 0;
     private static final int GRID_VGAP = 10;
     private static final int TITLE_FONT_SIZE = 25;
+    private static final int H_GAP = 20;
+    private static final int V_GAP = 20;
 
     private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private final SettingsLogic settingsLogic;
@@ -45,7 +47,7 @@ public class SettingsMenu extends JFrame {
     public SettingsMenu(final SettingsController controller) {
         settingsLogic = new SettingsLogic(controller);
         super.setTitle("Settings");
-        super.setLayout(new GridLayout(0, 3, 20, 20));
+        super.setLayout(new GridLayout(0, 3, H_GAP, V_GAP));
         super.setSize((int) screenSize.getWidth() * RATIO_NUMERATOR / RATIO_DENOMINATOR,
                 (int) screenSize.getHeight() * RATIO_NUMERATOR / RATIO_DENOMINATOR);
 
@@ -60,13 +62,13 @@ public class SettingsMenu extends JFrame {
         JButton saveButton = new JButton("Save");
         saveButton.setAlignmentX(CENTER_ALIGNMENT);
         saveButton.addActionListener(e -> {
-                settingsLogic.saveNewSettings(
-                (int) enemySpinner.getValue(),
-                (int) playersSpinner.getValue(),
-                (int) powerUpSpinner.getValue(),
-                (String) difficultyComboBox.getSelectedItem());
-                this.setVisible(false);
-                });
+            settingsLogic.saveNewSettings(
+                    (int) enemySpinner.getValue(),
+                    (int) playersSpinner.getValue(),
+                    (int) powerUpSpinner.getValue(),
+                    (String) difficultyComboBox.getSelectedItem());
+            this.setVisible(false);
+        });
 
         JLabel textLabel = new JLabel("Settings");
         textLabel.setHorizontalAlignment(SwingConstants.CENTER);
