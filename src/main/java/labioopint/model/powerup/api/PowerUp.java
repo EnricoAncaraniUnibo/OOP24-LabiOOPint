@@ -42,5 +42,5 @@ public interface PowerUp {
      */
     String getName();
 
-    public int getID();
+    int getID();
 }

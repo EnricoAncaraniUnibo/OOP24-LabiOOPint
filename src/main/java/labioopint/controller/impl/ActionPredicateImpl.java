@@ -13,11 +13,11 @@ import labioopint.model.maze.api.Direction;
 import labioopint.model.maze.impl.LabyrinthImpl;
 import labioopint.model.player.impl.PlayerImpl;
 
-public class ActionPredicateImpl implements ActionPredicate,Serializable {
+public class ActionPredicateImpl implements ActionPredicate, Serializable {
     private final LabyrinthImpl lab;
     private final Integer mazeSize;
     private final DirectionCheck dc;
-    private final Pair<Boolean,Enemy> e;
+    private final Pair<Boolean, Enemy> e;
 
     public ActionPredicateImpl(final TurnManager tu) {
         lab = tu.getLab();

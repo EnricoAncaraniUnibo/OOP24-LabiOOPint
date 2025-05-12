@@ -17,11 +17,13 @@ import labioopint.model.enemy.api.Enemy;
 import labioopint.model.maze.impl.MazeImpl;
 import labioopint.model.player.impl.PlayerImpl;
 import labioopint.model.powerup.api.PowerUp;
+
 /**
  * The LogicDrawPanel class is responsible for managing the logic and data
- * required to draw the game panel, including blocks, players, enemies, and power-ups.
+ * required to draw the game panel, including blocks, players, enemies, and
+ * power-ups.
  */
-public class LogicDrawPanelImpl implements LogicDrawPanel,Serializable {
+public class LogicDrawPanelImpl implements LogicDrawPanel, Serializable {
 
     private final TurnManager turn;
     private final Integer pixelSize;
@@ -39,7 +41,7 @@ public class LogicDrawPanelImpl implements LogicDrawPanel,Serializable {
     private static final Integer PERCENTILE_DENOMINATOR = 5;
     private static final Integer REDUCTION_SCALE_NUMBER = 4;
 
-     /**
+    /**
      * Constructs a LogicDrawPanel with the specified TurnManager and panel size.
      *
      * @param tu   the TurnManager instance to manage turns
@@ -50,6 +52,7 @@ public class LogicDrawPanelImpl implements LogicDrawPanel,Serializable {
         pixelSize = (int) size.getWidth() / CORRECT_BLOCK_DIVISION;
         ImageLoader.load();
     }
+
     /**
      * Gets the size of a block in the panel.
      *
@@ -59,6 +62,7 @@ public class LogicDrawPanelImpl implements LogicDrawPanel,Serializable {
     public Integer getPixelSize() {
         return pixelSize;
     }
+
     /**
      * Updates the data required for drawing the panel, including the maze, players,
      * enemy, powerups, and the outside block.
@@ -91,10 +95,12 @@ public class LogicDrawPanelImpl implements LogicDrawPanel,Serializable {
     }
 
     /**
-     * Retrieves a list of images and their associated properties (rotation, position, size)
+     * Retrieves a list of images and their associated properties (rotation,
+     * position, size)
      * for all blocks, players, enemies, and power-ups to be drawn on the panel.
      *
-     * @return a List of Pairs containing image, rotation, position, and size information
+     * @return a List of Pairs containing image, rotation, position, and size
+     *         information
      */
     @Override
     public List<Pair<Pair<Image, Double>, Pair<Pair<Integer, Integer>, Pair<Integer, Integer>>>> getImagesBlocks() {
@@ -113,45 +119,45 @@ public class LogicDrawPanelImpl implements LogicDrawPanel,Serializable {
         for (int i = 0; i <= maze.getSize() && !end; i++) {
             for (int j = 0; j < maze.getSize() && !end; j++) {
                 if (i == maze.getSize()) {
-                        b = outsideBlock;
-                        j = maze.getSize() + 1;
-                        i = 0;
-                        end = true;
+                    b = outsideBlock;
+                    j = maze.getSize() + 1;
+                    i = 0;
+                    end = true;
                 } else {
-                        b = maze.getBlock(new Coordinate(i, j)).get();
+                    b = maze.getBlock(new Coordinate(i, j)).get();
                 }
                 switch (b.getType()) {
-                        case CORNER:
-                                imageTemp = ImageLoader.getImage("Corner").get();
-                                break;
-                        case CORRIDOR:
-                                imageTemp = ImageLoader.getImage("Corridor").get();
-                                break;
-                        case CROSSING:
-                                imageTemp = ImageLoader.getImage("Crossing").get();
-                                break;
+                    case CORNER:
+                        imageTemp = ImageLoader.getImage("Corner").get();
+                        break;
+                    case CORRIDOR:
+                        imageTemp = ImageLoader.getImage("Corridor").get();
+                        break;
+                    case CROSSING:
+                        imageTemp = ImageLoader.getImage("Crossing").get();
+                        break;
                 }
                 switch (b.getRotation()) {
                     case ZERO:
-                            rotationTemp = Math.toRadians(ZERO_ROTATION);
-                            valuePrint1 = j * pixelSize;
-                            valuePrint2 = i * pixelSize;
-                            break;
+                        rotationTemp = Math.toRadians(ZERO_ROTATION);
+                        valuePrint1 = j * pixelSize;
+                        valuePrint2 = i * pixelSize;
+                        break;
                     case NINETY:
-                            rotationTemp = Math.toRadians(NINETY_ROTATION);
-                            valuePrint1 = (-i * pixelSize) - pixelSize;
-                            valuePrint2 = j * pixelSize;
-                            break;
+                        rotationTemp = Math.toRadians(NINETY_ROTATION);
+                        valuePrint1 = (-i * pixelSize) - pixelSize;
+                        valuePrint2 = j * pixelSize;
+                        break;
                     case ONE_HUNDRED_EIGHTY:
-                            rotationTemp = Math.toRadians(ONE_HUNDRED_EIGHTY_ROTATION);
-                            valuePrint1 = (-j * pixelSize) - pixelSize;
-                            valuePrint2 = (-i * pixelSize) - pixelSize;
-                            break;
+                        rotationTemp = Math.toRadians(ONE_HUNDRED_EIGHTY_ROTATION);
+                        valuePrint1 = (-j * pixelSize) - pixelSize;
+                        valuePrint2 = (-i * pixelSize) - pixelSize;
+                        break;
                     case TWO_HUNDRED_SEVENTY:
-                            rotationTemp = Math.toRadians(TWO_HUNDRED_SEVENTY);
-                            valuePrint1 = i * pixelSize;
-                            valuePrint2 = (-j * pixelSize) - pixelSize;
-                            break;
+                        rotationTemp = Math.toRadians(TWO_HUNDRED_SEVENTY);
+                        valuePrint1 = i * pixelSize;
+                        valuePrint2 = (-j * pixelSize) - pixelSize;
+                        break;
                 }
                 pImageRotation = new Pair<>(imageTemp, rotationTemp);
                 pPositions = new Pair<>(valuePrint1, valuePrint2);
@@ -165,45 +171,45 @@ public class LogicDrawPanelImpl implements LogicDrawPanel,Serializable {
             final Coordinate c = coorPlayers.getCoordinateFromElement(p);
             if (p.equals(turn.getCurrentPlayer())) {
                 pImageRotation = new Pair<>(
-                    ImageLoader.getImage(p.getID() + "Turn").get(), Math.toRadians(ZERO_ROTATION));
+                        ImageLoader.getImage(p.getID() + "Turn").get(), Math.toRadians(ZERO_ROTATION));
             } else {
                 pImageRotation = new Pair<>(
-                    ImageLoader.getImage(p.getID()).get(), Math.toRadians(ZERO_ROTATION));
+                        ImageLoader.getImage(p.getID()).get(), Math.toRadians(ZERO_ROTATION));
             }
             pPositions = new Pair<>(
-                c.getColumn() * pixelSize + pixelSize / REDUCTION_SCALE_NUMBER, 
-                c.getRow() * pixelSize + pixelSize / REDUCTION_SCALE_NUMBER);
-            pSize = new Pair<>(pixelSize * PERCENTILE_NUMERATOR / PERCENTILE_DENOMINATOR, pixelSize * 3/5);
+                    c.getColumn() * pixelSize + pixelSize / REDUCTION_SCALE_NUMBER,
+                    c.getRow() * pixelSize + pixelSize / REDUCTION_SCALE_NUMBER);
+            pSize = new Pair<>(pixelSize * PERCENTILE_NUMERATOR / PERCENTILE_DENOMINATOR, pixelSize * 3 / 5);
             pNumbers = new Pair<>(pPositions, pSize);
             pFinal = new Pair<>(
-                pImageRotation, pNumbers);
+                    pImageRotation, pNumbers);
             ls.add(pFinal);
         }
         for (final Enemy e : coorEnemies.getElemets()) {
             final Coordinate c = coorEnemies.getCoordinateFromElement(e);
             pImageRotation = new Pair<>(ImageLoader.getImage("Monster").get(), Math.toRadians(ZERO_ROTATION));
             pPositions = new Pair<>(
-                c.getColumn() * pixelSize + pixelSize / REDUCTION_SCALE_NUMBER, 
-                c.getRow() * pixelSize + pixelSize / REDUCTION_SCALE_NUMBER);
-            pSize = new Pair<>(pixelSize * PERCENTILE_NUMERATOR / PERCENTILE_DENOMINATOR, 
-            pixelSize * PERCENTILE_NUMERATOR / PERCENTILE_DENOMINATOR);
+                    c.getColumn() * pixelSize + pixelSize / REDUCTION_SCALE_NUMBER,
+                    c.getRow() * pixelSize + pixelSize / REDUCTION_SCALE_NUMBER);
+            pSize = new Pair<>(pixelSize * PERCENTILE_NUMERATOR / PERCENTILE_DENOMINATOR,
+                    pixelSize * PERCENTILE_NUMERATOR / PERCENTILE_DENOMINATOR);
             pNumbers = new Pair<>(pPositions, pSize);
             pFinal = new Pair<>(
-                pImageRotation, pNumbers);
+                    pImageRotation, pNumbers);
             ls.add(pFinal);
         }
         for (final PowerUp po : coorPowerUps.getElemets()) {
             final Coordinate c = coorPowerUps.getCoordinateFromElement(po);
             pImageRotation = new Pair<>(
-                ImageLoader.getImage(po.getName()).get(), Math.toRadians(ZERO_ROTATION));
+                    ImageLoader.getImage(po.getName()).get(), Math.toRadians(ZERO_ROTATION));
             pPositions = new Pair<>(
-                c.getColumn() * pixelSize + pixelSize / REDUCTION_SCALE_NUMBER, 
-                c.getRow() * pixelSize + pixelSize / REDUCTION_SCALE_NUMBER);
-            pSize = new Pair<>(pixelSize * PERCENTILE_NUMERATOR / PERCENTILE_DENOMINATOR, 
-            pixelSize * PERCENTILE_NUMERATOR / PERCENTILE_DENOMINATOR);
+                    c.getColumn() * pixelSize + pixelSize / REDUCTION_SCALE_NUMBER,
+                    c.getRow() * pixelSize + pixelSize / REDUCTION_SCALE_NUMBER);
+            pSize = new Pair<>(pixelSize * PERCENTILE_NUMERATOR / PERCENTILE_DENOMINATOR,
+                    pixelSize * PERCENTILE_NUMERATOR / PERCENTILE_DENOMINATOR);
             pNumbers = new Pair<>(pPositions, pSize);
             pFinal = new Pair<>(
-                pImageRotation, pNumbers);
+                    pImageRotation, pNumbers);
             ls.add(pFinal);
         }
         return ls;
