@@ -14,7 +14,7 @@ import labioopint.model.maze.impl.LabyrinthImpl;
 import labioopint.model.player.impl.PlayerImpl;
 
 public class ActionPredicateImpl implements ActionPredicate, Serializable {
-    private final LabyrinthImpl labybinth;
+    private final LabyrinthImpl labyrinth;
     private final Integer mazeSize;
     private final DirectionCheck directionCheck;
     private final Pair<Boolean, Enemy> enemy;
