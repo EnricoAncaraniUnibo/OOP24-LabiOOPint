@@ -16,11 +16,20 @@ import labioopint.model.enemy.api.EnemyDifficulty;
 import labioopint.model.player.impl.PlayerImpl;
 import labioopint.model.powerup.api.PowerUp;
 
+/**
+ * The {@code BuilderImplTest} class contains unit tests for verifying the
+ * behavior of the {@link BuilderImpl} class. It ensures that the builder
+ * correctly creates players, enemies, power-ups, and the maze.
+ */
 class BuilderImplTest {
 
     private BuilderImpl builder;
     private static TurnManager tm;
 
+    /**
+     * Sets up the {@link BuilderImpl} and {@link TurnManager} instances before
+     * each test. Initializes the game settings with predefined values.
+     */
     @BeforeEach
     void setUp() {
         final Settings settings = new Settings(2, 2, 3, EnemyDifficulty.MEDIUM);
@@ -28,6 +37,11 @@ class BuilderImplTest {
         builder = new BuilderImpl(settings, tm);
     }
 
+    /**
+     * Tests the {@link BuilderImpl#createPlayers()} method.
+     * Ensures that the correct number of players is created and that all players
+     * are not null.
+     */
     @Test
     void testCreatePlayers() {
         builder.createPlayers();
@@ -38,6 +52,10 @@ class BuilderImplTest {
         }
     }
 
+    /**
+     * Tests the {@link BuilderImpl#createEnemy()} method.
+     * Ensures that an enemy is created and that it is not null.
+     */
     @Test
     void testCreateEnemy() {
         builder.createEnemy();
@@ -46,6 +64,11 @@ class BuilderImplTest {
         assertNotNull(enemy);
     }
 
+    /**
+     * Tests the {@link BuilderImpl#createPowerUps()} method.
+     * Ensures that the correct number of power-ups is created and that all
+     * power-ups are not null.
+     */
     @Test
     void testCreatePowerUps() {
         builder.createPowerUps();
@@ -56,6 +79,10 @@ class BuilderImplTest {
         }
     }
 
+    /**
+     * Tests the {@link BuilderImpl#createMaze()} method.
+     * Ensures that the maze is created and is not null.
+     */
     @Test
     void testCreateMaze() {
         builder.createMaze();

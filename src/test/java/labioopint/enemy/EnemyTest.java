@@ -21,8 +21,17 @@ import labioopint.model.maze.api.Direction;
 import labioopint.model.player.impl.PlayerImpl;
 import labioopint.model.powerup.api.PowerUp;
 
+/**
+ * The {@code EnemyTest} class contains unit tests for verifying the behavior
+ * of enemies in the game. It ensures that enemies move correctly based on their
+ * difficulty level and interact properly with players and power-ups.
+ */
 class EnemyTest {
 
+    /**
+     * Tests the movement behavior of an enemy with {@link EnemyDifficulty#EASY}.
+     * Ensures that the enemy moves only when valid paths are available.
+     */
     @Test
     void testEasyEnemyMovement() {
         final TurnManager tmEasy = new TurnManager(new Settings(1, 2, 3, EnemyDifficulty.EASY));
@@ -50,6 +59,10 @@ class EnemyTest {
         assertNotEquals(initialPosition, newCoordinate);
     }
 
+    /**
+     * Tests the movement behavior of an enemy with {@link EnemyDifficulty#MEDIUM}.
+     * Ensures that the enemy moves correctly when valid paths are available.
+     */
     @Test
     void testMediumEnemyMovement() {
         final TurnManager tmMedium = new TurnManager(new Settings(1, 2, 3, EnemyDifficulty.MEDIUM));
@@ -79,6 +92,11 @@ class EnemyTest {
         assertNotEquals(initialPosition, newCoordinate);
     }
 
+    /**
+     * Tests the movement behavior of an enemy with {@link EnemyDifficulty#HARD}.
+     * Ensures that the enemy moves toward the player when valid paths are
+     * available.
+     */
     @Test
     void testHardEnemyMovement() {
         final TurnManager tmHard = new TurnManager(new Settings(1, 2, 3, EnemyDifficulty.HARD));
@@ -113,6 +131,10 @@ class EnemyTest {
         assertEquals(tmHard.getLab().getPlayerCoordinate(players.get(0)), tmHard.getLab().getEnemyCoordinate(hard));
     }
 
+    /**
+     * Tests the interaction between an enemy and a player when the player is hit.
+     * Ensures that the player's objectives are removed and power-ups are restored.
+     */
     @Test
     void testPlayerHit() {
         final TurnManager tm = new TurnManager(new Settings(1, 2, 3, EnemyDifficulty.HARD));

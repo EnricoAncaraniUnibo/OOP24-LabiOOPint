@@ -13,11 +13,11 @@ import labioopint.model.maze.api.Direction;
 import labioopint.model.maze.impl.LabyrinthImpl;
 import labioopint.model.player.impl.PlayerImpl;
 
-public class ActionPredicateImpl implements ActionPredicate,Serializable {
+public class ActionPredicateImpl implements ActionPredicate, Serializable {
     private final LabyrinthImpl labybinth;
     private final Integer mazeSize;
     private final DirectionCheck directionCheck;
-    private final Pair<Boolean,Enemy> enemy;
+    private final Pair<Boolean, Enemy> enemy;
     public static final long serialVersionUID = 4328743;
 
     public ActionPredicateImpl(final TurnManager turnManager) {
