@@ -24,91 +24,91 @@ import labioopint.model.maze.impl.LabyrinthImpl;
 class ShiftsTest {
     private static final Integer SIZE = 5;
 
-	/**
-	 * Tests shifting a row to the right. Verifies that the blocks in the row
-	 * are shifted correctly, and the outside block is updated as expected.
-	 */
-	@Test
-	void testShiftRowRight() {
-		final TurnManager tu = new TurnManager(new Settings(1, 2, 3, EnemyDifficulty.EASY));
-		final Labyrinth lab = new LabyrinthImpl(SIZE, tu);
-		final BlockImpl initialOutsideBlock = lab.getOutsideBlock();
-		final List<BlockImpl> ls = new ArrayList<>();
-		for (int i = 0; i < SIZE; i++) {
-			ls.add(lab.getGrid().getBlock(new Coordinate(2, i)).get());
-		}
-		lab.moveBlock(new Coordinate(2, 0), Direction.RIGHT);
-		assertEquals(initialOutsideBlock, lab.getGrid().getBlock(new Coordinate(2, 0)).get());
-		for (int i = 0; i < SIZE - 1; i++) {
-			assertEquals(ls.get(i), lab.getGrid().getBlock(new Coordinate(2, i + 1)).get());
-		}
-		assertEquals(ls.get(ls.size() - 1), lab.getOutsideBlock());
-	}
+    /**
+     * Tests shifting a row to the right. Verifies that the blocks in the row
+     * are shifted correctly, and the outside block is updated as expected.
+     */
+    @Test
+    void testShiftRowRight() {
+        final TurnManager tu = new TurnManager(new Settings(1, 2, 3, EnemyDifficulty.EASY));
+        final Labyrinth lab = new LabyrinthImpl(SIZE, tu);
+        final BlockImpl initialOutsideBlock = lab.getOutsideBlock();
+        final List<BlockImpl> ls = new ArrayList<>();
+        for (int i = 0; i < SIZE; i++) {
+            ls.add(lab.getGrid().getBlock(new Coordinate(2, i)).get());
+        }
+        lab.moveBlock(new Coordinate(2, 0), Direction.RIGHT);
+        assertEquals(initialOutsideBlock, lab.getGrid().getBlock(new Coordinate(2, 0)).get());
+        for (int i = 0; i < SIZE - 1; i++) {
+            assertEquals(ls.get(i), lab.getGrid().getBlock(new Coordinate(2, i + 1)).get());
+        }
+        assertEquals(ls.get(ls.size() - 1), lab.getOutsideBlock());
+    }
 
-	/**
-	 * Tests shifting a row to the left. Verifies that the blocks in the row
-	 * are shifted correctly, and the outside block is updated as expected.
-	 */
-	@Test
-	void testShiftRowLeft() {
-		final TurnManager tu = new TurnManager(new Settings(1, 2, 3, EnemyDifficulty.EASY));
-		final Labyrinth lab = new LabyrinthImpl(SIZE, tu);
-		final BlockImpl initialOutsideBlock = lab.getOutsideBlock();
-		final List<BlockImpl> ls = new ArrayList<>();
-		for (int i = SIZE - 1; i >= 0; i--) {
-			ls.add(lab.getGrid().getBlock(new Coordinate(2, i)).get());
-		}
-		lab.moveBlock(new Coordinate(2, SIZE - 1), Direction.LEFT);
-		assertEquals(initialOutsideBlock, lab.getGrid().getBlock(new Coordinate(2, SIZE - 1)).get());
-		int index = 0;
-		for (int i = SIZE - 1; i > 0; i--) {
-			assertEquals(ls.get(index), lab.getGrid().getBlock(new Coordinate(2, i - 1)).get());
-			index++;
-		}
-		assertEquals(ls.get(ls.size() - 1), lab.getOutsideBlock());
-	}
+    /**
+     * Tests shifting a row to the left. Verifies that the blocks in the row
+     * are shifted correctly, and the outside block is updated as expected.
+     */
+    @Test
+    void testShiftRowLeft() {
+        final TurnManager tu = new TurnManager(new Settings(1, 2, 3, EnemyDifficulty.EASY));
+        final Labyrinth lab = new LabyrinthImpl(SIZE, tu);
+        final BlockImpl initialOutsideBlock = lab.getOutsideBlock();
+        final List<BlockImpl> ls = new ArrayList<>();
+        for (int i = SIZE - 1; i >= 0; i--) {
+            ls.add(lab.getGrid().getBlock(new Coordinate(2, i)).get());
+        }
+        lab.moveBlock(new Coordinate(2, SIZE - 1), Direction.LEFT);
+        assertEquals(initialOutsideBlock, lab.getGrid().getBlock(new Coordinate(2, SIZE - 1)).get());
+        int index = 0;
+        for (int i = SIZE - 1; i > 0; i--) {
+            assertEquals(ls.get(index), lab.getGrid().getBlock(new Coordinate(2, i - 1)).get());
+            index++;
+        }
+        assertEquals(ls.get(ls.size() - 1), lab.getOutsideBlock());
+    }
 
-	/**
-	 * Tests shifting a column down. Verifies that the blocks in the column
-	 * are shifted correctly, and the outside block is updated as expected.
-	 */
-	@Test
-	void testShiftColumnDown() {
-		final TurnManager tu = new TurnManager(new Settings(1, 2, 3, EnemyDifficulty.EASY));
-		final Labyrinth lab = new LabyrinthImpl(SIZE, tu);
-		final BlockImpl initialOutsideBlock = lab.getOutsideBlock();
-		final List<BlockImpl> ls = new ArrayList<>();
-		for (int i = 0; i < SIZE; i++) {
-			ls.add(lab.getGrid().getBlock(new Coordinate(i, 2)).get());
-		}
-		lab.moveBlock(new Coordinate(0, 2), Direction.DOWN);
-		assertEquals(initialOutsideBlock, lab.getGrid().getBlock(new Coordinate(0, 2)).get());
-		for (int i = 0; i < SIZE - 1; i++) {
-			assertEquals(ls.get(i), lab.getGrid().getBlock(new Coordinate(i + 1, 2)).get());
-		}
-		assertEquals(ls.get(ls.size() - 1), lab.getOutsideBlock());
-	}
+    /**
+     * Tests shifting a column down. Verifies that the blocks in the column
+     * are shifted correctly, and the outside block is updated as expected.
+     */
+    @Test
+    void testShiftColumnDown() {
+        final TurnManager tu = new TurnManager(new Settings(1, 2, 3, EnemyDifficulty.EASY));
+        final Labyrinth lab = new LabyrinthImpl(SIZE, tu);
+        final BlockImpl initialOutsideBlock = lab.getOutsideBlock();
+        final List<BlockImpl> ls = new ArrayList<>();
+        for (int i = 0; i < SIZE; i++) {
+            ls.add(lab.getGrid().getBlock(new Coordinate(i, 2)).get());
+        }
+        lab.moveBlock(new Coordinate(0, 2), Direction.DOWN);
+        assertEquals(initialOutsideBlock, lab.getGrid().getBlock(new Coordinate(0, 2)).get());
+        for (int i = 0; i < SIZE - 1; i++) {
+            assertEquals(ls.get(i), lab.getGrid().getBlock(new Coordinate(i + 1, 2)).get());
+        }
+        assertEquals(ls.get(ls.size() - 1), lab.getOutsideBlock());
+    }
 
-	/**
-	 * Tests shifting a column up. Verifies that the blocks in the column
-	 * are shifted correctly, and the outside block is updated as expected.
-	 */
-	@Test
-	void testShiftColumnUp() {
-		final TurnManager tu = new TurnManager(new Settings(1, 2, 3, EnemyDifficulty.EASY));
-		final Labyrinth lab = new LabyrinthImpl(SIZE, tu);
-		final BlockImpl initialOutsideBlock = lab.getOutsideBlock();
-		final List<BlockImpl> ls = new ArrayList<>();
-		for (int i = SIZE - 1; i >= 0; i--) {
-			ls.add(lab.getGrid().getBlock(new Coordinate(i, 2)).get());
-		}
-		lab.moveBlock(new Coordinate(SIZE - 1, 2), Direction.UP);
-		assertEquals(initialOutsideBlock, lab.getGrid().getBlock(new Coordinate(SIZE - 1, 2)).get());
-		int index = 0;
-		for (int i = SIZE - 1; i > 0; i--) {
-			assertEquals(ls.get(index), lab.getGrid().getBlock(new Coordinate(i - 1, 2)).get());
-			index++;
-		}
-		assertEquals(ls.get(ls.size() - 1), lab.getOutsideBlock());
-	}
+    /**
+     * Tests shifting a column up. Verifies that the blocks in the column
+     * are shifted correctly, and the outside block is updated as expected.
+     */
+    @Test
+    void testShiftColumnUp() {
+        final TurnManager tu = new TurnManager(new Settings(1, 2, 3, EnemyDifficulty.EASY));
+        final Labyrinth lab = new LabyrinthImpl(SIZE, tu);
+        final BlockImpl initialOutsideBlock = lab.getOutsideBlock();
+        final List<BlockImpl> ls = new ArrayList<>();
+        for (int i = SIZE - 1; i >= 0; i--) {
+            ls.add(lab.getGrid().getBlock(new Coordinate(i, 2)).get());
+        }
+        lab.moveBlock(new Coordinate(SIZE - 1, 2), Direction.UP);
+        assertEquals(initialOutsideBlock, lab.getGrid().getBlock(new Coordinate(SIZE - 1, 2)).get());
+        int index = 0;
+        for (int i = SIZE - 1; i > 0; i--) {
+            assertEquals(ls.get(index), lab.getGrid().getBlock(new Coordinate(i - 1, 2)).get());
+            index++;
+        }
+        assertEquals(ls.get(ls.size() - 1), lab.getOutsideBlock());
+    }
 }

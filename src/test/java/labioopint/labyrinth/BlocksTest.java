@@ -15,29 +15,29 @@ import labioopint.model.block.impl.BlockImpl;
  * can be changed correctly.
  */
 class BlocksTest {
-    	
-	/**
-	 * A static instance of BlockImpl used for testing.
-	 */
-	private static BlockImpl b;
 
-	/**
-	 * Initializes the BlockImpl instance before all tests are executed.
-	 * Sets the block type to CORRIDOR.
-	 */
-	@BeforeAll
-	static void init() {
-		b = new BlockImpl(BlockType.CORRIDOR);
-	}
+    /**
+     * A static instance of BlockImpl used for testing.
+     */
+    private static BlockImpl b;
 
-	/**
-	 * Tests the setRotation method of BlockImpl.
-	 * Ensures that the rotation of the block changes when set to a new value.
-	 */
-	@Test
-	void changeRotation() {
-		final Rotation r = b.getRotation();
-		b.setRotation(Rotation.ONE_HUNDRED_EIGHTY);
-		assertNotEquals(r, b.getRotation());
-	}
+    /**
+     * Initializes the BlockImpl instance before all tests are executed.
+     * Sets the block type to CORRIDOR.
+     */
+    @BeforeAll
+    static void init() {
+        b = new BlockImpl(BlockType.CORRIDOR);
+    }
+
+    /**
+     * Tests the setRotation method of BlockImpl.
+     * Ensures that the rotation of the block changes when set to a new value.
+     */
+    @Test
+    void changeRotation() {
+        final Rotation r = b.getRotation();
+        b.setRotation(Rotation.ONE_HUNDRED_EIGHTY);
+        assertNotEquals(r, b.getRotation());
+    }
 }

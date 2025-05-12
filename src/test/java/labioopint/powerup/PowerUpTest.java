@@ -21,11 +21,11 @@ import labioopint.model.powerup.impl.StealObjectPowerUp;
 import labioopint.model.powerup.impl.SwapPositionPowerUp;
 
 public class PowerUpTest {
-    
+
     @Test
     void testDoubleTurnPowerUp() {
         final TurnManager tu = new TurnManager(new Settings(0, 2, 0, EnemyDifficulty.EASY));
-        final PowerUp powerup = new DoubleTurnPowerUp(tu,0);
+        final PowerUp powerup = new DoubleTurnPowerUp(tu, 0);
         assertNotNull(powerup);
         tu.addAddictionalPowerUp(powerup);
         final PlayerImpl player1 = tu.getCurrentPlayer();
@@ -39,7 +39,7 @@ public class PowerUpTest {
     @Test
     void testSwapPositionPowerUp() {
         final TurnManager tu = new TurnManager(new Settings(0, 2, 0, EnemyDifficulty.EASY));
-        final PowerUp powerup = new SwapPositionPowerUp(tu,0);
+        final PowerUp powerup = new SwapPositionPowerUp(tu, 0);
         assertNotNull(powerup);
         tu.addAddictionalPowerUp(powerup);
         final List<PlayerImpl> players = tu.getPlayers();
@@ -55,7 +55,7 @@ public class PowerUpTest {
     @Test
     void testInvulnerabilityPowerUp() {
         final TurnManager tu = new TurnManager(new Settings(1, 2, 0, EnemyDifficulty.HARD));
-        final PowerUp powerup = new InvulnerabilityPowerUp(tu,0);
+        final PowerUp powerup = new InvulnerabilityPowerUp(tu, 0);
         assertNotNull(powerup);
         tu.addAddictionalPowerUp(powerup);
         final PlayerImpl player = tu.getCurrentPlayer();
@@ -67,15 +67,16 @@ public class PowerUpTest {
         tu.getLab().playerUpdateCoordinate(player, new Coordinate(1, 2));
         tu.nextAction();
         tu.nextAction();
-        assertEquals(tu.getLab().getPlayerCoordinate(player), tu.getLab().getEnemyCoordinate(tu.getEnemy().getSecond()));
+        assertEquals(tu.getLab().getPlayerCoordinate(player),
+                tu.getLab().getEnemyCoordinate(tu.getEnemy().getSecond()));
         assertEquals(player.getObjetives().size(), 1);
     }
 
     @Test
     void testStealObjectPowerUp() {
         final TurnManager tu = new TurnManager(new Settings(0, 2, 0, EnemyDifficulty.HARD));
-        final PowerUp stealPowerup = new StealObjectPowerUp(tu,0);
-        final PowerUp otherPowerup = new InvulnerabilityPowerUp(tu,0);
+        final PowerUp stealPowerup = new StealObjectPowerUp(tu, 0);
+        final PowerUp otherPowerup = new InvulnerabilityPowerUp(tu, 0);
         assertNotNull(stealPowerup);
         tu.addAddictionalPowerUp(stealPowerup);
         tu.addAddictionalPowerUp(otherPowerup);
