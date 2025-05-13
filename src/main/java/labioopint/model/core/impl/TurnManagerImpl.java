@@ -13,6 +13,7 @@ public class TurnManagerImpl implements TurnManager {
     private ActionType currentAction;
     private int currentPlayer;
     private final int numberOfPlayers;
+    private boolean doubleTurn = false;
 
     public TurnManagerImpl(int numberOfPlayers) {
         currentAction = ActionType.BLOCK_PLACEMENT;
@@ -21,11 +22,7 @@ public class TurnManagerImpl implements TurnManager {
     }
 
     public void repeatPlayerTurn() {
-        currentPlayer--;
-        if (currentPlayer < 0) {
-            currentPlayer = numberOfPlayers - 1;
-        }
-        nextAction();
+        doubleTurn = true;
     }
 
     @Override
@@ -42,8 +39,11 @@ public class TurnManagerImpl implements TurnManager {
     public void nextAction() {
         if (currentAction == ActionType.BLOCK_PLACEMENT) {
             currentAction = ActionType.PLAYER_MOVEMENT;
-        } else if (currentAction == ActionType.PLAYER_MOVEMENT) {
+        } else if (currentAction == ActionType.PLAYER_MOVEMENT && doubleTurn == false) {
             currentPlayer = (currentPlayer + 1) % numberOfPlayers;
+            currentAction = ActionType.BLOCK_PLACEMENT;
+        } else {
+            doubleTurn = false;
             currentAction = ActionType.BLOCK_PLACEMENT;
         }
     }

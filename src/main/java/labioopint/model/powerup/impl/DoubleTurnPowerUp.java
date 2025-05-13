@@ -10,19 +10,19 @@ import labioopint.model.player.api.Player;
 public final class DoubleTurnPowerUp extends PowerUpImpl {
     public static final long serialVersionUID = 1L;
 
-    public DoubleTurnPowerUp(final int id) {
-        super(id);
+    public DoubleTurnPowerUp(final int powerUpId) {
+        super(powerUpId);
         super.setName("Double Turn");
     }
 
     @Override
-    public void activate(final Labyrinth lab, final TurnManager turn) {
-        Player p = lab.getPlayers().get(turn.getCurrentPlayer());
-        if (p.getUsablePowerUps().contains(this)) {
+    public void activate(final Labyrinth labyrinth, final TurnManager turnManager) {
+        Player player = labyrinth.getPlayers().get(turnManager.getCurrentPlayer());
+        if (player.getUsablePowerUps().contains(this)) {
             if (isCollected()) {
-                turn.repeatPlayerTurn();
+                turnManager.repeatPlayerTurn();
             }
-            p.removePowerUp(this);
+            player.removePowerUp(this);
         }
     }
 }

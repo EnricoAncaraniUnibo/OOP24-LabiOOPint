@@ -69,11 +69,6 @@ public final class ActionControllerImpl implements ActionController{
                     }
                 }
                 break;
-            case ActionType.ENEMY_MOVEMENT:
-                if (action instanceof Direction && labyrinth.getEnemy().getFirst() == Boolean.TRUE) {
-                    labyrinth.getEnemy().getSecond().move(labyrinth.getPlayers(), actionPredicate, labyrinth);
-                    turnManager.nextAction();
-                }
             default:
                 break;
         }
