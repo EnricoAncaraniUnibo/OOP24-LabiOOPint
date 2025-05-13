@@ -28,7 +28,9 @@ import labioopint.model.powerup.impl.DoubleTurnPowerUp;
 import labioopint.model.powerup.impl.InvulnerabilityPowerUp;
 import labioopint.model.powerup.impl.StealObjectPowerUp;
 import labioopint.model.powerup.impl.SwapPositionPowerUp;
-
+/**
+ * The class that work as a coordinate manager for the game.
+ */
 public final class LabyrinthImpl implements Labyrinth {
     public static final long serialVersionUID = 1L;
     private final Maze grid;
@@ -45,14 +47,27 @@ public final class LabyrinthImpl implements Labyrinth {
         mapOfEnemy = new DualMapImpl<>();
         objectives = new ArrayList<>();
     }
-
+    /**
+     * Construct with the presence of an enemy.
+     * 
+     * @param size the size of the maze
+     * @param players the players in the maze
+     * @param powerUps the powerUps in the maze
+     * @param enemy the enemy in the maze
+     */
     public LabyrinthImpl(final Integer size, final List<Player> players, final List<PowerUp> powerUps, final Enemy enemy) {
         this.initialize();
         grid = new SimpleMazeImpl(size);
         outsideBlock = grid.generate();
         this.start(players, powerUps, enemy, true);
     }
-
+    /**
+     * Construct without the presence of an enemy.
+     * 
+     * @param size the size of the maze
+     * @param players the players in the maze
+     * @param powerUps the powerUps in the maze
+     */
     public LabyrinthImpl(final Integer size, final List<Player> players, final List<PowerUp> powerUps) {
         this.initialize();
         grid = new SimpleMazeImpl(size);

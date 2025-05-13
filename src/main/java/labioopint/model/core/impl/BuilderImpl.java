@@ -26,9 +26,13 @@ import labioopint.model.utilities.api.Settings;
  * The class responsable for the creation of the main game components.
  */
 public final class BuilderImpl implements Builder {
-
+    /**
+     * The size of the labyrinth if the number of players is small.
+     */
     public static final int SMALL_LABYRINTH = 5;
-
+    /**
+     * The size of the labyrinth if the number of players is high.
+     */
     public static final int BIG_LABYRINTH = 7;
     private final int numberPlayer;
     private final int numberPowerUp;
@@ -67,7 +71,11 @@ public final class BuilderImpl implements Builder {
         }
         return lab;
     }
-
+    /**
+     * Method used by the builder to create the players of the game.
+     * 
+     * @return the list of players.
+     */
     private List<Player> createPlayers() {
         final List<String> nameList = new ArrayList<>();
         nameList.add("Archer");
@@ -89,7 +97,11 @@ public final class BuilderImpl implements Builder {
     public TurnManager createTurnManager() {
         return new TurnManagerImpl(numberPlayer);
     }
-
+    /**
+     * Method used by the builder to create the enemy of the game.
+     * 
+     * @return the enemy.
+     */
     private Enemy createEnemy() {
         if (type == EnemyDifficulty.EASY) {
             return enemyFactory.createSingleStepEnemy();
@@ -101,7 +113,11 @@ public final class BuilderImpl implements Builder {
             throw new IllegalArgumentException("Enemy Difficulty not properly selected");
         }
     }
-
+    /**
+     * Method used by the builder to create the powerUps of the game.
+     * 
+     * @return the list of powerUps.
+     */
     private List<PowerUp> createPowerUps() {
         final List<PowerUp> powerUps = new ArrayList<>();
         final Random r = new Random();

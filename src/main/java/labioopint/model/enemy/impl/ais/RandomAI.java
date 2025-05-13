@@ -12,14 +12,17 @@ import labioopint.model.enemy.impl.MovementUtilities;
 import labioopint.model.maze.api.Direction;
 import labioopint.model.maze.api.Labyrinth;
 import labioopint.model.player.api.Player;
-
-public class RandomAI implements EnemyAI{
+/**
+ * The enemyAi that moves x steps random with random Directions.
+ */
+public final class RandomAI implements EnemyAI {
 
     public static final long serialVersionUID = 1L;
     private final Random rand = new Random();
 
     @Override
-    public List<Coordinate> getNextPosition(final List<Player> players, final Coordinate current, ActionPredicate actionPredicate, Labyrinth labyrinth) {
+    public List<Coordinate> getNextPosition(final List<Player> players, final Coordinate current,
+            final ActionPredicate actionPredicate, final Labyrinth labyrinth) {
         Coordinate newPos = new CoordinateImpl(current.getRow(), current.getColumn());
         int direction = rand.nextInt(4);
         final int steps = rand.nextInt(4) + 2; // da 2 a 5

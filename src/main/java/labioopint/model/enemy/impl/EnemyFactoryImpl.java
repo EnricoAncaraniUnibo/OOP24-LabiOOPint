@@ -5,8 +5,10 @@ import labioopint.model.enemy.api.EnemyFactory;
 import labioopint.model.enemy.impl.ais.ChaseAI;
 import labioopint.model.enemy.impl.ais.RandomAI;
 import labioopint.model.enemy.impl.ais.SingleStepRandomAI;
-
-public class EnemyFactoryImpl implements EnemyFactory {
+/**
+ * The class used to create an Enemy with a predefined intelligence.
+ */
+public final class EnemyFactoryImpl implements EnemyFactory {
 
     @Override
     public Enemy createRandomEnemy() {
