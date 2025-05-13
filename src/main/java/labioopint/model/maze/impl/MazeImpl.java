@@ -1,33 +1,22 @@
 package labioopint.model.maze.impl;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import labioopint.model.api.Coordinate;
-import labioopint.model.block.impl.BlockImpl;
+import labioopint.model.utilities.api.Coordinate;
+import labioopint.model.utilities.impl.CoordinateImpl;
+import labioopint.model.block.api.Block;
 import labioopint.model.maze.api.Maze;
 
-/**
- * The MazeImpl class provides an abstract implementation of the Maze interface.
- * It manages the maze grid, block selection, and size, and provides methods for
- * interacting with the maze's blocks and coordinates.
- */
-public abstract class MazeImpl implements Maze, Serializable {
+public abstract class MazeImpl implements Maze {
     public static final long serialVersionUID = 1L;
-    private final Map<Coordinate, BlockImpl> grid;
-    private final List<BlockImpl> blockSelection;
+    private final Map<Coordinate, Block> grid;
+    private final List<Block> blockSelection;
     private final Integer size;
 
-    /**
-     * Constructs a MazeImpl with the specified size.
-     * Initializes the grid and block selection.
-     *
-     * @param size the size of the maze
-     */
     public MazeImpl(final Integer size) {
         this.size = size;
         this.blockSelection = new ArrayList<>();
@@ -35,7 +24,7 @@ public abstract class MazeImpl implements Maze, Serializable {
     }
 
     @Override
-    public final Optional<BlockImpl> getBlock(final Coordinate c) {
+    public final Optional<Block> getBlock(final Coordinate c) {
         for (final Coordinate coor : grid.keySet()) {
             if (c.getRow().equals(coor.getRow()) && c.getColumn().equals(coor.getColumn())) {
                 return Optional.of(grid.get(coor));
@@ -45,8 +34,8 @@ public abstract class MazeImpl implements Maze, Serializable {
     }
 
     @Override
-    public final Coordinate getCoordinate(final BlockImpl b) {
-        for (final Map.Entry<Coordinate, BlockImpl> iterableItem : grid.entrySet()) {
+    public final Coordinate getCoordinate(final Block b) {
+        for (final Map.Entry<Coordinate, Block> iterableItem : grid.entrySet()) {
             if (iterableItem.getValue().equals(b)) {
                 return iterableItem.getKey();
             }
@@ -55,7 +44,7 @@ public abstract class MazeImpl implements Maze, Serializable {
     }
 
     @Override
-    public final List<BlockImpl> getListofBlocks() {
+    public final List<Block> getListofBlocks() {
         return blockSelection;
     }
 
@@ -65,13 +54,13 @@ public abstract class MazeImpl implements Maze, Serializable {
     }
 
     @Override
-    public final void setMaze(final Map<Coordinate, BlockImpl> maze) {
+    public final void setMaze(final Map<Coordinate, Block> maze) {
         grid.putAll(maze);
     }
 
     @Override
-    public final void changeCoordinate(final Coordinate coor, final BlockImpl b) {
-        Coordinate removable = new Coordinate(-1, -1);
+    public final void changeCoordinate(final Coordinate coor, final Block b) {
+        Coordinate removable = new CoordinateImpl(-1, -1);
         for (final Coordinate test : grid.keySet()) {
             if (test.equals(coor)) {
                 removable = test;
@@ -82,5 +71,5 @@ public abstract class MazeImpl implements Maze, Serializable {
     }
 
     @Override
-    public abstract BlockImpl generate();
+    public abstract Block generate();
 }

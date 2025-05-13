@@ -1,57 +1,44 @@
 package labioopint.builder;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import labioopint.model.api.ActionType;
-import labioopint.model.api.Settings;
-import labioopint.model.core.impl.TurnManager;
+import labioopint.model.core.api.Builder;
+import labioopint.model.core.api.TurnManager;
+import labioopint.model.core.impl.BuilderImpl;
 import labioopint.model.enemy.api.EnemyDifficulty;
-import labioopint.model.powerup.impl.SwapPositionPowerUp;
+import labioopint.model.maze.api.Labyrinth;
+import labioopint.model.player.api.Player;
+import labioopint.model.utilities.api.Settings;
+import labioopint.model.utilities.impl.ActionType;
+import labioopint.model.utilities.impl.SettingsImpl;
 
-/**
- * The {@code TurnManagerTest} class contains unit tests for verifying the
- * behavior of the {@link TurnManager} class. It ensures that the turn manager
- * correctly handles game actions and manages power-ups.
- */
 class TurnManagerTest {
     private static TurnManager tm;
+    private static Labyrinth lab;
 
-    /**
-     * Sets up the {@link TurnManager} instance before all tests are executed.
-     * Initializes the game settings with predefined values.
-     */
     @BeforeAll
     static void setUp() {
-        final Settings settings = new Settings(2, 2, 3, EnemyDifficulty.MEDIUM);
-        tm = new TurnManager(settings);
+        final Settings settings = new SettingsImpl(2, 2, 3, EnemyDifficulty.MEDIUM);
+        final Builder builder = new BuilderImpl(settings);
+        lab = builder.createMaze();
+        tm = builder.createTurnManager();
     }
 
-    /**
-     * Tests the behavior of the {@link TurnManager} when transitioning between
-     * different game actions. Ensures that the actions cycle correctly between
-     * block placement and player movement.
-     */
     @Test
     void testTurnManagerActions() {
+        Player p1 = lab.getPlayers().get(tm.getCurrentPlayer());
         assertEquals(tm.getCurrentAction(), ActionType.BLOCK_PLACEMENT);
         tm.nextAction();
         assertEquals(tm.getCurrentAction(), ActionType.PLAYER_MOVEMENT);
+        Player p2 = lab.getPlayers().get(tm.getCurrentPlayer());
+        assertEquals(p1, p2);
         tm.nextAction();
         assertEquals(tm.getCurrentAction(), ActionType.BLOCK_PLACEMENT);
-    }
-
-    /**
-     * Tests the ability of the {@link TurnManager} to add additional power-ups
-     * to the game. Ensures that the power-up list size increases after adding
-     * a new power-up.
-     */
-    @Test
-    void testTurnManagerAddPowerUp() {
-        final Integer powerUpNumber = tm.getPowerUps().size();
-        tm.addAddictionalPowerUp(new SwapPositionPowerUp(tm, 0));
-        assertEquals(powerUpNumber + 1, tm.getPowerUps().size());
+        Player p3 = lab.getPlayers().get(tm.getCurrentPlayer());
+        assertNotEquals(p2, p3);
     }
 }

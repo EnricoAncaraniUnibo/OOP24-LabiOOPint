@@ -1,43 +1,33 @@
 package labioopint.model.core.api;
 
-import java.util.List;
-
-import labioopint.model.enemy.api.Enemy;
-import labioopint.model.maze.impl.LabyrinthImpl;
-import labioopint.model.player.impl.PlayerImpl;
-
+import labioopint.controller.api.ActionController;
+import labioopint.model.maze.api.Labyrinth;
 /**
- * The {@code Builder} interface defines methods for creating various game
- * components,
- * such as the labyrinth, players, and enemies.
+ * Represents a builder for creating core game components.
+ * This interface provides methods to create the labyrinth, turn manager, and action controller
+ * required for the game.
  */
 public interface Builder {
-    /**
-     * Creates a labyrinth for the game.
-     *
-     * @return a {@link LabyrinthImpl} instance representing the game labyrinth
-     */
-    LabyrinthImpl createMaze();
 
     /**
-     * Creates a list of players for the game.
+     * Creates and returns a new labyrinth for the game.
      *
-     * @return a list of {@link PlayerImpl} instances representing the players
+     * @return the {@link Labyrinth} instance representing the game maze
      */
-    List<PlayerImpl> createPlayers();
+    Labyrinth createMaze();
 
     /**
-     * Creates an enemy for the game.
+     * Creates and returns a new turn manager for the game.
      *
-     * @return an {@link Enemy} instance representing the enemy
+     * @return the {@link TurnManager} instance responsible for managing game turns
      */
-    Enemy createEnemy();
+    TurnManager createTurnManager();
 
     /**
-     * Retrieves the dimension of the labyrinth.
+     * Creates and returns a new action controller for the game.
      *
-     * @param dim the dimension to retrieve
-     * @return the dimension of the labyrinth
+     * @return the {@link ActionController} instance responsible for handling game actions
      */
-    int getDimension(int dim);
+    ActionController createActionController();
+
 }

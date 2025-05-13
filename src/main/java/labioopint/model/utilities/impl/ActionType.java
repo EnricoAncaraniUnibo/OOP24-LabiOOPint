@@ -1,4 +1,4 @@
-package labioopint.model.api;
+package labioopint.model.utilities.impl;
 
 public enum ActionType {
     GAME_LOARDING,

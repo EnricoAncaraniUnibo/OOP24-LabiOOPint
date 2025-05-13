@@ -1,28 +1,21 @@
 package labioopint.controller.impl;
 
-import java.io.Serializable;
-
 import labioopint.controller.api.DirectionCheck;
-import labioopint.model.api.Coordinate;
+import labioopint.model.utilities.api.Coordinate;
+import labioopint.model.block.api.Block;
 import labioopint.model.block.api.BlockType;
 import labioopint.model.block.api.Rotation;
-import labioopint.model.block.impl.BlockImpl;
-import labioopint.model.core.impl.TurnManager;
-import labioopint.model.maze.impl.LabyrinthImpl;
-import labioopint.model.maze.impl.MazeImpl;
-
-public final class DirectionCheckImpl implements DirectionCheck, Serializable {
-    public static final long serialVersionUID = 1L;
-    private final LabyrinthImpl labyrinth;
-
-    public DirectionCheckImpl(final TurnManager tu) {
-        this.labyrinth = tu.getLab();
-    }
+import labioopint.model.maze.api.Labyrinth;
+import labioopint.model.maze.api.Maze;
+/**
+ * Implementation class used to check the entrance of single blocks.
+ */
+public final class DirectionCheckImpl implements DirectionCheck {
 
     @Override
-    public boolean checkRightEntrance(final Coordinate coord) {
-        final MazeImpl grid = labyrinth.getGrid();
-        final BlockImpl block = grid.getBlock(coord).get();
+    public boolean checkRightEntrance(final Coordinate coord, final Labyrinth labyrinth) {
+        final Maze grid = labyrinth.getGrid();
+        final Block block = grid.getBlock(coord).get();
         final BlockType bType = block.getType();
         final Rotation rotation = block.getRotation();
 
@@ -48,9 +41,9 @@ public final class DirectionCheckImpl implements DirectionCheck, Serializable {
     }
 
     @Override
-    public boolean checkLeftEntrance(final Coordinate coord) {
-        final MazeImpl grid = labyrinth.getGrid();
-        final BlockImpl block = grid.getBlock(coord).get();
+    public boolean checkLeftEntrance(final Coordinate coord, final Labyrinth labyrinth) {
+        final Maze grid = labyrinth.getGrid();
+        final Block block = grid.getBlock(coord).get();
         final BlockType bType = block.getType();
         final Rotation rotation = block.getRotation();
 
@@ -76,9 +69,9 @@ public final class DirectionCheckImpl implements DirectionCheck, Serializable {
     }
 
     @Override
-    public boolean checkBottomEntrance(final Coordinate coord) {
-        final MazeImpl grid = labyrinth.getGrid();
-        final BlockImpl block = grid.getBlock(coord).get();
+    public boolean checkBottomEntrance(final Coordinate coord, final Labyrinth labyrinth) {
+        final Maze grid = labyrinth.getGrid();
+        final Block block = grid.getBlock(coord).get();
         final BlockType bType = block.getType();
         final Rotation rotation = block.getRotation();
 
@@ -104,9 +97,9 @@ public final class DirectionCheckImpl implements DirectionCheck, Serializable {
     }
 
     @Override
-    public boolean checkUpperEntrance(final Coordinate coord) {
-        final MazeImpl grid = labyrinth.getGrid();
-        final BlockImpl block = grid.getBlock(coord).get();
+    public boolean checkUpperEntrance(final Coordinate coord, final Labyrinth labyrinth) {
+        final Maze grid = labyrinth.getGrid();
+        final Block block = grid.getBlock(coord).get();
         final BlockType bType = block.getType();
         final Rotation rotation = block.getRotation();
 

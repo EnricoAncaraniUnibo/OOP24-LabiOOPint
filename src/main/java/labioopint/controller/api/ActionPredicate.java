@@ -1,48 +1,48 @@
 package labioopint.controller.api;
 
-import labioopint.model.api.Coordinate;
+import java.io.Serializable;
+
+import labioopint.model.utilities.api.Coordinate;
+import labioopint.model.enemy.api.Enemy;
 import labioopint.model.maze.api.Direction;
-import labioopint.model.player.impl.PlayerImpl;
-
-public interface ActionPredicate {
-
+import labioopint.model.player.api.Player;
+/**
+ * Represents a set of predicates to determine the validity of various actions
+ * within the game, such as player movement, block movement, and enemy movement.
+ */
+public interface ActionPredicate extends Serializable {
     /**
-     * Check if the player can move
-     * 
-     * @param player        it is the player that want to move
-     * @param dir           the direction for the movement 
-     * 
-     * @return true if the movement is possible, false otherwise
+     * Determines if the player can move in the specified direction.
+     *
+     * @param player the player attempting to move
+     * @param dir the direction in which the player wants to move
+     * @return {@code true} if the player can move in the specified direction, {@code false} otherwise
      */
-    boolean playerCanMove(PlayerImpl player, Direction direction);
+    boolean playerCanMove(Player player, Direction dir);
 
     /**
-     * Check if the block selected by the player is movable
-     * In particular this contol check if the target block is in the 
-     * border of the labyrinth and check if the block is movable
-     * 
-     * @param blockCoordinate       the coordinate of the block to move
-     * 
-     * @return true if the movement is possible, false otherwise
+     * Determines if a block located at the specified coordinate can move.
+     *
+     * @param blockCoordinate the coordinate of the block
+     * @return {@code true} if the block can move, {@code false} otherwise
      */
     boolean blockCanMove(Coordinate blockCoordinate);
 
     /**
-     * Check if there is an entrance from a specific place in the
-     * labyrinth in a direction
-     * 
-     * @param coor          the coordinate of the origin place
-     * @param dir           the direction to check
-     * 
-     * @return true if there is an entrance, false otherwise
+     * Determines if an enemy can move from the specified position in the given direction.
+     *
+     * @param coor the current coordinate of the enemy
+     * @param dir the direction in which the enemy wants to move
+     * @return {@code true} if the enemy can move from the position in the specified direction, {@code false} otherwise
      */
-    boolean enemyCanMoveFromPosition(Coordinate coordinate, Direction direction);
+    boolean enemyCanMoveFromPosition(Coordinate coor, Direction dir);
 
     /**
-     * Check if the enemy can move in a specific direction
-     * 
-     * @param dir           the direction where the enemy want to move
-     * @return true if it can move in the direction, false otherwise
+     * Determines if the specified enemy can move in the given direction.
+     *
+     * @param dir the direction in which the enemy wants to move
+     * @param enemy the enemy attempting to move
+     * @return {@code true} if the enemy can move in the specified direction, {@code false} otherwise
      */
-    boolean enemyCanMove(Direction direction);
+    boolean enemyCanMove(Direction dir, Enemy enemy);
 }

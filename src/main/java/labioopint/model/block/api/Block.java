@@ -1,34 +1,35 @@
 package labioopint.model.block.api;
 
+import java.io.Serializable;
 /**
- * The Block interface represents a block in the labyrinth. It provides methods
- * to retrieve the block's type, manage its rotation, and apply random
- * rotations.
+ * Represents a block in the game.
+ * This interface provides methods to retrieve and manipulate the block's type and rotation.
  */
-public interface Block {
+public interface Block extends Serializable {
+
     /**
      * Retrieves the type of the block.
      *
-     * @return the type of the block as a BlockType
+     * @return the {@link BlockType} of the block
      */
     BlockType getType();
 
     /**
      * Retrieves the current rotation of the block.
      *
-     * @return the current rotation of the block as a Rotation
+     * @return the {@link Rotation} of the block
      */
     Rotation getRotation();
 
     /**
-     * Applies a random rotation to the block.
+     * Sets a random rotation for the block.
      */
     void randomRotation();
 
     /**
      * Sets the rotation of the block to the specified value.
      *
-     * @param blockRotation the new rotation to set for the block
+     * @param blockRotation the {@link Rotation} to set for the block
      */
     void setRotation(Rotation blockRotation);
 

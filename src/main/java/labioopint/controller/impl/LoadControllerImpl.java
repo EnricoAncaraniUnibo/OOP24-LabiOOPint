@@ -4,14 +4,20 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import labioopint.controller.api.LoadController;
-import labioopint.model.core.impl.TurnManager;
 
+import labioopint.controller.api.GameController;
+import labioopint.controller.api.LoadController;
+/**
+ * Implementation of the loadController class which is used to load a previus game played.
+ */
 public final class LoadControllerImpl implements LoadController {
 
-    private TurnManager loadedTurnManager;
+    private GameController loadedGameController;
     private boolean isLoaded;
-
+    /**
+     * Construction of the LoadController.
+     * 
+     */
     public LoadControllerImpl() {
         isLoaded = false;
     }
@@ -22,7 +28,7 @@ public final class LoadControllerImpl implements LoadController {
             final FileInputStream fis = new FileInputStream(new File("src/main/java/labioopint/saving/lastGame.txt"));
             final ObjectInputStream ois = new ObjectInputStream(fis);
             try {
-                loadedTurnManager = (TurnManager) ois.readObject();
+                loadedGameController = (GameController) ois.readObject();
             } catch (ClassNotFoundException e) {
                 //TODO
             }
@@ -30,7 +36,7 @@ public final class LoadControllerImpl implements LoadController {
             fis.close();
             isLoaded = true;
         } catch (IOException e) {
-            //TODO
+            System.out.println(e.getMessage());
         }
     }
 
@@ -40,7 +46,7 @@ public final class LoadControllerImpl implements LoadController {
     }
 
     @Override
-    public TurnManager getTurnManager() {
-        return loadedTurnManager;
+    public GameController getGameController() {
+        return loadedGameController;
     }
 }

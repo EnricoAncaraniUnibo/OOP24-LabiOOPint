@@ -3,50 +3,41 @@ package labioopint.model.powerup.impl;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
-import labioopint.model.core.impl.TurnManager;
-import labioopint.model.player.impl.PlayerImpl;
+
+import labioopint.model.core.api.TurnManager;
+import labioopint.model.maze.api.Labyrinth;
+import labioopint.model.player.api.Player;
 import labioopint.model.powerup.api.PowerUp;
 
 /**
  * This class represents a power-up that allows a player to steal an objective
  * (Usable power-up) from another player.
  */
-public class StealObjectPowerUp extends PowerUpImpl {
+public final class StealObjectPowerUp extends PowerUpImpl {
     public static final long serialVersionUID = 1L;
-    private final TurnManager turn;
 
-    /**
-     * Constructs a new StoleObjectPowerUp instance.
-     *
-     * @param turn the TurnManager instance to manage turns, must not be null
-     * @param id   the unique identifier for this power-up
-     */
-    public StealObjectPowerUp(final TurnManager turn, final int id) {
+    public StealObjectPowerUp(final int id) {
         super(id);
         super.setName("Steal Object");
-        this.turn = turn;
     }
 
-    /**
-     * Activates the power-up for the specified player.
-     *
-     */
     @Override
-    public void activate() {
+    public void activate(final Labyrinth lab, final TurnManager turn) {
+        Player p = lab.getPlayers().get(turn.getCurrentPlayer());
         if (isCollected()) {
-            final List<PlayerImpl> players = turn.getPlayers();
-            final List<PlayerImpl> targetPlayers = players.stream()
-                        .filter(player -> !player.equals(turn.getCurrentPlayer()) && !player.getUsablePowerUps().isEmpty())
+            final List<Player> players = lab.getPlayers();
+            final List<Player> targetPlayers = players.stream()
+                        .filter(player -> !player.equals(p) && !player.getUsablePowerUps().isEmpty())
                         .toList();
             if (!targetPlayers.isEmpty()) {
-                final PlayerImpl targetPlayer = targetPlayers.get(new Random().nextInt(targetPlayers.size()));
+                final Player targetPlayer = targetPlayers.get(new Random().nextInt(targetPlayers.size()));
                 final Optional<PowerUp> stolenObjective = Optional.of(targetPlayer.getObjetives().get(0));
                 if (stolenObjective.isPresent()) {
                     targetPlayer.removeObjectiveSelect(stolenObjective.get());
-                    turn.getCurrentPlayer().addObjective(stolenObjective.get());
+                    p.addObjective(stolenObjective.get());
                 }
             }
-            turn.getCurrentPlayer().removePowerUp(this);
+           p.removePowerUp(this);
         }
     }
 }

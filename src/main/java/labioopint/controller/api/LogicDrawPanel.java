@@ -1,53 +1,38 @@
 package labioopint.controller.api;
 
 import java.awt.Image;
+import java.io.Serializable;
 import java.util.List;
 
-import labioopint.model.api.DualMap;
-import labioopint.model.api.Pair;
-import labioopint.model.block.impl.BlockImpl;
-import labioopint.model.enemy.api.Enemy;
-import labioopint.model.maze.impl.MazeImpl;
-import labioopint.model.player.impl.PlayerImpl;
-import labioopint.model.powerup.api.PowerUp;
-
-public interface LogicDrawPanel {
+import labioopint.model.utilities.api.Pair;
+/**
+ * Represents the logic for managing the drawing panel in the game.
+ * This interface provides methods to manage the drawing part.
+ */
+public interface LogicDrawPanel extends Serializable {
 
     /**
-     * Gets the size of a block in the panel.
+     * Retrieves the size of a default value in the drawing panel, calculated with proportions.
      *
-     * @return the value as an Integer
+     * @return the pixel size as an {@link Integer}
      */
     Integer getPixelSize();
 
     /**
-     * Updates the data required for drawing the panel, including the maze, players,
-     * enemy, powerups, and the outside block.
-     * 
-     * 
-     * @param m           the MazeImpl instance representing the maze
-     * @param mapPlayers  the DualMap containing player coordinates
-     * @param mapEnemies  the DualMap containing enemy coordinates
-     * @param mapPowerUps the DualMap containing power-up coordinates
-     * @param outside     the BlockImpl representing the outside block
-     */
-    void updateData(MazeImpl m, DualMap<PlayerImpl> mapPlayers,
-            DualMap<Enemy> mapEnemies, DualMap<PowerUp> mapPowerUps,
-            BlockImpl outside);
-
-    /**
-     * Checks if the panel is ready to be drawn.
+     * Determines if the drawing panel is allowed to draw.
      *
-     * @return true if the maze is not null, false otherwise
+     * @return {@code true} if drawing is allowed, {@code false} otherwise
      */
     Boolean canDraw();
 
     /**
-     * Retrieves a list of images and their associated properties (rotation, position, size)
-     * for all blocks, players, enemies, and power-ups to be drawn on the panel.
+     * Retrieves a list of images and their associated blocks to be drawn on the panel.
+     * Each entry in the list contains a pair of an image and its scaling factor,
+     * along with the coordinates and dimensions of the block.
      *
-     * @return a List of Pairs containing image, rotation, position, and size information
+     * @return a {@link List} of {@link Pair} objects representing the images and blocks
      */
     List<Pair<Pair<Image, Double>, Pair<Pair<Integer, Integer>, Pair<Integer, Integer>>>> getImagesBlocks();
+
 
 }

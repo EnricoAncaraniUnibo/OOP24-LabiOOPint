@@ -1,7 +1,17 @@
 package labioopint.controller.api;
 
-import labioopint.model.core.impl.TurnManager;
+import java.io.Serializable;
+/**
+ * Represents the controller responsible for saving the game state.
+ * This interface provides a method to save the current game using a {@link GameController}.
+ */
+public interface SaveController extends Serializable {
 
-public interface SaveController {
-    void save(TurnManager turnManager);
+    /**
+     * Saves the current game state.
+     *
+     * @param gc the {@link GameController} instance representing the current game
+     */
+    void save(GameController gc);
+
 }

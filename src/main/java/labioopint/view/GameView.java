@@ -10,16 +10,9 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.event.MouseInputListener;
 
+import labioopint.controller.api.GameController;
 import labioopint.controller.api.LogicGameView;
 import labioopint.controller.impl.LogicGameViewImpl;
-import labioopint.model.api.DualMap;
-import labioopint.model.block.impl.BlockImpl;
-import labioopint.model.core.impl.TurnManager;
-import labioopint.model.enemy.api.Enemy;
-import labioopint.model.maze.impl.MazeImpl;
-import labioopint.model.player.impl.PlayerImpl;
-import labioopint.model.powerup.api.PowerUp;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -31,11 +24,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 
-/**
- * The GameView class represents the graphical user interface for the game.
- * It extends JFrame and provides components for interacting with the game,
- * such as buttons, labels, and panels.
- */
+
 public class GameView extends JFrame {
 
     public static final long serialVersionUID = 1L;
@@ -54,12 +43,8 @@ public class GameView extends JFrame {
     private static final int CONTROL_PANEL_HEIGHT = 600;
     private static final int TEXT_SIZE = 18;
 
-    /**
-     * Constructs a new GameView instance.
-     *
-     * @param tu the TurnManager instance used to manage the game's turns.
-     */
-    public GameView(final TurnManager tu) {
+
+    public GameView(final GameController gc) {
         super.setTitle("LabiOPPint");
         super.setDefaultCloseOperation(EXIT_ON_CLOSE);
         final Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
@@ -68,8 +53,8 @@ public class GameView extends JFrame {
         super.setLayout(new BorderLayout());
         super.setResizable(false);
         super.setLocationByPlatform(true);
-        lgv = new LogicGameViewImpl(tu);
-        labirintPanel = new DrawPanel(super.getSize(), tu);
+        lgv = new LogicGameViewImpl(gc);
+        labirintPanel = new DrawPanel(super.getSize(), gc);
         super.add(labirintPanel, BorderLayout.CENTER);
         final JPanel controlPanel = new JPanel();
         controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.Y_AXIS));
@@ -138,9 +123,10 @@ public class GameView extends JFrame {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 final String name = (String) comboBox.getSelectedItem();
-                lgv.activatePowerUps(name);
+                lgv.useAction(name);
                 updateComboBox();
                 updateScoreLabel();
+                update();
             }
         });
 
@@ -162,6 +148,7 @@ public class GameView extends JFrame {
                 downButton.setVisible(false);
                 actionLabel.setText(lgv.getAction());
                 updateScoreLabel();
+                update();
             }
 
         });
@@ -175,6 +162,7 @@ public class GameView extends JFrame {
             @Override
             public void mousePressed(final MouseEvent e) {
                 lgv.mouseAction(e.getX(), e.getY(), labirintPanel.getBlockSize());
+                update();
                 actionLabel.setText(lgv.getAction());
             }
 
@@ -199,6 +187,7 @@ public class GameView extends JFrame {
             }
 
         });
+        update();
         super.setVisible(true);
     }
 
@@ -219,6 +208,7 @@ public class GameView extends JFrame {
                 updateComboBox();
                 updateScoreLabel();
                 showWinner();
+                update();
             }
         });
         return button;
@@ -239,18 +229,7 @@ public class GameView extends JFrame {
         scoreLabel.setText("<html>" + lgv.getScores() + "</html>");
     }
 
-    /**
-     * Updates the game view with the current state of the maze, players, enemies,
-     * power-ups, and the outside block.
-     *
-     * @param grid        the current maze grid.
-     * @param mapPlayers  the map of players in the game.
-     * @param mapEnemies  the map of enemies in the game.
-     * @param mapPowerUps the map of power-ups in the game.
-     * @param outside     the block representing the outside of the maze.
-     */
-    public void update(final MazeImpl grid, final DualMap<PlayerImpl> mapPlayers, final DualMap<Enemy> mapEnemies,
-            final DualMap<PowerUp> mapPowerUps, final BlockImpl outside) {
+    public final void update() {
         if (lgv.isBlockPlacement()) {
             endTurnButton.setVisible(false);
             upButton.setVisible(false);
@@ -260,7 +239,7 @@ public class GameView extends JFrame {
             upButton.setVisible(true);
             downButton.setVisible(true);
         }
-        labirintPanel.draw(grid, mapPlayers, mapEnemies, mapPowerUps, outside);
+        labirintPanel.draw();
     }
 
     /**

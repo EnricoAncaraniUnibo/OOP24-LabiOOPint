@@ -1,47 +1,44 @@
 package labioopint.controller.impl;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import labioopint.controller.api.GameController;
 import labioopint.controller.api.InformationMessenger;
-import labioopint.model.api.ActionType;
-import labioopint.model.core.impl.TurnManager;
+import labioopint.model.utilities.impl.ActionType;
 import labioopint.model.player.api.Player;
 import labioopint.model.powerup.api.PowerUp;
 
 /**
- * The InformationMessenger class provides utility methods to retrieve
- * information
- * about the current game state.
- * The informations provided by this class are transformed to permit the output
- * on the view.
+ * Implementation of the class used to retrive information from the game core
+ * and to change them for the view.
  */
-public final class InformationMessengerImpl implements InformationMessenger, Serializable {
+public final class InformationMessengerImpl implements InformationMessenger {
     public static final long serialVersionUID = 1L;
-    private final TurnManager turnManager;
+    private final GameController gc;
 
     /**
-     * Constructs an InformationMessenger with the specified TurnManager.
-     *
-     * @param tu the TurnManager instance to manage game turns
+     * Construction of a {@code InformationMessengerImpl} with the gameController
+     * associeted with the game.
+     * 
+     * @param gc the gameController of the game we want to retrive information from
      */
-    public InformationMessengerImpl(final TurnManager tu) {
-        turnManager = tu;
+    public InformationMessengerImpl(final GameController gc) {
+        this.gc = gc;
     }
 
     @Override
     public String getTurn() {
-        return "Player: " + turnManager.getCurrentPlayer().getID();
+        return "Player: " + gc.getCurrentPlayer().getID();
     }
 
     @Override
     public String getAction() {
-        if (turnManager.getCurrentAction() == ActionType.BLOCK_PLACEMENT) {
+        if (gc.getTurnManager().getCurrentAction() == ActionType.BLOCK_PLACEMENT) {
             return "Posizionare il blocco";
         }
-        if (turnManager.getCurrentAction() == ActionType.PLAYER_MOVEMENT) {
+        if (gc.getTurnManager().getCurrentAction() == ActionType.PLAYER_MOVEMENT) {
             return "Muovere il personaggio";
         }
         return "";
@@ -50,7 +47,7 @@ public final class InformationMessengerImpl implements InformationMessenger, Ser
     @Override
     public String[] getPowerUpsList() {
         final List<PowerUp> powerUpsList = new ArrayList<>();
-        powerUpsList.addAll(turnManager.getCurrentPlayer().getUsablePowerUps());
+        powerUpsList.addAll(gc.getCurrentPlayer().getUsablePowerUps());
         final String[] names = new String[powerUpsList.size()];
         int i = 0;
         for (final PowerUp powerUp : powerUpsList) {
@@ -62,8 +59,8 @@ public final class InformationMessengerImpl implements InformationMessenger, Ser
 
     @Override
     public Optional<String> getWinner() {
-        if (turnManager.getLab().getWinner().isPresent()) {
-            return Optional.of("Ha vinto: " + turnManager.getLab().getWinner().get().getID());
+        if (gc.getLab().checkWinner().isPresent()) {
+            return Optional.of("Ha vinto: " + gc.getLab().checkWinner().get().getID());
         }
         return Optional.empty();
     }
@@ -71,9 +68,8 @@ public final class InformationMessengerImpl implements InformationMessenger, Ser
     @Override
     public String getNamesScores() {
         final StringBuilder stringBuilder = new StringBuilder();
-        for (final Player player : turnManager.getPlayers()) {
+        for (final Player player : gc.getLab().getPlayers()) {
             stringBuilder.append(player.getID()).append(": ").append(player.getObjetives().size()).append('\n');
-            //stringBuilder.append(player.getID() + ": " + player.getObjetives().size() + '\n');
         }
         return stringBuilder.toString();
     }

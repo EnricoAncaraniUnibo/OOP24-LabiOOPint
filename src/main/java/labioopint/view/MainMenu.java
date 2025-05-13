@@ -9,12 +9,14 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 
-import labioopint.controller.impl.MainMenuController;
-import labioopint.controller.impl.MainMenuLogic;
+import labioopint.controller.api.MainMenuController;
+import labioopint.controller.api.MainMenuLogic;
+import labioopint.controller.impl.MainMenuLogicImpl;
 
 /**
  * This class represents the main menu of the application.
- * It provides buttons to start a game, load a game, open settings, or quit the application.
+ * It provides buttons to start a game, load a game, open settings, or quit the
+ * application.
  */
 public class MainMenu extends JFrame {
     public static final long serialVersionUID = 1L;
@@ -29,11 +31,12 @@ public class MainMenu extends JFrame {
      * @param controller the main menu controller, must not be null
      */
     public MainMenu(final MainMenuController controller) {
-        logic = new MainMenuLogic(controller);
+        logic = new MainMenuLogicImpl(controller);
         super.setTitle("Main Menu");
         super.setDefaultCloseOperation(EXIT_ON_CLOSE);
         final Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-        super.setSize((int) d.getWidth() * WIDTH_RATIO / HEIGHT_RATIO, (int) d.getHeight() * WIDTH_RATIO / HEIGHT_RATIO);
+        super.setSize((int) d.getWidth() * WIDTH_RATIO / HEIGHT_RATIO,
+                (int) d.getHeight() * WIDTH_RATIO / HEIGHT_RATIO);
         super.setLayout(new BorderLayout());
         super.setResizable(false);
         super.setLocationByPlatform(true);
@@ -53,9 +56,9 @@ public class MainMenu extends JFrame {
         final JButton loadGameButton = new JButton("Load Game");
         loadGameButton.addActionListener(e -> {
             logic.loadGame();
-            if(logic.isLoaded()){
+            if (logic.isLoaded()) {
                 this.setVisible(false);
-            } else{
+            } else {
                 showNoFileFound();
             }
         });
@@ -72,7 +75,7 @@ public class MainMenu extends JFrame {
         super.add(buttonPanel, BorderLayout.CENTER);
     }
 
-    private void showNoFileFound(){
-        JOptionPane.showMessageDialog(null,"No file found, it's not possible to load the game");
+    private void showNoFileFound() {
+        JOptionPane.showMessageDialog(null, "No file found, it's not possible to load the game");
     }
 }

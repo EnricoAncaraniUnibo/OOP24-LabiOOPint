@@ -1,18 +1,24 @@
 package labioopint.model.block.impl;
 
-import java.io.Serializable;
 import java.util.Random;
 
-import labioopint.model.api.Movable;
+import labioopint.model.utilities.impl.MovableImpl;
 import labioopint.model.block.api.Block;
 import labioopint.model.block.api.BlockType;
 import labioopint.model.block.api.Rotation;
-
-public final class BlockImpl extends Movable implements Block, Serializable {
+/**
+ * Class implementation of a block.
+ * Extend {@code MovableImpl}.
+ */
+public final class BlockImpl extends MovableImpl implements Block {
     public static final long serialVersionUID = 1L;
     private final BlockType type;
     private Rotation rotation;
 
+    /**
+     * Create the block by giving it a type and a default rotation.
+     * @param ty the type of the block.
+     */
     public BlockImpl(final BlockType ty) {
         super();
         this.rotation = Rotation.ZERO;

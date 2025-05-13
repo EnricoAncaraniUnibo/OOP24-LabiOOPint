@@ -1,6 +1,7 @@
 package labioopint.model.enemy.impl;
 
-import labioopint.model.api.Coordinate;
+import labioopint.model.utilities.api.Coordinate;
+import labioopint.model.utilities.impl.CoordinateImpl;
 import labioopint.model.maze.api.Direction;
 
 /**
@@ -23,13 +24,13 @@ public final class MovementUtilities {
     public static Coordinate getNextCoordinate(final Coordinate c, final Direction direction) {
         switch (direction) {
             case Direction.UP:
-                return new Coordinate(c.getRow() - 1, c.getColumn());
+                return new CoordinateImpl(c.getRow() - 1, c.getColumn());
             case Direction.DOWN:
-                return new Coordinate(c.getRow() + 1, c.getColumn());
+                return new CoordinateImpl(c.getRow() + 1, c.getColumn());
             case Direction.RIGHT:
-                return new Coordinate(c.getRow(), c.getColumn() + 1);
+                return new CoordinateImpl(c.getRow(), c.getColumn() + 1);
             default:
-                return new Coordinate(c.getRow(), c.getColumn() - 1);
+                return new CoordinateImpl(c.getRow(), c.getColumn() - 1);
         }
     }
 

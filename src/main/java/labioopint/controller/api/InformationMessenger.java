@@ -1,46 +1,45 @@
 package labioopint.controller.api;
 
+import java.io.Serializable;
 import java.util.Optional;
-
-public interface InformationMessenger {
+/**
+ * Represents a messenger interface for retrieving various game-related information,
+ * such as the current turn, actions, power-ups, and scores.
+ */
+public interface InformationMessenger extends Serializable {
 
     /**
-     * Retrieves the current player's turn information and create a string to see in
-     * the view.
+     * Retrieves the current turn information.
      *
-     * @return a string representing the current player's ID(that is the player name
-     *         too).
+     * @return a {@link String} representing the current turn
      */
     String getTurn();
 
     /**
-     * Retrieves the current action that the player needs to perform.
+     * Retrieves the current action being performed.
      *
-     * @return a string describing the current action, or an empty string if no
-     *         action is set.
+     * @return a {@link String} representing the current action
      */
     String getAction();
 
     /**
-     * Retrieves the list of usable power-ups for the current player.
+     * Retrieves the list of available power-ups.
      *
-     * @return an array of strings containing the names of the usable power-ups.
+     * @return an array of {@link String} containing the power-ups
      */
     String[] getPowerUpsList();
 
     /**
-     * Set the winner string if there is a winner
-     * 
-     * @return an optional of a string if there is a winner, an empty optional otherwise
+     * Retrieves the winner of the game, if available.
+     *
+     * @return an {@link Optional} containing the winner's name as a {@link String}, or empty if no winner exists
      */
     Optional<String> getWinner();
 
     /**
-     * 
-     * @return a String with
-     * player 1 : powerUp taken
-     * player 2 : powerUp taken
-     * ...
+     * Retrieves the names and scores of players in the game.
+     *
+     * @return a {@link String} representing the names and scores
      */
     String getNamesScores();
 

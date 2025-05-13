@@ -8,84 +8,54 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import labioopint.model.api.Settings;
 import labioopint.model.core.impl.BuilderImpl;
-import labioopint.model.core.impl.TurnManager;
 import labioopint.model.enemy.api.Enemy;
 import labioopint.model.enemy.api.EnemyDifficulty;
-import labioopint.model.player.impl.PlayerImpl;
+import labioopint.model.maze.api.Labyrinth;
+import labioopint.model.player.api.Player;
 import labioopint.model.powerup.api.PowerUp;
+import labioopint.model.utilities.api.Settings;
+import labioopint.model.utilities.impl.SettingsImpl;
 
-/**
- * The {@code BuilderImplTest} class contains unit tests for verifying the
- * behavior of the {@link BuilderImpl} class. It ensures that the builder
- * correctly creates players, enemies, power-ups, and the maze.
- */
 class BuilderImplTest {
 
     private BuilderImpl builder;
-    private static TurnManager tm;
+    private Labyrinth lab;
 
-    /**
-     * Sets up the {@link BuilderImpl} and {@link TurnManager} instances before
-     * each test. Initializes the game settings with predefined values.
-     */
     @BeforeEach
     void setUp() {
-        final Settings settings = new Settings(2, 2, 3, EnemyDifficulty.MEDIUM);
-        tm = new TurnManager(settings);
-        builder = new BuilderImpl(settings, tm);
+        final Settings settings = new SettingsImpl(1, 2, 3, EnemyDifficulty.MEDIUM);
+        builder = new BuilderImpl(settings);
+        lab = builder.createMaze();
     }
 
-    /**
-     * Tests the {@link BuilderImpl#createPlayers()} method.
-     * Ensures that the correct number of players is created and that all players
-     * are not null.
-     */
     @Test
     void testCreatePlayers() {
-        builder.createPlayers();
-        assertEquals(tm.getPlayers().size(), 2);
-        final List<PlayerImpl> players = tm.getPlayers();
-        for (final PlayerImpl playerImpl : players) {
-            assertNotNull(playerImpl);
+        List<Player> ls = lab.getPlayers();
+        assertEquals(ls.size(), 2);
+        for (final Player player : ls) {
+            assertNotNull(player);
         }
     }
 
-    /**
-     * Tests the {@link BuilderImpl#createEnemy()} method.
-     * Ensures that an enemy is created and that it is not null.
-     */
     @Test
     void testCreateEnemy() {
-        builder.createEnemy();
-        assertTrue(tm.getEnemy().getFirst() == Boolean.TRUE);
-        final Enemy enemy = tm.getEnemy().getSecond();
-        assertNotNull(enemy);
+        Enemy e = lab.getEnemy().getSecond();
+        assertTrue(lab.getEnemy().getFirst());
+        assertNotNull(e);
     }
 
-    /**
-     * Tests the {@link BuilderImpl#createPowerUps()} method.
-     * Ensures that the correct number of power-ups is created and that all
-     * power-ups are not null.
-     */
     @Test
     void testCreatePowerUps() {
-        builder.createPowerUps();
-        assertEquals(tm.getPowerUps().size(), 3);
-        final List<PowerUp> powerUps = tm.getPowerUps();
-        for (final PowerUp power : powerUps) {
+        List<PowerUp> ls = lab.getPowerUpsNotCollected();
+        assertEquals(ls.size(), 3);
+        for (final PowerUp power : ls) {
             assertNotNull(power);
         }
     }
 
-    /**
-     * Tests the {@link BuilderImpl#createMaze()} method.
-     * Ensures that the maze is created and is not null.
-     */
     @Test
     void testCreateMaze() {
-        builder.createMaze();
-        assertNotNull(tm.getLab());
+        assertNotNull(lab);
     }
 }

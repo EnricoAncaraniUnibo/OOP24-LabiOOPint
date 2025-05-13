@@ -1,153 +1,78 @@
 package labioopint.controller.impl;
 
-import java.io.Serializable;
-
 import labioopint.controller.api.GameController;
 import labioopint.controller.api.InformationMessenger;
 import labioopint.controller.api.LogicGameView;
-import labioopint.model.api.ActionType;
-import labioopint.model.api.Coordinate;
-import labioopint.model.core.impl.TurnManager;
-import labioopint.model.powerup.api.PowerUp;
+import labioopint.model.utilities.impl.ActionType;
+import labioopint.model.utilities.impl.CoordinateImpl;
+import labioopint.model.utilities.api.Coordinate;
 
 /**
- * The LogicGameView class acts as a bridge between the game logic and the
- * graphical user interface.
- * It provides methods to retrieve game state information and perform actions
- * based on user input.
+ * Implementation of the Logic of the GameView.
  */
-public class LogicGameViewImpl implements LogicGameView, Serializable {
+public final class LogicGameViewImpl implements LogicGameView {
     public static final long serialVersionUID = 1L;
-    private final TurnManager turn;
-    private final InformationMessenger ifm;
-    private final GameController gc;
+    private final GameController gameController;
+    private final InformationMessenger informationMessenger;
 
     /**
-     * Constructs a new LogicGameView instance.
-     *
-     * @param tu the TurnManager instance used to manage the game's turns.
+     * Construction of a {@code LogicGameViewImpl} with an GameController.
+     * 
+     * @param gameController the game we want to see on the screen
      */
-    public LogicGameViewImpl(final TurnManager tu) {
-        turn = tu;
-        ifm = new InformationMessengerImpl(turn);
-        gc = new GameControllerImpl(tu);
+    public LogicGameViewImpl(final GameController gameController) {
+        this.gameController = gameController;
+        informationMessenger = new InformationMessengerImpl(gameController);
     }
 
-    /**
-     * Retrieves the current turn information as a string.
-     *
-     * @return the current turn information.
-     */
     @Override
     public String getTurn() {
-        return ifm.getTurn();
+        return informationMessenger.getTurn();
     }
 
-    /**
-     * Retrieves the current action information as a string.
-     *
-     * @return the current action information.
-     */
     @Override
     public String getAction() {
-        return ifm.getAction();
+        return informationMessenger.getAction();
     }
 
-    /**
-     * Retrieves a list of available power-ups as an array of strings.
-     *
-     * @return an array of power-up names.
-     */
     @Override
     public String[] getPowerUps() {
-        return ifm.getPowerUpsList();
+        return informationMessenger.getPowerUpsList();
     }
 
-    /**
-     * Activates the specified power-up for the current player.
-     *
-     * @param powerUp the name of the power-up to activate.
-     */
-    @Override
-    public void activatePowerUps(final String powerUp) {
-        for (final PowerUp pu : turn.getPowerUps()) {
-            if (pu.getName().equals(powerUp) && turn.getCurrentPlayer().getUsablePowerUps().contains(pu)) {
-                pu.activate();
-                break;
-
-            }
-        }
-    }
-
-    /**
-     * Executes an action based on the specified action name.
-     *
-     * @param name the name of the action to execute.
-     */
     @Override
     public void useAction(final String name) {
-        gc.action(name);
+        gameController.action(name);
     }
 
-    /**
-     * Handles mouse input to perform an action based on the clicked coordinates.
-     *
-     * @param x    the x-coordinate of the mouse click.
-     * @param y    the y-coordinate of the mouse click.
-     * @param size the size of a single block in the grid.
-     */
     @Override
     public void mouseAction(final int x, final int y, final int size) {
-        final Coordinate newCoordinate = new Coordinate((y % size < size / 2) ? y / size - 1 : y / size, x / size);
-        gc.action(newCoordinate);
+        final Coordinate newCoordinate = new CoordinateImpl((y % size < size / 2) ? y / size - 1 : y / size, x / size);
+        gameController.action(newCoordinate);
     }
 
-    /**
-     * Checks if the current action is block placement.
-     *
-     * @return true if the current action is block placement, false otherwise.
-     */
     @Override
     public Boolean isBlockPlacement() {
-        return turn.getCurrentAction() == ActionType.BLOCK_PLACEMENT;
+        return gameController.getTurnManager().getCurrentAction() == ActionType.BLOCK_PLACEMENT;
     }
 
-    /**
-     * Checks if a winner is present in the game.
-     *
-     * @return true if a winner is present, false otherwise.
-     */
     @Override
     public Boolean isWinnerPresent() {
-        return ifm.getWinner().isPresent();
+        return informationMessenger.getWinner().isPresent();
     }
 
-    /**
-     * Retrieves the name of the winner if present.
-     *
-     * @return the name of the winner.
-     */
     @Override
     public String getWinner() {
-        return ifm.getWinner().get();
+        return informationMessenger.getWinner().get();
     }
 
-    /**
-     * Closes the game by terminating the application.
-     */
     @Override
     public void close() {
         System.exit(0);
     }
 
-    /**
-     * Retrieves the current scores of the game as a string.
-     * The scores are formatted with HTML line breaks for display purposes.
-     *
-     * @return a string representation of the scores.
-     */
     @Override
     public String getScores() {
-        return ifm.getNamesScores().replace("\n", "<br>");
+        return informationMessenger.getNamesScores().replace("\n", "<br>");
     }
 }

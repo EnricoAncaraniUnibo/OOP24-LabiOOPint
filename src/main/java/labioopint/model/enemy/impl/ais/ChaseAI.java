@@ -1,6 +1,5 @@
 package labioopint.model.enemy.impl.ais;
 
-import java.io.Serializable;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,49 +12,25 @@ import java.util.Optional;
 import java.util.Queue;
 import java.util.Set;
 
-import labioopint.model.api.Coordinate;
-import labioopint.model.core.impl.TurnManager;
+import labioopint.model.utilities.api.Coordinate;
+import labioopint.model.utilities.impl.CoordinateImpl;
 import labioopint.model.enemy.api.EnemyAI;
 import labioopint.model.enemy.impl.MovementUtilities;
 import labioopint.model.maze.api.Direction;
-import labioopint.model.maze.impl.LabyrinthImpl;
-import labioopint.model.player.impl.PlayerImpl;
+import labioopint.model.maze.api.Labyrinth;
+import labioopint.model.player.api.Player;
 import labioopint.controller.api.ActionPredicate;
-import labioopint.controller.impl.ActionPredicateImpl;
 
-/**
- * Implementation of the {@link EnemyAI} interface that allows an enemy to chase
- * players in the labyrinth using pathfinding.
- */
-public class ChaseAI implements EnemyAI, Serializable {
+public class ChaseAI implements EnemyAI{
     
     public static final long serialVersionUID = 1L;
-    private ActionPredicate ap;
-    private final TurnManager turn;
 
-    /**
-     * Constructs a ChaseAI with the given TurnManager.
-     *
-     * @param tu the TurnManager used to manage game state and validate moves
-     */
-    public ChaseAI(final TurnManager tu) {
-        turn = tu;
-    }
-
-    /**
-     * Determines the next positions for the enemy by finding the shortest path
-     * to the nearest player or falling back to a random move if no path exists.
-     *
-     * @param players the list of players in the game
-     * @param current the current position of the enemy
-     * @return a list of coordinates representing the enemy's path
-     */
     @Override
-    public List<Coordinate> getNextPosition(final List<PlayerImpl> players, final Coordinate current) {
-        ap = new ActionPredicateImpl(turn);
-        final List<Coordinate> walkableCells = getWalkableCells(current);
+    public List<Coordinate> getNextPosition(final List<Player> players, final Coordinate current, ActionPredicate actionPredicate,
+        Labyrinth labyrinth) {
+        final List<Coordinate> walkableCells = getWalkableCells(current, actionPredicate);
 
-        final var path = getPath(walkableCells, players, current);
+        final var path = getPath(walkableCells, players, current, actionPredicate, labyrinth);
         if (path.isPresent()) {
             return path.get();
         } else {
@@ -65,13 +40,7 @@ public class ChaseAI implements EnemyAI, Serializable {
         }
     }
 
-    /**
-     * Retrieves all walkable cells starting from the enemy's current position.
-     *
-     * @param enemyCoordinate the current position of the enemy
-     * @return a list of walkable coordinates
-     */
-    private List<Coordinate> getWalkableCells(final Coordinate enemyCoordinate) {
+    private List<Coordinate> getWalkableCells(final Coordinate enemyCoordinate, ActionPredicate actionPredicate) {
         final List<Coordinate> output = new ArrayList<>();
         final Queue<Coordinate> queue = new ArrayDeque<>();
         queue.add(enemyCoordinate);
@@ -80,7 +49,7 @@ public class ChaseAI implements EnemyAI, Serializable {
             output.add(current);
             for (final Direction dir : List.of(Direction.UP, Direction.DOWN, Direction.LEFT, Direction.RIGHT)) {
                 final Coordinate next = MovementUtilities.getNextCoordinate(current, dir);
-                if (ap.enemyCanMoveFromPosition(current, dir) && !output.contains(next)) {
+                if (actionPredicate.enemyCanMoveFromPosition(current, dir) && !output.contains(next)) {
                     queue.add(next);
                 }
             }
@@ -89,23 +58,10 @@ public class ChaseAI implements EnemyAI, Serializable {
         return output;
     }
 
-    // Optional perché potrebbe non esistere un percorso di coordinate, altrimenti
-    // definisce un percorso dal nemico al player.
-    /**
-     * Finds the shortest path from the enemy's position to the nearest player.
-     * If no path exists, falls back to a random move.
-     *
-     * @param walkableCells the list of walkable cells
-     * @param players       the list of players in the game
-     * @param start         the starting position of the enemy
-     * @return an {@link Optional} containing the path as a list of coordinates,
-     *         or empty if no path exists
-     */
-    private Optional<List<Coordinate>> getPath(final List<Coordinate> walkableCells, final List<PlayerImpl> players,
-            final Coordinate start) {
-        final LabyrinthImpl lab = turn.getLab();
+    private Optional<List<Coordinate>> getPath(final List<Coordinate> walkableCells, final List<Player> players,
+            final Coordinate start, ActionPredicate actionPredicate, Labyrinth labyrinth) {
         final List<Coordinate> playerPositions = players.stream()
-                .map(lab::getPlayerCoordinate)
+                .map(labyrinth::getPlayerCoordinate)
                 .toList();
 
         if (playerPositions.isEmpty() || walkableCells.isEmpty()) {
@@ -142,19 +98,11 @@ public class ChaseAI implements EnemyAI, Serializable {
 
             return Optional.of(path);
         } else {
-            final SingleStepRandomAI randomAI = new SingleStepRandomAI(turn);
-            return Optional.of(randomAI.getNextPosition(players, start));
+            final SingleStepRandomAI randomAI = new SingleStepRandomAI();
+            return Optional.of(randomAI.getNextPosition(players, start, actionPredicate, labyrinth));
         }
     }
 
-    /**
-     * Retrieves the valid neighboring cells for a given coordinate.
-     *
-     * @param current       the current coordinate
-     * @param walkableCells the list of walkable cells
-     * @param visited       the set of already visited cells
-     * @return a list of valid neighboring coordinates
-     */
     private List<Coordinate> getNeighbors(final Coordinate current, final List<Coordinate> walkableCells,
             final Set<Coordinate> visited) {
         final List<Coordinate> neighbors = new ArrayList<>();
@@ -169,7 +117,7 @@ public class ChaseAI implements EnemyAI, Serializable {
             final int newRow = current.getRow() + dir[0];
             final int newCol = current.getColumn() + dir[1];
 
-            final Coordinate neighbor = new Coordinate(newRow, newCol);
+            final Coordinate neighbor = new CoordinateImpl(newRow, newCol);
             if (walkableCells.contains(neighbor) && !visited.contains(neighbor)) {
                 neighbors.add(neighbor);
             }
@@ -177,5 +125,4 @@ public class ChaseAI implements EnemyAI, Serializable {
 
         return neighbors;
     }
-
 }

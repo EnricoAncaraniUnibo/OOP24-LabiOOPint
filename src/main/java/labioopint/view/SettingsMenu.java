@@ -10,8 +10,9 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 
-import labioopint.controller.impl.SettingsController;
-import labioopint.controller.impl.SettingsLogic;
+import labioopint.controller.api.SettingsController;
+import labioopint.controller.api.SettingsLogic;
+import labioopint.controller.impl.SettingsLogicImpl;
 
 import java.awt.Dimension;
 import java.awt.Font;
@@ -45,7 +46,7 @@ public class SettingsMenu extends JFrame {
      * @param controller the SettingsController used to manage the settings logic
      */
     public SettingsMenu(final SettingsController controller) {
-        settingsLogic = new SettingsLogic(controller);
+        settingsLogic = new SettingsLogicImpl(controller);
         super.setTitle("Settings");
         super.setLayout(new GridLayout(0, 3, H_GAP, V_GAP));
         super.setSize((int) screenSize.getWidth() * RATIO_NUMERATOR / RATIO_DENOMINATOR,

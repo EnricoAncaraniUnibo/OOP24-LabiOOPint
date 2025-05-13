@@ -2,36 +2,29 @@ package labioopint.controller.impl;
 
 import java.awt.Dimension;
 import java.awt.Image;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import labioopint.controller.api.GameController;
 import labioopint.controller.api.LogicDrawPanel;
-import labioopint.model.api.Coordinate;
-import labioopint.model.api.DualMap;
-import labioopint.model.api.Pair;
-import labioopint.model.block.impl.BlockImpl;
+import labioopint.model.utilities.api.Coordinate;
+import labioopint.model.utilities.api.Pair;
+import labioopint.model.utilities.impl.CoordinateImpl;
+import labioopint.model.utilities.impl.PairImpl;
+import labioopint.model.block.api.Block;
 import labioopint.model.core.impl.ImageLoader;
-import labioopint.model.core.impl.TurnManager;
 import labioopint.model.enemy.api.Enemy;
-import labioopint.model.maze.impl.MazeImpl;
-import labioopint.model.player.impl.PlayerImpl;
+import labioopint.model.maze.api.Maze;
+import labioopint.model.player.api.Player;
 import labioopint.model.powerup.api.PowerUp;
 
 /**
- * The LogicDrawPanel class is responsible for managing the logic and data
- * required to draw the game panel, including blocks, players, enemies, and
- * power-ups.
+ * Implementation of the class used to draw the maze, players, powerUps...
  */
-public class LogicDrawPanelImpl implements LogicDrawPanel, Serializable {
+public final class LogicDrawPanelImpl implements LogicDrawPanel {
     public static final long serialVersionUID = 1L;
-    private final TurnManager turn;
+    private final GameController gc;
     private final Integer pixelSize;
-    private MazeImpl maze;
-    private DualMap<PlayerImpl> coorPlayers;
-    private DualMap<Enemy> coorEnemies;
-    private DualMap<PowerUp> coorPowerUps;
-    private BlockImpl outsideBlock;
     private static final Integer CORRECT_BLOCK_DIVISION = 13;
     private static final double NINETY_ROTATION = -90;
     private static final double ZERO_ROTATION = 0;
@@ -42,70 +35,32 @@ public class LogicDrawPanelImpl implements LogicDrawPanel, Serializable {
     private static final Integer REDUCTION_SCALE_NUMBER = 4;
 
     /**
-     * Constructs a LogicDrawPanel with the specified TurnManager and panel size.
-     *
-     * @param tu   the TurnManager instance to manage turns
-     * @param size the Dimension of the panel
+     * Construction of a {@code LogicDrawPanelImpl} with a gameController and a
+     * Dimension.
+     * 
+     * @param gc   the game we want to print on the view.
+     * @param size the size of the screen of the person who is playing the game.
      */
-    public LogicDrawPanelImpl(final TurnManager tu, final Dimension size) {
-        turn = tu;
+    public LogicDrawPanelImpl(final GameController gc, final Dimension size) {
+        this.gc = gc;
         pixelSize = (int) size.getWidth() / CORRECT_BLOCK_DIVISION;
         ImageLoader.load();
     }
 
-    /**
-     * Gets the size of a block in the panel.
-     *
-     * @return the value as an Integer
-     */
     @Override
     public Integer getPixelSize() {
         return pixelSize;
     }
 
-    /**
-     * Updates the data required for drawing the panel, including the maze, players,
-     * enemy, powerups, and the outside block.
-     *
-     * @param m           the MazeImpl instance representing the maze
-     * @param mapPlayers  the DualMap containing player coordinates
-     * @param mapEnemies  the DualMap containing enemy coordinates
-     * @param mapPowerUps the DualMap containing power-up coordinates
-     * @param outside     the BlockImpl representing the outside block
-     */
-    @Override
-    public void updateData(final MazeImpl m, final DualMap<PlayerImpl> mapPlayers,
-            final DualMap<Enemy> mapEnemies, final DualMap<PowerUp> mapPowerUps,
-            final BlockImpl outside) {
-        this.maze = m;
-        this.coorPlayers = mapPlayers;
-        this.coorEnemies = mapEnemies;
-        this.coorPowerUps = mapPowerUps;
-        this.outsideBlock = outside;
-    }
-
-    /**
-     * Checks if the panel is ready to be drawn.
-     *
-     * @return true if the maze is not null, false otherwise
-     */
     @Override
     public Boolean canDraw() {
-        return maze != null;
+        return gc.getLab().getGrid() != null;
     }
 
-    /**
-     * Retrieves a list of images and their associated properties (rotation,
-     * position, size)
-     * for all blocks, players, enemies, and power-ups to be drawn on the panel.
-     *
-     * @return a List of Pairs containing image, rotation, position, and size
-     *         information
-     */
     @Override
     public List<Pair<Pair<Image, Double>, Pair<Pair<Integer, Integer>, Pair<Integer, Integer>>>> getImagesBlocks() {
         final List<Pair<Pair<Image, Double>, Pair<Pair<Integer, Integer>, Pair<Integer, Integer>>>> ls = new ArrayList<>();
-        BlockImpl b;
+        Block b;
         boolean end = false;
         Image imageTemp = null;
         Double rotationTemp = null;
@@ -116,15 +71,16 @@ public class LogicDrawPanelImpl implements LogicDrawPanel, Serializable {
         Pair<Integer, Integer> pSize;
         Pair<Pair<Integer, Integer>, Pair<Integer, Integer>> pNumbers;
         Pair<Pair<Image, Double>, Pair<Pair<Integer, Integer>, Pair<Integer, Integer>>> pFinal;
+        Maze maze = gc.getLab().getGrid();
         for (int i = 0; i <= maze.getSize() && !end; i++) {
             for (int j = 0; j < maze.getSize() && !end; j++) {
                 if (i == maze.getSize()) {
-                    b = outsideBlock;
+                    b = gc.getLab().getOutsideBlock();
                     j = maze.getSize() + 1;
                     i = 0;
                     end = true;
                 } else {
-                    b = maze.getBlock(new Coordinate(i, j)).get();
+                    b = maze.getBlock(new CoordinateImpl(i, j)).get();
                 }
                 switch (b.getType()) {
                     case CORNER:
@@ -159,56 +115,58 @@ public class LogicDrawPanelImpl implements LogicDrawPanel, Serializable {
                         valuePrint2 = (-j * pixelSize) - pixelSize;
                         break;
                 }
-                pImageRotation = new Pair<>(imageTemp, rotationTemp);
-                pPositions = new Pair<>(valuePrint1, valuePrint2);
-                pSize = new Pair<>(pixelSize, pixelSize);
-                pNumbers = new Pair<>(pPositions, pSize);
-                pFinal = new Pair<>(pImageRotation, pNumbers);
+                pImageRotation = new PairImpl<>(imageTemp, rotationTemp);
+                pPositions = new PairImpl<>(valuePrint1, valuePrint2);
+                pSize = new PairImpl<>(pixelSize, pixelSize);
+                pNumbers = new PairImpl<>(pPositions, pSize);
+                pFinal = new PairImpl<>(pImageRotation, pNumbers);
                 ls.add(pFinal);
             }
         }
-        for (final PlayerImpl p : coorPlayers.getElemets()) {
-            final Coordinate c = coorPlayers.getCoordinateFromElement(p);
-            if (p.equals(turn.getCurrentPlayer())) {
-                pImageRotation = new Pair<>(
+        for (final Player p : gc.getLab().getPlayers()) {
+            final Coordinate c = gc.getLab().getPlayerCoordinate(p);
+            if (p.equals(gc.getCurrentPlayer())) {
+                pImageRotation = new PairImpl<>(
                         ImageLoader.getImage(p.getID() + "Turn").get(), Math.toRadians(ZERO_ROTATION));
             } else {
-                pImageRotation = new Pair<>(
+                pImageRotation = new PairImpl<>(
                         ImageLoader.getImage(p.getID()).get(), Math.toRadians(ZERO_ROTATION));
             }
-            pPositions = new Pair<>(
+            pPositions = new PairImpl<>(
                     c.getColumn() * pixelSize + pixelSize / REDUCTION_SCALE_NUMBER,
                     c.getRow() * pixelSize + pixelSize / REDUCTION_SCALE_NUMBER);
-            pSize = new Pair<>(pixelSize * PERCENTILE_NUMERATOR / PERCENTILE_DENOMINATOR, pixelSize * 3 / PERCENTILE_DENOMINATOR);
-            pNumbers = new Pair<>(pPositions, pSize);
-            pFinal = new Pair<>(
+            pSize = new PairImpl<>(pixelSize * PERCENTILE_NUMERATOR / PERCENTILE_DENOMINATOR,
+                    pixelSize * 3 / PERCENTILE_DENOMINATOR);
+            pNumbers = new PairImpl<>(pPositions, pSize);
+            pFinal = new PairImpl<>(
                     pImageRotation, pNumbers);
             ls.add(pFinal);
         }
-        for (final Enemy e : coorEnemies.getElemets()) {
-            final Coordinate c = coorEnemies.getCoordinateFromElement(e);
-            pImageRotation = new Pair<>(ImageLoader.getImage("Monster").get(), Math.toRadians(ZERO_ROTATION));
-            pPositions = new Pair<>(
+        final Pair<Boolean, Enemy> e = gc.getLab().getEnemy();
+        if (e.getFirst()) {
+            final Coordinate c = gc.getLab().getEnemyCoordinate(e.getSecond());
+            pImageRotation = new PairImpl<>(ImageLoader.getImage("Monster").get(), Math.toRadians(ZERO_ROTATION));
+            pPositions = new PairImpl<>(
                     c.getColumn() * pixelSize + pixelSize / REDUCTION_SCALE_NUMBER,
                     c.getRow() * pixelSize + pixelSize / REDUCTION_SCALE_NUMBER);
-            pSize = new Pair<>(pixelSize * PERCENTILE_NUMERATOR / PERCENTILE_DENOMINATOR,
+            pSize = new PairImpl<>(pixelSize * PERCENTILE_NUMERATOR / PERCENTILE_DENOMINATOR,
                     pixelSize * PERCENTILE_NUMERATOR / PERCENTILE_DENOMINATOR);
-            pNumbers = new Pair<>(pPositions, pSize);
-            pFinal = new Pair<>(
+            pNumbers = new PairImpl<>(pPositions, pSize);
+            pFinal = new PairImpl<>(
                     pImageRotation, pNumbers);
             ls.add(pFinal);
         }
-        for (final PowerUp po : coorPowerUps.getElemets()) {
-            final Coordinate c = coorPowerUps.getCoordinateFromElement(po);
-            pImageRotation = new Pair<>(
+        for (final PowerUp po : gc.getLab().getPowerUpsNotCollected()) {
+            final Coordinate c = gc.getLab().getPowerUpCoordinate(po);
+            pImageRotation = new PairImpl<>(
                     ImageLoader.getImage(po.getName()).get(), Math.toRadians(ZERO_ROTATION));
-            pPositions = new Pair<>(
+            pPositions = new PairImpl<>(
                     c.getColumn() * pixelSize + pixelSize / REDUCTION_SCALE_NUMBER,
                     c.getRow() * pixelSize + pixelSize / REDUCTION_SCALE_NUMBER);
-            pSize = new Pair<>(pixelSize * PERCENTILE_NUMERATOR / PERCENTILE_DENOMINATOR,
+            pSize = new PairImpl<>(pixelSize * PERCENTILE_NUMERATOR / PERCENTILE_DENOMINATOR,
                     pixelSize * PERCENTILE_NUMERATOR / PERCENTILE_DENOMINATOR);
-            pNumbers = new Pair<>(pPositions, pSize);
-            pFinal = new Pair<>(
+            pNumbers = new PairImpl<>(pPositions, pSize);
+            pFinal = new PairImpl<>(
                     pImageRotation, pNumbers);
             ls.add(pFinal);
         }

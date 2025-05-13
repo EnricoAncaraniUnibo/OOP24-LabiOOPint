@@ -1,49 +1,37 @@
 package labioopint.model.player.impl;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import labioopint.model.api.Movable;
-import labioopint.model.core.impl.TurnManager;
+import labioopint.model.utilities.impl.MovableImpl;
 import labioopint.model.player.api.Player;
 import labioopint.model.powerup.api.PowerUp;
 
-/**
- * The PlayerImpl class implements the Player interface and represents a player
- * in the game. It manages the player's ID, objectives, usable power-ups, and
- * interactions with the TurnManager.
- */
-public final class PlayerImpl extends Movable implements Player, Serializable {
+public final class PlayerImpl extends MovableImpl implements Player {
     public static final long serialVersionUID = 1L;
     private final String id;
     private final List<PowerUp> objectives;
     private final List<PowerUp> usablePowerUps;
-    private final TurnManager turn;
     private boolean invicible;
 
-    /**
-     * Constructs a PlayerImpl with the specified ID and TurnManager.
-     *
-     * @param id the unique identifier for the player
-     * @param tu the TurnManager instance to manage game turns
-     */
-    public PlayerImpl(final String id, final TurnManager tu) {
+    public PlayerImpl(final String id) {
         this.id = id;
         objectives = new ArrayList<>();
         usablePowerUps = new ArrayList<>();
-        turn = tu;
         invicible = false;
     }
 
+    @Override
     public void enableInvincible() {
         invicible = true;
     }
 
+    @Override
     public void disableInvincible() {
         invicible = false;
     }
 
+    @Override
     public boolean isInvincibilityStatus() {
         return invicible;
     }
@@ -70,28 +58,19 @@ public final class PlayerImpl extends Movable implements Player, Serializable {
     }
 
     @Override
-    public void removeObjective() {
-        if (!objectives.isEmpty()) {
-            final PowerUp p = objectives.get(0);
-            if (usablePowerUps.contains(p)) {
-                usablePowerUps.remove(p);
-            }
-            objectives.remove(p);
-            turn.getLab().addPowerUp(p);
-        }
-    }
-
-    public void removeObjectiveSelect(final PowerUp pou) {
-        if (!objectives.isEmpty()) {
+    public boolean removeObjectiveSelect(final PowerUp pou) {
+        if (objectives.contains(pou)) {
             if (usablePowerUps.contains(pou)) {
                 usablePowerUps.remove(pou);
             }
             objectives.remove(pou);
+            return true;
         }
+        return false;
     }
 
     @Override
     public void removePowerUp(final PowerUp pu) {
         usablePowerUps.remove(pu);
-    }
+    } 
 }

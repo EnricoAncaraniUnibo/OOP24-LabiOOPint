@@ -1,87 +1,78 @@
 package labioopint.controller.api;
-
 /**
- * The {@code LogicGameView} interface defines the methods required to manage
- * the logic and interaction between the game view and the underlying game
- * logic. It provides methods for retrieving game state, handling user actions,
- * and managing game flow.
+ * Represents the logic for managing the game view, including actions, power-ups, 
+ * turn information, and winner status. This interface provides methods to interact 
+ * with the game view and perform various game-related operations.
  */
 public interface LogicGameView {
 
     /**
-     * Retrieves the current turn information as a string.
+     * Retrieves the current turn information.
      *
-     * @return the current turn information.
+     * @return a {@link String} representing the current turn
      */
     String getTurn();
 
     /**
-     * Retrieves the current action information as a string.
+     * Retrieves the current action being performed.
      *
-     * @return the current action information.
+     * @return a {@link String} representing the current action
      */
     String getAction();
 
     /**
-     * Retrieves a list of available power-ups as an array of strings.
+     * Retrieves the list of available power-ups.
      *
-     * @return an array of power-up names.
+     * @return an array of {@link String} containing the power-ups
      */
     String[] getPowerUps();
 
     /**
-     * Activates the specified power-up for the current player.
+     * Uses a specified action by its name.
      *
-     * @param powerUp the name of the power-up to activate.
-     */
-    void activatePowerUps(String powerUp);
-
-    /**
-     * Executes an action based on the specified action name.
-     *
-     * @param name the name of the action to execute.
+     * @param name the name of the action to be used
      */
     void useAction(String name);
 
     /**
-     * Handles mouse input to perform an action based on the clicked coordinates.
+     * Performs a mouse action at the specified coordinates and size.
      *
-     * @param x    the x-coordinate of the mouse click.
-     * @param y    the y-coordinate of the mouse click.
-     * @param size the size of a single block in the grid.
+     * @param x the x-coordinate of the mouse action
+     * @param y the y-coordinate of the mouse action
+     * @param size the size of the action
      */
     void mouseAction(int x, int y, int size);
 
     /**
-     * Checks if the current action is block placement.
+     * Determines if block placement is allowed.
      *
-     * @return true if the current action is block placement, false otherwise.
+     * @return {@code true} if block placement is allowed, {@code false} otherwise
      */
     Boolean isBlockPlacement();
 
     /**
      * Checks if a winner is present in the game.
      *
-     * @return true if a winner is present, false otherwise.
+     * @return {@code true} if a winner is present, {@code false} otherwise
      */
     Boolean isWinnerPresent();
 
     /**
-     * Retrieves the name of the winner if present.
+     * Retrieves the winner of the game.
      *
-     * @return the name of the winner.
+     * @return a {@link String} representing the winner's name
      */
     String getWinner();
 
     /**
-     * Closes the game by terminating the application.
+     * Closes the game view.
      */
     void close();
 
     /**
-     * Retrieves the current scores of the game as a string.
+     * Retrieves the scores of players in the game.
      *
-     * @return a string representation of the scores.
+     * @return a {@link String} representing the scores
      */
     String getScores();
 

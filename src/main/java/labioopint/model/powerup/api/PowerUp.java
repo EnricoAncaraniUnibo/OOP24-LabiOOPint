@@ -1,44 +1,53 @@
 package labioopint.model.powerup.api;
 
+import java.io.Serializable;
 import java.util.List;
 
-/**
- * This interface defines the behavior of a power-up in the game.
- */
-public interface PowerUp {
+import labioopint.model.core.api.TurnManager;
+import labioopint.model.maze.api.Labyrinth;
+
+public interface PowerUp extends Serializable {
 
     /**
-     * Activates the power-up for the specified player.
-     * 
-     * @param currentPlayer the player for whom the power-up is activated, must not be null
+     * Returns the ID of the power-up.
+     *
+     * @return the unique ID of the power-up
      */
-    void activate();
+    int getID();
+
+    /**
+     * Returns the name of the power-up.
+     *
+     * @return the name of the power-up
+     */
+    String getName();
+
+    void activate(Labyrinth lab, TurnManager turn);
 
     /**
      * Checks if the power-up has been collected.
-     * 
+     *
      * @return true if the power-up has been collected, false otherwise
      */
     boolean isCollected();
 
     /**
-     * Collects the power-up.
+     * Marks the power-up as collected and adds it to the list of collected power-ups.
      */
     void collect();
 
     /**
-     * Returns the list of collected power-ups.
-     * 
-     * @return the list of collected power-ups
+     * Returns a list of collected power-ups.
+     *
+     * @return a list of collected power-ups
      */
     List<PowerUp> getCollectedPowerUps();
 
     /**
-     * Returns the name of the power-up.
-     * 
-     * @return the name of the power-up
+     * Sets the name of the power-up.
+     *
+     * @param string the name to set, must not be null
      */
-    String getName();
+    void setName(String string);
 
-    int getID();
 }
