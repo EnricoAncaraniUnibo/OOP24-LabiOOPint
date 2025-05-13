@@ -13,11 +13,17 @@ import labioopint.model.block.api.BlockType;
 import labioopint.model.block.api.Rotation;
 import labioopint.model.block.impl.BlockImpl;
 import labioopint.model.maze.api.MazeGenerator;
-
+/**
+ * The class used to generate a random maze.
+ */
 public final class MazeGeneratorImpl implements MazeGenerator {
     private final List<Block> selectableBlocks;
     private final Random r;
-
+    /**
+     * Contruct the maze generator by saving the blocks that can be used.
+     * 
+     * @param ls the blocks used to generate the maze.
+     */
     public MazeGeneratorImpl(final List<Block> ls) {
         selectableBlocks = new ArrayList<>();
         selectableBlocks.addAll(ls);

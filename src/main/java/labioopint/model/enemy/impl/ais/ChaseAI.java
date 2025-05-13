@@ -20,14 +20,17 @@ import labioopint.model.maze.api.Direction;
 import labioopint.model.maze.api.Labyrinth;
 import labioopint.model.player.api.Player;
 import labioopint.controller.api.ActionPredicate;
+/**
+ * The enemyAi that if can reach the player follow him.
+ */
+public final class ChaseAI implements EnemyAI {
 
-public class ChaseAI implements EnemyAI{
-    
     public static final long serialVersionUID = 1L;
 
     @Override
-    public List<Coordinate> getNextPosition(final List<Player> players, final Coordinate current, ActionPredicate actionPredicate,
-        Labyrinth labyrinth) {
+    public List<Coordinate> getNextPosition(final List<Player> players, final Coordinate current,
+            final ActionPredicate actionPredicate,
+            final Labyrinth labyrinth) {
         final List<Coordinate> walkableCells = getWalkableCells(current, actionPredicate);
 
         final var path = getPath(walkableCells, players, current, actionPredicate, labyrinth);
@@ -40,7 +43,7 @@ public class ChaseAI implements EnemyAI{
         }
     }
 
-    private List<Coordinate> getWalkableCells(final Coordinate enemyCoordinate, ActionPredicate actionPredicate) {
+    private List<Coordinate> getWalkableCells(final Coordinate enemyCoordinate, final ActionPredicate actionPredicate) {
         final List<Coordinate> output = new ArrayList<>();
         final Queue<Coordinate> queue = new ArrayDeque<>();
         queue.add(enemyCoordinate);
@@ -59,7 +62,7 @@ public class ChaseAI implements EnemyAI{
     }
 
     private Optional<List<Coordinate>> getPath(final List<Coordinate> walkableCells, final List<Player> players,
-            final Coordinate start, ActionPredicate actionPredicate, Labyrinth labyrinth) {
+            final Coordinate start, final ActionPredicate actionPredicate, final Labyrinth labyrinth) {
         final List<Coordinate> playerPositions = players.stream()
                 .map(labyrinth::getPlayerCoordinate)
                 .toList();

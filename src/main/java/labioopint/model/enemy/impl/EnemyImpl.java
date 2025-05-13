@@ -12,12 +12,18 @@ import labioopint.model.maze.api.Direction;
 import labioopint.model.maze.api.Labyrinth;
 import labioopint.model.player.api.Player;
 import labioopint.model.powerup.api.PowerUp;
-
-public class EnemyImpl extends MovableImpl implements Enemy {
+/**
+ * The Implementation of the Enemy interface.
+ */
+public final class EnemyImpl extends MovableImpl implements Enemy {
     public static final long serialVersionUID = 1L;
     private final EnemyAI enemyAI;
     private Player lastHit;
-
+    /**
+     * Construction of an general enemy with an specified intelligence.
+     * 
+     * @param enemyAI the intelligence of this enemy.
+     */
     public EnemyImpl(final EnemyAI enemyAI) {
         this.enemyAI = enemyAI;
         lastHit = null;
@@ -29,9 +35,10 @@ public class EnemyImpl extends MovableImpl implements Enemy {
     }
 
     @Override
-    public List<Coordinate> move(final List<Player> players, ActionPredicate actionPredicate, Labyrinth labyrinth) {
+    public List<Coordinate> move(final List<Player> players, final ActionPredicate actionPredicate, final Labyrinth labyrinth) {
         if (!actionPredicate.enemyCanMove(Direction.UP, this) && !actionPredicate.enemyCanMove(Direction.DOWN, this)
-                && !actionPredicate.enemyCanMove(Direction.LEFT, this) && !actionPredicate.enemyCanMove(Direction.RIGHT, this)) {
+                && !actionPredicate.enemyCanMove(Direction.LEFT, this)
+                && !actionPredicate.enemyCanMove(Direction.RIGHT, this)) {
             return new ArrayList<>();
         } else {
             return enemyAI.getNextPosition(players, labyrinth.getEnemyCoordinate(this), actionPredicate, labyrinth);
@@ -39,7 +46,7 @@ public class EnemyImpl extends MovableImpl implements Enemy {
     }
 
     @Override
-    public void playerHit(final List<Player> players, Labyrinth labyrinth) {
+    public void playerHit(final List<Player> players, final Labyrinth labyrinth) {
         for (final Player player : players) {
             if (labyrinth.getEnemyCoordinate(this).equals(labyrinth.getPlayerCoordinate(player))) {
                 if (!player.isInvincibilityStatus() && !player.equals(lastHit) && !player.getObjetives().isEmpty()) {
