@@ -1,17 +1,28 @@
 package labioopint.model.utilities.impl;
 
 import labioopint.model.utilities.api.Coordinate;
-
+/**
+ * The class that implements the coordinate interface type.
+ * Used to indicate a position in a 2-dimesional grid.
+ */
 public final class CoordinateImpl implements Coordinate {
     public static final long serialVersionUID = 1L;
     private final Integer row;
     private final Integer column;
-
+    /**
+     * Create a coordinate coping the values of another one.
+     * @param coord the other coordinate
+     */
     public CoordinateImpl(final Coordinate coord) {
         this.row = coord.getRow();
         this.column = coord.getColumn();
     }
-
+    /**
+     * Create a coordinate by passing the row and column values.
+     * 
+     * @param r the row value
+     * @param c the column value
+     */
     public CoordinateImpl(final Integer r, final Integer c) {
         this.row = r;
         this.column = c;

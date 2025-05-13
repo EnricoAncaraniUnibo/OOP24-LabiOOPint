@@ -1,6 +1,5 @@
 package labioopint.controller.impl;
 
-
 import labioopint.controller.api.ActionPredicate;
 import labioopint.controller.api.ActionController;
 import labioopint.model.utilities.impl.ActionType;
@@ -12,21 +11,22 @@ import labioopint.model.maze.api.Labyrinth;
 import labioopint.model.player.api.Player;
 import labioopint.model.powerup.api.PowerUp;
 
-public final class ActionControllerImpl implements ActionController{
+public final class ActionControllerImpl implements ActionController {
     public static final long serialVersionUID = 1L;
 
     @Override
-    public void action(final Object action, Labyrinth labyrinth, TurnManager turnManager) {
+    public void action(final Object action, final Labyrinth labyrinth, final TurnManager turnManager) {
         final ActionPredicate actionPredicate = new ActionPredicateImpl(labyrinth);
         final ActionType currentAction = turnManager.getCurrentAction();
         switch (currentAction) {
             case ActionType.BLOCK_PLACEMENT:
                 if (action instanceof String) {
-                    if("←".equals(action) || "→".equals(action)){
+                    if ("←".equals(action) || "→".equals(action)) {
                         final Direction dir = "←".equals(action) ? Direction.LEFT : Direction.RIGHT;
-                        rotateBlock(dir,labyrinth);
+                        rotateBlock(dir, labyrinth);
                     } else {
-                        checkPowerUp((String)action, labyrinth,labyrinth.getPlayers().get(turnManager.getCurrentPlayer()), turnManager);
+                        checkPowerUp((String) action, labyrinth,
+                                labyrinth.getPlayers().get(turnManager.getCurrentPlayer()), turnManager);
                     }
                 } else if (action instanceof Coordinate) {
                     final Coordinate blockCoordinate = (Coordinate) action;
@@ -60,12 +60,13 @@ public final class ActionControllerImpl implements ActionController{
                         }
                     } else if ("End Turn".equals(action)) {
                         turnManager.nextAction();
-                        if(labyrinth.getEnemy().getFirst()) {
-                            labyrinth.enemyUpdateCoordinate(labyrinth.getEnemy().getSecond(),labyrinth.getEnemy().getSecond().move(labyrinth.getPlayers(),actionPredicate,labyrinth));
-                            labyrinth.getEnemy().getSecond().playerHit(labyrinth.getPlayers(),labyrinth);
+                        if (labyrinth.getEnemy().getFirst()) {
+                            labyrinth.enemyUpdateCoordinate(labyrinth.getEnemy().getSecond(), labyrinth.getEnemy()
+                                    .getSecond().move(labyrinth.getPlayers(), actionPredicate, labyrinth));
+                            labyrinth.getEnemy().getSecond().playerHit(labyrinth.getPlayers(), labyrinth);
                         }
                     } else {
-                        checkPowerUp((String)action, labyrinth, currentPlayer, turnManager);
+                        checkPowerUp((String) action, labyrinth, currentPlayer, turnManager);
                     }
                 }
                 break;
@@ -74,7 +75,7 @@ public final class ActionControllerImpl implements ActionController{
         }
     }
 
-    private void rotateBlock(final Direction dir, Labyrinth labyrinth) {
+    private void rotateBlock(final Direction dir, final Labyrinth labyrinth) {
         Rotation blockRotation = labyrinth.getOutsideBlock().getRotation();
         switch (dir) {
             case Direction.RIGHT:
@@ -96,10 +97,11 @@ public final class ActionControllerImpl implements ActionController{
         }
     }
 
-    private void checkPowerUp(final String namePowerUp, final Labyrinth labyrinth, final Player currentPlayer,final TurnManager turnManager) {
+    private void checkPowerUp(final String namePowerUp, final Labyrinth labyrinth, final Player currentPlayer,
+            final TurnManager turnManager) {
         for (PowerUp powerUp : labyrinth.getObjectives()) {
-            if(powerUp.getName().equals(namePowerUp) && currentPlayer.getObjetives().contains(powerUp)){
-                powerUp.activate(labyrinth,turnManager);
+            if (powerUp.getName().equals(namePowerUp) && currentPlayer.getObjetives().contains(powerUp)) {
+                powerUp.activate(labyrinth, turnManager);
             }
         }
     }

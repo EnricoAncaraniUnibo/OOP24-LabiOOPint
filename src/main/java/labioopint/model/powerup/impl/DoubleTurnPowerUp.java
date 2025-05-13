@@ -9,7 +9,10 @@ import labioopint.model.player.api.Player;
  */
 public final class DoubleTurnPowerUp extends PowerUpImpl {
     public static final long serialVersionUID = 1L;
-
+    /**
+     * Construction of the DoubleTurnPowerUp by giving it an id.
+     * @param powerUpId the identifier.
+     */
     public DoubleTurnPowerUp(final int powerUpId) {
         super(powerUpId);
         super.setName("Double Turn");

@@ -6,14 +6,20 @@ import java.util.List;
 import labioopint.model.utilities.impl.MovableImpl;
 import labioopint.model.player.api.Player;
 import labioopint.model.powerup.api.PowerUp;
-
+/**
+ * The class that rappresent the player in the game.
+ */
 public final class PlayerImpl extends MovableImpl implements Player {
     public static final long serialVersionUID = 1L;
     private final String id;
     private final List<PowerUp> objectives;
     private final List<PowerUp> usablePowerUps;
     private boolean invicible;
-
+    /**
+     * Construct a player with an id.
+     * 
+     * @param id the identifier of the player.
+     */
     public PlayerImpl(final String id) {
         this.id = id;
         objectives = new ArrayList<>();

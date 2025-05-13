@@ -24,7 +24,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 
-
+/**
+ * Represents the main game view for the application.
+ * The `GameView` class is responsible for rendering the game interface, including the game board,
+ * control panel, and handling user interactions such as button clicks and mouse events.
+ */
 public class GameView extends JFrame {
 
     public static final long serialVersionUID = 1L;
@@ -43,7 +47,12 @@ public class GameView extends JFrame {
     private static final int CONTROL_PANEL_HEIGHT = 600;
     private static final int TEXT_SIZE = 18;
 
-
+    /**
+     * Constructs a new `GameView` with the specified game controller.
+     * Initializes the game interface, including the game board and control panel.
+     *
+     * @param gc the {@link GameController} used to manage game logic and interactions
+     */
     public GameView(final GameController gc) {
         super.setTitle("LabiOPPint");
         super.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -224,11 +233,16 @@ public class GameView extends JFrame {
             comboBox.addItem(option);
         }
     }
-
+    /**
+     * Updates the score label with the current scores from the {@link LogicGameView}.
+     */
     private void updateScoreLabel() {
         scoreLabel.setText("<html>" + lgv.getScores() + "</html>");
     }
-
+    /**
+     * Updates the game view based on the current game state.
+     * This includes showing or hiding buttons and triggering a repaint of the game board.
+     */
     public final void update() {
         if (lgv.isBlockPlacement()) {
             endTurnButton.setVisible(false);

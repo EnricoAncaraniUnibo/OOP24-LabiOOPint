@@ -15,7 +15,10 @@ import labioopint.model.powerup.api.PowerUp;
  */
 public final class StealObjectPowerUp extends PowerUpImpl {
     public static final long serialVersionUID = 1L;
-
+    /**
+     * Construction of the StealObjectPowerUp by giving it an id.
+     * @param id the identifier.
+     */
     public StealObjectPowerUp(final int id) {
         super(id);
         super.setName("Steal Object");

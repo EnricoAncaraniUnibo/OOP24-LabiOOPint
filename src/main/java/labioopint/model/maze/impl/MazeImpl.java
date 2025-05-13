@@ -11,12 +11,20 @@ import labioopint.model.utilities.impl.CoordinateImpl;
 import labioopint.model.block.api.Block;
 import labioopint.model.maze.api.Maze;
 
+/**
+ * The abstract class that define the behavior of the maze.
+ */
 public abstract class MazeImpl implements Maze {
     public static final long serialVersionUID = 1L;
     private final Map<Coordinate, Block> grid;
     private final List<Block> blockSelection;
     private final Integer size;
 
+    /**
+     * Initialize the maze without building it yet with a size.
+     * 
+     * @param size the size of the maze.
+     */
     public MazeImpl(final Integer size) {
         this.size = size;
         this.blockSelection = new ArrayList<>();

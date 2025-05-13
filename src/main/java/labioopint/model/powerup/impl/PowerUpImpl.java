@@ -17,7 +17,11 @@ public abstract class PowerUpImpl implements PowerUp {
     private boolean collected;
     private final List<PowerUp> collectedPowerUps;
     private String name;
-
+    /**
+     * Construction of a general Powerup by giving it an id.
+     * 
+     * @param id the identifier of the powerUp
+     */
     public PowerUpImpl(final int id) {
         this.id = id;
         this.collected = false;

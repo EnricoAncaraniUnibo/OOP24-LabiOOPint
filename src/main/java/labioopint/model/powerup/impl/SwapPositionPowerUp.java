@@ -13,7 +13,10 @@ import labioopint.model.player.api.Player;
 public final class SwapPositionPowerUp extends PowerUpImpl {
     public static final long serialVersionUID = 1L;
     private boolean condition = true;
-
+    /**
+     * Construction of the SwapPositionPowerUp by giving it an id.
+     * @param id the identifier.
+     */
     public SwapPositionPowerUp(final int id) {
         super(id);
         super.setName("Teleport");

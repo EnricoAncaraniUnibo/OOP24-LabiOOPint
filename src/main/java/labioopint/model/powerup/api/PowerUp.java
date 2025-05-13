@@ -5,7 +5,10 @@ import java.util.List;
 
 import labioopint.model.core.api.TurnManager;
 import labioopint.model.maze.api.Labyrinth;
-
+/**
+ * The interface that define the PowerUp and his methods
+ * to be used and collected.
+ */
 public interface PowerUp extends Serializable {
 
     /**
@@ -21,7 +24,12 @@ public interface PowerUp extends Serializable {
      * @return the name of the power-up
      */
     String getName();
-
+    /**
+     * Activate the powerUp.
+     * 
+     * @param lab the labyrinth rappresenting the game state of other objects.
+     * @param turn the turnManager rappresenting the turn state of the game.
+     */
     void activate(Labyrinth lab, TurnManager turn);
 
     /**
