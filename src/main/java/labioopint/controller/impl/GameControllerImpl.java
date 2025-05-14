@@ -15,42 +15,42 @@ import labioopint.model.utilities.api.Settings;
  */
 public final class GameControllerImpl implements GameController {
 
-    private final Labyrinth lab;
-    private final TurnManager turn;
-    private final ActionController ac;
-    private final SaveController save;
+    private final Labyrinth labyrinth;
+    private final TurnManager turnManager;
+    private final ActionController actionController;
+    private final SaveController saveController;
 
     /**
      * Constructs an {@code GameControllerImpl} with the settings.
      * 
-     * @param set the settings used to create the game.
+     * @param settings the settings used to create the game.
      */
-    public GameControllerImpl(final Settings set) {
-        save = new SaveControllerImpl();
-        Builder builder = new BuilderImpl(set);
-        lab = builder.createMaze();
-        turn = builder.createTurnManager();
-        ac = builder.createActionController();
+    public GameControllerImpl(final Settings settings) {
+        saveController = new SaveControllerImpl();
+        Builder builder = new BuilderImpl(settings);
+        labyrinth = builder.createMaze();
+        turnManager = builder.createTurnManager();
+        actionController = builder.createActionController();
     }
 
     @Override
     public Player getCurrentPlayer() {
-        return lab.getPlayers().get(turn.getCurrentPlayer());
+        return labyrinth.getPlayers().get(turnManager.getCurrentPlayer());
     }
 
     @Override
     public TurnManager getTurnManager() {
-        return turn;
+        return turnManager;
     }
 
     @Override
-    public Labyrinth getLab() {
-        return lab;
+    public Labyrinth getLabyrinth() {
+        return labyrinth;
     }
 
     @Override
-    public void action(final Object s) {
-        ac.action(s, lab, turn);
-        save.save(this);
+    public void action(final Object action) {
+        actionController.action(action, labyrinth, turnManager);
+        saveController.save(this);
     }
 }

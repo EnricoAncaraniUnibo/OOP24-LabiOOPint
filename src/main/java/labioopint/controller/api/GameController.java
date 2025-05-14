@@ -30,7 +30,7 @@ public interface GameController extends Serializable {
      *
      * @return the {@link Labyrinth} instance
      */
-    Labyrinth getLab();
+    Labyrinth getLabyrinth();
 
     /**
      * Performs an action based on the specified input.

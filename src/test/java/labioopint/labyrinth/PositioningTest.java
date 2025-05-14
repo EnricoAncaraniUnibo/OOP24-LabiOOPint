@@ -26,7 +26,7 @@ class PositioningTest {
     void checkPositionForAll() {
         boolean passed = true;
         GameController gc = new GameControllerImpl(new SettingsImpl(1, 4, 5, EnemyDifficulty.EASY));
-        final Labyrinth lab = gc.getLab();
+        final Labyrinth lab = gc.getLabyrinth();
         for (final Player p : lab.getPlayers()) {
             final Coordinate c = lab.getPlayerCoordinate(p);
             if (Objects.isNull(c)) {
@@ -53,7 +53,7 @@ class PositioningTest {
     @Test
     void startingPlayerPositions() {
         GameController gc = new GameControllerImpl(new SettingsImpl(1, 4, 5, EnemyDifficulty.EASY));
-        final Labyrinth lab = gc.getLab();
+        final Labyrinth lab = gc.getLabyrinth();
         boolean passed = true;
         for (final Player p : lab.getPlayers()) {
             final Coordinate c = lab.getPlayerCoordinate(p);
@@ -69,7 +69,7 @@ class PositioningTest {
     @Test
     void changePosition() {
         GameController gc = new GameControllerImpl(new SettingsImpl(1, 4, 5, EnemyDifficulty.EASY));
-        final Labyrinth lab = gc.getLab();
+        final Labyrinth lab = gc.getLabyrinth();
         final List<Player> ls = lab.getPlayers();
         final Enemy e = lab.getEnemy().getSecond();
 

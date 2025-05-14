@@ -76,7 +76,7 @@ public final class PlayerImpl extends MovableImpl implements Player {
     }
 
     @Override
-    public void removePowerUp(final PowerUp pu) {
-        usablePowerUps.remove(pu);
-    } 
+    public void removePowerUp(final PowerUp powerUp) {
+        usablePowerUps.remove(powerUp);
+    }
 }

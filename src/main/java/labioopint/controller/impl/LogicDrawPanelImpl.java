@@ -54,7 +54,7 @@ public final class LogicDrawPanelImpl implements LogicDrawPanel {
 
     @Override
     public Boolean canDraw() {
-        return gc.getLab().getGrid() != null;
+        return gc.getLabyrinth().getGrid() != null;
     }
 
     @Override
@@ -71,11 +71,11 @@ public final class LogicDrawPanelImpl implements LogicDrawPanel {
         Pair<Integer, Integer> pSize;
         Pair<Pair<Integer, Integer>, Pair<Integer, Integer>> pNumbers;
         Pair<Pair<Image, Double>, Pair<Pair<Integer, Integer>, Pair<Integer, Integer>>> pFinal;
-        Maze maze = gc.getLab().getGrid();
+        Maze maze = gc.getLabyrinth().getGrid();
         for (int i = 0; i <= maze.getSize() && !end; i++) {
             for (int j = 0; j < maze.getSize() && !end; j++) {
                 if (i == maze.getSize()) {
-                    b = gc.getLab().getOutsideBlock();
+                    b = gc.getLabyrinth().getOutsideBlock();
                     j = maze.getSize() + 1;
                     i = 0;
                     end = true;
@@ -123,8 +123,8 @@ public final class LogicDrawPanelImpl implements LogicDrawPanel {
                 ls.add(pFinal);
             }
         }
-        for (final Player p : gc.getLab().getPlayers()) {
-            final Coordinate c = gc.getLab().getPlayerCoordinate(p);
+        for (final Player p : gc.getLabyrinth().getPlayers()) {
+            final Coordinate c = gc.getLabyrinth().getPlayerCoordinate(p);
             if (p.equals(gc.getCurrentPlayer())) {
                 pImageRotation = new PairImpl<>(
                         ImageLoader.getImage(p.getID() + "Turn").get(), Math.toRadians(ZERO_ROTATION));
@@ -142,9 +142,9 @@ public final class LogicDrawPanelImpl implements LogicDrawPanel {
                     pImageRotation, pNumbers);
             ls.add(pFinal);
         }
-        final Pair<Boolean, Enemy> e = gc.getLab().getEnemy();
+        final Pair<Boolean, Enemy> e = gc.getLabyrinth().getEnemy();
         if (e.getFirst()) {
-            final Coordinate c = gc.getLab().getEnemyCoordinate(e.getSecond());
+            final Coordinate c = gc.getLabyrinth().getEnemyCoordinate(e.getSecond());
             pImageRotation = new PairImpl<>(ImageLoader.getImage("Monster").get(), Math.toRadians(ZERO_ROTATION));
             pPositions = new PairImpl<>(
                     c.getColumn() * pixelSize + pixelSize / REDUCTION_SCALE_NUMBER,
@@ -156,8 +156,8 @@ public final class LogicDrawPanelImpl implements LogicDrawPanel {
                     pImageRotation, pNumbers);
             ls.add(pFinal);
         }
-        for (final PowerUp po : gc.getLab().getPowerUpsNotCollected()) {
-            final Coordinate c = gc.getLab().getPowerUpCoordinate(po);
+        for (final PowerUp po : gc.getLabyrinth().getPowerUpsNotCollected()) {
+            final Coordinate c = gc.getLabyrinth().getPowerUpCoordinate(po);
             pImageRotation = new PairImpl<>(
                     ImageLoader.getImage(po.getName()).get(), Math.toRadians(ZERO_ROTATION));
             pPositions = new PairImpl<>(

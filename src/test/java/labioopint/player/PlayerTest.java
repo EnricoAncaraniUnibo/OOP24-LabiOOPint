@@ -26,7 +26,7 @@ class PlayerTest {
     @Test
     void pickUpObjective() {
         GameController gc = new GameControllerImpl(new SettingsImpl(1, 2, 5, EnemyDifficulty.EASY));
-        final Labyrinth lab = gc.getLab();
+        final Labyrinth lab = gc.getLabyrinth();
         final Player p = lab.getPlayers().get(0);
         p.addObjective(new SwapPositionPowerUp(0));
         assertEquals(p.getUsablePowerUps().size(), 1);
@@ -36,7 +36,7 @@ class PlayerTest {
     @Test
     void consumePowerUp() {
         GameController gc = new GameControllerImpl(new SettingsImpl(1, 2, 5, EnemyDifficulty.EASY));
-        final Labyrinth lab = gc.getLab();
+        final Labyrinth lab = gc.getLabyrinth();
         final Player p = lab.getPlayers().get(0);
         final PowerUp pu = new SwapPositionPowerUp( 0);
         p.addObjective(pu);
@@ -48,7 +48,7 @@ class PlayerTest {
     @Test
     void movePlayer() {
         GameController gc = new GameControllerImpl(new SettingsImpl(1, 2, 5, EnemyDifficulty.EASY));
-        final Labyrinth lab = gc.getLab();
+        final Labyrinth lab = gc.getLabyrinth();
         final List<Player> ls = lab.getPlayers();
         Block b = new BlockImpl(BlockType.CORRIDOR);
         b.setRotation(Rotation.ZERO);

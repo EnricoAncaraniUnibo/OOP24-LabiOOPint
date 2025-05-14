@@ -32,7 +32,7 @@ class EnemyTest {
     void testEasyEnemyMovement() {
         Settings set = new SettingsImpl(1, 2, 3, EnemyDifficulty.EASY);
         GameController gc = new GameControllerImpl(set);
-        Labyrinth lab = gc.getLab();
+        Labyrinth lab = gc.getLabyrinth();
         final Enemy e = lab.getEnemy().getSecond();
         assertNotNull(e);
         final Coordinate initialPosition = lab.getEnemyCoordinate(e);
@@ -61,7 +61,7 @@ class EnemyTest {
     void testMediumEnemyMovement() {
         Settings set = new SettingsImpl(1, 2, 3, EnemyDifficulty.MEDIUM);
         GameController gc = new GameControllerImpl(set);
-        Labyrinth lab = gc.getLab();
+        Labyrinth lab = gc.getLabyrinth();
         final Enemy e = lab.getEnemy().getSecond();
         assertNotNull(e);
         final Coordinate initialPosition = lab.getEnemyCoordinate(e);
@@ -95,7 +95,7 @@ class EnemyTest {
     void testHardEnemyMovement() {
         Settings set = new SettingsImpl(1, 2, 3, EnemyDifficulty.HARD);
         GameController gc = new GameControllerImpl(set);
-        Labyrinth lab = gc.getLab();
+        Labyrinth lab = gc.getLabyrinth();
         final Enemy e = lab.getEnemy().getSecond();
         final Coordinate initialPosition = lab.getEnemyCoordinate(e);
         final List<Player> players = lab.getPlayers();
@@ -129,7 +129,7 @@ class EnemyTest {
     void testPlayerHit() {
         Settings set = new SettingsImpl(1, 2, 3, EnemyDifficulty.HARD);
         GameController gc = new GameControllerImpl(set);
-        Labyrinth lab = gc.getLab();
+        Labyrinth lab = gc.getLabyrinth();
         final List<Player> players = lab.getPlayers();
         final List<PowerUp> lPowerUps = lab.getPowerUpsNotCollected();
         final Block b = new BlockImpl(BlockType.CORRIDOR);

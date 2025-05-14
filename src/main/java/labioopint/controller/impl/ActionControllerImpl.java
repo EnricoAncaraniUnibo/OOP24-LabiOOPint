@@ -102,6 +102,7 @@ public final class ActionControllerImpl implements ActionController {
         for (PowerUp powerUp : labyrinth.getObjectives()) {
             if (powerUp.getName().equals(namePowerUp) && currentPlayer.getObjetives().contains(powerUp)) {
                 powerUp.activate(labyrinth, turnManager);
+                break;
             }
         }
     }

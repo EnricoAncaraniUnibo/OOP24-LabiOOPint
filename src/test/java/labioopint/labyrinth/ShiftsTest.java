@@ -20,7 +20,7 @@ class ShiftsTest {
     @Test
     void testShiftRowRight() {
         GameController gc = new GameControllerImpl(new SettingsImpl(1, 2, 5, EnemyDifficulty.EASY));
-        final Labyrinth lab = gc.getLab();
+        final Labyrinth lab = gc.getLabyrinth();
         final Block initialOutsideBlock = lab.getOutsideBlock();
         final List<Block> ls = new ArrayList<>();
         for (int i = 0; i < lab.getGrid().getSize(); i++) {
@@ -37,7 +37,7 @@ class ShiftsTest {
     @Test
     void testShiftRowLeft() {
         GameController gc = new GameControllerImpl(new SettingsImpl(1, 2, 5, EnemyDifficulty.EASY));
-        final Labyrinth lab = gc.getLab();
+        final Labyrinth lab = gc.getLabyrinth();
         final Block initialOutsideBlock = lab.getOutsideBlock();
         final List<Block> ls = new ArrayList<>();
         for (int i = lab.getGrid().getSize() - 1; i >= 0; i--) {
@@ -56,7 +56,7 @@ class ShiftsTest {
     @Test
     void testShiftColumnDown() {
         GameController gc = new GameControllerImpl(new SettingsImpl(1, 2, 5, EnemyDifficulty.EASY));
-        final Labyrinth lab = gc.getLab();
+        final Labyrinth lab = gc.getLabyrinth();
         final Block initialOutsideBlock = lab.getOutsideBlock();
         final List<Block> ls = new ArrayList<>();
         for (int i = 0; i < lab.getGrid().getSize(); i++) {
@@ -73,7 +73,7 @@ class ShiftsTest {
     @Test
     void testShiftColumnUp() {
         GameController gc = new GameControllerImpl(new SettingsImpl(1, 2, 5, EnemyDifficulty.EASY));
-        final Labyrinth lab = gc.getLab();
+        final Labyrinth lab = gc.getLabyrinth();
         final Block initialOutsideBlock = lab.getOutsideBlock();
         final List<Block> ls = new ArrayList<>();
         for (int i = lab.getGrid().getSize() - 1; i >= 0; i--) {

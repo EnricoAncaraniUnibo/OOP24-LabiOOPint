@@ -43,13 +43,13 @@ public class PowerUpTest {
         assertNotNull(powerup);
         tu.addAddictionalPowerUp(powerup);
         final List<PlayerImpl> players = tu.getPlayers();
-        final Coordinate player1Coordinate = tu.getLab().getPlayerCoordinate(players.get(0));
-        final Coordinate player2Coordinate = tu.getLab().getPlayerCoordinate(players.get(1));
+        final Coordinate player1Coordinate = tu.getLabyrinth().getPlayerCoordinate(players.get(0));
+        final Coordinate player2Coordinate = tu.getLabyrinth().getPlayerCoordinate(players.get(1));
         players.get(0).addObjective(powerup);
         powerup.collect();
         players.get(0).getUsablePowerUps().get(0).activate();
-        assertEquals(player1Coordinate, tu.getLab().getPlayerCoordinate(players.get(1)));
-        assertEquals(player2Coordinate, tu.getLab().getPlayerCoordinate(players.get(0)));
+        assertEquals(player1Coordinate, tu.getLabyrinth().getPlayerCoordinate(players.get(1)));
+        assertEquals(player2Coordinate, tu.getLabyrinth().getPlayerCoordinate(players.get(0)));
     }
 
     @Test
@@ -62,13 +62,13 @@ public class PowerUpTest {
         player.addObjective(powerup);
         powerup.collect();
         player.getUsablePowerUps().get(0).activate();
-        tu.getLab().setBlock(new BlockImpl(BlockType.CORRIDOR), new Coordinate(2, 2));
-        tu.getLab().setBlock(new BlockImpl(BlockType.CORRIDOR), new Coordinate(1, 2));
-        tu.getLab().playerUpdateCoordinate(player, new Coordinate(1, 2));
+        tu.getLabyrinth().setBlock(new BlockImpl(BlockType.CORRIDOR), new Coordinate(2, 2));
+        tu.getLabyrinth().setBlock(new BlockImpl(BlockType.CORRIDOR), new Coordinate(1, 2));
+        tu.getLabyrinth().playerUpdateCoordinate(player, new Coordinate(1, 2));
         tu.nextAction();
         tu.nextAction();
-        assertEquals(tu.getLab().getPlayerCoordinate(player),
-                tu.getLab().getEnemyCoordinate(tu.getEnemy().getSecond()));
+        assertEquals(tu.getLabyrinth().getPlayerCoordinate(player),
+                tu.getLabyrinth().getEnemyCoordinate(tu.getEnemy().getSecond()));
         assertEquals(player.getObjetives().size(), 1);
     }
 

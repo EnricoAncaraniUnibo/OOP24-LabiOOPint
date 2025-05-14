@@ -59,8 +59,8 @@ public final class InformationMessengerImpl implements InformationMessenger {
 
     @Override
     public Optional<String> getWinner() {
-        if (gc.getLab().checkWinner().isPresent()) {
-            return Optional.of("Ha vinto: " + gc.getLab().checkWinner().get().getID());
+        if (gc.getLabyrinth().checkWinner().isPresent()) {
+            return Optional.of("Ha vinto: " + gc.getLabyrinth().checkWinner().get().getID());
         }
         return Optional.empty();
     }
@@ -68,7 +68,7 @@ public final class InformationMessengerImpl implements InformationMessenger {
     @Override
     public String getNamesScores() {
         final StringBuilder stringBuilder = new StringBuilder();
-        for (final Player player : gc.getLab().getPlayers()) {
+        for (final Player player : gc.getLabyrinth().getPlayers()) {
             stringBuilder.append(player.getID()).append(": ").append(player.getObjetives().size()).append('\n');
         }
         return stringBuilder.toString();
