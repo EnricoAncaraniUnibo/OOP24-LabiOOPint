@@ -53,4 +53,9 @@ public final class TurnManagerImpl implements TurnManager {
             currentAction = ActionType.BLOCK_PLACEMENT;
         }
     }
+
+    @Override
+    public boolean getDoubleTurnValue() {
+        return doubleTurn;
+    }
 }

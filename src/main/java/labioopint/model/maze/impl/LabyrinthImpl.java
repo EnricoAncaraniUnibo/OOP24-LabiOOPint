@@ -339,6 +339,7 @@ public final class LabyrinthImpl implements Labyrinth {
         for (final Coordinate coordinate : coor) {
             mapOfEnemy.remove(e);
             mapOfEnemy.addElemWithCoordinate(e, coordinate);
+            e.playerHit(getPlayers(), this);
         }
     }
 

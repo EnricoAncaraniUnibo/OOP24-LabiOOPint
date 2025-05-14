@@ -36,4 +36,6 @@ public interface TurnManager extends Serializable {
      */
     void nextAction();
 
+    boolean getDoubleTurnValue();
+
 }

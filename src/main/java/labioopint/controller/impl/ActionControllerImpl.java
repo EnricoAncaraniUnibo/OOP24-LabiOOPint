@@ -59,11 +59,16 @@ public final class ActionControllerImpl implements ActionController {
                             labyrinth.movePlayer(currentPlayer, dir);
                         }
                     } else if ("End Turn".equals(action)) {
+                        boolean enemyStop = turnManager.getDoubleTurnValue();
                         turnManager.nextAction();
-                        if (labyrinth.getEnemy().getFirst()) {
+                        if (labyrinth.getEnemy().getFirst() && !enemyStop) {
                             labyrinth.enemyUpdateCoordinate(labyrinth.getEnemy().getSecond(), labyrinth.getEnemy()
                                     .getSecond().move(labyrinth.getPlayers(), actionPredicate, labyrinth));
-                            labyrinth.getEnemy().getSecond().playerHit(labyrinth.getPlayers(), labyrinth);
+                            if (labyrinth.getEnemy().getSecond().isPresentLastHit()) {
+                                if(labyrinth.getEnemy().getSecond().getLastHit().equals(labyrinth.getPlayers().get(turnManager.getCurrentPlayer()))){
+                                    labyrinth.getEnemy().getSecond().clearLastHit();
+                                }
+                            }
                         }
                     } else {
                         checkPowerUp((String) action, labyrinth, currentPlayer, turnManager);
@@ -100,7 +105,7 @@ public final class ActionControllerImpl implements ActionController {
     private void checkPowerUp(final String namePowerUp, final Labyrinth labyrinth, final Player currentPlayer,
             final TurnManager turnManager) {
         for (PowerUp powerUp : labyrinth.getObjectives()) {
-            if (powerUp.getName().equals(namePowerUp) && currentPlayer.getObjetives().contains(powerUp)) {
+            if (powerUp.getName().equals(namePowerUp) && currentPlayer.getUsablePowerUps().contains(powerUp)) {
                 powerUp.activate(labyrinth, turnManager);
                 break;
             }
