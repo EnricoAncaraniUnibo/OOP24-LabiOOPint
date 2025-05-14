@@ -8,8 +8,10 @@ import org.junit.jupiter.api.Test;
 import labioopint.controller.api.GameController;
 import labioopint.model.block.api.BlockType;
 import labioopint.model.block.impl.BlockImpl;
+import labioopint.model.core.api.TurnManager;
 import labioopint.model.core.impl.TurnManagerImpl;
 import labioopint.model.enemy.api.EnemyDifficulty;
+import labioopint.model.maze.api.Labyrinth;
 import labioopint.model.maze.impl.LabyrinthImpl;
 import labioopint.model.player.impl.PlayerImpl;
 import labioopint.model.powerup.api.PowerUp;
@@ -28,13 +30,16 @@ public class PowerUpTest {
     @Test
     void testDoubleTurnPowerUp() {
         final PowerUp powerup = new DoubleTurnPowerUp(0);
-        final LabyrinthImpl lab = new LabyrinthImpl(5, List.of(new PlayerImpl("1"), new PlayerImpl("2")), List.of(powerup));
-        final TurnManagerImpl tu = new TurnManagerImpl(2);
+        GameController gc = new GameControllerImpl(new SettingsImpl(0, 2, 0, EnemyDifficulty.EASY));
+        final Labyrinth lab = gc.getLabyrinth();
+        final TurnManager tu = gc.getTurnManager();
         assertNotNull(powerup);
         final PlayerImpl player1 = (PlayerImpl) lab.getPlayers().get(tu.getCurrentPlayer());
         player1.addObjective(powerup);
         powerup.collect();
         player1.getUsablePowerUps().get(0).activate(lab,tu);
+        tu.nextAction();
+        gc.action("End Turn");
         final PlayerImpl player2 = (PlayerImpl) lab.getPlayers().get(tu.getCurrentPlayer());
         assertEquals(player2, player1);
     }
