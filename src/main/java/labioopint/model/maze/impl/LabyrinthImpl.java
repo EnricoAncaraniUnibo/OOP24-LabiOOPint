@@ -318,7 +318,7 @@ public final class LabyrinthImpl implements Labyrinth {
         } while (repeat);
         mapOfPowerUps.addElemWithCoordinate(p, c);
         boolean present = false;
-        for (PowerUp powerUp : objectives) {
+        for (final PowerUp powerUp : objectives) {
             if (p.equals(powerUp)) {
                 present = true;
             }
@@ -330,7 +330,7 @@ public final class LabyrinthImpl implements Labyrinth {
 
     @Override
     public void playerUpdateCoordinate(final Player p, final Coordinate coor) {
-        mapOfPlayers.remove((Player) p);
+        mapOfPlayers.remove(p);
         mapOfPlayers.addElemWithCoordinate((PlayerImpl) p, coor);
     }
 
@@ -351,7 +351,7 @@ public final class LabyrinthImpl implements Labyrinth {
 
     @Override
     public List<Player> getPlayers() {
-        return mapOfPlayers.getElements().stream().sorted(new Comparator<Player>() {
+        return mapOfPlayers.getElements().stream().sorted(new Comparator<>() {
 
             @Override
             public int compare(final Player o1, final Player o2) {
@@ -363,10 +363,10 @@ public final class LabyrinthImpl implements Labyrinth {
 
     @Override
     public Pair<Boolean, Enemy> getEnemy() {
-        if (mapOfEnemy.getElements().size() == 0) {
-            return new PairImpl<Boolean, Enemy>(false, null);
+        if (mapOfEnemy.getElements().isEmpty()) {
+            return new PairImpl<>(false, null);
         }
-        return new PairImpl<Boolean, Enemy>(true, mapOfEnemy.getElements().stream().toList().get(0));
+        return new PairImpl<>(true, mapOfEnemy.getElements().stream().toList().get(0));
     }
 
     @Override

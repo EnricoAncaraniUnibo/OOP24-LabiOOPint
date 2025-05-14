@@ -17,9 +17,15 @@ import labioopint.model.utilities.impl.SettingsImpl;
 
 class ShiftsTest {
 
+    private static final int ENEMY_NUMBER = 1;
+    private static final int PLAYER_NUMBER = 2;
+    private static final int POWERUP_NUMBER = 5;
+    private static final EnemyDifficulty ENEMY_DIFFICULTY = EnemyDifficulty.EASY;
+
     @Test
     void testShiftRowRight() {
-        GameController gc = new GameControllerImpl(new SettingsImpl(1, 2, 5, EnemyDifficulty.EASY));
+        final GameController gc = new GameControllerImpl(
+                new SettingsImpl(ENEMY_NUMBER, PLAYER_NUMBER, POWERUP_NUMBER, ENEMY_DIFFICULTY));
         final Labyrinth lab = gc.getLabyrinth();
         final Block initialOutsideBlock = lab.getOutsideBlock();
         final List<Block> ls = new ArrayList<>();
@@ -36,7 +42,8 @@ class ShiftsTest {
 
     @Test
     void testShiftRowLeft() {
-        GameController gc = new GameControllerImpl(new SettingsImpl(1, 2, 5, EnemyDifficulty.EASY));
+        final GameController gc = new GameControllerImpl(
+                new SettingsImpl(ENEMY_NUMBER, PLAYER_NUMBER, POWERUP_NUMBER, ENEMY_DIFFICULTY));
         final Labyrinth lab = gc.getLabyrinth();
         final Block initialOutsideBlock = lab.getOutsideBlock();
         final List<Block> ls = new ArrayList<>();
@@ -44,7 +51,8 @@ class ShiftsTest {
             ls.add(lab.getGrid().getBlock(new CoordinateImpl(2, i)).get());
         }
         lab.moveBlock(new CoordinateImpl(2, lab.getGrid().getSize() - 1), Direction.LEFT);
-        assertEquals(initialOutsideBlock, lab.getGrid().getBlock(new CoordinateImpl(2, lab.getGrid().getSize() - 1)).get());
+        assertEquals(initialOutsideBlock,
+                lab.getGrid().getBlock(new CoordinateImpl(2, lab.getGrid().getSize() - 1)).get());
         int index = 0;
         for (int i = lab.getGrid().getSize() - 1; i > 0; i--) {
             assertEquals(ls.get(index), lab.getGrid().getBlock(new CoordinateImpl(2, i - 1)).get());
@@ -55,7 +63,8 @@ class ShiftsTest {
 
     @Test
     void testShiftColumnDown() {
-        GameController gc = new GameControllerImpl(new SettingsImpl(1, 2, 5, EnemyDifficulty.EASY));
+        final GameController gc = new GameControllerImpl(
+                new SettingsImpl(ENEMY_NUMBER, PLAYER_NUMBER, POWERUP_NUMBER, ENEMY_DIFFICULTY));
         final Labyrinth lab = gc.getLabyrinth();
         final Block initialOutsideBlock = lab.getOutsideBlock();
         final List<Block> ls = new ArrayList<>();
@@ -72,7 +81,8 @@ class ShiftsTest {
 
     @Test
     void testShiftColumnUp() {
-        GameController gc = new GameControllerImpl(new SettingsImpl(1, 2, 5, EnemyDifficulty.EASY));
+        final GameController gc = new GameControllerImpl(
+                new SettingsImpl(ENEMY_NUMBER, PLAYER_NUMBER, POWERUP_NUMBER, ENEMY_DIFFICULTY));
         final Labyrinth lab = gc.getLabyrinth();
         final Block initialOutsideBlock = lab.getOutsideBlock();
         final List<Block> ls = new ArrayList<>();
@@ -80,7 +90,8 @@ class ShiftsTest {
             ls.add(lab.getGrid().getBlock(new CoordinateImpl(i, 2)).get());
         }
         lab.moveBlock(new CoordinateImpl(lab.getGrid().getSize() - 1, 2), Direction.UP);
-        assertEquals(initialOutsideBlock, lab.getGrid().getBlock(new CoordinateImpl(lab.getGrid().getSize() - 1, 2)).get());
+        assertEquals(initialOutsideBlock,
+                lab.getGrid().getBlock(new CoordinateImpl(lab.getGrid().getSize() - 1, 2)).get());
         int index = 0;
         for (int i = lab.getGrid().getSize() - 1; i > 0; i--) {
             assertEquals(ls.get(index), lab.getGrid().getBlock(new CoordinateImpl(i - 1, 2)).get());

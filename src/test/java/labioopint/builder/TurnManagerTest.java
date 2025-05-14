@@ -30,15 +30,15 @@ class TurnManagerTest {
 
     @Test
     void testTurnManagerActions() {
-        Player p1 = lab.getPlayers().get(tm.getCurrentPlayer());
+        final Player p1 = lab.getPlayers().get(tm.getCurrentPlayer());
         assertEquals(tm.getCurrentAction(), ActionType.BLOCK_PLACEMENT);
         tm.nextAction();
         assertEquals(tm.getCurrentAction(), ActionType.PLAYER_MOVEMENT);
-        Player p2 = lab.getPlayers().get(tm.getCurrentPlayer());
+        final Player p2 = lab.getPlayers().get(tm.getCurrentPlayer());
         assertEquals(p1, p2);
         tm.nextAction();
         assertEquals(tm.getCurrentAction(), ActionType.BLOCK_PLACEMENT);
-        Player p3 = lab.getPlayers().get(tm.getCurrentPlayer());
+        final Player p3 = lab.getPlayers().get(tm.getCurrentPlayer());
         assertNotEquals(p2, p3);
     }
 }

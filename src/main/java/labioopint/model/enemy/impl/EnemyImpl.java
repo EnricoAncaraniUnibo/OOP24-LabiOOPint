@@ -50,7 +50,7 @@ public final class EnemyImpl extends MovableImpl implements Enemy {
         for (final Player player : players) {
             if (labyrinth.getEnemyCoordinate(this).equals(labyrinth.getPlayerCoordinate(player))) {
                 if (!player.isInvincibilityStatus() && !player.equals(lastHit) && !player.getObjetives().isEmpty()) {
-                    PowerUp pou = player.getObjetives().get(0);
+                    final PowerUp pou = player.getObjetives().get(0);
                     player.removeObjectiveSelect(pou);
                     lastHit = player;
                     labyrinth.addPowerUp(pou);

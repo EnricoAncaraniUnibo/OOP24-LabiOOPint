@@ -26,7 +26,7 @@ public final class StealObjectPowerUp extends PowerUpImpl {
 
     @Override
     public void activate(final Labyrinth lab, final TurnManager turn) {
-        Player p = lab.getPlayers().get(turn.getCurrentPlayer());
+        final Player p = lab.getPlayers().get(turn.getCurrentPlayer());
         if (isCollected()) {
             final List<Player> players = lab.getPlayers();
             final List<Player> targetPlayers = players.stream()

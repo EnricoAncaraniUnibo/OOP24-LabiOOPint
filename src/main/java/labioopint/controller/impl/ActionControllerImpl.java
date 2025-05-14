@@ -11,6 +11,10 @@ import labioopint.model.maze.api.Labyrinth;
 import labioopint.model.player.api.Player;
 import labioopint.model.powerup.api.PowerUp;
 
+/**
+ * This class have to translate the action from the game view
+ * into commands.
+ */
 public final class ActionControllerImpl implements ActionController {
     public static final long serialVersionUID = 1L;
 
@@ -48,7 +52,7 @@ public final class ActionControllerImpl implements ActionController {
                 }
                 break;
 
-            case ActionType.PLAYER_MOVEMENT:
+            default:
                 final Player currentPlayer = labyrinth.getPlayers().get(turnManager.getCurrentPlayer());
                 if (action instanceof String) {
                     if ("←".equals(action) || "→".equals(action) || "↑".equals(action) || "↓".equals(action)) {
@@ -59,23 +63,21 @@ public final class ActionControllerImpl implements ActionController {
                             labyrinth.movePlayer(currentPlayer, dir);
                         }
                     } else if ("End Turn".equals(action)) {
-                        boolean enemyStop = turnManager.getDoubleTurnValue();
+                        final boolean enemyStop = turnManager.isDoubleTurn();
                         turnManager.nextAction();
                         if (labyrinth.getEnemy().getFirst() && !enemyStop) {
                             labyrinth.enemyUpdateCoordinate(labyrinth.getEnemy().getSecond(), labyrinth.getEnemy()
                                     .getSecond().move(labyrinth.getPlayers(), actionPredicate, labyrinth));
-                            if (labyrinth.getEnemy().getSecond().isPresentLastHit()) {
-                                if(labyrinth.getEnemy().getSecond().getLastHit().equals(labyrinth.getPlayers().get(turnManager.getCurrentPlayer()))){
-                                    labyrinth.getEnemy().getSecond().clearLastHit();
-                                }
+                            if (labyrinth.getEnemy().getSecond().isPresentLastHit()
+                                    && labyrinth.getEnemy().getSecond().getLastHit()
+                                            .equals(labyrinth.getPlayers().get(turnManager.getCurrentPlayer()))) {
+                                labyrinth.getEnemy().getSecond().clearLastHit();
                             }
                         }
                     } else {
                         checkPowerUp((String) action, labyrinth, currentPlayer, turnManager);
                     }
                 }
-                break;
-            default:
                 break;
         }
     }
@@ -104,7 +106,7 @@ public final class ActionControllerImpl implements ActionController {
 
     private void checkPowerUp(final String namePowerUp, final Labyrinth labyrinth, final Player currentPlayer,
             final TurnManager turnManager) {
-        for (PowerUp powerUp : labyrinth.getObjectives()) {
+        for (final PowerUp powerUp : labyrinth.getObjectives()) {
             if (powerUp.getName().equals(namePowerUp) && currentPlayer.getUsablePowerUps().contains(powerUp)) {
                 powerUp.activate(labyrinth, turnManager);
                 break;

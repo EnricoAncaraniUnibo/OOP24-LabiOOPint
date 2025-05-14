@@ -8,6 +8,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import labioopint.model.core.api.Builder;
 import labioopint.model.core.impl.BuilderImpl;
 import labioopint.model.enemy.api.Enemy;
 import labioopint.model.enemy.api.EnemyDifficulty;
@@ -19,19 +20,18 @@ import labioopint.model.utilities.impl.SettingsImpl;
 
 class BuilderImplTest {
 
-    private BuilderImpl builder;
     private Labyrinth lab;
 
     @BeforeEach
     void setUp() {
         final Settings settings = new SettingsImpl(1, 2, 3, EnemyDifficulty.MEDIUM);
-        builder = new BuilderImpl(settings);
+        final Builder builder = new BuilderImpl(settings);
         lab = builder.createMaze();
     }
 
     @Test
     void testCreatePlayers() {
-        List<Player> ls = lab.getPlayers();
+        final List<Player> ls = lab.getPlayers();
         assertEquals(ls.size(), 2);
         for (final Player player : ls) {
             assertNotNull(player);
@@ -40,14 +40,14 @@ class BuilderImplTest {
 
     @Test
     void testCreateEnemy() {
-        Enemy e = lab.getEnemy().getSecond();
+        final Enemy e = lab.getEnemy().getSecond();
         assertTrue(lab.getEnemy().getFirst());
         assertNotNull(e);
     }
 
     @Test
     void testCreatePowerUps() {
-        List<PowerUp> ls = lab.getPowerUpsNotCollected();
+        final List<PowerUp> ls = lab.getPowerUpsNotCollected();
         assertEquals(ls.size(), 3);
         for (final PowerUp power : ls) {
             assertNotNull(power);

@@ -71,7 +71,7 @@ public final class LogicDrawPanelImpl implements LogicDrawPanel {
         Pair<Integer, Integer> pSize;
         Pair<Pair<Integer, Integer>, Pair<Integer, Integer>> pNumbers;
         Pair<Pair<Image, Double>, Pair<Pair<Integer, Integer>, Pair<Integer, Integer>>> pFinal;
-        Maze maze = gc.getLabyrinth().getGrid();
+        final Maze maze = gc.getLabyrinth().getGrid();
         for (int i = 0; i <= maze.getSize() && !end; i++) {
             for (int j = 0; j < maze.getSize() && !end; j++) {
                 if (i == maze.getSize()) {

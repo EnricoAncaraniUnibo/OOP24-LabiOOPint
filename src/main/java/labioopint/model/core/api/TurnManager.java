@@ -36,6 +36,11 @@ public interface TurnManager extends Serializable {
      */
     void nextAction();
 
-    boolean getDoubleTurnValue();
+    /**
+     * Give the indication of if this turn will be repeated.
+     * 
+     * @return a boolean, true if the next turn will be played by the same player, false otherwise
+     */
+    boolean isDoubleTurn();
 
 }

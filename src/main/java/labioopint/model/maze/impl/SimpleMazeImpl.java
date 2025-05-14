@@ -12,6 +12,7 @@ public class SimpleMazeImpl extends MazeImpl implements SimpleMaze {
     private static final Integer CORNER_BLOCKS = 16;
     private static final Integer CORRIDOR_BLOCKS = 12;
     private static final Integer CROSSING_BLOCKS = 18;
+    public static final long serialVersionUID = 1L;
     /**
      * Construct the maze by using the constructor of a general mazeImpl.
      * @param size the size of the maze

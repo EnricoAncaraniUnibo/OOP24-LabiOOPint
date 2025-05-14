@@ -19,6 +19,7 @@ public final class GameControllerImpl implements GameController {
     private final TurnManager turnManager;
     private final ActionController actionController;
     private final SaveController saveController;
+    public static final long serialVersionUID = 1L;
 
     /**
      * Constructs an {@code GameControllerImpl} with the settings.
@@ -27,7 +28,7 @@ public final class GameControllerImpl implements GameController {
      */
     public GameControllerImpl(final Settings settings) {
         saveController = new SaveControllerImpl();
-        Builder builder = new BuilderImpl(settings);
+        final Builder builder = new BuilderImpl(settings);
         labyrinth = builder.createMaze();
         turnManager = builder.createTurnManager();
         actionController = builder.createActionController();

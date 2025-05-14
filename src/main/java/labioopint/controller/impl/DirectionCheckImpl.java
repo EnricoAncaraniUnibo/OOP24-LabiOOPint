@@ -12,6 +12,8 @@ import labioopint.model.maze.api.Maze;
  */
 public final class DirectionCheckImpl implements DirectionCheck {
 
+    public static final long serialVersionUID = 1L;
+
     @Override
     public boolean checkRightEntrance(final Coordinate coord, final Labyrinth labyrinth) {
         final Maze grid = labyrinth.getGrid();

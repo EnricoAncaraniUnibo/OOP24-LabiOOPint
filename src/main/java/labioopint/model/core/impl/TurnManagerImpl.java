@@ -13,7 +13,7 @@ public final class TurnManagerImpl implements TurnManager {
     private ActionType currentAction;
     private int currentPlayer;
     private final int numberOfPlayers;
-    private boolean doubleTurn = false;
+    private boolean doubleTurn;
 
     /**
      * Construction of the {@code TurnManagerImpl} with the number of players.
@@ -21,6 +21,7 @@ public final class TurnManagerImpl implements TurnManager {
      * @param numberOfPlayers number of players playing the game.
      */
     public TurnManagerImpl(final int numberOfPlayers) {
+        doubleTurn = false;
         currentAction = ActionType.BLOCK_PLACEMENT;
         currentPlayer = 0;
         this.numberOfPlayers = numberOfPlayers;
@@ -45,7 +46,7 @@ public final class TurnManagerImpl implements TurnManager {
     public void nextAction() {
         if (currentAction == ActionType.BLOCK_PLACEMENT) {
             currentAction = ActionType.PLAYER_MOVEMENT;
-        } else if (currentAction == ActionType.PLAYER_MOVEMENT && doubleTurn == false) {
+        } else if (currentAction == ActionType.PLAYER_MOVEMENT && !doubleTurn) {
             currentPlayer = (currentPlayer + 1) % numberOfPlayers;
             currentAction = ActionType.BLOCK_PLACEMENT;
         } else {
@@ -55,7 +56,7 @@ public final class TurnManagerImpl implements TurnManager {
     }
 
     @Override
-    public boolean getDoubleTurnValue() {
+    public boolean isDoubleTurn() {
         return doubleTurn;
     }
 }

@@ -36,7 +36,7 @@ public final class LoadControllerImpl implements LoadController {
             fis.close();
             isLoaded = true;
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            //TODO
         }
     }
 

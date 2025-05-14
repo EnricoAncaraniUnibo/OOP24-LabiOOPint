@@ -27,5 +27,6 @@ public interface Coordinate extends Serializable {
      * @param obj the object to compare with
      * @return {@code true} if the object is equal to this coordinate, {@code false} otherwise
      */
+    @Override
     boolean equals(Object obj);
 }

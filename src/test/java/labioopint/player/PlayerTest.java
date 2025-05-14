@@ -23,9 +23,15 @@ import labioopint.model.utilities.impl.SettingsImpl;
 
 class PlayerTest {
 
+    private static final int ENEMY_NUMBER = 1;
+    private static final int PLAYER_NUMBER = 2;
+    private static final int POWERUP_NUMBER = 5;
+    private static final EnemyDifficulty ENEMY_DIFFICULTY = EnemyDifficulty.EASY;
+
     @Test
     void pickUpObjective() {
-        GameController gc = new GameControllerImpl(new SettingsImpl(1, 2, 5, EnemyDifficulty.EASY));
+        final GameController gc = new GameControllerImpl(
+                new SettingsImpl(ENEMY_NUMBER, PLAYER_NUMBER, POWERUP_NUMBER, ENEMY_DIFFICULTY));
         final Labyrinth lab = gc.getLabyrinth();
         final Player p = lab.getPlayers().get(0);
         p.addObjective(new SwapPositionPowerUp(0));
@@ -35,10 +41,11 @@ class PlayerTest {
 
     @Test
     void consumePowerUp() {
-        GameController gc = new GameControllerImpl(new SettingsImpl(1, 2, 5, EnemyDifficulty.EASY));
+        final GameController gc = new GameControllerImpl(
+                new SettingsImpl(ENEMY_NUMBER, PLAYER_NUMBER, POWERUP_NUMBER, ENEMY_DIFFICULTY));
         final Labyrinth lab = gc.getLabyrinth();
         final Player p = lab.getPlayers().get(0);
-        final PowerUp pu = new SwapPositionPowerUp( 0);
+        final PowerUp pu = new SwapPositionPowerUp(0);
         p.addObjective(pu);
         p.removePowerUp(pu);
         assertEquals(p.getUsablePowerUps().size(), 0);
@@ -47,7 +54,8 @@ class PlayerTest {
 
     @Test
     void movePlayer() {
-        GameController gc = new GameControllerImpl(new SettingsImpl(1, 2, 5, EnemyDifficulty.EASY));
+        final GameController gc = new GameControllerImpl(
+                new SettingsImpl(ENEMY_NUMBER, PLAYER_NUMBER, POWERUP_NUMBER, ENEMY_DIFFICULTY));
         final Labyrinth lab = gc.getLabyrinth();
         final List<Player> ls = lab.getPlayers();
         Block b = new BlockImpl(BlockType.CORRIDOR);

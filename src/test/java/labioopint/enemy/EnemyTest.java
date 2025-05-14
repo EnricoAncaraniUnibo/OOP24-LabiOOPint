@@ -28,11 +28,13 @@ import labioopint.model.utilities.impl.SettingsImpl;
 
 class EnemyTest {
 
+    private static final String END_TURN_STRING = "End Turn";
+
     @Test
     void testEasyEnemyMovement() {
-        Settings set = new SettingsImpl(1, 2, 3, EnemyDifficulty.EASY);
-        GameController gc = new GameControllerImpl(set);
-        Labyrinth lab = gc.getLabyrinth();
+        final Settings set = new SettingsImpl(1, 2, 3, EnemyDifficulty.EASY);
+        final GameController gc = new GameControllerImpl(set);
+        final Labyrinth lab = gc.getLabyrinth();
         final Enemy e = lab.getEnemy().getSecond();
         assertNotNull(e);
         final Coordinate initialPosition = lab.getEnemyCoordinate(e);
@@ -44,7 +46,7 @@ class EnemyTest {
         lab.setBlock(b, new CoordinateImpl(3, 2));
         assertEquals(initialPosition, newCoordinate);
         gc.getTurnManager().nextAction();
-        gc.action("End Turn");
+        gc.action(END_TURN_STRING);
         newCoordinate = lab.getEnemyCoordinate(e);
         assertEquals(initialPosition, newCoordinate);
         final Block b1 = new BlockImpl(BlockType.CORRIDOR);
@@ -52,16 +54,16 @@ class EnemyTest {
         lab.setBlock(b1, new CoordinateImpl(2, 2));
         lab.setBlock(b1, new CoordinateImpl(1, 2));
         gc.getTurnManager().nextAction();
-        gc.action("End Turn");
+        gc.action(END_TURN_STRING);
         newCoordinate = lab.getEnemyCoordinate(e);
         assertNotEquals(initialPosition, newCoordinate);
     }
 
     @Test
     void testMediumEnemyMovement() {
-        Settings set = new SettingsImpl(1, 2, 3, EnemyDifficulty.MEDIUM);
-        GameController gc = new GameControllerImpl(set);
-        Labyrinth lab = gc.getLabyrinth();
+        final Settings set = new SettingsImpl(1, 2, 3, EnemyDifficulty.MEDIUM);
+        final GameController gc = new GameControllerImpl(set);
+        final Labyrinth lab = gc.getLabyrinth();
         final Enemy e = lab.getEnemy().getSecond();
         assertNotNull(e);
         final Coordinate initialPosition = lab.getEnemyCoordinate(e);
@@ -73,7 +75,7 @@ class EnemyTest {
         lab.setBlock(b, new CoordinateImpl(3, 2));
         assertEquals(initialPosition, newCoordinate);
         gc.getTurnManager().nextAction();
-        gc.action("End Turn");
+        gc.action(END_TURN_STRING);
         newCoordinate = lab.getEnemyCoordinate(e);
         assertEquals(initialPosition, newCoordinate);
         final Block b1 = new BlockImpl(BlockType.CORRIDOR);
@@ -81,11 +83,11 @@ class EnemyTest {
         lab.setBlock(b1, new CoordinateImpl(2, 2));
         lab.setBlock(b1, new CoordinateImpl(1, 2));
         gc.getTurnManager().nextAction();
-        gc.action("End Turn");
+        gc.action(END_TURN_STRING);
         newCoordinate = lab.getEnemyCoordinate(e);
         while (initialPosition.equals(newCoordinate)) {
             gc.getTurnManager().nextAction();
-            gc.action("End Turn");
+            gc.action(END_TURN_STRING);
             newCoordinate = lab.getEnemyCoordinate(e);
         }
         assertNotEquals(initialPosition, newCoordinate);
@@ -93,9 +95,9 @@ class EnemyTest {
 
     @Test
     void testHardEnemyMovement() {
-        Settings set = new SettingsImpl(1, 2, 3, EnemyDifficulty.HARD);
-        GameController gc = new GameControllerImpl(set);
-        Labyrinth lab = gc.getLabyrinth();
+        final Settings set = new SettingsImpl(1, 2, 3, EnemyDifficulty.HARD);
+        final GameController gc = new GameControllerImpl(set);
+        final Labyrinth lab = gc.getLabyrinth();
         final Enemy e = lab.getEnemy().getSecond();
         final Coordinate initialPosition = lab.getEnemyCoordinate(e);
         final List<Player> players = lab.getPlayers();
@@ -107,7 +109,7 @@ class EnemyTest {
         lab.setBlock(b, new CoordinateImpl(initialPosition.getRow(), initialPosition.getColumn()));
         lab.setBlock(b, new CoordinateImpl(initialPosition.getRow(), initialPosition.getColumn() - 2));
         gc.getTurnManager().nextAction();
-        gc.action("End Turn");
+        gc.action(END_TURN_STRING);
         assertEquals(lab.getPlayerCoordinate(players.get(0)), lab.getEnemyCoordinate(e));
 
         final List<Coordinate> ls = new ArrayList<>();
@@ -121,15 +123,15 @@ class EnemyTest {
         lab.setBlock(b, new CoordinateImpl(initialPosition.getRow(), initialPosition.getColumn()));
         lab.setBlock(b, new CoordinateImpl(initialPosition.getRow(), initialPosition.getColumn() + 2));
         gc.getTurnManager().nextAction();
-        gc.action("End Turn");
+        gc.action(END_TURN_STRING);
         assertEquals(lab.getPlayerCoordinate(players.get(0)), lab.getEnemyCoordinate(e));
     }
 
     @Test
     void testPlayerHit() {
-        Settings set = new SettingsImpl(1, 2, 3, EnemyDifficulty.HARD);
-        GameController gc = new GameControllerImpl(set);
-        Labyrinth lab = gc.getLabyrinth();
+        final Settings set = new SettingsImpl(1, 2, 3, EnemyDifficulty.HARD);
+        final GameController gc = new GameControllerImpl(set);
+        final Labyrinth lab = gc.getLabyrinth();
         final List<Player> players = lab.getPlayers();
         final List<PowerUp> lPowerUps = lab.getPowerUpsNotCollected();
         final Block b = new BlockImpl(BlockType.CORRIDOR);
@@ -143,7 +145,7 @@ class EnemyTest {
         assertEquals(players.get(0).getObjetives().size(), 1);
         assertEquals(lab.getPowerUpsNotCollected().size(), lPowerUps.size() - 1);
         gc.getTurnManager().nextAction();
-        gc.action("End Turn");
+        gc.action(END_TURN_STRING);
         assertEquals(players.get(0).getObjetives().size(), 0);
         assertEquals(lab.getPowerUpsNotCollected().size(), lPowerUps.size());
     }

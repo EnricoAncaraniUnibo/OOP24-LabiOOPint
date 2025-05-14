@@ -63,7 +63,7 @@ public final class BuilderImpl implements Builder {
         } else if (numberPlayer == 4 || numberPlayer == 3) {
             size = BIG_LABYRINTH;
         }
-        Labyrinth lab;
+        final Labyrinth lab;
         if (enemyPresent) {
             lab = new LabyrinthImpl(size, this.createPlayers(), this.createPowerUps(), this.createEnemy());
         } else {

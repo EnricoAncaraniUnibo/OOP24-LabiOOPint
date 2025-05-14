@@ -25,19 +25,19 @@ import labioopint.model.utilities.impl.SettingsImpl;
 import labioopint.model.player.api.Player;
 import labioopint.controller.impl.GameControllerImpl;
 
-public class PowerUpTest {
+class PowerUpTest {
 
     @Test
     void testDoubleTurnPowerUp() {
         final PowerUp powerup = new DoubleTurnPowerUp(0);
-        GameController gc = new GameControllerImpl(new SettingsImpl(0, 2, 0, EnemyDifficulty.EASY));
+        final GameController gc = new GameControllerImpl(new SettingsImpl(0, 2, 0, EnemyDifficulty.EASY));
         final Labyrinth lab = gc.getLabyrinth();
         final TurnManager tu = gc.getTurnManager();
         assertNotNull(powerup);
         final PlayerImpl player1 = (PlayerImpl) lab.getPlayers().get(tu.getCurrentPlayer());
         player1.addObjective(powerup);
         powerup.collect();
-        player1.getUsablePowerUps().get(0).activate(lab,tu);
+        player1.getUsablePowerUps().get(0).activate(lab, tu);
         tu.nextAction();
         gc.action("End Turn");
         final PlayerImpl player2 = (PlayerImpl) lab.getPlayers().get(tu.getCurrentPlayer());

@@ -28,8 +28,8 @@ public final class MainMenuControllerImpl implements MainMenuController {
 
     @Override
     public void startGame(final Settings settings) {
-        GameController gc = new GameControllerImpl(settings);
-        GameView gv = new GameView(gc);
+        final GameController gc = new GameControllerImpl(settings);
+        final GameView gv = new GameView(gc);
         gv.setVisible(true);
     }
 
@@ -37,8 +37,8 @@ public final class MainMenuControllerImpl implements MainMenuController {
     public void loadGame() {
         loadController.loadLastGame();
         if (loadController.isLoaded()) {
-            GameController gc = loadController.getGameController();
-            GameView gv = new GameView(gc);
+            final GameController gc = loadController.getGameController();
+            final GameView gv = new GameView(gc);
             gv.setVisible(true);
         }
     }

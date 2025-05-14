@@ -24,7 +24,7 @@ public final class SwapPositionPowerUp extends PowerUpImpl {
 
     @Override
     public void activate(final Labyrinth lab, final TurnManager turn) {
-        Player p = lab.getPlayers().get(turn.getCurrentPlayer());
+        final Player p = lab.getPlayers().get(turn.getCurrentPlayer());
         if (p.getUsablePowerUps().contains(this)) {
             if (isCollected()) {
                 final Coordinate currentPlayerCoordinate = lab.getPlayerCoordinate(p);

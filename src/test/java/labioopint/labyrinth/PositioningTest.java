@@ -20,12 +20,17 @@ import labioopint.model.utilities.impl.CoordinateImpl;
 import labioopint.model.utilities.impl.SettingsImpl;
 
 class PositioningTest {
-    private static final Integer SIZE = 7;
+    private static final Integer SIZE = 5;
+    private static final int ENEMY_NUMBER = 1;
+    private static final int PLAYER_NUMBER = 2;
+    private static final int POWERUP_NUMBER = 5;
+    private static final EnemyDifficulty ENEMY_DIFFICULTY = EnemyDifficulty.EASY;
 
     @Test
     void checkPositionForAll() {
         boolean passed = true;
-        GameController gc = new GameControllerImpl(new SettingsImpl(1, 4, 5, EnemyDifficulty.EASY));
+        final GameController gc = new GameControllerImpl(
+                new SettingsImpl(ENEMY_NUMBER, PLAYER_NUMBER, POWERUP_NUMBER, ENEMY_DIFFICULTY));
         final Labyrinth lab = gc.getLabyrinth();
         for (final Player p : lab.getPlayers()) {
             final Coordinate c = lab.getPlayerCoordinate(p);
@@ -52,7 +57,8 @@ class PositioningTest {
 
     @Test
     void startingPlayerPositions() {
-        GameController gc = new GameControllerImpl(new SettingsImpl(1, 4, 5, EnemyDifficulty.EASY));
+        final GameController gc = new GameControllerImpl(
+                new SettingsImpl(ENEMY_NUMBER, PLAYER_NUMBER, POWERUP_NUMBER, ENEMY_DIFFICULTY));
         final Labyrinth lab = gc.getLabyrinth();
         boolean passed = true;
         for (final Player p : lab.getPlayers()) {
@@ -68,7 +74,8 @@ class PositioningTest {
 
     @Test
     void changePosition() {
-        GameController gc = new GameControllerImpl(new SettingsImpl(1, 4, 5, EnemyDifficulty.EASY));
+        final GameController gc = new GameControllerImpl(
+                new SettingsImpl(ENEMY_NUMBER, PLAYER_NUMBER, POWERUP_NUMBER, ENEMY_DIFFICULTY));
         final Labyrinth lab = gc.getLabyrinth();
         final List<Player> ls = lab.getPlayers();
         final Enemy e = lab.getEnemy().getSecond();

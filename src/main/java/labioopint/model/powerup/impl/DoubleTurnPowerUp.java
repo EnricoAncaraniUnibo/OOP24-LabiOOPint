@@ -20,7 +20,7 @@ public final class DoubleTurnPowerUp extends PowerUpImpl {
 
     @Override
     public void activate(final Labyrinth labyrinth, final TurnManager turnManager) {
-        Player player = labyrinth.getPlayers().get(turnManager.getCurrentPlayer());
+        final Player player = labyrinth.getPlayers().get(turnManager.getCurrentPlayer());
         if (player.getUsablePowerUps().contains(this)) {
             if (isCollected()) {
                 turnManager.repeatPlayerTurn();
