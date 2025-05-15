@@ -6,14 +6,17 @@ import java.util.Set;
 
 import labioopint.model.utilities.api.Coordinate;
 import labioopint.model.utilities.api.DualMap;
+
 /**
  * The class that map a element to a coordinate and viceversa.
+ * 
  * @param <X> the type of element to save with his coordinates
  */
 public final class DualMapImpl<X> implements DualMap<X> {
     public static final long serialVersionUID = 1L;
     private final Map<Coordinate, X> mapFromCoordinate;
     private final Map<X, Coordinate> mapFromElement;
+
     /**
      * Create a empty DualMap.
      */
@@ -35,9 +38,9 @@ public final class DualMapImpl<X> implements DualMap<X> {
 
     @Override
     public X getElemFromCoordinate(final Coordinate coor) {
-        for (final Coordinate obj : mapFromCoordinate.keySet()) {
-            if (obj.equals(coor)) {
-                return mapFromCoordinate.get(obj);
+        for (final Map.Entry<Coordinate, X> obj : mapFromCoordinate.entrySet()) {
+            if (obj.getKey().equals(coor)) {
+                return obj.getValue();
             }
         }
         return null;

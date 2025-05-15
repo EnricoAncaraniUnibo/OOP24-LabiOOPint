@@ -15,6 +15,7 @@ import labioopint.model.powerup.api.PowerUp;
  */
 public final class StealObjectPowerUp extends PowerUpImpl {
     public static final long serialVersionUID = 1L;
+    private static final Random RANDOM = new Random();
     /**
      * Construction of the StealObjectPowerUp by giving it an id.
      * @param id the identifier.
@@ -33,7 +34,7 @@ public final class StealObjectPowerUp extends PowerUpImpl {
                         .filter(player -> !player.equals(p) && !player.getUsablePowerUps().isEmpty())
                         .toList();
             if (!targetPlayers.isEmpty()) {
-                final Player targetPlayer = targetPlayers.get(new Random().nextInt(targetPlayers.size()));
+                final Player targetPlayer = targetPlayers.get(RANDOM.nextInt(targetPlayers.size()));
                 final Optional<PowerUp> stolenObjective = Optional.of(targetPlayer.getObjetives().get(0));
                 if (stolenObjective.isPresent()) {
                     targetPlayer.removeObjectiveSelect(stolenObjective.get());

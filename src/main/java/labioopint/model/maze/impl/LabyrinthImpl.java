@@ -28,6 +28,7 @@ import labioopint.model.powerup.impl.DoubleTurnPowerUp;
 import labioopint.model.powerup.impl.InvulnerabilityPowerUp;
 import labioopint.model.powerup.impl.StealObjectPowerUp;
 import labioopint.model.powerup.impl.SwapPositionPowerUp;
+
 /**
  * The class that work as a coordinate manager for the game.
  */
@@ -47,25 +48,28 @@ public final class LabyrinthImpl implements Labyrinth {
         mapOfEnemy = new DualMapImpl<>();
         objectives = new ArrayList<>();
     }
+
     /**
      * Construct with the presence of an enemy.
      * 
-     * @param size the size of the maze
-     * @param players the players in the maze
+     * @param size     the size of the maze
+     * @param players  the players in the maze
      * @param powerUps the powerUps in the maze
-     * @param enemy the enemy in the maze
+     * @param enemy    the enemy in the maze
      */
-    public LabyrinthImpl(final Integer size, final List<Player> players, final List<PowerUp> powerUps, final Enemy enemy) {
+    public LabyrinthImpl(final Integer size, final List<Player> players, final List<PowerUp> powerUps,
+            final Enemy enemy) {
         this.initialize();
         grid = new SimpleMazeImpl(size);
         outsideBlock = grid.generate();
         this.start(players, powerUps, enemy, true);
     }
+
     /**
      * Construct without the presence of an enemy.
      * 
-     * @param size the size of the maze
-     * @param players the players in the maze
+     * @param size     the size of the maze
+     * @param players  the players in the maze
      * @param powerUps the powerUps in the maze
      */
     public LabyrinthImpl(final Integer size, final List<Player> players, final List<PowerUp> powerUps) {
@@ -75,7 +79,8 @@ public final class LabyrinthImpl implements Labyrinth {
         this.start(players, powerUps, null, false);
     }
 
-    private void start(final List<Player> players, final List<PowerUp> powerUps, final Enemy enemy, final boolean enemyPresent) {
+    private void start(final List<Player> players, final List<PowerUp> powerUps, final Enemy enemy,
+            final boolean enemyPresent) {
         CoordinateGenerator cg = new CoordinateGeneratorImpl(grid.getSize());
         for (final PowerUp pu : powerUps) {
             mapOfPowerUps.addElemWithCoordinate(pu, cg.getRandomCoordinate());
@@ -98,19 +103,10 @@ public final class LabyrinthImpl implements Labyrinth {
 
     @Override
     public boolean moveBlock(final Coordinate c, final Direction d) {
-        switch (d) {
-            case UP:
-                outsideBlock = shiftColumn(c.getColumn(), d);
-                break;
-            case DOWN:
-                outsideBlock = shiftColumn(c.getColumn(), d);
-                break;
-            case RIGHT:
-                outsideBlock = shiftRow(c.getRow(), d);
-                break;
-            default:
-                outsideBlock = shiftRow(c.getRow(), d);
-                break;
+        if (d == Direction.UP || d == Direction.DOWN) {
+            outsideBlock = shiftColumn(c.getColumn(), d);
+        } else {
+            outsideBlock = shiftRow(c.getRow(), d);
         }
         return true;
     }
@@ -371,7 +367,7 @@ public final class LabyrinthImpl implements Labyrinth {
 
     @Override
     public List<PowerUp> getObjectives() {
-        return objectives;
+        return List.copyOf(objectives);
     }
 
     @Override

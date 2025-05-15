@@ -6,6 +6,7 @@ import labioopint.model.utilities.impl.MovableImpl;
 import labioopint.model.block.api.Block;
 import labioopint.model.block.api.BlockType;
 import labioopint.model.block.api.Rotation;
+
 /**
  * Class implementation of a block.
  * Extend {@code MovableImpl}.
@@ -14,9 +15,11 @@ public final class BlockImpl extends MovableImpl implements Block {
     public static final long serialVersionUID = 1L;
     private final BlockType type;
     private Rotation rotation;
+    private static final Random RANDOM = new Random();
 
     /**
      * Create the block by giving it a type and a default rotation.
+     * 
      * @param ty the type of the block.
      */
     public BlockImpl(final BlockType ty) {
@@ -37,8 +40,7 @@ public final class BlockImpl extends MovableImpl implements Block {
 
     @Override
     public void randomRotation() {
-        final Random r = new Random();
-        final Integer value = r.nextInt(0, 4);
+        final Integer value = RANDOM.nextInt(0, 4);
         switch (value) {
             case 0:
                 rotation = Rotation.ZERO;

@@ -20,6 +20,7 @@ import labioopint.model.maze.api.Direction;
 import labioopint.model.maze.api.Labyrinth;
 import labioopint.model.player.api.Player;
 import labioopint.controller.api.ActionPredicate;
+
 /**
  * The enemyAi that if can reach the player follow him.
  */
@@ -70,17 +71,18 @@ public final class ChaseAI implements EnemyAI {
         if (playerPositions.isEmpty() || walkableCells.isEmpty()) {
             return Optional.empty();
         }
+        final Coordinate predecessor = new CoordinateImpl(-1, -1);
         final Set<Coordinate> visited = new HashSet<>();
         final Map<Coordinate, Coordinate> predecessors = new HashMap<>();
         final Queue<Coordinate> queue = new LinkedList<>();
         queue.add(start);
         visited.add(start);
-        predecessors.put(start, null);
-        Coordinate targetPlayer = null;
-        while (!queue.isEmpty() && targetPlayer == null) {
+        predecessors.put(start, predecessor);
+        Optional<Coordinate> targetPlayer = Optional.empty();
+        while (!queue.isEmpty() && targetPlayer.isEmpty()) {
             final Coordinate current = queue.poll();
             if (playerPositions.contains(current)) {
-                targetPlayer = current;
+                targetPlayer = Optional.of(current);
                 break;
             }
             final List<Coordinate> neighbors = getNeighbors(current, walkableCells, visited);
@@ -90,10 +92,10 @@ public final class ChaseAI implements EnemyAI {
                 predecessors.put(neighbor, current);
             }
         }
-        if (targetPlayer != null) {
+        if (targetPlayer.isPresent()) {
             final List<Coordinate> path = new ArrayList<>();
-            Coordinate current = targetPlayer;
-            while (current != null) {
+            Coordinate current = targetPlayer.get();
+            while (!current.equals(predecessor)) {
                 path.add(current);
                 current = predecessors.get(current);
             }

@@ -1,10 +1,13 @@
 package labioopint.controller.api;
+
+import java.io.Serializable;
+
 /**
  * Represents the logic for managing the game view, including actions, power-ups, 
  * turn information, and winner status. This interface provides methods to interact 
  * with the game view and perform various game-related operations.
  */
-public interface LogicGameView {
+public interface LogicGameView extends Serializable {
 
     /**
      * Retrieves the current turn information.

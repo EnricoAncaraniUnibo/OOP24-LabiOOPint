@@ -10,6 +10,7 @@ import labioopint.model.enemy.api.EnemyDifficulty;
  */
 public final class SettingsLogicImpl implements SettingsLogic {
 
+    public static final long serialVersionUID = 1L;
     private final SettingsController controller;
     /**
      * Construction of the {@code SettingsLogicImpl}.

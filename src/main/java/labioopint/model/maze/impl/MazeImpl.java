@@ -33,9 +33,9 @@ public abstract class MazeImpl implements Maze {
 
     @Override
     public final Optional<Block> getBlock(final Coordinate c) {
-        for (final Coordinate coor : grid.keySet()) {
-            if (c.getRow().equals(coor.getRow()) && c.getColumn().equals(coor.getColumn())) {
-                return Optional.of(grid.get(coor));
+        for (final Map.Entry<Coordinate, Block> entry : grid.entrySet()) {
+            if (c.getRow().equals(entry.getKey().getRow()) && c.getColumn().equals(entry.getKey().getColumn())) {
+                return Optional.of(entry.getValue());
             }
         }
         return Optional.empty();

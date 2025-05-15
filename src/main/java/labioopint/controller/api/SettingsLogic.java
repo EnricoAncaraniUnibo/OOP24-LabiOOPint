@@ -1,9 +1,12 @@
 package labioopint.controller.api;
+
+import java.io.Serializable;
+
 /**
  * Represents the logic for managing game settings menù.
  * This interface provides a method to save new settings retrived from the menù.
  */
-public interface SettingsLogic {
+public interface SettingsLogic extends Serializable {
     /**
      * Saves new settings for the game.
      *

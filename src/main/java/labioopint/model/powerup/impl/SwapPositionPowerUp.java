@@ -13,6 +13,7 @@ import labioopint.model.player.api.Player;
 public final class SwapPositionPowerUp extends PowerUpImpl {
     public static final long serialVersionUID = 1L;
     private boolean condition = true;
+    private static final Random RANDOM = new Random();
     /**
      * Construction of the SwapPositionPowerUp by giving it an id.
      * @param id the identifier.
@@ -28,9 +29,8 @@ public final class SwapPositionPowerUp extends PowerUpImpl {
         if (p.getUsablePowerUps().contains(this)) {
             if (isCollected()) {
                 final Coordinate currentPlayerCoordinate = lab.getPlayerCoordinate(p);
-                final Random random = new Random();
                 while (this.condition) {
-                    final Player playerSwap = lab.getPlayers().get(random.nextInt(lab.getPlayers().size()));
+                    final Player playerSwap = lab.getPlayers().get(RANDOM.nextInt(lab.getPlayers().size()));
                     final Coordinate playerSwapCoordinate = lab.getPlayerCoordinate(playerSwap);
                     if (lab.getPlayers().size() < 2) {
                         this.condition = false;

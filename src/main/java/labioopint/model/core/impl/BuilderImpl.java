@@ -39,6 +39,7 @@ public final class BuilderImpl implements Builder {
     private final EnemyFactory enemyFactory;
     private final EnemyDifficulty type;
     private final boolean enemyPresent;
+    private static final Random RANDOM = new Random();
     /**
      * Construction of the {@code BuilderImpl} by saving the settings of the game.
      * @param st the settings for the game.
@@ -120,10 +121,9 @@ public final class BuilderImpl implements Builder {
      */
     private List<PowerUp> createPowerUps() {
         final List<PowerUp> powerUps = new ArrayList<>();
-        final Random r = new Random();
         PowerUp powerUp;
         for (int i = 0; i < numberPowerUp; i++) {
-            final int value = r.nextInt(4);
+            final int value = RANDOM.nextInt(4);
             switch (value) {
                 case 0:
                     powerUp = new SwapPositionPowerUp(i);
