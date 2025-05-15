@@ -69,7 +69,7 @@ public class MainMenu extends JFrame {
         buttonPanel.add(settingsButton);
 
         final JButton quitButton = new JButton("Quit");
-        quitButton.addActionListener(e -> logic.quitGame());
+        quitButton.addActionListener(e -> super.dispose());
         buttonPanel.add(quitButton);
 
         super.add(buttonPanel, BorderLayout.CENTER);

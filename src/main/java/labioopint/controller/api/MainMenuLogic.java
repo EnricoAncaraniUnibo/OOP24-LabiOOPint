@@ -1,10 +1,13 @@
 package labioopint.controller.api;
+
+import java.io.Serializable;
+
 /**
  * Represents the logic for managing the main menu of the game.
  * This interface provides methods to start a new game, load a saved game,
  * check if a game is loaded, open the settings menu, and quit the game.
  */
-public interface MainMenuLogic {
+public interface MainMenuLogic extends Serializable {
 
     /**
      * Starts a new game.
@@ -27,10 +30,5 @@ public interface MainMenuLogic {
      * Opens the settings menu.
      */
     void openSettings();
-
-    /**
-     * Quits the game.
-     */
-    void quitGame();
 
 }

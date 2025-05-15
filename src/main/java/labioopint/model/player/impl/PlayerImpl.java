@@ -50,12 +50,12 @@ public final class PlayerImpl extends MovableImpl implements Player {
 
     @Override
     public List<PowerUp> getUsablePowerUps() {
-        return usablePowerUps;
+        return List.copyOf(usablePowerUps);
     }
 
     @Override
     public List<PowerUp> getObjetives() {
-        return objectives;
+        return List.copyOf(objectives);
     }
 
     @Override

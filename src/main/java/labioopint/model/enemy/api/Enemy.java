@@ -41,11 +41,11 @@ public interface Enemy extends Serializable {
     void playerHit(List<Player> players, Labyrinth labyrinth);
 
     /**
-     * Retrieves the last player hit by the enemy.
+     * Retrieves the last player hit by the enemy ID.
      *
-     * @return the {@link Player} instance representing the last player hit
+     * @return the ID of the last player hit
      */
-    Player getLastHit();
+    String getLastHitID();
 
     /**
      * Clears the record of the last player hit by the enemy.

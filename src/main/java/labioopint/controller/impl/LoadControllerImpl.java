@@ -14,9 +14,10 @@ public final class LoadControllerImpl implements LoadController {
 
     private GameController loadedGameController;
     private boolean isLoaded;
+    public static final long serialVersionUID = 1L;
     /**
      * Construction of the LoadController.
-     * 
+     *
      */
     public LoadControllerImpl() {
         isLoaded = false;
@@ -24,19 +25,17 @@ public final class LoadControllerImpl implements LoadController {
 
     @Override
     public void loadLastGame() {
-        try {
-            final FileInputStream fis = new FileInputStream(new File("src/main/java/labioopint/saving/lastGame.txt"));
-            final ObjectInputStream ois = new ObjectInputStream(fis);
+        File file = new File("src/main/java/labioopint/saving/lastGame.txt");
+        try (FileInputStream fis = new FileInputStream(file);
+            ObjectInputStream ois = new ObjectInputStream(fis)) {
             try {
                 loadedGameController = (GameController) ois.readObject();
+                isLoaded = true;
             } catch (ClassNotFoundException e) {
-                //TODO
+
             }
-            ois.close();
-            fis.close();
-            isLoaded = true;
         } catch (IOException e) {
-            //TODO
+
         }
     }
 

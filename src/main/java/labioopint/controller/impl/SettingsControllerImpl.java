@@ -15,6 +15,7 @@ public final class SettingsControllerImpl implements SettingsController {
     private static final int DEFAULT_PLAYERS = 4;
     private static final int DEFAULT_TURNS = 6;
     private static final EnemyDifficulty DEFAULT_DIFFICULTY = EnemyDifficulty.MEDIUM;
+    public static final long serialVersionUID = 1L;
 
     private Settings settings;
     private final SettingsMenu view;

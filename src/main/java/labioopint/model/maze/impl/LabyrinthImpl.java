@@ -40,6 +40,7 @@ public final class LabyrinthImpl implements Labyrinth {
     private DualMap<Player> mapOfPlayers;
     private DualMap<Enemy> mapOfEnemy;
     private List<PowerUp> objectives;
+    private static final Random RANDOM = new Random();
 
     @Override
     public void initialize() {
@@ -380,10 +381,9 @@ public final class LabyrinthImpl implements Labyrinth {
                     .sorted(Comparator.comparing(p -> p.getObjetives().size(), Comparator.reverseOrder()))
                     .collect(Collectors.toList());
             if (sortedPlayers.get(0).getObjetives().size() == sortedPlayers.get(1).getObjetives().size()) {
-                final Random r = new Random();
                 final PowerUp pou;
                 final int i = getObjectives().size();
-                final int value = r.nextInt(4);
+                final int value = RANDOM.nextInt(4);
                 switch (value) {
                     case 0:
                         pou = new SwapPositionPowerUp(i);

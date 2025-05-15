@@ -68,11 +68,6 @@ public interface LogicGameView extends Serializable {
     String getWinner();
 
     /**
-     * Closes the game view.
-     */
-    void close();
-
-    /**
      * Retrieves the scores of players in the game.
      *
      * @return a {@link String} representing the scores

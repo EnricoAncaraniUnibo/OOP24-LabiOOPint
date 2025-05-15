@@ -12,6 +12,7 @@ public final class MainMenuLogicImpl implements MainMenuLogic {
 
     private final SettingsController settingsController;
     private final MainMenuController controller;
+    public static final long serialVersionUID = 1L;
     /**
      * Construction of the {@code MainMenuLogicImpl} with the menù associated controller.
      * 
@@ -40,10 +41,5 @@ public final class MainMenuLogicImpl implements MainMenuLogic {
     @Override
     public void openSettings() {
         settingsController.load();
-    }
-
-    @Override
-    public void quitGame() {
-        System.exit(0);
     }
 }

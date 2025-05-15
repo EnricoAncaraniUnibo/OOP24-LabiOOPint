@@ -13,6 +13,7 @@ public final class MainMenuControllerImpl implements MainMenuController {
 
     private final MainMenu view;
     private final LoadController loadController;
+    public static final long serialVersionUID = 1L;
     /**
      * Construction of a {@code MainMenuControllerImpl}.
      */

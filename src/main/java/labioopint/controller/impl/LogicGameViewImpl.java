@@ -67,11 +67,6 @@ public final class LogicGameViewImpl implements LogicGameView {
     }
 
     @Override
-    public void close() {
-        System.exit(0);
-    }
-
-    @Override
     public String getScores() {
         return informationMessenger.getNamesScores().replace("\n", "<br>");
     }

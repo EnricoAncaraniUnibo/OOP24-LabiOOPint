@@ -1,12 +1,14 @@
 package labioopint.controller.api;
 
+import java.io.Serializable;
+
 import labioopint.model.utilities.api.Settings;
 /**
  * Represents the controller responsible for managing the game settings.
  * This interface provides methods to load settingsMenù, retrieve the current settings,
  * and change the settings.
  */
-public interface SettingsController {
+public interface SettingsController extends Serializable {
 
     /**
      * Loads the settings menù.

@@ -69,8 +69,8 @@ public final class ActionControllerImpl implements ActionController {
                             labyrinth.enemyUpdateCoordinate(labyrinth.getEnemy().getSecond(), labyrinth.getEnemy()
                                     .getSecond().move(labyrinth.getPlayers(), actionPredicate, labyrinth));
                             if (labyrinth.getEnemy().getSecond().isPresentLastHit()
-                                    && labyrinth.getEnemy().getSecond().getLastHit()
-                                            .equals(labyrinth.getPlayers().get(turnManager.getCurrentPlayer()))) {
+                                    && labyrinth.getEnemy().getSecond().getLastHitID()
+                                            .equals(labyrinth.getPlayers().get(turnManager.getCurrentPlayer()).getID())) {
                                 labyrinth.getEnemy().getSecond().clearLastHit();
                             }
                         }

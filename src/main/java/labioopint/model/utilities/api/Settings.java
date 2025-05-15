@@ -1,5 +1,7 @@
 package labioopint.model.utilities.api;
 
+import java.io.Serializable;
+
 import labioopint.model.enemy.api.EnemyDifficulty;
 
 /**
@@ -7,7 +9,7 @@ import labioopint.model.enemy.api.EnemyDifficulty;
  * This interface provides methods to retrieve various settings such as the
  * number of power-ups, players, enemies, and the enemy difficulty level.
  */
-public interface Settings {
+public interface Settings extends Serializable {
 
     /**
      * Retrieves the number of power-ups available in the game.

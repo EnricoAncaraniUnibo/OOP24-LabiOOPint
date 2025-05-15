@@ -1,10 +1,15 @@
 package labioopint.controller.api;
+
+import java.io.Serializable;
+
 /**
- * Represents a controller for loading game-related data, such as the last saved game.
- * This interface provides methods to load the last game, check if a game is loaded,
+ * Represents a controller for loading game-related data, such as the last saved
+ * game.
+ * This interface provides methods to load the last game, check if a game is
+ * loaded,
  * and retrieve the associated {@link GameController}.
  */
-public interface LoadController {
+public interface LoadController extends Serializable {
 
     /**
      * Loads the last saved game.

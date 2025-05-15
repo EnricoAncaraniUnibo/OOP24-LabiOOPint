@@ -63,11 +63,6 @@ public final class EnemyImpl extends MovableImpl implements Enemy {
     }
 
     @Override
-    public Player getLastHit() {
-        return lastHit;
-    }
-
-    @Override
     public void clearLastHit() {
         lastHit = null;
     }
@@ -75,5 +70,10 @@ public final class EnemyImpl extends MovableImpl implements Enemy {
     @Override
     public boolean isPresentLastHit() {
         return lastHit != null;
+    }
+
+    @Override
+    public String getLastHitID() {
+        return lastHit.getID();
     }
 }

@@ -27,13 +27,13 @@ public final class LogicDrawPanelImpl implements LogicDrawPanel {
     private final GameController gc;
     private final Integer pixelSize;
     private static final Integer CORRECT_BLOCK_DIVISION = 13;
-    private static final double NINETY_ROTATION = -90;
-    private static final double ZERO_ROTATION = 0;
-    private static final double ONE_HUNDRED_EIGHTY_ROTATION = -180;
-    private static final double TWO_HUNDRED_SEVENTY = -270;
     private static final Integer PERCENTILE_NUMERATOR = 3;
     private static final Integer PERCENTILE_DENOMINATOR = 5;
     private static final Integer REDUCTION_SCALE_NUMBER = 4;
+    private static final double ROT_0 = Math.toRadians(0);
+    private static final double ROT_90 = Math.toRadians(-90);
+    private static final double ROT_180 = Math.toRadians(-180);
+    private static final double ROT_270 = Math.toRadians(-270);
 
     /**
      * Construction of a {@code LogicDrawPanelImpl} with a gameController and a
@@ -97,22 +97,22 @@ public final class LogicDrawPanelImpl implements LogicDrawPanel {
                 }
                 switch (b.getRotation()) {
                     case ZERO:
-                        rotationTemp = Math.toRadians(ZERO_ROTATION);
+                        rotationTemp = ROT_0;
                         valuePrint1 = j * pixelSize;
                         valuePrint2 = i * pixelSize;
                         break;
                     case NINETY:
-                        rotationTemp = Math.toRadians(NINETY_ROTATION);
+                        rotationTemp = ROT_90;
                         valuePrint1 = (-i * pixelSize) - pixelSize;
                         valuePrint2 = j * pixelSize;
                         break;
                     case ONE_HUNDRED_EIGHTY:
-                        rotationTemp = Math.toRadians(ONE_HUNDRED_EIGHTY_ROTATION);
+                        rotationTemp = ROT_180;
                         valuePrint1 = (-j * pixelSize) - pixelSize;
                         valuePrint2 = (-i * pixelSize) - pixelSize;
                         break;
                     default:
-                        rotationTemp = Math.toRadians(TWO_HUNDRED_SEVENTY);
+                        rotationTemp = ROT_270;
                         valuePrint1 = i * pixelSize;
                         valuePrint2 = (-j * pixelSize) - pixelSize;
                         break;
@@ -129,10 +129,10 @@ public final class LogicDrawPanelImpl implements LogicDrawPanel {
             final Coordinate c = gc.getLabyrinth().getPlayerCoordinate(p);
             if (p.equals(gc.getCurrentPlayer())) {
                 pImageRotation = new PairImpl<>(
-                        ImageLoader.getImage(p.getID() + "Turn").get(), Math.toRadians(ZERO_ROTATION));
+                        ImageLoader.getImage(p.getID() + "Turn").get(), ROT_0);
             } else {
                 pImageRotation = new PairImpl<>(
-                        ImageLoader.getImage(p.getID()).get(), Math.toRadians(ZERO_ROTATION));
+                        ImageLoader.getImage(p.getID()).get(), ROT_0);
             }
             pPositions = new PairImpl<>(
                     c.getColumn() * pixelSize + pixelSize / REDUCTION_SCALE_NUMBER,
@@ -147,7 +147,7 @@ public final class LogicDrawPanelImpl implements LogicDrawPanel {
         final Pair<Boolean, Enemy> e = gc.getLabyrinth().getEnemy();
         if (e.getFirst()) {
             final Coordinate c = gc.getLabyrinth().getEnemyCoordinate(e.getSecond());
-            pImageRotation = new PairImpl<>(ImageLoader.getImage("Monster").get(), Math.toRadians(ZERO_ROTATION));
+            pImageRotation = new PairImpl<>(ImageLoader.getImage("Monster").get(), ROT_0);
             pPositions = new PairImpl<>(
                     c.getColumn() * pixelSize + pixelSize / REDUCTION_SCALE_NUMBER,
                     c.getRow() * pixelSize + pixelSize / REDUCTION_SCALE_NUMBER);
@@ -161,7 +161,7 @@ public final class LogicDrawPanelImpl implements LogicDrawPanel {
         for (final PowerUp po : gc.getLabyrinth().getPowerUpsNotCollected()) {
             final Coordinate c = gc.getLabyrinth().getPowerUpCoordinate(po);
             pImageRotation = new PairImpl<>(
-                    ImageLoader.getImage(po.getName()).get(), Math.toRadians(ZERO_ROTATION));
+                    ImageLoader.getImage(po.getName()).get(), ROT_0);
             pPositions = new PairImpl<>(
                     c.getColumn() * pixelSize + pixelSize / REDUCTION_SCALE_NUMBER,
                     c.getRow() * pixelSize + pixelSize / REDUCTION_SCALE_NUMBER);

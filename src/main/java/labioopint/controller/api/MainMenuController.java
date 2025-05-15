@@ -1,12 +1,14 @@
 package labioopint.controller.api;
 
+import java.io.Serializable;
+
 import labioopint.model.utilities.api.Settings;
 /**
  * Represents the controller for managing the main menu of the game.
  * This interface provides methods to load the main menu, start a new game,
  * load a saved game, and check if a game is loaded.
  */
-public interface MainMenuController {
+public interface MainMenuController extends Serializable {
 
     /**
      * Loads the main menu.

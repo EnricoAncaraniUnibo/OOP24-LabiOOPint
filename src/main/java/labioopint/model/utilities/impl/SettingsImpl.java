@@ -11,6 +11,7 @@ public final class SettingsImpl implements Settings {
     private final Integer enemyNumber;
     private final Integer powerUp;
     private final EnemyDifficulty enemyDifficulty;
+    public static final long serialVersionUID = 1L;
     /**
      * Create a new Settings by passing it the values.
      * 

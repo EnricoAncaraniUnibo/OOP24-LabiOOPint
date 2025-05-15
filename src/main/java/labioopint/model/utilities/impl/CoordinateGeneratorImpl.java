@@ -11,6 +11,7 @@ import labioopint.model.utilities.api.CoordinateGenerator;
  */
 public final class CoordinateGeneratorImpl implements CoordinateGenerator {
     private final List<Coordinate> possibleCoordinate;
+    private static final Random RANDOM = new Random();
     /**
      * Constructor that generate a list of random coordinates.
      * @param size the size of the maze.
@@ -39,8 +40,7 @@ public final class CoordinateGeneratorImpl implements CoordinateGenerator {
 
     @Override
     public Coordinate getRandomCoordinate() {
-        final Random r = new Random();
-        final Coordinate c = possibleCoordinate.get(r.nextInt(0, possibleCoordinate.size()));
+        final Coordinate c = possibleCoordinate.get(RANDOM.nextInt(0, possibleCoordinate.size()));
         possibleCoordinate.remove(c);
         return c;
     }

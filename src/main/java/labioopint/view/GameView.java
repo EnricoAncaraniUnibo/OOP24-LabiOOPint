@@ -267,7 +267,7 @@ public class GameView extends JFrame {
     private void showWinner() {
         if (lgv.isWinnerPresent()) {
             JOptionPane.showMessageDialog(null, lgv.getWinner());
-            lgv.close();
+            super.dispose();
         }
     }
 }
