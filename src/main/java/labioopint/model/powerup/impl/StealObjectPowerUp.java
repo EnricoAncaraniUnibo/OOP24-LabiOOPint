@@ -31,7 +31,7 @@ public final class StealObjectPowerUp extends PowerUpImpl {
         if (isCollected()) {
             final List<Player> players = lab.getPlayers();
             final List<Player> targetPlayers = players.stream()
-                        .filter(player -> !player.equals(p) && !player.getUsablePowerUps().isEmpty())
+                        .filter(player -> !player.equals(p) && !player.getObjetives().isEmpty())
                         .toList();
             if (!targetPlayers.isEmpty()) {
                 final Player targetPlayer = targetPlayers.get(RANDOM.nextInt(targetPlayers.size()));

@@ -314,10 +314,8 @@ public final class LabyrinthImpl implements Labyrinth {
         } while (repeat);
         mapOfPowerUps.addElemWithCoordinate(p, c);
         boolean present = false;
-        for (final PowerUp powerUp : objectives) {
-            if (p.equals(powerUp)) {
-                present = true;
-            }
+        if (objectives.contains(p)) {
+            present = true;
         }
         if (!present) {
             objectives.add(p);
