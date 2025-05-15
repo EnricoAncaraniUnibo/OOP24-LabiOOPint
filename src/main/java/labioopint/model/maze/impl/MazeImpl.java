@@ -53,7 +53,7 @@ public abstract class MazeImpl implements Maze {
 
     @Override
     public final List<Block> getListofBlocks() {
-        return blockSelection;
+        return List.copyOf(blockSelection);
     }
 
     @Override
@@ -80,4 +80,9 @@ public abstract class MazeImpl implements Maze {
 
     @Override
     public abstract Block generate();
+
+    @Override
+    public final void addBlockToTheList(final Block b) {
+        blockSelection.add(b);
+    }
 }

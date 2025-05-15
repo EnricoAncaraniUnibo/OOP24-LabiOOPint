@@ -5,6 +5,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.AffineTransform;
+import java.io.IOException;
+
 import javax.swing.JPanel;
 
 import labioopint.controller.api.GameController;
@@ -24,8 +26,9 @@ public final class DrawPanel extends JPanel {
          *
          * @param size the dimensions of the user screen
          * @param gc the {@link GameController} used to initialize the logic for drawing
+         * @throws IOException 
          */
-        public DrawPanel(final Dimension size, final GameController gc) {
+        public DrawPanel(final Dimension size, final GameController gc) throws IOException {
                 ldp = new LogicDrawPanelImpl(gc, size);
         }
         /**

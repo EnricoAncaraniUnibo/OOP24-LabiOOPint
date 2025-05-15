@@ -69,4 +69,11 @@ public interface Maze extends Serializable {
      */
     Block generate();
 
+    /**
+     * Add a block to the list of selectable blocks.
+     *
+     * @param b the block to be added
+     */
+    void addBlockToTheList(Block b);
+
 }

@@ -2,6 +2,7 @@ package labioopint.controller.impl;
 
 import java.awt.Dimension;
 import java.awt.Image;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,8 +41,9 @@ public final class LogicDrawPanelImpl implements LogicDrawPanel {
      * 
      * @param gc   the game we want to print on the view.
      * @param size the size of the screen of the person who is playing the game.
+     * @throws IOException 
      */
-    public LogicDrawPanelImpl(final GameController gc, final Dimension size) {
+    public LogicDrawPanelImpl(final GameController gc, final Dimension size) throws IOException {
         this.gc = gc;
         pixelSize = (int) size.getWidth() / CORRECT_BLOCK_DIVISION;
         ImageLoader.load();

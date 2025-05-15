@@ -26,10 +26,10 @@ public final class ImageLoader {
      * retrieval.
      * The images are categorized by their names, which are used as keys in the map.
      * If an error occurs during loading, the exception is printed to the console.
+     * @throws IOException 
      */
-    public static void load() {
+    public static void load() throws IOException {
         imageMap = new HashMap<>();
-        try {
             imageMap.put("Corridor", ImageIO.read(
                     new File("src/main/java/labioopint/resources/Tiles/Corridor.png")));
             imageMap.put("Corner", ImageIO.read(
@@ -62,9 +62,6 @@ public final class ImageLoader {
                     new File("src/main/java/labioopint/resources/PowerUps/invincible.png")));
             imageMap.put("Steal Object", ImageIO.read(
                     new File("src/main/java/labioopint/resources/PowerUps/steal.png")));
-        } catch (IOException e) {
-                System.exit(0);
-        }
     }
 
     /**
