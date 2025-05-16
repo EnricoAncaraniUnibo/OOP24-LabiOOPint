@@ -1,59 +1,69 @@
 package labioopint.view;
 
+import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.GridLayout;
+import java.awt.Font;
 import java.awt.Toolkit;
-
+import javax.swing.BoxLayout;
 import labioopint.controller.api.MainMenuController;
 import labioopint.controller.api.MainMenuLogic;
 import labioopint.controller.impl.MainMenuLogicImpl;
 
-/**
- * This class represents the main menu of the application.
- * It provides buttons to start a game, load a game, open settings, or quit the
- * application.
- */
 public class MainMenu extends JFrame {
-    public static final long serialVersionUID = 1L;
-    private static final int WIDTH_RATIO = 4;
-    private static final int HEIGHT_RATIO = 5;
+    private static final long serialVersionUID = 1L;
 
     private final MainMenuLogic logic;
 
-    /**
-     * Constructs a new MainMenu instance.
-     *
-     * @param controller the main menu controller, must not be null
-     */
     public MainMenu(final MainMenuController controller) {
         logic = new MainMenuLogicImpl(controller);
         super.setTitle("Main Menu");
         super.setDefaultCloseOperation(EXIT_ON_CLOSE);
         final Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-        super.setSize((int) d.getWidth() * WIDTH_RATIO / HEIGHT_RATIO,
-                (int) d.getHeight() * WIDTH_RATIO / HEIGHT_RATIO);
-        super.setLayout(new BorderLayout());
+        
+        int width = (int) (d.getWidth() * 0.9);
+        int height = (int) (d.getHeight() * 0.9);
+        super.setSize(width, height);
         super.setResizable(false);
-        super.setLocationByPlatform(true);
-        super.setTitle("Main Menu");
-        super.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        super.setLocationRelativeTo(null);
 
-        final JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(4, 1, 10, 10));
+        final JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        mainPanel.setPreferredSize(new Dimension((int)(width * 0.6), (int)(height * 0.8)));
+        mainPanel.setMaximumSize(new Dimension((int)(width * 0.8), (int)(height * 0.9)));
+        mainPanel.setAlignmentX(CENTER_ALIGNMENT);
+
+        final JLabel titleLabel = new JLabel("LABIOOPINT", JLabel.CENTER);
+        titleLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 50));
+        titleLabel.setAlignmentX(CENTER_ALIGNMENT);
+        mainPanel.add(titleLabel);
+        mainPanel.add(Box.createRigidArea(new Dimension(0, 40)));
+
+        final Dimension buttonSize = new Dimension((int)(width * 0.3), 80);
 
         final JButton startGameButton = new JButton("Start Game");
+        startGameButton.setPreferredSize(buttonSize);
+        startGameButton.setMaximumSize(buttonSize);
+        startGameButton.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 28));
+        startGameButton.setAlignmentX(CENTER_ALIGNMENT);
+        mainPanel.add(startGameButton);
+        mainPanel.add(Box.createRigidArea(new Dimension(0, 20)));
         startGameButton.addActionListener(e -> {
             logic.startGame();
             this.setVisible(false);
         });
-        buttonPanel.add(startGameButton);
 
         final JButton loadGameButton = new JButton("Load Game");
+        loadGameButton.setPreferredSize(buttonSize);
+        loadGameButton.setMaximumSize(buttonSize);
+        loadGameButton.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 28));
+        loadGameButton.setAlignmentX(CENTER_ALIGNMENT);
+        mainPanel.add(loadGameButton);
+        mainPanel.add(Box.createRigidArea(new Dimension(0, 20)));
         loadGameButton.addActionListener(e -> {
             logic.loadGame();
             if (logic.isLoaded()) {
@@ -62,17 +72,29 @@ public class MainMenu extends JFrame {
                 showNoFileFound();
             }
         });
-        buttonPanel.add(loadGameButton);
 
         final JButton settingsButton = new JButton("Settings");
+        settingsButton.setPreferredSize(buttonSize);
+        settingsButton.setMaximumSize(buttonSize);
+        settingsButton.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 28));
+        settingsButton.setAlignmentX(CENTER_ALIGNMENT);
+        mainPanel.add(settingsButton);
+        mainPanel.add(Box.createRigidArea(new Dimension(0, 20)));
         settingsButton.addActionListener(e -> logic.openSettings());
-        buttonPanel.add(settingsButton);
 
         final JButton quitButton = new JButton("Quit");
+        quitButton.setPreferredSize(buttonSize);
+        quitButton.setMaximumSize(buttonSize);
+        quitButton.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 28));
+        quitButton.setAlignmentX(CENTER_ALIGNMENT);
+        mainPanel.add(quitButton);
+        mainPanel.add(Box.createRigidArea(new Dimension(0, 20)));
         quitButton.addActionListener(e -> super.dispose());
-        buttonPanel.add(quitButton);
 
-        super.add(buttonPanel, BorderLayout.CENTER);
+        super.getContentPane().setLayout(new BoxLayout(super.getContentPane(), BoxLayout.X_AXIS));
+        super.add(Box.createHorizontalGlue());
+        super.add(mainPanel);
+        super.add(Box.createHorizontalGlue());
     }
 
     private void showNoFileFound() {
