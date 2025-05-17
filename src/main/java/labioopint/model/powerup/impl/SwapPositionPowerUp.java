@@ -29,6 +29,7 @@ public final class SwapPositionPowerUp extends PowerUpImpl {
         if (p.getUsablePowerUps().contains(this)) {
             if (isCollected()) {
                 final Coordinate currentPlayerCoordinate = lab.getPlayerCoordinate(p);
+                this.condition = true;
                 while (this.condition) {
                     final Player playerSwap = lab.getPlayers().get(RANDOM.nextInt(lab.getPlayers().size()));
                     final Coordinate playerSwapCoordinate = lab.getPlayerCoordinate(playerSwap);
