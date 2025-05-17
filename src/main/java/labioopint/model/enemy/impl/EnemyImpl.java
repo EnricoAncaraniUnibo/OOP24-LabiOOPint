@@ -36,9 +36,9 @@ public final class EnemyImpl extends MovableImpl implements Enemy {
 
     @Override
     public List<Coordinate> move(final List<Player> players, final ActionPredicate actionPredicate, final Labyrinth labyrinth) {
-        if (!actionPredicate.enemyCanMove(Direction.UP, this) && !actionPredicate.enemyCanMove(Direction.DOWN, this)
-                && !actionPredicate.enemyCanMove(Direction.LEFT, this)
-                && !actionPredicate.enemyCanMove(Direction.RIGHT, this)) {
+        if (!actionPredicate.enemyCanMove(Direction.UP, this, labyrinth) && !actionPredicate.enemyCanMove(Direction.DOWN, this, labyrinth)
+                && !actionPredicate.enemyCanMove(Direction.LEFT, this, labyrinth)
+                && !actionPredicate.enemyCanMove(Direction.RIGHT, this, labyrinth)) {
             return new ArrayList<>();
         } else {
             return enemyAI.getNextPosition(players, labyrinth.getEnemyCoordinate(this), actionPredicate, labyrinth);

@@ -34,7 +34,7 @@ public final class ActionControllerImpl implements ActionController {
                     }
                 } else if (action instanceof Coordinate) {
                     final Coordinate blockCoordinate = (Coordinate) action;
-                    if (actionPredicate.blockCanMove(blockCoordinate)) {
+                    if (actionPredicate.blockCanMove(blockCoordinate, labyrinth)) {
                         if (blockCoordinate.getColumn() == 0) {
                             turnManager.nextAction();
                             labyrinth.moveBlock(blockCoordinate, Direction.RIGHT);
@@ -59,7 +59,7 @@ public final class ActionControllerImpl implements ActionController {
                         final Direction dir = "←".equals(action) ? Direction.LEFT
                                 : "→".equals(action) ? Direction.RIGHT
                                         : "↑".equals(action) ? Direction.UP : Direction.DOWN;
-                        if (actionPredicate.playerCanMove(currentPlayer, dir)) {
+                        if (actionPredicate.playerCanMove(currentPlayer, dir, labyrinth)) {
                             labyrinth.movePlayer(currentPlayer, dir);
                         }
                     } else if ("End Turn".equals(action)) {

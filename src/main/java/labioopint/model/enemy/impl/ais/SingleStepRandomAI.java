@@ -31,7 +31,7 @@ public final class SingleStepRandomAI implements EnemyAI {
             result = rand.nextInt(4);
             dir = MovementUtilities.createDirection(result);
             final Coordinate next = MovementUtilities.getNextCoordinate(newPos, dir);
-            if (actionPredicate.enemyCanMove(dir, labyrinth.getEnemy().getSecond())) {
+            if (actionPredicate.enemyCanMove(dir, labyrinth.getEnemy().getSecond(), labyrinth)) {
                 newPos = next;
                 success = true;
             }

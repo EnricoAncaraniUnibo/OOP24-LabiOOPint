@@ -32,7 +32,7 @@ public final class ChaseAI implements EnemyAI {
     public List<Coordinate> getNextPosition(final List<Player> players, final Coordinate current,
             final ActionPredicate actionPredicate,
             final Labyrinth labyrinth) {
-        final List<Coordinate> walkableCells = getWalkableCells(current, actionPredicate);
+        final List<Coordinate> walkableCells = getWalkableCells(current, actionPredicate, labyrinth);
 
         final var path = getPath(walkableCells, players, current, actionPredicate, labyrinth);
         if (path.isPresent()) {
@@ -44,7 +44,7 @@ public final class ChaseAI implements EnemyAI {
         }
     }
 
-    private List<Coordinate> getWalkableCells(final Coordinate enemyCoordinate, final ActionPredicate actionPredicate) {
+    private List<Coordinate> getWalkableCells(final Coordinate enemyCoordinate, final ActionPredicate actionPredicate, final Labyrinth labyrinth) {
         final List<Coordinate> output = new ArrayList<>();
         final Queue<Coordinate> queue = new ArrayDeque<>();
         queue.add(enemyCoordinate);
@@ -53,7 +53,7 @@ public final class ChaseAI implements EnemyAI {
             output.add(current);
             for (final Direction dir : List.of(Direction.UP, Direction.DOWN, Direction.LEFT, Direction.RIGHT)) {
                 final Coordinate next = MovementUtilities.getNextCoordinate(current, dir);
-                if (actionPredicate.enemyCanMoveFromPosition(current, dir) && !output.contains(next)) {
+                if (actionPredicate.enemyCanMoveFromPosition(current, dir, labyrinth) && !output.contains(next)) {
                     queue.add(next);
                 }
             }

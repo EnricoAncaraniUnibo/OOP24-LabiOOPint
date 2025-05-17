@@ -14,7 +14,6 @@ import labioopint.model.player.api.Player;
  * if an action can be performed or not.
  */
 public final class ActionPredicateImpl implements ActionPredicate {
-    private final Labyrinth labyrinth;
     private final Integer mazeSize;
     private final DirectionCheck directionCheck;
     public static final long serialVersionUID = 4328743;
@@ -24,13 +23,12 @@ public final class ActionPredicateImpl implements ActionPredicate {
      * @param labyrinth the {@link Labyrinth} instance representing the game coordinate manager
      */
     public ActionPredicateImpl(final Labyrinth labyrinth) {
-        this.labyrinth = labyrinth;
         mazeSize = labyrinth.getGrid().getSize();
         directionCheck = new DirectionCheckImpl();
     }
 
     @Override
-    public boolean playerCanMove(final Player player, final Direction dir) {
+    public boolean playerCanMove(final Player player, final Direction dir, final Labyrinth labyrinth) {
         final Coordinate playerCoordinate = new CoordinateImpl(labyrinth.getPlayerCoordinate(player));
         if (dir == Direction.LEFT) {
             final Coordinate targetBlock = new CoordinateImpl(playerCoordinate.getRow(), playerCoordinate.getColumn() - 1);
@@ -65,14 +63,14 @@ public final class ActionPredicateImpl implements ActionPredicate {
     }
 
     @Override
-    public boolean blockCanMove(final Coordinate blockCoordinate) {
+    public boolean blockCanMove(final Coordinate blockCoordinate, final Labyrinth labyrinth) {
         final BlockImpl b = (BlockImpl) labyrinth.getGrid().getBlock(blockCoordinate).get();
         return b.isMovable() && (blockCoordinate.getColumn() == 0 || blockCoordinate.getColumn() == mazeSize - 1
                 || blockCoordinate.getRow() == 0 || blockCoordinate.getRow() == mazeSize - 1);
     }
 
     @Override
-    public boolean enemyCanMoveFromPosition(final Coordinate coor, final Direction dir) {
+    public boolean enemyCanMoveFromPosition(final Coordinate coor, final Direction dir, Labyrinth labyrinth) {
         if (dir == Direction.LEFT) {
             final Coordinate targetBlock = new CoordinateImpl(coor.getRow(), coor.getColumn() - 1);
             if (coor.getColumn() != 0
@@ -106,9 +104,9 @@ public final class ActionPredicateImpl implements ActionPredicate {
     }
 
     @Override
-    public boolean enemyCanMove(final Direction dir, final Enemy enemy) {
+    public boolean enemyCanMove(final Direction dir, final Enemy enemy, final Labyrinth labyrinth) {
         final Coordinate enemyCoordinate = new CoordinateImpl(labyrinth.getEnemyCoordinate(enemy));
-        return enemyCanMoveFromPosition(enemyCoordinate, dir);
+        return enemyCanMoveFromPosition(enemyCoordinate, dir, labyrinth);
     }
 
 }

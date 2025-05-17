@@ -69,7 +69,12 @@ public final class InformationMessengerImpl implements InformationMessenger {
     public String getNamesScores() {
         final StringBuilder stringBuilder = new StringBuilder();
         for (final Player player : gc.getLabyrinth().getPlayers()) {
-            stringBuilder.append(player.getID()).append(": ").append(player.getObjetives().size()).append('\n');
+            if (player.isInvincibilityStatus()) {
+                stringBuilder.append("invincible ").append(player.getID()).append(": ")
+                        .append(player.getObjetives().size()).append('\n');
+            } else {
+                stringBuilder.append(player.getID()).append(": ").append(player.getObjetives().size()).append('\n');
+            }
         }
         return stringBuilder.toString();
     }

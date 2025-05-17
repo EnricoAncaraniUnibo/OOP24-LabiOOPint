@@ -32,7 +32,7 @@ public final class RandomAI implements EnemyAI {
             while (!success) {
                 final Direction dir = MovementUtilities.createDirection(direction);
                 final Coordinate next = MovementUtilities.getNextCoordinate(newPos, dir);
-                if (actionPredicate.enemyCanMoveFromPosition(newPos, dir)) {
+                if (actionPredicate.enemyCanMoveFromPosition(newPos, dir, labyrinth)) {
                     newPos = next;
                     success = true;
                 } else {
