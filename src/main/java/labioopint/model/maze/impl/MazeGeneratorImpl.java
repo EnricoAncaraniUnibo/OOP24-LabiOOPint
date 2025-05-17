@@ -19,6 +19,7 @@ import labioopint.model.maze.api.MazeGenerator;
 public final class MazeGeneratorImpl implements MazeGenerator {
     private final List<Block> selectableBlocks;
     private final Random r;
+    private static final int STARTING_ID_NUMBER = -4;
     /**
      * Contruct the maze generator by saving the blocks that can be used.
      * 
@@ -45,7 +46,7 @@ public final class MazeGeneratorImpl implements MazeGenerator {
                 }
             }
         }
-        int counterId = -4;
+        int counterId = STARTING_ID_NUMBER;
         BlockImpl b = new BlockImpl(BlockType.CORNER, counterId);
         b.disable();
         map.put(new CoordinateImpl(0, 0), b);

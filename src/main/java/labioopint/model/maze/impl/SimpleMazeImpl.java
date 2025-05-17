@@ -25,6 +25,11 @@ public class SimpleMazeImpl extends MazeImpl implements SimpleMaze {
         super(size);
     }
 
+    /**
+     * Construct the maze by coping another one.
+     * 
+     * @param m the maze to copy
+     */
     public SimpleMazeImpl(final Maze m) {
         super(m);
     }
@@ -39,13 +44,13 @@ public class SimpleMazeImpl extends MazeImpl implements SimpleMaze {
 
     private void fillDefaultBlocks() {
         for (int i = 0; i < CORNER_BLOCKS; i++) {
-            addBlockToTheList(new BlockImpl(BlockType.CORNER,i));
+            addBlockToTheList(new BlockImpl(BlockType.CORNER, i));
         }
         for (int i = 0; i < CORRIDOR_BLOCKS; i++) {
-            addBlockToTheList(new BlockImpl(BlockType.CORRIDOR,i+CORNER_BLOCKS));
+            addBlockToTheList(new BlockImpl(BlockType.CORRIDOR, i + CORNER_BLOCKS));
         }
         for (int i = 0; i < CROSSING_BLOCKS; i++) {
-            addBlockToTheList(new BlockImpl(BlockType.CROSSING,i+CORNER_BLOCKS+CORRIDOR_BLOCKS));
+            addBlockToTheList(new BlockImpl(BlockType.CROSSING, i + CORNER_BLOCKS + CORRIDOR_BLOCKS));
         }
     }
 }

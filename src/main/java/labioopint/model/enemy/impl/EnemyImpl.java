@@ -12,6 +12,7 @@ import labioopint.model.maze.api.Direction;
 import labioopint.model.maze.api.Labyrinth;
 import labioopint.model.player.api.Player;
 import labioopint.model.powerup.api.PowerUp;
+
 /**
  * The Implementation of the Enemy interface.
  */
@@ -19,6 +20,7 @@ public final class EnemyImpl extends MovableImpl implements Enemy {
     public static final long serialVersionUID = 1L;
     private final EnemyAI enemyAI;
     private Player lastHit;
+
     /**
      * Construction of an general enemy with an specified intelligence.
      * 
@@ -35,8 +37,10 @@ public final class EnemyImpl extends MovableImpl implements Enemy {
     }
 
     @Override
-    public List<Coordinate> move(final List<Player> players, final ActionPredicate actionPredicate, final Labyrinth labyrinth) {
-        if (!actionPredicate.enemyCanMove(Direction.UP, this, labyrinth) && !actionPredicate.enemyCanMove(Direction.DOWN, this, labyrinth)
+    public List<Coordinate> move(final List<Player> players, final ActionPredicate actionPredicate,
+            final Labyrinth labyrinth) {
+        if (!actionPredicate.enemyCanMove(Direction.UP, this, labyrinth)
+                && !actionPredicate.enemyCanMove(Direction.DOWN, this, labyrinth)
                 && !actionPredicate.enemyCanMove(Direction.LEFT, this, labyrinth)
                 && !actionPredicate.enemyCanMove(Direction.RIGHT, this, labyrinth)) {
             return new ArrayList<>();

@@ -17,6 +17,7 @@ public interface ActionPredicate extends Serializable {
      *
      * @param player the player attempting to move
      * @param dir the direction in which the player wants to move
+     * @param labyrinth the labyrinth used to get the blocks and them coordinates
      * @return {@code true} if the player can move in the specified direction, {@code false} otherwise
      */
     boolean playerCanMove(Player player, Direction dir, Labyrinth labyrinth);
@@ -25,6 +26,7 @@ public interface ActionPredicate extends Serializable {
      * Determines if a block located at the specified coordinate can move.
      *
      * @param blockCoordinate the coordinate of the block
+     * @param labyrinth the labyrinth used to get the blocks and them coordinates
      * @return {@code true} if the block can move, {@code false} otherwise
      */
     boolean blockCanMove(Coordinate blockCoordinate, Labyrinth labyrinth);
@@ -34,6 +36,7 @@ public interface ActionPredicate extends Serializable {
      *
      * @param coor the current coordinate of the enemy
      * @param dir the direction in which the enemy wants to move
+     * @param labyrinth the labyrinth used to get the blocks and them coordinates
      * @return {@code true} if the enemy can move from the position in the specified direction, {@code false} otherwise
      */
     boolean enemyCanMoveFromPosition(Coordinate coor, Direction dir, Labyrinth labyrinth);
@@ -43,6 +46,7 @@ public interface ActionPredicate extends Serializable {
      *
      * @param dir the direction in which the enemy wants to move
      * @param enemy the enemy attempting to move
+     * @param labyrinth the labyrinth used to get the blocks and them coordinates
      * @return {@code true} if the enemy can move in the specified direction, {@code false} otherwise
      */
     boolean enemyCanMove(Direction dir, Enemy enemy, Labyrinth labyrinth);

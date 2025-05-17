@@ -16,25 +16,31 @@ public final class BlockImpl extends MovableImpl implements Block {
     private final BlockType type;
     private Rotation rotation;
     private static final Random RANDOM = new Random();
-    private final int ID;
+    private final int id;
 
     /**
      * Create the block by giving it a type and a default rotation.
      * 
      * @param ty the type of the block.
+     * @param id the id given to the block
      */
     public BlockImpl(final BlockType ty, final int id) {
         super();
         this.rotation = Rotation.ZERO;
         this.type = ty;
-        ID = id;
+        this.id = id;
     }
 
+    /**
+     * Create the block from another block coping it.
+     * 
+     * @param b the block to copy
+     */
     public BlockImpl(final Block b) {
         super();
         this.rotation = b.getRotation();
         this.type = b.getType();
-        ID = b.getID();
+        id = b.getID();
     }
 
     @Override
@@ -83,7 +89,7 @@ public final class BlockImpl extends MovableImpl implements Block {
         }
         final BlockImpl other = (BlockImpl) obj;
         return this.type == other.type
-                && this.rotation == other.rotation && this.ID == other.ID;
+                && this.rotation == other.rotation && this.id == other.id;
     }
 
     @Override
@@ -93,6 +99,6 @@ public final class BlockImpl extends MovableImpl implements Block {
 
     @Override
     public int getID() {
-        return ID;
+        return id;
     }
 }

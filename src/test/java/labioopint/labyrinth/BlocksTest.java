@@ -27,7 +27,7 @@ class BlocksTest {
      */
     @BeforeAll
     static void init() {
-        b = new BlockImpl(BlockType.CORRIDOR,1);
+        b = new BlockImpl(BlockType.CORRIDOR, 1);
     }
 
     /**

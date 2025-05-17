@@ -76,6 +76,11 @@ public interface Maze extends Serializable {
      */
     void addBlockToTheList(Block b);
 
+    /**
+     * Give the complete maze in the format of coordinate --> block.
+     * 
+     * @return the map of the coordinates and the blocks
+     */
     Map<Coordinate, Block> getMap();
 
 }

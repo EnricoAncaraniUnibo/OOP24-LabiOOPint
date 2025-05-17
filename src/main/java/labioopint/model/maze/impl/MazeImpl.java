@@ -31,6 +31,11 @@ public abstract class MazeImpl implements Maze {
         this.grid = new HashMap<>();
     }
 
+    /**
+     * Create a Maze by coping another one.
+     * 
+     * @param m the maze to copy
+     */
     public MazeImpl(final Maze m) {
         this.size = m.getSize();
         this.blockSelection = m.getListofBlocks();

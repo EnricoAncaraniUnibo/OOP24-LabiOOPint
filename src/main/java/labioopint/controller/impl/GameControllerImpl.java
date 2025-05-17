@@ -1,5 +1,6 @@
 package labioopint.controller.impl;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import labioopint.controller.api.ActionController;
 import labioopint.controller.api.GameController;
 import labioopint.controller.api.SaveController;
@@ -44,6 +45,7 @@ public final class GameControllerImpl implements GameController {
         return turnManager;
     }
 
+    @SuppressFBWarnings(justification = "Labyrinth is safe to expose because we need to modify his parameters of coordinate")
     @Override
     public Labyrinth getLabyrinth() {
         return labyrinth;

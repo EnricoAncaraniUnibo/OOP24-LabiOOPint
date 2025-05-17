@@ -44,7 +44,8 @@ public final class ChaseAI implements EnemyAI {
         }
     }
 
-    private List<Coordinate> getWalkableCells(final Coordinate enemyCoordinate, final ActionPredicate actionPredicate, final Labyrinth labyrinth) {
+    private List<Coordinate> getWalkableCells(final Coordinate enemyCoordinate, final ActionPredicate actionPredicate,
+            final Labyrinth labyrinth) {
         final List<Coordinate> output = new ArrayList<>();
         final Queue<Coordinate> queue = new ArrayDeque<>();
         queue.add(enemyCoordinate);

@@ -71,8 +71,8 @@ class PowerUpTest {
         player.addObjective(powerup);
         powerup.collect();
         player.getUsablePowerUps().get(0).activate(lab, tu);
-        lab.setBlock(new BlockImpl(BlockType.CORRIDOR,0), new CoordinateImpl(2, 2));
-        lab.setBlock(new BlockImpl(BlockType.CORRIDOR,0), new CoordinateImpl(1, 2));
+        lab.setBlock(new BlockImpl(BlockType.CORRIDOR, 0), new CoordinateImpl(2, 2));
+        lab.setBlock(new BlockImpl(BlockType.CORRIDOR, 0), new CoordinateImpl(1, 2));
         lab.playerUpdateCoordinate(player, new CoordinateImpl(1, 2));
         tu.nextAction();
         gc.action("End Turn");

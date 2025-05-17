@@ -70,7 +70,7 @@ public final class ActionPredicateImpl implements ActionPredicate {
     }
 
     @Override
-    public boolean enemyCanMoveFromPosition(final Coordinate coor, final Direction dir, Labyrinth labyrinth) {
+    public boolean enemyCanMoveFromPosition(final Coordinate coor, final Direction dir, final Labyrinth labyrinth) {
         if (dir == Direction.LEFT) {
             final Coordinate targetBlock = new CoordinateImpl(coor.getRow(), coor.getColumn() - 1);
             if (coor.getColumn() != 0
