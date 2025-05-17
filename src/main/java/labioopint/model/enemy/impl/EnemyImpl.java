@@ -59,6 +59,7 @@ public final class EnemyImpl extends MovableImpl implements Enemy {
                     lastHit = player;
                     labyrinth.addPowerUp(pou);
                 } else {
+                    lastHit = player;
                     player.disableInvincible();
                 }
 
