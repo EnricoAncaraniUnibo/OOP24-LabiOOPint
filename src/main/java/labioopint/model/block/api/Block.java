@@ -33,4 +33,6 @@ public interface Block extends Serializable {
      */
     void setRotation(Rotation blockRotation);
 
+    int getID();
+
 }

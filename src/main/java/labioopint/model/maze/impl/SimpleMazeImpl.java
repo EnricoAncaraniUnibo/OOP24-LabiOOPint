@@ -3,6 +3,7 @@ package labioopint.model.maze.impl;
 import labioopint.model.block.api.Block;
 import labioopint.model.block.api.BlockType;
 import labioopint.model.block.impl.BlockImpl;
+import labioopint.model.maze.api.Maze;
 import labioopint.model.maze.api.MazeGenerator;
 import labioopint.model.maze.api.SimpleMaze;
 
@@ -24,6 +25,10 @@ public class SimpleMazeImpl extends MazeImpl implements SimpleMaze {
         super(size);
     }
 
+    public SimpleMazeImpl(final Maze m) {
+        super(m);
+    }
+
     @Override
     public final Block generate() {
         this.fillDefaultBlocks();
@@ -34,13 +39,13 @@ public class SimpleMazeImpl extends MazeImpl implements SimpleMaze {
 
     private void fillDefaultBlocks() {
         for (int i = 0; i < CORNER_BLOCKS; i++) {
-            addBlockToTheList(new BlockImpl(BlockType.CORNER));
+            addBlockToTheList(new BlockImpl(BlockType.CORNER,i));
         }
         for (int i = 0; i < CORRIDOR_BLOCKS; i++) {
-            addBlockToTheList(new BlockImpl(BlockType.CORRIDOR));
+            addBlockToTheList(new BlockImpl(BlockType.CORRIDOR,i+CORNER_BLOCKS));
         }
         for (int i = 0; i < CROSSING_BLOCKS; i++) {
-            addBlockToTheList(new BlockImpl(BlockType.CROSSING));
+            addBlockToTheList(new BlockImpl(BlockType.CROSSING,i+CORNER_BLOCKS+CORRIDOR_BLOCKS));
         }
     }
 }

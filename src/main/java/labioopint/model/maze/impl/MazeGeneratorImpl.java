@@ -45,18 +45,22 @@ public final class MazeGeneratorImpl implements MazeGenerator {
                 }
             }
         }
-        BlockImpl b = new BlockImpl(BlockType.CORNER);
+        int counterId = -4;
+        BlockImpl b = new BlockImpl(BlockType.CORNER, counterId);
         b.disable();
         map.put(new CoordinateImpl(0, 0), b);
-        b = new BlockImpl(BlockType.CORNER);
+        counterId++;
+        b = new BlockImpl(BlockType.CORNER, counterId);
         b.disable();
         b.setRotation(Rotation.NINETY);
         map.put(new CoordinateImpl(size - 1, 0), b);
-        b = new BlockImpl(BlockType.CORNER);
+        counterId++;
+        b = new BlockImpl(BlockType.CORNER, counterId);
         b.disable();
         b.setRotation(Rotation.TWO_HUNDRED_SEVENTY);
         map.put(new CoordinateImpl(0, size - 1), b);
-        b = new BlockImpl(BlockType.CORNER);
+        counterId++;
+        b = new BlockImpl(BlockType.CORNER, counterId);
         b.disable();
         b.setRotation(Rotation.ONE_HUNDRED_EIGHTY);
         map.put(new CoordinateImpl(size - 1, size - 1), b);

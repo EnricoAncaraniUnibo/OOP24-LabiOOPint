@@ -31,6 +31,12 @@ public abstract class MazeImpl implements Maze {
         this.grid = new HashMap<>();
     }
 
+    public MazeImpl(final Maze m) {
+        this.size = m.getSize();
+        this.blockSelection = m.getListofBlocks();
+        this.grid = m.getMap();
+    }
+
     @Override
     public final Optional<Block> getBlock(final Coordinate c) {
         for (final Map.Entry<Coordinate, Block> entry : grid.entrySet()) {
@@ -84,5 +90,10 @@ public abstract class MazeImpl implements Maze {
     @Override
     public final void addBlockToTheList(final Block b) {
         blockSelection.add(b);
+    }
+
+    @Override
+    public final Map<Coordinate, Block> getMap() {
+        return Map.copyOf(grid);
     }
 }

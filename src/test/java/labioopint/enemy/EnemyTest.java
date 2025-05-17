@@ -38,7 +38,7 @@ class EnemyTest {
         final Coordinate initialPosition = gc.getLabyrinth()
                 .getEnemyCoordinate(gc.getLabyrinth().getEnemy().getSecond());
         Coordinate newCoordinate = gc.getLabyrinth().getEnemyCoordinate(gc.getLabyrinth().getEnemy().getSecond());
-        final Block b = new BlockImpl(BlockType.CORNER);
+        final Block b = new BlockImpl(BlockType.CORNER,0);
         b.setRotation(Rotation.ZERO);
         gc.getLabyrinth().setBlock(b, new CoordinateImpl(2, 3));
         gc.getLabyrinth().setBlock(b, new CoordinateImpl(2, 2));
@@ -48,7 +48,7 @@ class EnemyTest {
         gc.action(END_TURN_STRING);
         newCoordinate = gc.getLabyrinth().getEnemyCoordinate(gc.getLabyrinth().getEnemy().getSecond());
         assertEquals(initialPosition, newCoordinate);
-        final Block b1 = new BlockImpl(BlockType.CORRIDOR);
+        final Block b1 = new BlockImpl(BlockType.CORRIDOR,0);
         b1.setRotation(Rotation.ZERO);
         gc.getLabyrinth().setBlock(b1, new CoordinateImpl(2, 2));
         gc.getLabyrinth().setBlock(b1, new CoordinateImpl(1, 2));
@@ -66,7 +66,7 @@ class EnemyTest {
         final Coordinate initialPosition = gc.getLabyrinth()
                 .getEnemyCoordinate(gc.getLabyrinth().getEnemy().getSecond());
         Coordinate newCoordinate = gc.getLabyrinth().getEnemyCoordinate(gc.getLabyrinth().getEnemy().getSecond());
-        final Block b = new BlockImpl(BlockType.CORNER);
+        final Block b = new BlockImpl(BlockType.CORNER,0);
         b.setRotation(Rotation.ZERO);
         gc.getLabyrinth().setBlock(b, new CoordinateImpl(2, 3));
         gc.getLabyrinth().setBlock(b, new CoordinateImpl(2, 2));
@@ -76,7 +76,7 @@ class EnemyTest {
         gc.action(END_TURN_STRING);
         newCoordinate = gc.getLabyrinth().getEnemyCoordinate(gc.getLabyrinth().getEnemy().getSecond());
         assertEquals(initialPosition, newCoordinate);
-        final Block b1 = new BlockImpl(BlockType.CORRIDOR);
+        final Block b1 = new BlockImpl(BlockType.CORRIDOR,0);
         b1.setRotation(Rotation.ZERO);
         gc.getLabyrinth().setBlock(b1, new CoordinateImpl(2, 2));
         gc.getLabyrinth().setBlock(b1, new CoordinateImpl(1, 2));
@@ -101,7 +101,7 @@ class EnemyTest {
                 .getEnemyCoordinate(gc.getLabyrinth().getEnemy().getSecond());
         gc.getLabyrinth().playerUpdateCoordinate(gc.getLabyrinth().getPlayers().get(0),
                 new CoordinateImpl(initialPosition.getRow(), initialPosition.getColumn() - 2));
-        BlockImpl b = new BlockImpl(BlockType.CORRIDOR);
+        BlockImpl b = new BlockImpl(BlockType.CORRIDOR,0);
         b.setRotation(Rotation.NINETY);
         gc.getLabyrinth().setBlock(b, new CoordinateImpl(initialPosition.getRow(), initialPosition.getColumn() - 1));
         gc.getLabyrinth().setBlock(b, new CoordinateImpl(initialPosition.getRow(), initialPosition.getColumn()));
@@ -116,7 +116,7 @@ class EnemyTest {
         gc.getLabyrinth().enemyUpdateCoordinate(gc.getLabyrinth().getEnemy().getSecond(), ls);
         gc.getLabyrinth().playerUpdateCoordinate(gc.getLabyrinth().getPlayers().get(0),
                 new CoordinateImpl(initialPosition.getRow(), initialPosition.getColumn() + 2));
-        b = new BlockImpl(BlockType.CORRIDOR);
+        b = new BlockImpl(BlockType.CORRIDOR,0);
         b.setRotation(Rotation.NINETY);
         gc.getLabyrinth().setBlock(b, new CoordinateImpl(initialPosition.getRow(), initialPosition.getColumn() + 1));
         gc.getLabyrinth().setBlock(b, new CoordinateImpl(initialPosition.getRow(), initialPosition.getColumn()));
@@ -134,7 +134,7 @@ class EnemyTest {
         final Labyrinth lab = gc.getLabyrinth();
         final List<Player> players = lab.getPlayers();
         final List<PowerUp> lPowerUps = lab.getPowerUpsNotCollected();
-        final Block b = new BlockImpl(BlockType.CORRIDOR);
+        final Block b = new BlockImpl(BlockType.CORRIDOR,0);
         b.setRotation(Rotation.ZERO);
         lab.setBlock(b, new CoordinateImpl(0, 2));
         lab.setBlock(b, new CoordinateImpl(1, 2));

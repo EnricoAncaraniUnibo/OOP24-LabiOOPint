@@ -16,16 +16,25 @@ public final class BlockImpl extends MovableImpl implements Block {
     private final BlockType type;
     private Rotation rotation;
     private static final Random RANDOM = new Random();
+    private final int ID;
 
     /**
      * Create the block by giving it a type and a default rotation.
      * 
      * @param ty the type of the block.
      */
-    public BlockImpl(final BlockType ty) {
+    public BlockImpl(final BlockType ty, final int id) {
         super();
         this.rotation = Rotation.ZERO;
         this.type = ty;
+        ID = id;
+    }
+
+    public BlockImpl(final Block b) {
+        super();
+        this.rotation = b.getRotation();
+        this.type = b.getType();
+        ID = b.getID();
     }
 
     @Override
@@ -62,5 +71,28 @@ public final class BlockImpl extends MovableImpl implements Block {
     @Override
     public void setRotation(final Rotation blockRotation) {
         rotation = blockRotation;
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof BlockImpl)) {
+            return false;
+        }
+        final BlockImpl other = (BlockImpl) obj;
+        return this.type == other.type
+                && this.rotation == other.rotation && this.ID == other.ID;
+    }
+
+    @Override
+    public int hashCode() {
+        return java.util.Objects.hash(type, rotation);
+    }
+
+    @Override
+    public int getID() {
+        return ID;
     }
 }

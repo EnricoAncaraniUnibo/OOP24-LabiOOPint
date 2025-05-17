@@ -17,6 +17,7 @@ import labioopint.model.utilities.impl.DualMapImpl;
 import labioopint.model.utilities.impl.PairImpl;
 import labioopint.model.block.api.Block;
 import labioopint.model.block.api.Rotation;
+import labioopint.model.block.impl.BlockImpl;
 import labioopint.model.enemy.api.Enemy;
 import labioopint.model.maze.api.Direction;
 import labioopint.model.maze.api.Labyrinth;
@@ -99,7 +100,7 @@ public final class LabyrinthImpl implements Labyrinth {
 
     @Override
     public Block getOutsideBlock() {
-        return outsideBlock;
+        return new BlockImpl(outsideBlock);
     }
 
     @Override
@@ -281,7 +282,7 @@ public final class LabyrinthImpl implements Labyrinth {
 
     @Override
     public Maze getGrid() {
-        return grid;
+        return new SimpleMazeImpl(grid);
     }
 
     @Override

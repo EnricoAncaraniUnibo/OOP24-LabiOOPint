@@ -58,13 +58,13 @@ class PlayerTest {
                 new SettingsImpl(ENEMY_NUMBER, PLAYER_NUMBER, POWERUP_NUMBER, ENEMY_DIFFICULTY));
         final Labyrinth lab = gc.getLabyrinth();
         final List<Player> ls = lab.getPlayers();
-        Block b = new BlockImpl(BlockType.CORRIDOR);
+        Block b = new BlockImpl(BlockType.CORRIDOR,0);
         b.setRotation(Rotation.ZERO);
         lab.setBlock(b, new CoordinateImpl(0, 0));
-        b = new BlockImpl(BlockType.CORNER);
+        b = new BlockImpl(BlockType.CORNER,0);
         b.setRotation(Rotation.TWO_HUNDRED_SEVENTY);
         lab.setBlock(b, new CoordinateImpl(1, 0));
-        b = new BlockImpl(BlockType.CORRIDOR);
+        b = new BlockImpl(BlockType.CORRIDOR,0);
         b.setRotation(Rotation.NINETY);
         lab.setBlock(b, new CoordinateImpl(1, 1));
         lab.playerUpdateCoordinate(ls.get(0), new CoordinateImpl(0, 0));
