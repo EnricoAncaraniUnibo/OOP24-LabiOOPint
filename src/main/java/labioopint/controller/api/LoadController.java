@@ -13,6 +13,8 @@ public interface LoadController extends Serializable {
 
     /**
      * Loads the last saved game.
+     * 
+     * @return {@code true} if a game is loaded, {@code false} otherwise
      */
     boolean loadLastGame();
 
