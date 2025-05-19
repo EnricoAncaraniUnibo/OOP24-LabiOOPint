@@ -11,10 +11,12 @@ import labioopint.model.block.impl.BlockImpl;
 import labioopint.model.core.api.TurnManager;
 import labioopint.model.core.impl.TurnManagerImpl;
 import labioopint.model.enemy.api.EnemyDifficulty;
+import labioopint.model.maze.api.Direction;
 import labioopint.model.maze.api.Labyrinth;
 import labioopint.model.maze.impl.LabyrinthImpl;
 import labioopint.model.player.impl.PlayerImpl;
 import labioopint.model.powerup.api.PowerUp;
+import labioopint.model.powerup.impl.CorridorToPowerUpPowerUp;
 import labioopint.model.powerup.impl.DoubleTurnPowerUp;
 import labioopint.model.powerup.impl.InvulnerabilityPowerUp;
 import labioopint.model.powerup.impl.StealObjectPowerUp;
@@ -95,5 +97,121 @@ class PowerUpTest {
         players.get(0).getUsablePowerUps().get(0).activate(lab, tu);
         assertEquals(players.get(0).getObjetives().size(), 2);
         assertEquals(players.get(1).getObjetives().size(), 0);
+    }
+
+    @Test
+    void testCorridorToPowerUpUpLeft() {
+        final GameController gc = new GameControllerImpl(new SettingsImpl(0, 2, 1, EnemyDifficulty.EASY));
+        final PowerUp powerup = new CorridorToPowerUpPowerUp(0);
+        final Labyrinth lab = gc.getLabyrinth();
+        final TurnManager tu = gc.getTurnManager();
+        final PlayerImpl player = (PlayerImpl) lab.getPlayers().get(tu.getCurrentPlayer());
+        final PowerUp targetPowerUp = lab.getPowerUpsNotCollected().get(0);
+        lab.playerUpdateCoordinate(player, new CoordinateImpl(2, 2));
+        lab.powerUpUpdateCoordinate(targetPowerUp, new CoordinateImpl(0, 0));
+        player.addObjective(powerup);
+        powerup.collect();
+        player.getUsablePowerUps().get(0).activate(lab, tu);
+        lab.movePlayer(player, Direction.LEFT);
+        lab.movePlayer(player, Direction.LEFT);
+        lab.movePlayer(player, Direction.UP);
+        lab.movePlayer(player, Direction.UP);
+        assertEquals(player.getObjetives().size(), 2);
+    }
+
+    @Test
+    void testCorridorToPowerUpDownLeft() {
+        final GameController gc = new GameControllerImpl(new SettingsImpl(0, 2, 1, EnemyDifficulty.EASY));
+        final PowerUp powerup = new CorridorToPowerUpPowerUp(0);
+        final Labyrinth lab = gc.getLabyrinth();
+        final TurnManager tu = gc.getTurnManager();
+        final PlayerImpl player = (PlayerImpl) lab.getPlayers().get(tu.getCurrentPlayer());
+        final PowerUp targetPowerUp = lab.getPowerUpsNotCollected().get(0);
+        lab.playerUpdateCoordinate(player, new CoordinateImpl(2, 2));
+        lab.powerUpUpdateCoordinate(targetPowerUp, new CoordinateImpl(4, 0));
+        player.addObjective(powerup);
+        powerup.collect();
+        player.getUsablePowerUps().get(0).activate(lab, tu);
+        lab.movePlayer(player, Direction.LEFT);
+        lab.movePlayer(player, Direction.LEFT);
+        lab.movePlayer(player, Direction.DOWN);
+        lab.movePlayer(player, Direction.DOWN);
+        assertEquals(player.getObjetives().size(), 2);
+    }
+
+    @Test
+    void testCorridorToPowerUpUpRight() {
+        final GameController gc = new GameControllerImpl(new SettingsImpl(0, 2, 1, EnemyDifficulty.EASY));
+        final PowerUp powerup = new CorridorToPowerUpPowerUp(0);
+        final Labyrinth lab = gc.getLabyrinth();
+        final TurnManager tu = gc.getTurnManager();
+        final PlayerImpl player = (PlayerImpl) lab.getPlayers().get(tu.getCurrentPlayer());
+        final PowerUp targetPowerUp = lab.getPowerUpsNotCollected().get(0);
+        lab.playerUpdateCoordinate(player, new CoordinateImpl(2, 2));
+        lab.powerUpUpdateCoordinate(targetPowerUp, new CoordinateImpl(0, 4));
+        player.addObjective(powerup);
+        powerup.collect();
+        player.getUsablePowerUps().get(0).activate(lab, tu);
+        lab.movePlayer(player, Direction.RIGHT);
+        lab.movePlayer(player, Direction.RIGHT);
+        lab.movePlayer(player, Direction.UP);
+        lab.movePlayer(player, Direction.UP);
+        assertEquals(player.getObjetives().size(), 2);
+    }
+
+    @Test
+    void testCorridorToPowerUpDownRight() {
+        final GameController gc = new GameControllerImpl(new SettingsImpl(0, 2, 1, EnemyDifficulty.EASY));
+        final PowerUp powerup = new CorridorToPowerUpPowerUp(0);
+        final Labyrinth lab = gc.getLabyrinth();
+        final TurnManager tu = gc.getTurnManager();
+        final PlayerImpl player = (PlayerImpl) lab.getPlayers().get(tu.getCurrentPlayer());
+        final PowerUp targetPowerUp = lab.getPowerUpsNotCollected().get(0);
+        lab.playerUpdateCoordinate(player, new CoordinateImpl(2, 2));
+        lab.powerUpUpdateCoordinate(targetPowerUp, new CoordinateImpl(4, 4));
+        player.addObjective(powerup);
+        powerup.collect();
+        player.getUsablePowerUps().get(0).activate(lab, tu);
+        lab.movePlayer(player, Direction.RIGHT);
+        lab.movePlayer(player, Direction.RIGHT);
+        lab.movePlayer(player, Direction.DOWN);
+        lab.movePlayer(player, Direction.DOWN);
+        assertEquals(player.getObjetives().size(), 2);
+    }
+
+    @Test
+    void testCorridorToPowerUpSameColumn() {
+        final GameController gc = new GameControllerImpl(new SettingsImpl(0, 2, 1, EnemyDifficulty.EASY));
+        final PowerUp powerup = new CorridorToPowerUpPowerUp(0);
+        final Labyrinth lab = gc.getLabyrinth();
+        final TurnManager tu = gc.getTurnManager();
+        final PlayerImpl player = (PlayerImpl) lab.getPlayers().get(tu.getCurrentPlayer());
+        final PowerUp targetPowerUp = lab.getPowerUpsNotCollected().get(0);
+        lab.playerUpdateCoordinate(player, new CoordinateImpl(2, 2));
+        lab.powerUpUpdateCoordinate(targetPowerUp, new CoordinateImpl(0, 2));
+        player.addObjective(powerup);
+        powerup.collect();
+        player.getUsablePowerUps().get(0).activate(lab, tu);
+        lab.movePlayer(player, Direction.UP);
+        lab.movePlayer(player, Direction.UP);
+        assertEquals(player.getObjetives().size(), 2);
+    }
+
+    @Test
+    void testCorridorToPowerUpSameRow() {
+        final GameController gc = new GameControllerImpl(new SettingsImpl(0, 2, 1, EnemyDifficulty.EASY));
+        final PowerUp powerup = new CorridorToPowerUpPowerUp(0);
+        final Labyrinth lab = gc.getLabyrinth();
+        final TurnManager tu = gc.getTurnManager();
+        final PlayerImpl player = (PlayerImpl) lab.getPlayers().get(tu.getCurrentPlayer());
+        final PowerUp targetPowerUp = lab.getPowerUpsNotCollected().get(0);
+        lab.playerUpdateCoordinate(player, new CoordinateImpl(2, 2));
+        lab.powerUpUpdateCoordinate(targetPowerUp, new CoordinateImpl(2, 0));
+        player.addObjective(powerup);
+        powerup.collect();
+        player.getUsablePowerUps().get(0).activate(lab, tu);
+        lab.movePlayer(player, Direction.LEFT);
+        lab.movePlayer(player, Direction.LEFT);
+        assertEquals(player.getObjetives().size(), 2);
     }
 }

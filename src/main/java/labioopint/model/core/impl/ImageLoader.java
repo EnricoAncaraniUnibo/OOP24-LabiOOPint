@@ -62,6 +62,8 @@ public final class ImageLoader {
                     new File("src/main/java/labioopint/resources/PowerUps/invincible.png")));
             imageMap.put("Steal Object", ImageIO.read(
                     new File("src/main/java/labioopint/resources/PowerUps/steal.png")));
+            imageMap.put("Corridor To PowerUp", ImageIO.read(
+                    new File("src/main/java/labioopint/resources/PowerUps/corridortopower.png")));
     }
 
     /**

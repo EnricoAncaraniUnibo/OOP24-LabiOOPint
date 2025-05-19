@@ -17,6 +17,7 @@ import labioopint.model.maze.impl.LabyrinthImpl;
 import labioopint.model.player.api.Player;
 import labioopint.model.player.impl.PlayerImpl;
 import labioopint.model.powerup.api.PowerUp;
+import labioopint.model.powerup.impl.CorridorToPowerUpPowerUp;
 import labioopint.model.powerup.impl.DoubleTurnPowerUp;
 import labioopint.model.powerup.impl.InvulnerabilityPowerUp;
 import labioopint.model.powerup.impl.StealObjectPowerUp;
@@ -123,7 +124,7 @@ public final class BuilderImpl implements Builder {
         final List<PowerUp> powerUps = new ArrayList<>();
         PowerUp powerUp;
         for (int i = 0; i < numberPowerUp; i++) {
-            final int value = RANDOM.nextInt(4);
+            final int value = RANDOM.nextInt(5);
             switch (value) {
                 case 0:
                     powerUp = new SwapPositionPowerUp(i);
@@ -134,8 +135,11 @@ public final class BuilderImpl implements Builder {
                 case 2:
                     powerUp = new InvulnerabilityPowerUp(i);
                     break;
-                default:
+                case 3:
                     powerUp = new StealObjectPowerUp(i);
+                    break;
+                default:
+                    powerUp = new CorridorToPowerUpPowerUp(i);
                     break;
             }
             powerUps.add(powerUp);

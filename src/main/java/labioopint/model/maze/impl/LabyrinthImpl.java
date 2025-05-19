@@ -25,6 +25,7 @@ import labioopint.model.maze.api.Maze;
 import labioopint.model.player.api.Player;
 import labioopint.model.player.impl.PlayerImpl;
 import labioopint.model.powerup.api.PowerUp;
+import labioopint.model.powerup.impl.CorridorToPowerUpPowerUp;
 import labioopint.model.powerup.impl.DoubleTurnPowerUp;
 import labioopint.model.powerup.impl.InvulnerabilityPowerUp;
 import labioopint.model.powerup.impl.StealObjectPowerUp;
@@ -384,7 +385,7 @@ public final class LabyrinthImpl implements Labyrinth {
             if (sortedPlayers.get(0).getObjetives().size() == sortedPlayers.get(1).getObjetives().size()) {
                 final PowerUp pou;
                 final int i = getObjectives().size();
-                final int value = RANDOM.nextInt(4);
+                final int value = RANDOM.nextInt(5);
                 switch (value) {
                     case 0:
                         pou = new SwapPositionPowerUp(i);
@@ -395,8 +396,11 @@ public final class LabyrinthImpl implements Labyrinth {
                     case 2:
                         pou = new InvulnerabilityPowerUp(i);
                         break;
-                    default:
+                    case 3:
                         pou = new StealObjectPowerUp(i);
+                        break;
+                    default:
+                        pou = new CorridorToPowerUpPowerUp(i);
                         break;
                 }
                 addPowerUp(pou);
