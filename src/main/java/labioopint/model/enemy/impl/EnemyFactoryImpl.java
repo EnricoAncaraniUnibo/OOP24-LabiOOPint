@@ -5,6 +5,7 @@ import labioopint.model.enemy.api.EnemyFactory;
 import labioopint.model.enemy.impl.ais.ChaseAI;
 import labioopint.model.enemy.impl.ais.RandomAI;
 import labioopint.model.enemy.impl.ais.SingleStepRandomAI;
+
 /**
  * The class used to create an Enemy with a predefined intelligence.
  */

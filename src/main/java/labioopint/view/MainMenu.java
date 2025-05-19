@@ -37,6 +37,7 @@ public class MainMenu extends JFrame {
 
     /**
      * Constructs the main menu.
+     * 
      * @param controller the main menu controller
      */
     public MainMenu(final MainMenuController controller) {
@@ -53,11 +54,9 @@ public class MainMenu extends JFrame {
         final JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         mainPanel.setPreferredSize(
-            new Dimension((int) (width * PREFERRED_SIZE), (int) (height * MAIN_PANEL_HEIGHT_RATIO))
-        );
+                new Dimension((int) (width * PREFERRED_SIZE), (int) (height * MAIN_PANEL_HEIGHT_RATIO)));
         mainPanel.setMaximumSize(
-            new Dimension((int) (width * MAXIMUM_SIZE), (int) (height * MAIN_PANEL_MAX_HEIGHT_RATIO))
-        );
+                new Dimension((int) (width * MAXIMUM_SIZE), (int) (height * MAIN_PANEL_MAX_HEIGHT_RATIO)));
         mainPanel.setAlignmentX(CENTER_ALIGNMENT);
 
         final JLabel titleLabel = new JLabel("LABIOOPINT", JLabel.CENTER);
@@ -125,8 +124,7 @@ public class MainMenu extends JFrame {
      */
     private void showNoFileFound() {
         JOptionPane.showMessageDialog(
-            null,
-            "No file found, it's not possible to load the game"
-        );
+                null,
+                "No file found, it's not possible to load the game");
     }
 }

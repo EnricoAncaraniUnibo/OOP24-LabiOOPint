@@ -9,7 +9,8 @@ import labioopint.model.powerup.api.PowerUp;
 
 /**
  * This abstract class provides a base implementation for power-ups in the game.
- * It includes common functionality such as tracking collection status and managing collected power-ups.
+ * It includes common functionality such as tracking collection status and
+ * managing collected power-ups.
  */
 public abstract class PowerUpImpl implements PowerUp {
     public static final long serialVersionUID = 1L;
@@ -17,6 +18,7 @@ public abstract class PowerUpImpl implements PowerUp {
     private boolean collected;
     private final List<PowerUp> collectedPowerUps;
     private String name;
+
     /**
      * Construction of a general Powerup by giving it an id.
      * 

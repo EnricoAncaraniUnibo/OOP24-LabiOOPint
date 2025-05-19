@@ -8,13 +8,16 @@ import labioopint.model.maze.api.Labyrinth;
 import labioopint.model.player.api.Player;
 
 /**
- * This class represents a power-up that swaps the position of the current player with another random player.
+ * This class represents a power-up that swaps the position of the current
+ * player with another random player.
  */
 public final class SwapPositionPowerUp extends PowerUpImpl {
     public static final long serialVersionUID = 1L;
     private static final Random RANDOM = new Random();
+
     /**
      * Construction of the SwapPositionPowerUp by giving it an id.
+     * 
      * @param id the identifier.
      */
     public SwapPositionPowerUp(final int id) {

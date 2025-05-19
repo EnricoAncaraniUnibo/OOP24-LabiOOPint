@@ -12,6 +12,7 @@ import labioopint.model.enemy.impl.MovementUtilities;
 import labioopint.model.maze.api.Direction;
 import labioopint.model.maze.api.Labyrinth;
 import labioopint.model.player.api.Player;
+
 /**
  * The enemyAi that moves x steps random with random Directions.
  */
