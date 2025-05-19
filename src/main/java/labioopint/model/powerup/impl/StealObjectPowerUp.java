@@ -36,7 +36,9 @@ public final class StealObjectPowerUp extends PowerUpImpl {
             if (!targetPlayers.isEmpty()) {
                 final Player targetPlayer = targetPlayers.get(RANDOM.nextInt(targetPlayers.size()));
                 final Optional<PowerUp> stolenObjective = Optional.of(targetPlayer.getObjetives().get(0));
-                if (stolenObjective.isPresent()) {
+                if (targetPlayer.isInvincibilityStatus()) {
+                    targetPlayer.disableInvincible();
+                } else if (stolenObjective.isPresent()) {
                     targetPlayer.removeObjectiveSelect(stolenObjective.get());
                     p.addObjective(stolenObjective.get());
                 }

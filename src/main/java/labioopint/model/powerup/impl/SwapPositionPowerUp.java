@@ -33,13 +33,16 @@ public final class SwapPositionPowerUp extends PowerUpImpl {
                 while (this.condition) {
                     final Player playerSwap = lab.getPlayers().get(RANDOM.nextInt(lab.getPlayers().size()));
                     final Coordinate playerSwapCoordinate = lab.getPlayerCoordinate(playerSwap);
-                    if (lab.getPlayers().size() < 2) {
-                        this.condition = false;
-                    } else if (lab.getPlayers().size() > 1 && !p.equals(playerSwap)) {
-                        lab.playerUpdateCoordinate(playerSwap, currentPlayerCoordinate);
-                        lab.playerUpdateCoordinate(p, playerSwapCoordinate);
-                        lab.playerUpdateCoordinate(playerSwap, currentPlayerCoordinate);
-                        this.condition = false;
+                    if (!p.equals(playerSwap)) {
+                        if (playerSwap.isInvincibilityStatus()) {
+                            playerSwap.disableInvincible();
+                            this.condition = false;
+                        } else {
+                            lab.playerUpdateCoordinate(playerSwap, currentPlayerCoordinate);
+                            lab.playerUpdateCoordinate(p, playerSwapCoordinate);
+                            lab.playerUpdateCoordinate(playerSwap, currentPlayerCoordinate);
+                            this.condition = false;
+                        }
                     }
                 }
             }
