@@ -14,7 +14,7 @@ public interface LoadController extends Serializable {
     /**
      * Loads the last saved game.
      */
-    void loadLastGame();
+    boolean loadLastGame();
 
     /**
      * Checks if a game has been successfully loaded.

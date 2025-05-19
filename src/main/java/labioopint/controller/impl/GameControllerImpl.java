@@ -21,7 +21,7 @@ public final class GameControllerImpl implements GameController {
     private final ActionController actionController;
     private final SaveController saveController;
     public static final long serialVersionUID = 1L;
-
+    private boolean saveError;
     /**
      * Constructs an {@code GameControllerImpl} with the settings.
      * 
@@ -33,6 +33,7 @@ public final class GameControllerImpl implements GameController {
         labyrinth = builder.createMaze();
         turnManager = builder.createTurnManager();
         actionController = builder.createActionController();
+        saveError = false;
     }
 
     @Override
@@ -54,6 +55,8 @@ public final class GameControllerImpl implements GameController {
     @Override
     public void action(final Object action) {
         actionController.action(action, labyrinth, turnManager);
-        saveController.save(this);
+        if(!saveError && !saveController.save(this)){
+            saveError = true;
+        }
     }
 }

@@ -36,8 +36,7 @@ public final class MainMenuControllerImpl implements MainMenuController {
 
     @Override
     public void loadGame() {
-        loadController.loadLastGame();
-        if (loadController.isLoaded()) {
+        if(loadController.loadLastGame()){
             final GameController gc = loadController.getGameController();
             final GameView gv = new GameView(gc);
             gv.setVisible(true);

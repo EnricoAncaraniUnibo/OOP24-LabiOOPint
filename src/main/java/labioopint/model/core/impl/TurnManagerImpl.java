@@ -3,7 +3,6 @@ package labioopint.model.core.impl;
 import labioopint.model.utilities.impl.ActionType;
 import labioopint.model.core.api.TurnManager;
 
-
 /**
  * Manages the turns and actions in the game, including players, enemies, and
  * power-ups.

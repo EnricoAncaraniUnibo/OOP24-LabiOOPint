@@ -12,6 +12,6 @@ public interface SaveController extends Serializable {
      *
      * @param gc the {@link GameController} instance representing the current game
      */
-    void save(GameController gc);
+    boolean save(GameController gc);
 
 }

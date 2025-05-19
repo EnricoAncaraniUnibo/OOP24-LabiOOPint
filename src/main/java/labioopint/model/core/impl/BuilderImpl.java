@@ -23,6 +23,7 @@ import labioopint.model.powerup.impl.InvulnerabilityPowerUp;
 import labioopint.model.powerup.impl.StealObjectPowerUp;
 import labioopint.model.powerup.impl.SwapPositionPowerUp;
 import labioopint.model.utilities.api.Settings;
+
 /**
  * The class responsable for the creation of the main game components.
  */
@@ -41,8 +42,10 @@ public final class BuilderImpl implements Builder {
     private final EnemyDifficulty type;
     private final boolean enemyPresent;
     private static final Random RANDOM = new Random();
+
     /**
      * Construction of the {@code BuilderImpl} by saving the settings of the game.
+     * 
      * @param st the settings for the game.
      */
     public BuilderImpl(final Settings st) {
@@ -73,6 +76,7 @@ public final class BuilderImpl implements Builder {
         }
         return lab;
     }
+
     /**
      * Method used by the builder to create the players of the game.
      * 
@@ -99,6 +103,7 @@ public final class BuilderImpl implements Builder {
     public TurnManager createTurnManager() {
         return new TurnManagerImpl(numberPlayer);
     }
+
     /**
      * Method used by the builder to create the enemy of the game.
      * 
@@ -115,6 +120,7 @@ public final class BuilderImpl implements Builder {
             throw new IllegalArgumentException("Enemy Difficulty not properly selected");
         }
     }
+
     /**
      * Method used by the builder to create the powerUps of the game.
      * 

@@ -1,4 +1,5 @@
 package labioopint.model.enemy.api;
+
 /**
  * Factory interface for creating different types of enemies in the game.
  * This interface provides methods to instantiate various enemy types

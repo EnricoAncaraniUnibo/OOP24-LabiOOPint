@@ -10,7 +10,8 @@ import labioopint.model.player.api.Player;
 
 /**
  * Represents an enemy in the game.
- * This interface provides methods to define the enemy's behavior, movement, and interactions
+ * This interface provides methods to define the enemy's behavior, movement, and
+ * interactions
  * with players and the labyrinth.
  */
 public interface Enemy extends Serializable {
@@ -23,19 +24,21 @@ public interface Enemy extends Serializable {
     EnemyAI getEnemyAI();
 
     /**
-     * Moves the enemy based on the provided players, action predicate, and labyrinth.
+     * Moves the enemy based on the provided players, action predicate, and
+     * labyrinth.
      *
-     * @param players the list of {@link Player} instances in the game
+     * @param players         the list of {@link Player} instances in the game
      * @param actionPredicate the {@link ActionPredicate} to determine valid actions
-     * @param labyrinth the {@link Labyrinth} representing the game maze
-     * @return a list of {@link Coordinate} instances representing the enemy's new position
+     * @param labyrinth       the {@link Labyrinth} representing the game maze
+     * @return a list of {@link Coordinate} instances representing the enemy's new
+     *         position
      */
     List<Coordinate> move(List<Player> players, ActionPredicate actionPredicate, Labyrinth labyrinth);
 
     /**
      * Handles the event when a player is hit by the enemy.
      *
-     * @param players the list of {@link Player} instances in the game
+     * @param players   the list of {@link Player} instances in the game
      * @param labyrinth the {@link Labyrinth} representing the game maze
      */
     void playerHit(List<Player> players, Labyrinth labyrinth);
