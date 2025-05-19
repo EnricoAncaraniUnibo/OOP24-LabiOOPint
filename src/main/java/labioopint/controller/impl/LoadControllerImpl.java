@@ -30,7 +30,6 @@ public final class LoadControllerImpl implements LoadController {
             final ObjectInputStream ois = new ObjectInputStream(fis);
             try {
                 loadedGameController = (GameController) ois.readObject();
-                isLoaded = true;
             } catch (ClassNotFoundException e) {
                 ois.close();
                 fis.close();

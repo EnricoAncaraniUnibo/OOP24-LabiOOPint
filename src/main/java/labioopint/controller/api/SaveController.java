@@ -11,6 +11,7 @@ public interface SaveController extends Serializable {
      * Saves the current game state.
      *
      * @param gc the {@link GameController} instance representing the current game
+     * @return true if the saving is done succesfully, false otherwise
      */
     boolean save(GameController gc);
 
