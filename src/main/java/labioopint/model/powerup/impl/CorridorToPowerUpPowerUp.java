@@ -14,7 +14,8 @@ import labioopint.model.block.api.Rotation;
 import labioopint.model.block.impl.BlockImpl;
 
 /**
- * Power-up that, when activated, randomly selects an uncollected power-up in the maze
+ * Power-up that, when activated, randomly selects an uncollected power-up in
+ * the maze
  * and creates a direct path from the current player to that power-up.
  */
 public final class CorridorToPowerUpPowerUp extends PowerUpImpl {
@@ -45,34 +46,44 @@ public final class CorridorToPowerUpPowerUp extends PowerUpImpl {
                     int row = playerCoord.getRow();
                     int col = playerCoord.getColumn();
 
-                    if(row == targetCoord.getRow()) {
-                        lab.setBlock(new BlockImpl(BlockType.CORRIDOR, lab.getGrid().getBlock(new CoordinateImpl(row, col)).get().getID()), new CoordinateImpl(row, col));
+                    if (row == targetCoord.getRow()) {
+                        lab.setBlock(
+                                new BlockImpl(BlockType.CORRIDOR,
+                                        lab.getGrid().getBlock(new CoordinateImpl(row, col)).get().getID()),
+                                new CoordinateImpl(row, col));
                     } else {
-                        final BlockImpl block = new BlockImpl(BlockType.CORRIDOR, lab.getGrid().getBlock(new CoordinateImpl(row, col)).get().getID());
+                        final BlockImpl block = new BlockImpl(BlockType.CORRIDOR,
+                                lab.getGrid().getBlock(new CoordinateImpl(row, col)).get().getID());
                         block.setRotation(Rotation.NINETY);
                         lab.setBlock(block, new CoordinateImpl(row, col));
                     }
-                        
-                    final BlockImpl block = new BlockImpl(BlockType.CORRIDOR, lab.getGrid().getBlock(new CoordinateImpl(row, col)).get().getID());
+
+                    final BlockImpl block = new BlockImpl(BlockType.CORRIDOR,
+                            lab.getGrid().getBlock(new CoordinateImpl(row, col)).get().getID());
                     block.setRotation(Rotation.NINETY);
                     lab.setBlock(block, new CoordinateImpl(row, col));
                     while (col != targetCoord.getColumn()) {
-                        if(col > targetCoord.getColumn()) {
+                        if (col > targetCoord.getColumn()) {
                             col--;
                         } else {
                             col++;
                         }
-                        final BlockImpl corridor = new BlockImpl(BlockType.CORRIDOR, lab.getGrid().getBlock(new CoordinateImpl(row, col)).get().getID());
+                        final BlockImpl corridor = new BlockImpl(BlockType.CORRIDOR,
+                                lab.getGrid().getBlock(new CoordinateImpl(row, col)).get().getID());
                         corridor.setRotation(Rotation.NINETY);
                         lab.setBlock(corridor, new CoordinateImpl(row, col));
                     }
-                    if(targetCoord.getRow() != row) {           
-                        final BlockImpl corner = new BlockImpl(BlockType.CORNER, lab.getGrid().getBlock(new CoordinateImpl(row, col)).get().getID());
-                        if (targetCoord.getRow() < playerCoord.getRow() && targetCoord.getColumn() > playerCoord.getColumn()) {
+                    if (targetCoord.getRow() != row) {
+                        final BlockImpl corner = new BlockImpl(BlockType.CORNER,
+                                lab.getGrid().getBlock(new CoordinateImpl(row, col)).get().getID());
+                        if (targetCoord.getRow() < playerCoord.getRow()
+                                && targetCoord.getColumn() > playerCoord.getColumn()) {
                             corner.setRotation(Rotation.ONE_HUNDRED_EIGHTY);
-                        } else if(targetCoord.getRow() < playerCoord.getRow() && targetCoord.getColumn() < playerCoord.getColumn()) {
+                        } else if (targetCoord.getRow() < playerCoord.getRow()
+                                && targetCoord.getColumn() < playerCoord.getColumn()) {
                             corner.setRotation(Rotation.NINETY);
-                        } else if(targetCoord.getRow() > playerCoord.getRow() && targetCoord.getColumn() > playerCoord.getColumn()) {
+                        } else if (targetCoord.getRow() > playerCoord.getRow()
+                                && targetCoord.getColumn() > playerCoord.getColumn()) {
                             corner.setRotation(Rotation.TWO_HUNDRED_SEVENTY);
                         } else {
                             corner.setRotation(Rotation.ZERO);
@@ -80,16 +91,19 @@ public final class CorridorToPowerUpPowerUp extends PowerUpImpl {
                         lab.setBlock(corner, new CoordinateImpl(row, col));
                     }
                     while (row != targetCoord.getRow()) {
-                        if(row > targetCoord.getRow()) {
+                        if (row > targetCoord.getRow()) {
                             row--;
                         } else {
                             row++;
                         }
-                        lab.setBlock(new BlockImpl(BlockType.CORRIDOR, lab.getGrid().getBlock(new CoordinateImpl(row, col)).get().getID()), new CoordinateImpl(row, col));
+                        lab.setBlock(
+                                new BlockImpl(BlockType.CORRIDOR,
+                                        lab.getGrid().getBlock(new CoordinateImpl(row, col)).get().getID()),
+                                new CoordinateImpl(row, col));
                     }
                 }
-                p.removePowerUp(this);
             }
+            p.removePowerUp(this);
         }
     }
 }
