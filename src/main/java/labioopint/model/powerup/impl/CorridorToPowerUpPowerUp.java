@@ -13,10 +13,19 @@ import labioopint.model.block.api.BlockType;
 import labioopint.model.block.api.Rotation;
 import labioopint.model.block.impl.BlockImpl;
 
+/**
+ * Power-up that, when activated, randomly selects an uncollected power-up in the maze
+ * and creates a direct path from the current player to that power-up.
+ */
 public final class CorridorToPowerUpPowerUp extends PowerUpImpl {
     public static final long serialVersionUID = 1L;
     private static final Random RANDOM = new Random();
 
+    /**
+     * Constructs a new CorridorToPowerUpPowerUp with the specified id.
+     *
+     * @param id the identifier of the power-up
+     */
     public CorridorToPowerUpPowerUp(final int id) {
         super(id);
         super.setName("Corridor To PowerUp");
