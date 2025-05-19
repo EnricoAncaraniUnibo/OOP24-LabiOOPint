@@ -16,15 +16,17 @@ public final class SaveControllerImpl implements SaveController {
     public static final long serialVersionUID = 1L;
 
     @Override
-    public void save(final GameController gc) {
-        File file = new File("src/main/java/labioopint/saving/lastGame.txt");
-        try (FileOutputStream fos = new FileOutputStream(file, false);
-            ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-
+    public boolean save(final GameController gc) {
+        try {
+            final FileOutputStream fos = new FileOutputStream(new File("src/main/java/labioopint/saving/lastGame.txt"),
+                    false);
+            final ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(gc);
-
+            oos.close();
+            fos.close();
+            return true;
         } catch (IOException e) {
-            // TODO
+            return false;
         }
     }
 }

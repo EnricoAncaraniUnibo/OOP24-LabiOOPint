@@ -24,18 +24,24 @@ public final class LoadControllerImpl implements LoadController {
     }
 
     @Override
-    public void loadLastGame() {
-        File file = new File("src/main/java/labioopint/saving/lastGame.txt");
-        try (FileInputStream fis = new FileInputStream(file);
-            ObjectInputStream ois = new ObjectInputStream(fis)) {
+    public boolean loadLastGame() {
+        try {
+            final FileInputStream fis = new FileInputStream(new File("src/main/java/labioopint/saving/lastGame.txt"));
+            final ObjectInputStream ois = new ObjectInputStream(fis);
             try {
                 loadedGameController = (GameController) ois.readObject();
                 isLoaded = true;
             } catch (ClassNotFoundException e) {
-
+                ois.close();
+                fis.close();
+                return false;
             }
+            ois.close();
+            fis.close();
+            isLoaded = true;
+            return true;
         } catch (IOException e) {
-
+            return false;
         }
     }
 

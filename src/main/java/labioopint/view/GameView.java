@@ -270,4 +270,8 @@ public class GameView extends JFrame {
             super.dispose();
         }
     }
+
+    private void showErrorSaveFile() {
+        JOptionPane.showMessageDialog(null, "Error on save the game, \nyou can't restore the game after exit");
+    }
 }
