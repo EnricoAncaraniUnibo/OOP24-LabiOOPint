@@ -12,7 +12,6 @@ import labioopint.model.player.api.Player;
  */
 public final class SwapPositionPowerUp extends PowerUpImpl {
     public static final long serialVersionUID = 1L;
-    private boolean condition = true;
     private static final Random RANDOM = new Random();
     /**
      * Construction of the SwapPositionPowerUp by giving it an id.
@@ -29,19 +28,19 @@ public final class SwapPositionPowerUp extends PowerUpImpl {
         if (p.getUsablePowerUps().contains(this)) {
             if (isCollected()) {
                 final Coordinate currentPlayerCoordinate = lab.getPlayerCoordinate(p);
-                this.condition = true;
-                while (this.condition) {
+                boolean condition = true;
+                while (condition) {
                     final Player playerSwap = lab.getPlayers().get(RANDOM.nextInt(lab.getPlayers().size()));
                     final Coordinate playerSwapCoordinate = lab.getPlayerCoordinate(playerSwap);
                     if (!p.equals(playerSwap)) {
                         if (playerSwap.isInvincibilityStatus()) {
                             playerSwap.disableInvincible();
-                            this.condition = false;
+                            condition = false;
                         } else {
                             lab.playerUpdateCoordinate(playerSwap, currentPlayerCoordinate);
                             lab.playerUpdateCoordinate(p, playerSwapCoordinate);
                             lab.playerUpdateCoordinate(playerSwap, currentPlayerCoordinate);
-                            this.condition = false;
+                            condition = false;
                         }
                     }
                 }
