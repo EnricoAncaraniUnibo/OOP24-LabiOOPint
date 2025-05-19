@@ -7,14 +7,17 @@ import java.io.ObjectInputStream;
 
 import labioopint.controller.api.GameController;
 import labioopint.controller.api.LoadController;
+
 /**
- * Implementation of the loadController class which is used to load a previus game played.
+ * Implementation of the loadController class which is used to load a previus
+ * game played.
  */
 public final class LoadControllerImpl implements LoadController {
 
     private GameController loadedGameController;
     private boolean isLoaded;
     public static final long serialVersionUID = 1L;
+
     /**
      * Construction of the LoadController.
      *
@@ -25,23 +28,14 @@ public final class LoadControllerImpl implements LoadController {
 
     @Override
     public boolean loadLastGame() {
-        try {
-            final FileInputStream fis = new FileInputStream(new File("src/main/java/labioopint/saving/lastGame.txt"));
-            final ObjectInputStream ois = new ObjectInputStream(fis);
-            try {
-                loadedGameController = (GameController) ois.readObject();
-            } catch (ClassNotFoundException e) {
-                ois.close();
-                fis.close();
-                return false;
-            }
-            ois.close();
-            fis.close();
-            isLoaded = true;
-            return true;
-        } catch (IOException e) {
+        try (FileInputStream fis = new FileInputStream(new File("src/main/java/labioopint/saving/lastGame.txt"));
+                ObjectInputStream ois = new ObjectInputStream(fis)) {
+            loadedGameController = (GameController) ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            isLoaded = false;
             return false;
         }
+        return true;
     }
 
     @Override

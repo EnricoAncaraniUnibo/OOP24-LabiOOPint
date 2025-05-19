@@ -17,16 +17,12 @@ public final class SaveControllerImpl implements SaveController {
 
     @Override
     public boolean save(final GameController gc) {
-        try {
-            final FileOutputStream fos = new FileOutputStream(new File("src/main/java/labioopint/saving/lastGame.txt"),
-                    false);
-            final ObjectOutputStream oos = new ObjectOutputStream(fos);
+        try (FileOutputStream fos = new FileOutputStream(new File("src/main/java/labioopint/saving/lastGame.txt"),
+                false); ObjectOutputStream oos = new ObjectOutputStream(fos)) {
             oos.writeObject(gc);
-            oos.close();
-            fos.close();
-            return true;
         } catch (IOException e) {
             return false;
         }
+        return true;
     }
 }
