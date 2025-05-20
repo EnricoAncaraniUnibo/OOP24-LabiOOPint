@@ -67,10 +67,10 @@ public class SettingsMenu extends JFrame {
                     (int) playersSpinner.getValue(),
                     (int) powerUpSpinner.getValue(),
                     (String) difficultyComboBox.getSelectedItem())) {
-                this.setVisible(false);
+                super.dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Error in saving settings\ntry again");
-                this.setVisible(false);
+                super.dispose();
             }
         });
 

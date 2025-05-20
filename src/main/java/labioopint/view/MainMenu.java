@@ -74,7 +74,7 @@ public class MainMenu extends JFrame {
         mainPanel.add(Box.createRigidArea(new Dimension(0, BUTTON_SPACING)));
         startGameButton.addActionListener(e -> {
             if (this.controller.startGame()) {
-                this.setVisible(false);
+                super.dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Error in loading settings\nrestart the game");
                 super.dispose();
@@ -91,7 +91,7 @@ public class MainMenu extends JFrame {
         loadGameButton.addActionListener(e -> {
             this.controller.loadGame();
             if (this.controller.isLoaded()) {
-                this.setVisible(false);
+                super.dispose();
             } else {
                 showNoFileFound();
             }
