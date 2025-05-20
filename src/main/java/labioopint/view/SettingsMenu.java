@@ -79,13 +79,13 @@ public class SettingsMenu extends JFrame {
         textLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, TITLE_FONT_SIZE));
 
         choosePanel.add(textLabel);
-        choosePanel.add(new JLabel("Scegli la difficolta' di gioco"));
+        choosePanel.add(new JLabel("Choose the difficulty of the enemy"));
         choosePanel.add(difficultyComboBox);
-        choosePanel.add(new JLabel("Scegli il numero dei giocatori"));
+        choosePanel.add(new JLabel("Choose the number of Players"));
         choosePanel.add(playersSpinner);
-        choosePanel.add(new JLabel("Scegli il numero di PowerUp"));
+        choosePanel.add(new JLabel("Choose the number of powerUps"));
         choosePanel.add(powerUpSpinner);
-        choosePanel.add(new JLabel("Scegli il numero dei nemici"));
+        choosePanel.add(new JLabel("Choose if the enemy is present (1 = yes, 0 = no)"));
         choosePanel.add(enemySpinner);
         choosePanel.add(Box.createRigidArea(new Dimension(1, 10)));
         choosePanel.add(Box.createRigidArea(new Dimension(1, 100)));

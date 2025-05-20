@@ -16,20 +16,17 @@ import labioopint.model.utilities.api.DualMap;
  */
 public final class DualMapImpl<X> implements DualMap<X> {
     public static final long serialVersionUID = 1L;
-    private final Map<Coordinate, X> mapFromCoordinate;
     private final Map<X, Coordinate> mapFromElement;
 
     /**
-     * Create a empty DualMap.
+     * Create a empty Map.
      */
     public DualMapImpl() {
-        mapFromCoordinate = new HashMap<>();
         mapFromElement = new HashMap<>();
     }
 
     @Override
     public void addElemWithCoordinate(final X elem, final Coordinate coor) {
-        mapFromCoordinate.put(coor, elem);
         mapFromElement.put(elem, coor);
     }
 
@@ -41,17 +38,9 @@ public final class DualMapImpl<X> implements DualMap<X> {
     @Override
     public List<X> getElemFromCoordinate(final Coordinate coor) {
         final List<X> elems = new ArrayList<>();
-        if (mapFromCoordinate.size() != mapFromElement.size()) {
-            for (final Map.Entry<X, Coordinate> valuEntry : mapFromElement.entrySet()) {
-                if (valuEntry.getValue().equals(coor)) {
-                    elems.add(valuEntry.getKey());
-                }
-            }
-        } else {
-            for (final Map.Entry<Coordinate, X> obj : mapFromCoordinate.entrySet()) {
-                if (obj.getKey().equals(coor)) {
-                    elems.add(obj.getValue());
-                }
+        for (final Map.Entry<X, Coordinate> valuEntry : mapFromElement.entrySet()) {
+            if (valuEntry.getValue().equals(coor)) {
+                elems.add(valuEntry.getKey());
             }
         }
         return elems;
@@ -59,14 +48,13 @@ public final class DualMapImpl<X> implements DualMap<X> {
 
     @Override
     public void remove(final X elem) {
-        mapFromCoordinate.remove(mapFromElement.get(elem));
         mapFromElement.remove(elem);
     }
 
     @Override
     public boolean isPresentByCoordinate(final Coordinate coor) {
-        for (final Coordinate checkCoordinate : mapFromCoordinate.keySet()) {
-            if (coor.equals(checkCoordinate)) {
+        for (final Map.Entry<X, Coordinate> checkCoordinate : mapFromElement.entrySet()) {
+            if (coor.equals(checkCoordinate.getValue())) {
                 return true;
             }
         }
