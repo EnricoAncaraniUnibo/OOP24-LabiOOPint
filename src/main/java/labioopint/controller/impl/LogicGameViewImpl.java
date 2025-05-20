@@ -1,10 +1,15 @@
 package labioopint.controller.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import labioopint.controller.api.GameController;
-import labioopint.controller.api.InformationMessenger;
 import labioopint.controller.api.LogicGameView;
 import labioopint.model.utilities.impl.ActionType;
 import labioopint.model.utilities.impl.CoordinateImpl;
+import labioopint.model.player.api.Player;
+import labioopint.model.powerup.api.PowerUp;
 import labioopint.model.utilities.api.Coordinate;
 
 /**
@@ -13,7 +18,6 @@ import labioopint.model.utilities.api.Coordinate;
 public final class LogicGameViewImpl implements LogicGameView {
     public static final long serialVersionUID = 1L;
     private final GameController gameController;
-    private final InformationMessenger informationMessenger;
 
     /**
      * Construction of a {@code LogicGameViewImpl} with an GameController.
@@ -22,22 +26,35 @@ public final class LogicGameViewImpl implements LogicGameView {
      */
     public LogicGameViewImpl(final GameController gameController) {
         this.gameController = gameController;
-        informationMessenger = new InformationMessengerImpl();
     }
 
     @Override
     public String getTurn() {
-        return informationMessenger.getTurn(gameController);
+        return "Player: " + gameController.getCurrentPlayer().getID();
     }
 
     @Override
     public String getAction() {
-        return informationMessenger.getAction(gameController);
+        if (gameController.getTurnManager().getCurrentAction() == ActionType.BLOCK_PLACEMENT) {
+            return "Place the block";
+        }
+        if (gameController.getTurnManager().getCurrentAction() == ActionType.PLAYER_MOVEMENT) {
+            return "Move the player";
+        }
+        return "";
     }
 
     @Override
     public String[] getPowerUps() {
-        return informationMessenger.getPowerUpsList(gameController);
+        final List<PowerUp> powerUpsList = new ArrayList<>();
+        powerUpsList.addAll(gameController.getCurrentPlayer().getUsablePowerUps());
+        final String[] names = new String[powerUpsList.size()];
+        int i = 0;
+        for (final PowerUp powerUp : powerUpsList) {
+            names[i] = powerUp.getName();
+            i++;
+        }
+        return names;
     }
 
     @Override
@@ -58,16 +75,27 @@ public final class LogicGameViewImpl implements LogicGameView {
 
     @Override
     public Boolean isWinnerPresent() {
-        return informationMessenger.getWinner(gameController).isPresent();
+        return gameController.getLabyrinth().checkWinner().isPresent();
     }
 
     @Override
     public String getWinner() {
-        return informationMessenger.getWinner(gameController).get();
+        return Optional.of("The winner is : " + gameController.getLabyrinth().checkWinner().get().getID()).get();
     }
 
     @Override
     public String getScores() {
-        return informationMessenger.getNamesScores(gameController).replace("\n", "<br>");
+        final StringBuilder stringBuilder = new StringBuilder();
+        for (final Player player : gameController.getLabyrinth().getPlayers()) {
+            if (player.isInvincibilityStatus()) {
+                stringBuilder.append("invincible ").append(player.getID()).append(": ")
+                        .append(player.getObjetives().size()).append('\n');
+            } else {
+                stringBuilder.append(player.getID()).append(": ").append(player.getObjetives().size()).append('\n');
+            }
+        }
+        String s = stringBuilder.toString();
+        s = s.replace("\n", "<br>");
+        return s;
     }
 }
