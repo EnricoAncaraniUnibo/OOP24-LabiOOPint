@@ -175,33 +175,35 @@ public final class LabyrinthImpl implements Labyrinth {
         final List<Player> lp = new ArrayList<>();
         final List<Enemy> le = new ArrayList<>();
         final List<PowerUp> lpu = new ArrayList<>();
-        Optional<Player> p;
-        Optional<Enemy> e;
-        Optional<PowerUp> pu;
+        List<Player> p;
+        List<Enemy> e;
+        List<PowerUp> pu;
         Coordinate coor = new CoordinateImpl(c);
         final DualMap<Player> tempMapOfPlayers = new DualMapImpl<>();
         final DualMap<Enemy> tempMapOfEnemy = new DualMapImpl<>();
         final DualMap<PowerUp> tempMapOfPowerUps = new DualMapImpl<>();
         for (int j = 0; j < grid.getSize(); j++) {
-            p = Optional.ofNullable(mapOfPlayers.getElemFromCoordinate(coor));
-            if (p.isPresent() && !lp.contains(p.get())) {
-                lp.add(p.get());
-                mapOfPlayers.remove(p.get());
-                tempMapOfPlayers.addElemWithCoordinate(p.get(), calculateNewCoordinate(coor, d));
+            p = mapOfPlayers.getElemFromCoordinate(coor);
+            for (final Player pl : p) {
+                if (!lp.contains(pl)) {
+                    lp.add(pl);
+                    mapOfPlayers.remove(pl);
+                    tempMapOfPlayers.addElemWithCoordinate(pl, calculateNewCoordinate(coor, d));
+                }
             }
-
-            e = Optional.ofNullable(mapOfEnemy.getElemFromCoordinate(coor));
-            if (e.isPresent() && !le.contains(e.get())) {
-                le.add(e.get());
-                mapOfEnemy.remove(e.get());
-                tempMapOfEnemy.addElemWithCoordinate(e.get(), calculateNewCoordinate(coor, d));
+            e = mapOfEnemy.getElemFromCoordinate(coor);
+            if (!e.isEmpty() && !le.contains(e.get(0))) {
+                le.add(e.get(0));
+                mapOfEnemy.remove(e.get(0));
+                tempMapOfEnemy.addElemWithCoordinate(e.get(0), calculateNewCoordinate(coor, d));
             }
-
-            pu = Optional.ofNullable(mapOfPowerUps.getElemFromCoordinate(coor));
-            if (pu.isPresent() && !lpu.contains(pu.get())) {
-                lpu.add(pu.get());
-                mapOfPowerUps.remove(pu.get());
-                tempMapOfPowerUps.addElemWithCoordinate(pu.get(), calculateNewCoordinate(coor, d));
+            pu = mapOfPowerUps.getElemFromCoordinate(coor);
+            for (final PowerUp pou : pu) {
+                if (!lpu.contains(pou)) {
+                    lpu.add(pou);
+                    mapOfPowerUps.remove(pou);
+                    tempMapOfPowerUps.addElemWithCoordinate(pou, calculateNewCoordinate(coor, d));
+                }
             }
             coor = calculateNewCoordinate(coor, d);
         }
@@ -275,9 +277,11 @@ public final class LabyrinthImpl implements Labyrinth {
 
     private void pickUpPowerUp(final Player p, final Coordinate c) {
         if (mapOfPowerUps.isPresentByCoordinate(c)) {
-            mapOfPowerUps.getElemFromCoordinate(c).collect();
-            p.addObjective(mapOfPowerUps.getElemFromCoordinate(c));
-            mapOfPowerUps.remove(mapOfPowerUps.getElemFromCoordinate(c));
+            for (final PowerUp powerUp : mapOfPowerUps.getElemFromCoordinate(c)) {
+                powerUp.collect();
+                p.addObjective(powerUp);
+                mapOfPowerUps.remove(powerUp);
+            }
         }
     }
 

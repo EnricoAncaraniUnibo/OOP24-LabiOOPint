@@ -1,6 +1,8 @@
 package labioopint.model.utilities.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -37,13 +39,22 @@ public final class DualMapImpl<X> implements DualMap<X> {
     }
 
     @Override
-    public X getElemFromCoordinate(final Coordinate coor) {
-        for (final Map.Entry<Coordinate, X> obj : mapFromCoordinate.entrySet()) {
-            if (obj.getKey().equals(coor)) {
-                return obj.getValue();
+    public List<X> getElemFromCoordinate(final Coordinate coor) {
+        final List<X> elems = new ArrayList<>();
+        if (mapFromCoordinate.size() != mapFromElement.size()) {
+            for (final Map.Entry<X, Coordinate> valuEntry : mapFromElement.entrySet()) {
+                if (valuEntry.getValue().equals(coor)) {
+                    elems.add(valuEntry.getKey());
+                }
+            }
+        } else {
+            for (final Map.Entry<Coordinate, X> obj : mapFromCoordinate.entrySet()) {
+                if (obj.getKey().equals(coor)) {
+                    elems.add(obj.getValue());
+                }
             }
         }
-        return null;
+        return elems;
     }
 
     @Override

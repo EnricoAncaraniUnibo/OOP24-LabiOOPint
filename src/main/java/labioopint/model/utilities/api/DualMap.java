@@ -1,6 +1,7 @@
 package labioopint.model.utilities.api;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 /**
  * Represents a bidirectional mapping between elements and coordinates in a two-dimensional grid.
@@ -32,7 +33,7 @@ public interface DualMap<X> extends Serializable {
      * @param coor the {@link Coordinate} whose associated element is to be retrieved
      * @return the element associated with the coordinate, or {@code null} if not present
      */
-    X getElemFromCoordinate(Coordinate coor);
+    List<X> getElemFromCoordinate(Coordinate coor);
 
     /**
      * Removes an element and its associated coordinate from the mapping.

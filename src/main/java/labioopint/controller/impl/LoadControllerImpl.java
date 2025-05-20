@@ -39,6 +39,7 @@ public final class LoadControllerImpl implements LoadController {
             isGameLoaded = false;
             return false;
         }
+        isGameLoaded = true;
         return true;
     }
 
