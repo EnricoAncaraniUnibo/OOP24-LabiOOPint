@@ -7,7 +7,8 @@ import labioopint.model.utilities.impl.SettingsImpl;
 import labioopint.model.enemy.api.EnemyDifficulty;
 
 /**
- * This class manages the settings of the application, including loading and modifying them.
+ * This class manages the settings of the application, including loading and
+ * modifying them.
  */
 public final class SettingsControllerImpl implements SettingsController {
 
@@ -18,9 +19,11 @@ public final class SettingsControllerImpl implements SettingsController {
     public static final long serialVersionUID = 1L;
 
     private final SaveController saveController;
+
     /**
      * Construction of the {@code SettingsControllerImpl}.
-     * By default it create the Menù for the setting and create some settings for a default scenario.
+     * By default it create the Menù for the setting and create some settings for a
+     * default scenario.
      */
     public SettingsControllerImpl() {
         saveController = new SaveControllerImpl();
@@ -28,11 +31,11 @@ public final class SettingsControllerImpl implements SettingsController {
     }
 
     @Override
-    public boolean saveNewSettings(int numberOfEnemy, int numberOfPlayers, int numberOfPowerUps, String enemyDifficulty) {
-        EnemyDifficulty difficulty = ("EASY".equals(enemyDifficulty)) ? EnemyDifficulty.EASY : 
-                                     ("MEDIUM".equals(enemyDifficulty)) ? EnemyDifficulty.MEDIUM :
-                                     EnemyDifficulty.HARD;
-        final Settings settings = new SettingsImpl(numberOfEnemy,numberOfPlayers,numberOfPowerUps,difficulty);
+    public boolean saveNewSettings(final int numberOfEnemy, final int numberOfPlayers, final int numberOfPowerUps,
+            final String enemyDifficulty) {
+        final EnemyDifficulty difficulty = "EASY".equals(enemyDifficulty) ? EnemyDifficulty.EASY
+                : "MEDIUM".equals(enemyDifficulty) ? EnemyDifficulty.MEDIUM : EnemyDifficulty.HARD;
+        final Settings settings = new SettingsImpl(numberOfEnemy, numberOfPlayers, numberOfPowerUps, difficulty);
         return saveController.saveSettings(settings);
     }
 }

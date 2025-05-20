@@ -17,6 +17,12 @@ public interface SaveController extends Serializable {
      */
     boolean saveGame(GameController gc);
 
+    /**
+     * Save the selected settings.
+     * 
+     * @param settings the settings to be saved
+     * @return {@code true} if the settings has been saved correctly, {@code false} otherwise
+     */
     boolean saveSettings(Settings settings);
 
 }

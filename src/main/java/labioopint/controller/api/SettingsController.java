@@ -9,5 +9,14 @@ import java.io.Serializable;
  */
 public interface SettingsController extends Serializable {
 
+    /**
+     * Save the settings passed.
+     * 
+     * @param numberOfEnemy if enemy is present or not
+     * @param numberOfPlayers the number of players
+     * @param numberOfPowerUps the number of powerUps
+     * @param enemyDifficulty the difficulty of the enemy
+     * @return {@code true} if the saving has been successful, {@code false} otherwise
+     */
     boolean saveNewSettings(int numberOfEnemy, int numberOfPlayers, int numberOfPowerUps, String enemyDifficulty);
 }

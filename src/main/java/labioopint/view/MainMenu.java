@@ -37,7 +37,6 @@ public class MainMenu extends JFrame {
     /**
      * Constructs the main menu.
      * 
-     * @param controller the main menu controller
      */
     public MainMenu() {
         this.controller = new MainMenuControllerImpl();
@@ -131,7 +130,10 @@ public class MainMenu extends JFrame {
                 "No file found, it's not possible to load the game");
     }
 
-    public final void open(){
+    /**
+     * Make the view visible.
+     */
+    public final void open() {
         super.setVisible(true);
     }
 }

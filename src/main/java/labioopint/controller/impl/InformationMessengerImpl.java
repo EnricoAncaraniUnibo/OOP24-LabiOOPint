@@ -18,12 +18,12 @@ public final class InformationMessengerImpl implements InformationMessenger {
     public static final long serialVersionUID = 1L;
 
     @Override
-    public String getTurn(GameController gameController) {
+    public String getTurn(final GameController gameController) {
         return "Player: " + gameController.getCurrentPlayer().getID();
     }
 
     @Override
-    public String getAction(GameController gameController) {
+    public String getAction(final GameController gameController) {
         if (gameController.getTurnManager().getCurrentAction() == ActionType.BLOCK_PLACEMENT) {
             return "Posizionare il blocco";
         }
@@ -34,7 +34,7 @@ public final class InformationMessengerImpl implements InformationMessenger {
     }
 
     @Override
-    public String[] getPowerUpsList(GameController gameController) {
+    public String[] getPowerUpsList(final GameController gameController) {
         final List<PowerUp> powerUpsList = new ArrayList<>();
         powerUpsList.addAll(gameController.getCurrentPlayer().getUsablePowerUps());
         final String[] names = new String[powerUpsList.size()];
@@ -47,7 +47,7 @@ public final class InformationMessengerImpl implements InformationMessenger {
     }
 
     @Override
-    public Optional<String> getWinner(GameController gameController) {
+    public Optional<String> getWinner(final GameController gameController) {
         if (gameController.getLabyrinth().checkWinner().isPresent()) {
             return Optional.of("Ha vinto: " + gameController.getLabyrinth().checkWinner().get().getID());
         }
@@ -55,7 +55,7 @@ public final class InformationMessengerImpl implements InformationMessenger {
     }
 
     @Override
-    public String getNamesScores(GameController gameController) {
+    public String getNamesScores(final GameController gameController) {
         final StringBuilder stringBuilder = new StringBuilder();
         for (final Player player : gameController.getLabyrinth().getPlayers()) {
             if (player.isInvincibilityStatus()) {

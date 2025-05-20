@@ -28,7 +28,7 @@ public final class SaveControllerImpl implements SaveController {
     }
 
     @Override
-    public boolean saveSettings(Settings settings) {
+    public boolean saveSettings(final Settings settings) {
         try (FileOutputStream fos = new FileOutputStream(new File("src/main/java/labioopint/saving/settings.txt"),
                 false); ObjectOutputStream oos = new ObjectOutputStream(fos)) {
             oos.writeObject(settings);

@@ -58,7 +58,7 @@ public final class LoadControllerImpl implements LoadController {
     }
 
     @Override
-    public boolean loadSettings(){
+    public boolean loadSettings() {
         try (FileInputStream fis = new FileInputStream(new File("src/main/java/labioopint/saving/settings.txt"));
                 ObjectInputStream ois = new ObjectInputStream(fis)) {
             loadedSettings = (Settings) ois.readObject();

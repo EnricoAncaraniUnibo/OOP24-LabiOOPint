@@ -27,6 +27,11 @@ public interface LoadController extends Serializable {
      */
     boolean isLoadedGame();
 
+    /**
+     * Check if the settings have been sucessfully loaded.
+     * 
+     * @return {@code true} if the settings are loaded {@code false} otherwise
+     */
     boolean isLoadedSettings();
 
     /**
@@ -36,7 +41,17 @@ public interface LoadController extends Serializable {
      */
     GameController getGameController();
 
+    /**
+     * Load the saved settings.
+     * 
+     * @return {@code true} if the settings are loaded, {@code false} otherwise
+     */
     boolean loadSettings();
 
+    /**
+     * Retrieves the {@link Settings} loaded.
+     *
+     * @return the {@link Settings} instance
+     */
     Settings getSettings();
 }

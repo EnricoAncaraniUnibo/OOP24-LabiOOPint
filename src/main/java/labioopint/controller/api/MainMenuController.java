@@ -2,7 +2,6 @@ package labioopint.controller.api;
 
 import java.io.Serializable;
 
-import labioopint.model.utilities.api.Settings;
 /**
  * Represents the controller for managing the main menu of the game.
  * This interface provides methods to load the main menu, start a new game,
@@ -13,7 +12,7 @@ public interface MainMenuController extends Serializable {
     /**
      * Starts a new game with the specified settings.
      *
-     * @param settings the {@link Settings} object containing the game configuration
+     * @return {@code true} if the game is successfully started, {@code false} otherwise
      */
     boolean startGame();
 
@@ -29,5 +28,8 @@ public interface MainMenuController extends Serializable {
      */
     boolean isLoaded();
 
+    /**
+     * Open the Settings Menù.
+     */
     void openSettings();
 }

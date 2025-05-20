@@ -27,8 +27,8 @@ import java.awt.Toolkit;
 public class SettingsMenu extends JFrame {
 
     private static final long serialVersionUID = 1L;
-    private static final int RATIO_NUMERATOR = 4;       //It's a ratio number for the dimension
-    private static final int RATIO_DENOMINATOR = 5;     //of the screen
+    private static final int RATIO_NUMERATOR = 4; // It's a ratio number for the dimension
+    private static final int RATIO_DENOMINATOR = 5; // of the screen
     private static final int GRID_ROWS = 15;
     private static final int GRID_COLUMNS = 0;
     private static final int GRID_HGAP = 0;
@@ -43,7 +43,6 @@ public class SettingsMenu extends JFrame {
     /**
      * Constructs a new SettingsMenu.
      *
-     * @param controller the SettingsController used to manage the settings logic
      */
     public SettingsMenu() {
         settingsController = new SettingsControllerImpl();
@@ -63,15 +62,14 @@ public class SettingsMenu extends JFrame {
         final JButton saveButton = new JButton("Save");
         saveButton.setAlignmentX(CENTER_ALIGNMENT);
         saveButton.addActionListener(e -> {
-            if(settingsController.saveNewSettings(
+            if (settingsController.saveNewSettings(
                     (int) enemySpinner.getValue(),
                     (int) playersSpinner.getValue(),
                     (int) powerUpSpinner.getValue(),
-                    (String) difficultyComboBox.getSelectedItem())){
-                        this.setVisible(false);
-                    }
-            else{
-                JOptionPane.showMessageDialog(this,"Error in saving settings\ntry again");
+                    (String) difficultyComboBox.getSelectedItem())) {
+                this.setVisible(false);
+            } else {
+                JOptionPane.showMessageDialog(this, "Error in saving settings\ntry again");
                 this.setVisible(false);
             }
         });
@@ -98,7 +96,10 @@ public class SettingsMenu extends JFrame {
         super.add(choosePanel);
     }
 
-    public void open(){
+    /**
+     * Make the view visible.
+     */
+    public final void open() {
         super.setVisible(true);
     }
 }
