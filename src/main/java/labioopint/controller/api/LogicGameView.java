@@ -51,14 +51,14 @@ public interface LogicGameView extends Serializable {
      *
      * @return {@code true} if block placement is allowed, {@code false} otherwise
      */
-    Boolean isBlockPlacement();
+    boolean isBlockPlacement();
 
     /**
      * Checks if a winner is present in the game.
      *
      * @return {@code true} if a winner is present, {@code false} otherwise
      */
-    Boolean isWinnerPresent();
+    boolean isWinnerPresent();
 
     /**
      * Retrieves the winner of the game.

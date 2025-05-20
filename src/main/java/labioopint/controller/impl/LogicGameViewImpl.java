@@ -69,12 +69,12 @@ public final class LogicGameViewImpl implements LogicGameView {
     }
 
     @Override
-    public Boolean isBlockPlacement() {
+    public boolean isBlockPlacement() {
         return gameController.getTurnManager().getCurrentAction() == ActionType.BLOCK_PLACEMENT;
     }
 
     @Override
-    public Boolean isWinnerPresent() {
+    public boolean isWinnerPresent() {
         return gameController.getLabyrinth().checkWinner().isPresent();
     }
 
