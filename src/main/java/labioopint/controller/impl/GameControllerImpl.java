@@ -55,7 +55,7 @@ public final class GameControllerImpl implements GameController {
     @Override
     public void action(final Object action) {
         actionController.action(action, labyrinth, turnManager);
-        if (!saveError && !saveController.save(this)) {
+        if (!saveError && !saveController.saveGame(this)) {
             saveError = true;
         }
     }

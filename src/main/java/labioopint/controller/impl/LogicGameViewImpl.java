@@ -22,22 +22,22 @@ public final class LogicGameViewImpl implements LogicGameView {
      */
     public LogicGameViewImpl(final GameController gameController) {
         this.gameController = gameController;
-        informationMessenger = new InformationMessengerImpl(gameController);
+        informationMessenger = new InformationMessengerImpl();
     }
 
     @Override
     public String getTurn() {
-        return informationMessenger.getTurn();
+        return informationMessenger.getTurn(gameController);
     }
 
     @Override
     public String getAction() {
-        return informationMessenger.getAction();
+        return informationMessenger.getAction(gameController);
     }
 
     @Override
     public String[] getPowerUps() {
-        return informationMessenger.getPowerUpsList();
+        return informationMessenger.getPowerUpsList(gameController);
     }
 
     @Override
@@ -58,16 +58,16 @@ public final class LogicGameViewImpl implements LogicGameView {
 
     @Override
     public Boolean isWinnerPresent() {
-        return informationMessenger.getWinner().isPresent();
+        return informationMessenger.getWinner(gameController).isPresent();
     }
 
     @Override
     public String getWinner() {
-        return informationMessenger.getWinner().get();
+        return informationMessenger.getWinner(gameController).get();
     }
 
     @Override
     public String getScores() {
-        return informationMessenger.getNamesScores().replace("\n", "<br>");
+        return informationMessenger.getNamesScores(gameController).replace("\n", "<br>");
     }
 }

@@ -7,6 +7,7 @@ import java.io.ObjectInputStream;
 
 import labioopint.controller.api.GameController;
 import labioopint.controller.api.LoadController;
+import labioopint.model.utilities.api.Settings;
 
 /**
  * Implementation of the loadController class which is used to load a previus
@@ -15,7 +16,9 @@ import labioopint.controller.api.LoadController;
 public final class LoadControllerImpl implements LoadController {
 
     private GameController loadedGameController;
-    private boolean isLoaded;
+    private Settings loadedSettings;
+    private boolean isGameLoaded;
+    private boolean isSettingsLoaded;
     public static final long serialVersionUID = 1L;
 
     /**
@@ -23,7 +26,8 @@ public final class LoadControllerImpl implements LoadController {
      *
      */
     public LoadControllerImpl() {
-        isLoaded = false;
+        isGameLoaded = false;
+        isSettingsLoaded = false;
     }
 
     @Override
@@ -32,19 +36,42 @@ public final class LoadControllerImpl implements LoadController {
                 ObjectInputStream ois = new ObjectInputStream(fis)) {
             loadedGameController = (GameController) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
-            isLoaded = false;
+            isGameLoaded = false;
             return false;
         }
         return true;
     }
 
     @Override
-    public boolean isLoaded() {
-        return isLoaded;
+    public boolean isLoadedGame() {
+        return isGameLoaded;
+    }
+
+    @Override
+    public boolean isLoadedSettings() {
+        return isSettingsLoaded;
     }
 
     @Override
     public GameController getGameController() {
         return loadedGameController;
+    }
+
+    @Override
+    public boolean loadSettings(){
+        try (FileInputStream fis = new FileInputStream(new File("src/main/java/labioopint/saving/settings.txt"));
+                ObjectInputStream ois = new ObjectInputStream(fis)) {
+            loadedSettings = (Settings) ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            isSettingsLoaded = false;
+            return false;
+        }
+        isSettingsLoaded = true;
+        return true;
+    }
+
+    @Override
+    public Settings getSettings() {
+        return loadedSettings;
     }
 }

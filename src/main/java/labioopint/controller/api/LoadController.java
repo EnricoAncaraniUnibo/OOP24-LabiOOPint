@@ -2,6 +2,8 @@ package labioopint.controller.api;
 
 import java.io.Serializable;
 
+import labioopint.model.utilities.api.Settings;
+
 /**
  * Represents a controller for loading game-related data, such as the last saved
  * game.
@@ -23,7 +25,9 @@ public interface LoadController extends Serializable {
      *
      * @return {@code true} if a game is loaded, {@code false} otherwise
      */
-    boolean isLoaded();
+    boolean isLoadedGame();
+
+    boolean isLoadedSettings();
 
     /**
      * Retrieves the {@link GameController} associated with the loaded game.
@@ -32,4 +36,7 @@ public interface LoadController extends Serializable {
      */
     GameController getGameController();
 
+    boolean loadSettings();
+
+    Settings getSettings();
 }

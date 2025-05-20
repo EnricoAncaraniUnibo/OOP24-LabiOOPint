@@ -13,34 +13,34 @@ public interface InformationMessenger extends Serializable {
      *
      * @return a {@link String} representing the current turn
      */
-    String getTurn();
+    String getTurn(GameController gameController);
 
     /**
      * Retrieves the current action being performed.
      *
      * @return a {@link String} representing the current action
      */
-    String getAction();
+    String getAction(GameController gameController);
 
     /**
      * Retrieves the list of available power-ups.
      *
      * @return an array of {@link String} containing the power-ups
      */
-    String[] getPowerUpsList();
+    String[] getPowerUpsList(GameController gameController);
 
     /**
      * Retrieves the winner of the game, if available.
      *
      * @return an {@link Optional} containing the winner's name as a {@link String}, or empty if no winner exists
      */
-    Optional<String> getWinner();
+    Optional<String> getWinner(GameController gameController);
 
     /**
      * Retrieves the names and scores of players in the game.
      *
      * @return a {@link String} representing the names and scores
      */
-    String getNamesScores();
+    String getNamesScores(GameController gameController);
 
 }

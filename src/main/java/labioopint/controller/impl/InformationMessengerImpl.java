@@ -16,38 +16,27 @@ import labioopint.model.powerup.api.PowerUp;
  */
 public final class InformationMessengerImpl implements InformationMessenger {
     public static final long serialVersionUID = 1L;
-    private final GameController gc;
 
-    /**
-     * Construction of a {@code InformationMessengerImpl} with the gameController
-     * associeted with the game.
-     * 
-     * @param gc the gameController of the game we want to retrive information from
-     */
-    public InformationMessengerImpl(final GameController gc) {
-        this.gc = gc;
+    @Override
+    public String getTurn(GameController gameController) {
+        return "Player: " + gameController.getCurrentPlayer().getID();
     }
 
     @Override
-    public String getTurn() {
-        return "Player: " + gc.getCurrentPlayer().getID();
-    }
-
-    @Override
-    public String getAction() {
-        if (gc.getTurnManager().getCurrentAction() == ActionType.BLOCK_PLACEMENT) {
+    public String getAction(GameController gameController) {
+        if (gameController.getTurnManager().getCurrentAction() == ActionType.BLOCK_PLACEMENT) {
             return "Posizionare il blocco";
         }
-        if (gc.getTurnManager().getCurrentAction() == ActionType.PLAYER_MOVEMENT) {
+        if (gameController.getTurnManager().getCurrentAction() == ActionType.PLAYER_MOVEMENT) {
             return "Muovere il personaggio";
         }
         return "";
     }
 
     @Override
-    public String[] getPowerUpsList() {
+    public String[] getPowerUpsList(GameController gameController) {
         final List<PowerUp> powerUpsList = new ArrayList<>();
-        powerUpsList.addAll(gc.getCurrentPlayer().getUsablePowerUps());
+        powerUpsList.addAll(gameController.getCurrentPlayer().getUsablePowerUps());
         final String[] names = new String[powerUpsList.size()];
         int i = 0;
         for (final PowerUp powerUp : powerUpsList) {
@@ -58,17 +47,17 @@ public final class InformationMessengerImpl implements InformationMessenger {
     }
 
     @Override
-    public Optional<String> getWinner() {
-        if (gc.getLabyrinth().checkWinner().isPresent()) {
-            return Optional.of("Ha vinto: " + gc.getLabyrinth().checkWinner().get().getID());
+    public Optional<String> getWinner(GameController gameController) {
+        if (gameController.getLabyrinth().checkWinner().isPresent()) {
+            return Optional.of("Ha vinto: " + gameController.getLabyrinth().checkWinner().get().getID());
         }
         return Optional.empty();
     }
 
     @Override
-    public String getNamesScores() {
+    public String getNamesScores(GameController gameController) {
         final StringBuilder stringBuilder = new StringBuilder();
-        for (final Player player : gc.getLabyrinth().getPlayers()) {
+        for (final Player player : gameController.getLabyrinth().getPlayers()) {
             if (player.isInvincibilityStatus()) {
                 stringBuilder.append("invincible ").append(player.getID()).append(": ")
                         .append(player.getObjetives().size()).append('\n');

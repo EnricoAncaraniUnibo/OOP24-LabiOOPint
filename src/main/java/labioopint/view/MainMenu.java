@@ -11,8 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import labioopint.controller.api.MainMenuController;
-import labioopint.controller.api.MainMenuLogic;
-import labioopint.controller.impl.MainMenuLogicImpl;
+import labioopint.controller.impl.MainMenuControllerImpl;
 
 /**
  * Main menu window for the application.
@@ -33,15 +32,15 @@ public class MainMenu extends JFrame {
     private static final int TITLE_BOTTOM_SPACING = 40;
     private static final int BUTTON_SPACING = 20;
 
-    private final MainMenuLogic logic;
+    private final MainMenuController controller;
 
     /**
      * Constructs the main menu.
      * 
      * @param controller the main menu controller
      */
-    public MainMenu(final MainMenuController controller) {
-        this.logic = new MainMenuLogicImpl(controller);
+    public MainMenu() {
+        this.controller = new MainMenuControllerImpl();
         super.setTitle("Main Menu");
         super.setDefaultCloseOperation(EXIT_ON_CLOSE);
         final Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
@@ -75,8 +74,12 @@ public class MainMenu extends JFrame {
         mainPanel.add(startGameButton);
         mainPanel.add(Box.createRigidArea(new Dimension(0, BUTTON_SPACING)));
         startGameButton.addActionListener(e -> {
-            this.logic.startGame();
-            this.setVisible(false);
+            if (this.controller.startGame()) {
+                this.setVisible(false);
+            } else {
+                JOptionPane.showMessageDialog(this, "Error in loading settings\nrestart the game");
+                super.dispose();
+            }
         });
 
         final JButton loadGameButton = new JButton("Load Game");
@@ -87,8 +90,8 @@ public class MainMenu extends JFrame {
         mainPanel.add(loadGameButton);
         mainPanel.add(Box.createRigidArea(new Dimension(0, BUTTON_SPACING)));
         loadGameButton.addActionListener(e -> {
-            this.logic.loadGame();
-            if (this.logic.isLoaded()) {
+            this.controller.loadGame();
+            if (this.controller.isLoaded()) {
                 this.setVisible(false);
             } else {
                 showNoFileFound();
@@ -102,7 +105,7 @@ public class MainMenu extends JFrame {
         settingsButton.setAlignmentX(CENTER_ALIGNMENT);
         mainPanel.add(settingsButton);
         mainPanel.add(Box.createRigidArea(new Dimension(0, BUTTON_SPACING)));
-        settingsButton.addActionListener(e -> this.logic.openSettings());
+        settingsButton.addActionListener(e -> this.controller.openSettings());
 
         final JButton quitButton = new JButton("Quit");
         quitButton.setPreferredSize(buttonSize);
@@ -126,5 +129,9 @@ public class MainMenu extends JFrame {
         JOptionPane.showMessageDialog(
                 null,
                 "No file found, it's not possible to load the game");
+    }
+
+    public final void open(){
+        super.setVisible(true);
     }
 }

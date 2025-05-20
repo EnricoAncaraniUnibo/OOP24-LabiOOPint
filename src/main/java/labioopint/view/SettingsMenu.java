@@ -5,14 +5,14 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 
 import labioopint.controller.api.SettingsController;
-import labioopint.controller.api.SettingsLogic;
-import labioopint.controller.impl.SettingsLogicImpl;
+import labioopint.controller.impl.SettingsControllerImpl;
 
 import java.awt.Dimension;
 import java.awt.Font;
@@ -38,15 +38,15 @@ public class SettingsMenu extends JFrame {
     private static final int V_GAP = 20;
 
     private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    private final SettingsLogic settingsLogic;
+    private final SettingsController settingsController;
 
     /**
      * Constructs a new SettingsMenu.
      *
      * @param controller the SettingsController used to manage the settings logic
      */
-    public SettingsMenu(final SettingsController controller) {
-        settingsLogic = new SettingsLogicImpl(controller);
+    public SettingsMenu() {
+        settingsController = new SettingsControllerImpl();
         super.setTitle("Settings");
         super.setLayout(new GridLayout(0, 3, H_GAP, V_GAP));
         super.setSize((int) screenSize.getWidth() * RATIO_NUMERATOR / RATIO_DENOMINATOR,
@@ -63,12 +63,17 @@ public class SettingsMenu extends JFrame {
         final JButton saveButton = new JButton("Save");
         saveButton.setAlignmentX(CENTER_ALIGNMENT);
         saveButton.addActionListener(e -> {
-            settingsLogic.saveNewSettings(
+            if(settingsController.saveNewSettings(
                     (int) enemySpinner.getValue(),
                     (int) playersSpinner.getValue(),
                     (int) powerUpSpinner.getValue(),
-                    (String) difficultyComboBox.getSelectedItem());
-            this.setVisible(false);
+                    (String) difficultyComboBox.getSelectedItem())){
+                        this.setVisible(false);
+                    }
+            else{
+                JOptionPane.showMessageDialog(this,"Error in saving settings\ntry again");
+                this.setVisible(false);
+            }
         });
 
         final JLabel textLabel = new JLabel("Settings");
@@ -91,5 +96,9 @@ public class SettingsMenu extends JFrame {
         choosePanel.setAlignmentX(CENTER_ALIGNMENT);
         super.add(Box.createRigidArea(new Dimension(10, 10)));
         super.add(choosePanel);
+    }
+
+    public void open(){
+        super.setVisible(true);
     }
 }

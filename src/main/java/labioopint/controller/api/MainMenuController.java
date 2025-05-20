@@ -11,16 +11,11 @@ import labioopint.model.utilities.api.Settings;
 public interface MainMenuController extends Serializable {
 
     /**
-     * Loads the main menu.
-     */
-    void load();
-
-    /**
      * Starts a new game with the specified settings.
      *
      * @param settings the {@link Settings} object containing the game configuration
      */
-    void startGame(Settings settings);
+    boolean startGame();
 
     /**
      * Loads a previously saved game.
@@ -34,4 +29,5 @@ public interface MainMenuController extends Serializable {
      */
     boolean isLoaded();
 
+    void openSettings();
 }

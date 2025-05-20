@@ -1,7 +1,6 @@
-package labioopint.model.core.impl;
+package labioopint;
 
-import labioopint.controller.api.MainMenuController;
-import labioopint.controller.impl.MainMenuControllerImpl;
+import labioopint.view.MainMenu;
 
 /**
  * This class serves as the entry point for the application.
@@ -22,7 +21,7 @@ public final class Starter {
      */
     public static void main(final String[] args) {
 
-        final MainMenuController controller = new MainMenuControllerImpl();
-        controller.load();
+        final MainMenu menu = new MainMenu();
+        menu.open();
     }
 }
