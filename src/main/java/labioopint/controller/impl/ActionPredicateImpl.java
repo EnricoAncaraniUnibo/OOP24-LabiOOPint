@@ -1,9 +1,12 @@
 package labioopint.controller.impl;
 
+import java.util.Optional;
+
 import labioopint.controller.api.ActionPredicate;
 import labioopint.controller.api.DirectionCheck;
 import labioopint.model.utilities.api.Coordinate;
 import labioopint.model.utilities.impl.CoordinateImpl;
+import labioopint.model.block.api.Block;
 import labioopint.model.block.impl.BlockImpl;
 import labioopint.model.enemy.api.Enemy;
 import labioopint.model.maze.api.Direction;
@@ -64,9 +67,14 @@ public final class ActionPredicateImpl implements ActionPredicate {
 
     @Override
     public boolean blockCanMove(final Coordinate blockCoordinate, final Labyrinth labyrinth) {
-        final BlockImpl b = (BlockImpl) labyrinth.getGrid().getBlock(blockCoordinate).get();
-        return b.isMovable() && (blockCoordinate.getColumn() == 0 || blockCoordinate.getColumn() == mazeSize - 1
-                || blockCoordinate.getRow() == 0 || blockCoordinate.getRow() == mazeSize - 1);
+        final Optional<Block> blockClicked = labyrinth.getGrid().getBlock(blockCoordinate);
+        if (blockClicked.isPresent()) {
+            final BlockImpl b = (BlockImpl) labyrinth.getGrid().getBlock(blockCoordinate).get();
+            return b.isMovable() && (blockCoordinate.getColumn() == 0 || blockCoordinate.getColumn() == mazeSize - 1
+                    || blockCoordinate.getRow() == 0 || blockCoordinate.getRow() == mazeSize - 1);
+        } else {
+            return false;
+        }
     }
 
     @Override
