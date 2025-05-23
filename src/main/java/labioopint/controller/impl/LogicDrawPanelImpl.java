@@ -13,7 +13,8 @@ import labioopint.model.utilities.api.Pair;
 import labioopint.model.utilities.impl.CoordinateImpl;
 import labioopint.model.utilities.impl.PairImpl;
 import labioopint.model.block.api.Block;
-import labioopint.model.core.impl.ImageLoader;
+import labioopint.model.core.api.ImageLoader;
+import labioopint.model.core.impl.ImageLoaderImpl;
 import labioopint.model.enemy.api.Enemy;
 import labioopint.model.maze.api.Maze;
 import labioopint.model.player.api.Player;
@@ -47,7 +48,7 @@ public final class LogicDrawPanelImpl implements LogicDrawPanel {
     public LogicDrawPanelImpl(final GameController gc, final Dimension size) throws IOException {
         this.gc = gc;
         pixelSize = (int) size.getWidth() / CORRECT_BLOCK_DIVISION;
-        il = new ImageLoader();
+        il = new ImageLoaderImpl();
         il.load();
     }
 
