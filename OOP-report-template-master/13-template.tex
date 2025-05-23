@@ -164,7 +164,7 @@ e la difficoltà e la giocabilità derivano dalla loro disposizione e rotazione.
 in base al numero di giocatori, rendendo impraticabile copiare esattamente il contenuto del gioco originale.
 Inoltre, una generazione completamente casuale delle tessere rischia di rendere il labirinto poco giocabile: troppe tessere dello stesso tipo 
 possono compromettere l’esperienza dell’utente.\\
-
+\\
 \textbf{SOLUZIONE}
 Per risolvere questo problema, ho definito una gerarchia di classi orientata all’estensione e alla flessibilità.
 \begin{itemize}
@@ -186,15 +186,14 @@ devono contenere sempre tessere a “L” ruotate verso il centro, per garantire
 	la scelta di tessere dal SimpleMaze
 	\item Template Method Pattern: viene utilizzato questo pattern per creare un ambiente facilmente estensibile e lasciare il comportamento generale del labirinto invariato.
 \end{itemize}
-
 \textbf{CONTRO}
 \begin{itemize}
 	\item È necessario implementare una nuova sottoclasse per ogni tipo di configurazione: ogni volta che si vuole un certo scenario con una scelta specifica di tessere bisogna 
 	implementare una nuova sottoclasse di Maze
 \end{itemize}
-
 \textbf{Gestione delle coordinate, generazione iniziale}
-
+\\
+\\
 \textbf{PROBLEMA}
 
 Un aspetto centrale nello sviluppo del gioco è la gestione delle posizioni degli elementi sulla mappa.
@@ -204,19 +203,17 @@ Essa viene con diverse problematiche da risolvere:
 	\item Meccanica di shift: gestione dello spostamento delle tessere (e degli elementi sopra di esse) a seguito dell’inserimento della tessera extra.
 	\item Effetto "Pac-Man": se un elemento viene spinto fuori dal labirinto, deve riapparire dalla parte opposta, mantenendo coerenza con la direzione dello spostamento.
 \end{itemize}
-
 \textbf{SOLUZIONE}
 Una possibile soluzione iniziale era lasciare che ogni elemento conoscesse 
 la propria posizione, ma questa scelta avrebbe complicato eccessivamente 
 l’interazione tra elementi e labirinto. Pertanto, ho optato per un approccio centralizzato.
-
 Per risolvere le problematiche sopra descritte, ho progettato la classe Labyrinth, 
 responsabile della gestione centralizzata delle coordinate di tutti gli elementi del gioco: giocatori, nemico e powerup (obbiettivi).
 Al suo interno la classe utilizza 2 componenti creati appositamente:
 \begin{itemize}
-	\item DualMap<T>: struttura bidirezionale che collega elementi e coordinate, permettendo sia di trovare la posizione di un elemento, 
+	\item \textbf{DualMap}: struttura bidirezionale che collega elementi e coordinate, permettendo sia di trovare la posizione di un elemento, 
 	sia di identificare cosa si trova in una determinata posizione.
-	\item CoordinateGenerator: classe dedicata alla generazione delle coordinate iniziali, secondo logiche diverse in base al tipo di elemento.
+	\item \textbf{CoordinateGenerator}: classe dedicata alla generazione delle coordinate iniziali, secondo logiche diverse in base al tipo di elemento.
 \end{itemize}
 
 La classe CoordinateGenerator è progettata per supportare la generazione delle coordinate in base alle seguenti esigenze:
@@ -227,54 +224,99 @@ La classe CoordinateGenerator è progettata per supportare la generazione delle 
 \end{itemize}
 In ogni caso, le coordinate già estratte vengono rimosse dal set interno, garantendo unicità e prevenendo sovrapposizioni indesiderate.
 Per quanto riguarda la meccanica di shift ho pensato che potesse bastare un metodo all'interno della classe Labyrinth.
+Ho pensato che la responsabilità del metodo ricadesse proprio nel Labyrinth in quanto il metodo shift è alla base uno spostamento di coordinate.
 Per funzionare al meglio ho deciso di suddividere i compiti del metodo su più metodi private in modo da permettere una chiara lettura e modifica.
-Le funzioni suddivise sono: Determinare il tipo di shift (riga,colonna), modificare la posizione delle tessere, modificare la posizione degli elementi, calcolare la nuova posizione,
+Le funzioni suddivise sono: Determinare il tipo di shift (riga,colonna), calcolare la nuova posizione per ogni elemento, modificare la posizione delle tessere, modificare la posizione degli elementi,
 controllare se la nuova posizione è fuori dal labirinto e se lo è modificarla.
-
+\\
+\\
 \textbf{PRO}
-
-
+\begin{itemize}
+	\item Centralizzazione della gestione delle coordinate, riducendo al minimo il numero di chiamate e sincronizzazioni necessarie tra elementi e mappa.
+	\item Facilità di estensione: la suddivisione delle responsabilità consente di introdurre nuove politiche di posizionamento (es. nuove entità) con impatto minimo sul codice esistente.
+	\item Separazione delle responsabilità ben definita, che migliora leggibilità e manutenibilità del codice.
+\end{itemize}
 \textbf{CONTRO}
-
-\textbf{Shift delle tessere e posizionamento tessera esterna}
-
-\textbf{PROBLEMA}
-
-\textbf{SOLUZIONE}
-
-\textbf{PRO}
-
-\textbf{CONTRO}
-
+\begin{itemize}
+	\item Gli elementi che necessitano di accedere alle posizioni di altri oggetti (ad esempio per calcoli di targeting) devono ricevere un 
+	riferimento al Labyrinth o alla rispettiva DualMap.
+\end{itemize}
 \textbf{Caricamento immagini e disegno grafica}
-
+\\
+\\
 \textbf{PROBLEMA}
-
+Nel contesto del gioco ispirato al Labirinto Magico, è essenziale offrire all’utente una rappresentazione grafica chiara, coerente e reattiva dello stato di gioco. 
+La visualizzazione deve adattarsi dinamicamente alle dimensioni della finestra e 
+riflettere fedelmente ogni modifica del modello, inclusi la rotazione delle tessere, la posizione dei giocatori, la presenza di obiettivi o nemici.
+\\
+\\
 \textbf{SOLUZIONE}
-
+Per affrontare questo problema ho adottato una chiara separazione tra la logica di visualizzazione e rendering grafico.
+In particolare la soluzione che ho adottato utilizza 3 componenti.
+\begin{itemize}
+	\item \textbf{DrawPanel}: componente di basso livello incaricato esclusivamente del disegno su schermo. Riceve una lista strutturata di elementi grafici già processati e li renderizza.
+	\item \textbf{LogicDrawPanel}: componente intermedio creato dal DrawPanel che si occupa della logica di visualizzazione. 
+	Analizza lo stato del modello (GameController), calcola le coordinate pixel, la rotazione e la dimensione ottimale per ogni immagine da disegnare.
+	\item \textbf{ImageLoader}:  classe dedicata al caricamento e alla gestione delle risorse grafiche. Associa ogni elemento di gioco alla sua rispettiva immagine.
+\end{itemize}
+Quando la GameView richiede un aggiornamento:
+\begin{itemize}
+	\item Il DrawPanel interroga il LogicDrawPanel.
+	\item Il LogicDrawPanel analizza lo stato corrente del gioco e costruisce più elementi contenenti tutte le informazioni utili per il rendering.
+	\item Il DrawPanel renderizza tale rappresentazione.
+\end{itemize}
+Il calcolo delle proporzioni avviene dinamicamente in base alla dimensione della finestra dell’applicazione, garantendo un’interfaccia responsive. 
+In fondo a tutto ciò ho anche deciso di aggiungere per ogni giocatore un'immagine uguale al suo personaggio ma cambiata di colore per indicare graficamente, 
+il giocatore che sta svolgendo il turno.
+\\
+\\
 \textbf{PRO}
-
+\begin{itemize}
+	\item La separazione tra logica e rendering consente una maggiore manutenibilità e una lettura più chiara del codice.
+	\item L'interfaccia utente si adatta automaticamente alla risoluzione della finestra.
+	\item Si possono aggiungere facilmente nuove funzionalità grafica o set di elementi senza dover apportare modifiche al codice già implementato.
+\end{itemize}
 \textbf{CONTRO}
-
-\textbf{Gestione del giocatore e del suo movimento}
-
+\begin{itemize}
+	\item In caso di aggiornamento del model il LogicDrawPanel si deve ricalcolare tutti gli elementi anche quelli non modificati di posizione o rotazione.
+\end{itemize}
+\textbf{Metodi per la gestione dei punteggi, nomi e informazioni}
+\\
+\\
 \textbf{PROBLEMA}
-
+Durante lo svolgimento della partita, è fondamentale fornire al giocatore un feedback continuo sullo stato del gioco. In particolare, è necessario visualizzare:
+\begin{itemize}
+	\item A chi tocca il turno corrente.
+	\item Qual è l’azione richiesta.
+	\item I power-up utilizzabili per ciascun giocatore.
+	\item Il vincitore della partita (quando rilevante).
+	\item Una classifica aggiornata dei giocatori con informazioni sul punteggio e lo stato.
+\end{itemize}
+Queste informazioni devono essere rese accessibili in modo intuitivo e integrato nell’interfaccia utente, 
+senza legare la logica della visualizzazione direttamente al modello del gioco.
+\\
+\\
 \textbf{SOLUZIONE}
-
+Per separare correttamente la logica del gioco dalla logica di presentazione, è stata introdotta una componente intermedia: la \textbf{LogicGameView}.
+In questa classe io ho creato delle funzionalità per la trasformazione di informazioni dal model in stringe comprensibili dall'utente e mostrabili dalla view.
+Tra queste ci sono:
+\begin{itemize}
+	\item Turni e azioni: restituisce il nome del giocatore a cui tocca e la descrizione dell’azione da compiere.
+	\item Power-Up: crea e restituisce una lista dei power-up attivi utilizzabili da un giocatore, da mostrare tramite ComboBox.
+	\item Esito della partita: genera un messaggio da visualizzare alla fine del gioco, indicando il vincitore.
+	\item Classifica giocatori: restituisce, per ciascun giocatore, una stringa contenente nome, punteggio e stato.
+\end{itemize}
 \textbf{PRO}
-
+\begin{itemize}
+	\item Separazione delle responsabilità: La logica trasforma i dati e li passa alla view rendendosi intermediaria tra l'interfaccia utente e il model.
+	\item Manutenibilità: In caso di future modifiche alla stringhe da visualizzare si possono cambiare codici poco complessi e distaccati dalla view quindi di facile elaborazione.
+	\item Flessibilità: in caso di necessità queste informazioni possono essere mostrate dalla view in modi differenti senza dover ricorrere a un ricalcolo delle stringhe.
+\end{itemize}
 \textbf{CONTRO}
-
-\textbf{Metodi per la gestione dei punteggi, nomi e informazioni da mostrare}
-
-\textbf{PROBLEMA}
-
-\textbf{SOLUZIONE}
-
-\textbf{PRO}
-
-\textbf{CONTRO}
+\begin{itemize}
+	\item Bisogna dare paricolare attenzione agli aggiornamenti della view perché in caso di cambiamento del model ma non della view si prensenta per l'utente della confusione 
+	nello stato della partita.
+\end{itemize}
 
 In questa sezione si possono approfondire alcuni elementi del design con maggior dettaglio.
 %
@@ -434,6 +476,32 @@ Questo schema è fatto male perché:
 \chapter{Sviluppo}
 \section{Testing automatizzato}
 
+Per verificare il corretto funzionamento delle diverse parti del progetto, sono
+ stati creati Test automatizzati usando JUnit.
+
+\subsection{Enrico Ancarani}
+\begin{itemize}
+	\item \textbf{BlockTest}: verifica la corretta creazione delle tessere e il funzionamento della rotazione. I test accertano che, a seguito della rotazione, 
+	l’orientamento della tessera cambi come previsto.
+	\item \textbf{GenerateMazeTest}: verifica la correttezza della generazione iniziale della mappa di gioco. In particolare, si controlla che:
+	\begin{itemize}
+		\item tutte le tessere abbiano coordinate valide all’interno del labirinto.
+		\item non vi siano duplicati (ovvero, che ogni tessera sia presente in una sola posizione).
+		\item il blocco esterno venga generato correttamente.
+		\item i blocchi iniziali dei giocatori siano posizionati correttamente.
+	\end{itemize}
+	\item \textbf{PositioningTest}: controlla che ogni elemento abbia una posizione nel labirinto e che i giocatori siano inizilizzati nelle giuste posizioni.
+	Poi controlla che se effettuata una modifica alla posizione di un elemento essa non presenta errori e viene salvata correttamente.
+	\item \textbf{ShiftsTest}: verifica il comportamento dello shift del labirinto. Dopo l’esecuzione dello spostamento, si controlla che 
+	tutte le tessere siano state aggiornate nella posizione corretta e che il blocco esterno sia stato gestito coerentemente.
+	\item \textbf{PlayerTest}: verifica il corretto comportamento del player nelle situazioni:
+	\begin{itemize}
+		\item raccolta di un obbietivo.
+		\item utilizzo di un powerUp.
+		\item movimento.
+	\end{itemize}
+\end{itemize}
+
 Il testing automatizzato è un requisito di qualunque progetto software che si rispetti, e consente di verificare che non vi siano regressioni nelle funzionalità a fronte di aggiornamenti.
 %
 Per quanto riguarda questo progetto è considerato sufficiente un test minimale, a patto che sia completamente automatico.
@@ -458,6 +526,13 @@ Test che richiedono l'intervento da parte dell'utente sono considerati \textit{n
 \end{itemize}
 
 \section{Note di sviluppo}
+
+\subsection{Enrico Ancarani}
+\begin{itemize}
+	\item \textbf{Utilizzo di Optional}: Utilizzato in vari punti, un esempio è: 
+	\item \textbf{Utilizzo di Stream}: Utilizzato in vari punti, un esempio è: 
+	\item \textbf{Utilizzo di Lambda expressions}: Utilizzato nella classe LabyrinthImpl: 
+\end{itemize}
 
 Questa sezione, come quella riguardante il design dettagliato va svolta \textbf{singolarmente da ogni membro del gruppo}.
 %
@@ -586,6 +661,24 @@ Al fine di evitare pregiudizi involontari, l'intero capitolo verrà letto dai do
 
 \section{Autovalutazione e lavori futuri}
 
+\subsection{Enrico Ancarani}
+Questa non rappresentava la mia prima esperienza di lavoro in team per lo sviluppo di un progetto software complesso. 
+Per questo motivo, ritengo che la mia presenza all'interno del gruppo sia stata un supporto utile anche per gli altri membri, sia dal punto di vista tecnico che organizzativo.
+Il mio ruolo si è concentrato principalmente sulla modellazione della mappa di gioco, sulla gestione delle coordinate e degli elementi associati alla mappa, 
+sull’aggiornamento grafico delle immagini e sulla gestione della logica relativa ai giocatori. Ho partecipato attivamente a ogni fase del progetto, mettendo impegno 
+costante durante gli incontri e lavorando in modo continuativo tra una sessione e l’altra.
+Tra i miei punti di forza riconosco la determinazione nel portare a termine le attività assegnate senza rimandare, la capacità di spiegare con chiarezza aspetti 
+implementativi complessi agli altri membri del gruppo, e l'iniziativa nel proporre soluzioni rapide ed efficaci ai problemi riscontrati durante la scrittura del codice. 
+Inoltre, ho cercato di mantenere alta la motivazione del team nei momenti di difficoltà.
+D’altra parte, tra i miei punti di debolezza evidenzio una certa testardaggine nel difendere le mie proposte e la tendenza ad assumere un ruolo di leadership anche 
+quando non esplicitamente richiesto, specialmente durante la fase di progettazione dell’architettura.
+Le principali difficoltà riscontrate hanno riguardato l’utilizzo efficace di GitHub per il lavoro collaborativo e l’applicazione corretta e coerente del pattern 
+architetturale MVC, soprattutto nelle prime fasi di sviluppo.
+In conclusione, considero il mio contributo positivo e sono soddisfatto dell’impegno personale e del risultato ottenuto. 
+Se in futuro si decidesse di proseguire con lo sviluppo del progetto, si potrebbe arricchire il gioco introducendo nuovi obiettivi, 
+power-up, scenari alternativi con tessere speciali o strutture della mappa più articolate, al fine di aumentare la varietà e la profondità dell’esperienza di gioco.
+\\
+\\
 \textbf{È richiesta una sezione per ciascun membro del gruppo, obbligatoriamente}.
 %
 Ciascuno dovrà autovalutare il proprio lavoro, elencando i punti di forza e di debolezza in quanto prodotto.
