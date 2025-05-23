@@ -16,9 +16,10 @@ import java.io.IOException;
  * It provides methods to load images from files and retrieve them by name.
  */
 public final class ImageLoader {
-    private static Map<String, Image> imageMap;
+    private Map<String, Image> imageMap;
 
-    private ImageLoader() {
+    public ImageLoader() {
+        imageMap = new HashMap<>();
     }
 
     /**
@@ -28,7 +29,7 @@ public final class ImageLoader {
      * If an error occurs during loading, the exception is printed to the console.
      * @throws IOException 
      */
-    public static void load() throws IOException {
+    public void load() throws IOException {
         imageMap = new HashMap<>();
             imageMap.put("Corridor", ImageIO.read(
                     new File("src/main/java/labioopint/resources/Tiles/Corridor.png")));
@@ -73,7 +74,7 @@ public final class ImageLoader {
      * @return an Optional containing the image if found, or an empty Optional if
      *         not found
      */
-    public static Optional<Image> getImage(final String name) {
+    public Optional<Image> getImage(final String name) {
         if (imageMap.containsKey(name)) {
             return Optional.ofNullable(imageMap.get(name));
         }

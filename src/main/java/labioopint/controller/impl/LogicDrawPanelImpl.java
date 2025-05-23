@@ -24,6 +24,7 @@ import labioopint.model.powerup.api.PowerUp;
  */
 public final class LogicDrawPanelImpl implements LogicDrawPanel {
     public static final long serialVersionUID = 1L;
+    private final ImageLoader il;
     private final GameController gc;
     private final Integer pixelSize;
     private static final Integer CORRECT_BLOCK_DIVISION = 13;
@@ -46,7 +47,8 @@ public final class LogicDrawPanelImpl implements LogicDrawPanel {
     public LogicDrawPanelImpl(final GameController gc, final Dimension size) throws IOException {
         this.gc = gc;
         pixelSize = (int) size.getWidth() / CORRECT_BLOCK_DIVISION;
-        ImageLoader.load();
+        il = new ImageLoader();
+        il.load();
     }
 
     @Override
@@ -86,13 +88,13 @@ public final class LogicDrawPanelImpl implements LogicDrawPanel {
                 }
                 switch (b.getType()) {
                     case CORNER:
-                        imageTemp = ImageLoader.getImage("Corner").get();
+                        imageTemp = il.getImage("Corner").get();
                         break;
                     case CORRIDOR:
-                        imageTemp = ImageLoader.getImage("Corridor").get();
+                        imageTemp = il.getImage("Corridor").get();
                         break;
                     default:
-                        imageTemp = ImageLoader.getImage("Crossing").get();
+                        imageTemp = il.getImage("Crossing").get();
                         break;
                 }
                 switch (b.getRotation()) {
@@ -129,10 +131,10 @@ public final class LogicDrawPanelImpl implements LogicDrawPanel {
             final Coordinate c = gc.getLabyrinth().getPlayerCoordinate(p);
             if (p.equals(gc.getCurrentPlayer())) {
                 pImageRotation = new PairImpl<>(
-                        ImageLoader.getImage(p.getID() + "Turn").get(), ROT_0);
+                        il.getImage(p.getID() + "Turn").get(), ROT_0);
             } else {
                 pImageRotation = new PairImpl<>(
-                        ImageLoader.getImage(p.getID()).get(), ROT_0);
+                        il.getImage(p.getID()).get(), ROT_0);
             }
             pPositions = new PairImpl<>(
                     c.getColumn() * pixelSize + pixelSize / REDUCTION_SCALE_NUMBER,
@@ -147,7 +149,7 @@ public final class LogicDrawPanelImpl implements LogicDrawPanel {
         final Pair<Boolean, Enemy> e = gc.getLabyrinth().getEnemy();
         if (e.getFirst()) {
             final Coordinate c = gc.getLabyrinth().getEnemyCoordinate(e.getSecond());
-            pImageRotation = new PairImpl<>(ImageLoader.getImage("Monster").get(), ROT_0);
+            pImageRotation = new PairImpl<>(il.getImage("Monster").get(), ROT_0);
             pPositions = new PairImpl<>(
                     c.getColumn() * pixelSize + pixelSize / REDUCTION_SCALE_NUMBER,
                     c.getRow() * pixelSize + pixelSize / REDUCTION_SCALE_NUMBER);
@@ -161,7 +163,7 @@ public final class LogicDrawPanelImpl implements LogicDrawPanel {
         for (final PowerUp po : gc.getLabyrinth().getPowerUpsNotCollected()) {
             final Coordinate c = gc.getLabyrinth().getPowerUpCoordinate(po);
             pImageRotation = new PairImpl<>(
-                    ImageLoader.getImage(po.getName()).get(), ROT_0);
+                    il.getImage(po.getName()).get(), ROT_0);
             pPositions = new PairImpl<>(
                     c.getColumn() * pixelSize + pixelSize / REDUCTION_SCALE_NUMBER,
                     c.getRow() * pixelSize + pixelSize / REDUCTION_SCALE_NUMBER);
