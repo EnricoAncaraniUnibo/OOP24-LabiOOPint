@@ -67,8 +67,8 @@ public final class ActionPredicateImpl implements ActionPredicate {
 
     @Override
     public boolean blockCanMove(final Coordinate blockCoordinate, final Labyrinth labyrinth) {
-        final Optional<Block> temp = labyrinth.getGrid().getBlock(blockCoordinate);
-        if (temp.isPresent()) {
+        final Optional<Block> blockClicked = labyrinth.getGrid().getBlock(blockCoordinate);
+        if (blockClicked.isPresent()) {
             final BlockImpl b = (BlockImpl) labyrinth.getGrid().getBlock(blockCoordinate).get();
             return b.isMovable() && (blockCoordinate.getColumn() == 0 || blockCoordinate.getColumn() == mazeSize - 1
                     || blockCoordinate.getRow() == 0 || blockCoordinate.getRow() == mazeSize - 1);
