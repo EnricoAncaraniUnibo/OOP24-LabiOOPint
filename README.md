@@ -10,7 +10,7 @@ LabiOOPint è un gioco in Java ispirato a *Labyrinth*, dove da 2 a 4 giocatori e
 
 ## Inizializzazione della partita
 
-Il gioco supporta un numero variabile di partecipanti, da un minimo di due a un massimo di quattro giocatori. Tutti i giocatori condividono lo stesso schermo: non esiste supporto per il multiclient, e tutte le informazioni di gioco sono sempre visibili a tutti, promuovendo una dinamica di strategia condivisa.
+Il gioco supporta un numero variabile di partecipanti, da un minimo di due a un massimo di quattro giocatori. Tutti i giocatori condividono lo stesso schermo: non esiste supporto per il multiclient, e tutte le informazioni di gioco sono sempre visibili a tutti.
 Nel menù pre-gioco è possibile scegliere  il numero di obiettivi da distribuire e la presenza del nemico o meno. Nel caso in cui si scelga il nemico, è possibile scegliere la difficoltà con la quale cerca di "catturare" i giocatori e può essere facile, media o difficile.
 Le dimensioni del labirinto sono fisse e, in base al numero di giocatori sono calibrate per garantire partite fluide e ben leggibili, evitando eccessive dispersioni o fasi di stallo.
 
@@ -25,22 +25,22 @@ Una volta raggiunta la posizione desiderata, il giocatore può raccogliere un ob
 Il labirinto, a ogni turno, può cambiare conformazione: questa caratteristica rende ogni partita diversa e strategicamente stimolante. A complicare ulteriormente la sfida, entra in gioco un nemico che può avere difficoltà differenti e può penalizzare i giocatori colpendoli: chi viene colpito perde un obiettivo.
 
 La partita termina quando gli obiettivi sono finiti e il giocatore che ne possiede di più è il vincitore. 
-In caso di parità, vengono inseriti all'interno del labirinto altri tre powerUp in modo tale da avere un solo vincitore.
-# STIMA # È prevista anche una stima della durata della partita in base alla difficoltà e al numero di obiettivi scelti.
+In caso di parità, viene inserito all'interno del labirinto un'altro obbiettivo in modo tale da avere un solo vincitore.
 
 ## Rendering grafico e interazione
 
-L’interfaccia grafica del gioco è realizzata interamente utilizzando Java . L’aspetto visivo del gioco è stato progettato per essere semplice ma funzionale, con una rappresentazione chiara del labirinto, dei giocatori, del nemico e degli obiettivi.
+L’interfaccia grafica del gioco è realizzata interamente utilizzando Java Swing. L’aspetto visivo del gioco è stato progettato per essere semplice ma funzionale, con una rappresentazione chiara del labirinto, dei giocatori, del nemico e degli obiettivi.
 Ogni tessera del labirinto è visualizzata con una grafica che evidenzia le direzioni percorribili (muri e sentieri), e può mostrare, oltre ai giocatori e al nemico, anche i PowerUp disponibili. 
 
 L’interazione con il gioco avviene esclusivamente tramite l'utilizzo del mouse, dove ogni bottone ha la sua funzionalità tra cui il movimento all’interno del labirinto, l'attivazione di PowerUp, la rotazione di tessere o l'interazione con i menu.
 
-in cui all'inizio ogni giocatore deve scegliere la giusta posizione della tessera, per poi scegliere una riga o una colonna in cui inserire quella determinata tessera, in modo da far cambiare la conformazione. Sempre con l'uso del mouse è possibile muovere il giocatore tramite quattro bottoni e quando si ha finito il proprio turno è necessario premere il bottone "end turn". 
+All'inizio del turno di ogni giocatore, esso deve scegliere la giusta rotazione della tessera, per poi scegliere una riga o una colonna in cui inserire quella determinata tessera, in modo da far cambiare la conformazione. Sempre con l'uso del mouse è possibile muovere il giocatore tramite quattro bottoni e quando si ha finito il proprio turno è necessario premere il bottone "end turn". 
 
 
 ## Salvataggio della partita
 
-È possibile salvare e caricare una partita in qualsiasi momento. Il formato di salvataggio contiene tutte le informazioni necessarie a ripristinare lo stato completo del gioco, inclusa la configurazione del labirinto, le posizioni dei personaggi, lo stato del nemico e i PowerUp raccolti.
+È possibile caricare una partita in qualsiasi momento. Il formato di salvataggio contiene tutte le informazioni necessarie a ripristinare lo stato completo del gioco, inclusa la configurazione del labirinto, le posizioni dei personaggi, lo stato del nemico e i PowerUp raccolti.
+La partita si salva in automatico dopo ogni azione.
 
 ## Costruzione ed esecuzione
 

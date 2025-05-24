@@ -155,17 +155,17 @@ in base alle condizioni attuali del model. Dopo ogni azione, la GameView si ag
 \section{Design dettagliato}
 
 \subsection{Enrico Ancarani}
-\textbf{Scelta della generazione del labirinto}
+\textbf{Generazione del labirinto}
 \\
 \\
-\textbf{PROBLEMA}
+\textbf{PROBLEMA}\\
 Nel gioco originale Labirinto Magico di Ravensburger, la composizione delle tessere è fissa: ci sono un numero predefinito di tessere a "L", a "T" e a linea retta, 
 e la difficoltà e la giocabilità derivano dalla loro disposizione e rotazione. Tuttavia, il nostro gioco prevede la possibilità di cambiare le dimensioni del labirinto 
 in base al numero di giocatori, rendendo impraticabile copiare esattamente il contenuto del gioco originale.
 Inoltre, una generazione completamente casuale delle tessere rischia di rendere il labirinto poco giocabile: troppe tessere dello stesso tipo 
 possono compromettere l’esperienza dell’utente.\\
 \\
-\textbf{SOLUZIONE}
+\textbf{SOLUZIONE}\\
 Per risolvere questo problema, ho definito una gerarchia di classi orientata all’estensione e alla flessibilità.
 \begin{itemize}
 	\item \textbf{Maze}: è una classe astratta che definisce l’interfaccia e le funzionalità comuni di qualsiasi tipo di labirinto.
@@ -191,11 +191,16 @@ devono contenere sempre tessere a “L” ruotate verso il centro, per garantire
 	\item È necessario implementare una nuova sottoclasse per ogni tipo di configurazione: ogni volta che si vuole un certo scenario con una scelta specifica di tessere bisogna 
 	implementare una nuova sottoclasse di Maze
 \end{itemize}
-\textbf{Gestione delle coordinate, generazione iniziale}
+\begin{figure}[H]
+	\centering{}
+	\includegraphics[width=14cm]{img/GenerazioneLabirinto.png}
+	\caption{Schema UML della struttura per generare il labirinto}
+	\label{img:Generazione Labirinto}
+\end{figure}
+\textbf{Gestione delle coordinate e coordinate iniziali}
 \\
 \\
-\textbf{PROBLEMA}
-
+\textbf{PROBLEMA}\\
 Un aspetto centrale nello sviluppo del gioco è la gestione delle posizioni degli elementi sulla mappa.
 Essa viene con diverse problematiche da risolvere:
 \begin{itemize}
@@ -203,7 +208,7 @@ Essa viene con diverse problematiche da risolvere:
 	\item Meccanica di shift: gestione dello spostamento delle tessere (e degli elementi sopra di esse) a seguito dell’inserimento della tessera extra.
 	\item Effetto "Pac-Man": se un elemento viene spinto fuori dal labirinto, deve riapparire dalla parte opposta, mantenendo coerenza con la direzione dello spostamento.
 \end{itemize}
-\textbf{SOLUZIONE}
+\textbf{SOLUZIONE}\\
 Una possibile soluzione iniziale era lasciare che ogni elemento conoscesse 
 la propria posizione, ma questa scelta avrebbe complicato eccessivamente 
 l’interazione tra elementi e labirinto. Pertanto, ho optato per un approccio centralizzato.
@@ -215,7 +220,6 @@ Al suo interno la classe utilizza 2 componenti creati appositamente:
 	sia di identificare cosa si trova in una determinata posizione.
 	\item \textbf{CoordinateGenerator}: classe dedicata alla generazione delle coordinate iniziali, secondo logiche diverse in base al tipo di elemento.
 \end{itemize}
-
 La classe CoordinateGenerator è progettata per supportare la generazione delle coordinate in base alle seguenti esigenze:
 \begin{itemize}
 	\item PowerUp: la generazione avviene escludendo gli angoli del labirinto (riservati ai giocatori).
@@ -241,6 +245,12 @@ controllare se la nuova posizione è fuori dal labirinto e se lo è modificarla.
 	\item Gli elementi che necessitano di accedere alle posizioni di altri oggetti (ad esempio per calcoli di targeting) devono ricevere un 
 	riferimento al Labyrinth o alla rispettiva DualMap.
 \end{itemize}
+\begin{figure}[H]
+	\centering{}
+	\includegraphics[width=14cm]{img/GestioneCoordinate.png}
+	\caption{Schema UML del processo per la gestione delle coordinate}
+	\label{img:Gestione Coordinate}
+\end{figure}
 \textbf{Caricamento immagini e disegno grafica}
 \\
 \\
@@ -280,6 +290,12 @@ il giocatore che sta svolgendo il turno.
 \begin{itemize}
 	\item In caso di aggiornamento del model il LogicDrawPanel si deve ricalcolare tutti gli elementi anche quelli non modificati di posizione o rotazione.
 \end{itemize}
+\begin{figure}[H]
+	\centering{}
+	\includegraphics[width=14cm]{img/DisegnareGrafica.png}
+	\caption{Schema UML del processo per aggiornare la grafica di gioco}
+	\label{img:Aggiornamento Grafica}
+\end{figure}
 \textbf{Metodi per la gestione dei punteggi, nomi e informazioni}
 \\
 \\
@@ -317,6 +333,12 @@ Tra queste ci sono:
 	\item Bisogna dare paricolare attenzione agli aggiornamenti della view perché in caso di cambiamento del model ma non della view si prensenta per l'utente della confusione 
 	nello stato della partita.
 \end{itemize}
+\begin{figure}[H]
+	\centering{}
+	\includegraphics[width=14cm]{img/TraduzioneInformazioni.png}
+	\caption{Schema UML dei processi per leggere le informazioni dal gioco}
+	\label{img:Traduzione Informazioni}
+\end{figure}
 
 In questa sezione si possono approfondire alcuni elementi del design con maggior dettaglio.
 %
