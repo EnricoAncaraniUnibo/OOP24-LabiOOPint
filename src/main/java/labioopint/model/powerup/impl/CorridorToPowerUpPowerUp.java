@@ -85,7 +85,7 @@ public final class CorridorToPowerUpPowerUp extends PowerUpImpl {
                         } else if (targetCoord.getRow() > playerCoord.getRow()
                                 && targetCoord.getColumn() > playerCoord.getColumn()) {
                             corner.setRotation(Rotation.TWO_HUNDRED_SEVENTY);
-                        } else {
+                        } else if (targetCoord.getColumn().equals(playerCoord.getColumn())) {
                             corner = new BlockImpl(BlockType.CORRIDOR, corner.getID());
                         }
                         lab.setBlock(corner, new CoordinateImpl(row, col));
