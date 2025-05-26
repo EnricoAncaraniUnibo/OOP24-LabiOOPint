@@ -53,24 +53,24 @@ public final class ImageLoaderImpl implements ImageLoader {
         @Override
         public void load() throws IOException {
                 imageMap = new HashMap<>();
-                imageMap.put("Corridor", loadImageFromResource("/labioopint/resources/Tiles/Corridor.png"));
-                imageMap.put("Corner", loadImageFromResource("/labioopint/resources/Tiles/Corner.png"));
-                imageMap.put("Crossing", loadImageFromResource("/labioopint/resources/Tiles/Crossing.png"));
-                imageMap.put("Archer", loadImageFromResource("/labioopint/resources/Characters/archer.png"));
-                imageMap.put("Mage", loadImageFromResource("/labioopint/resources/Characters/mage.png"));
-                imageMap.put("Warrior", loadImageFromResource("/labioopint/resources/Characters/warrior.png"));
-                imageMap.put("Thief", loadImageFromResource("/labioopint/resources/Characters/thief.png"));
-                imageMap.put("ArcherTurn", loadImageFromResource("/labioopint/resources/Characters/ArcherTurn.gif"));
-                imageMap.put("MageTurn", loadImageFromResource("/labioopint/resources/Characters/MageTurn.gif"));
-                imageMap.put("WarriorTurn", loadImageFromResource("/labioopint/resources/Characters/WarriorTurn.gif"));
-                imageMap.put("ThiefTurn", loadImageFromResource("/labioopint/resources/Characters/thiefTurn.gif"));
-                imageMap.put("Monster", loadImageFromResource("/labioopint/resources/Characters/monster.png"));
-                imageMap.put("Teleport", loadImageFromResource("/labioopint/resources/PowerUps/teleport.png"));
-                imageMap.put("Double Turn", loadImageFromResource("/labioopint/resources/PowerUps/double.png"));
-                imageMap.put("Invulnerability", loadImageFromResource("/labioopint/resources/PowerUps/invincible.png"));
-                imageMap.put("Steal Object", loadImageFromResource("/labioopint/resources/PowerUps/steal.png"));
+                imageMap.put("Corridor", loadImageFromResource("/Tiles/Corridor.png"));
+                imageMap.put("Corner", loadImageFromResource("/Tiles/Corner.png"));
+                imageMap.put("Crossing", loadImageFromResource("/Tiles/Crossing.png"));
+                imageMap.put("Archer", loadImageFromResource("/Characters/archer.png"));
+                imageMap.put("Mage", loadImageFromResource("/Characters/mage.png"));
+                imageMap.put("Warrior", loadImageFromResource("/Characters/warrior.png"));
+                imageMap.put("Thief", loadImageFromResource("/Characters/thief.png"));
+                imageMap.put("ArcherTurn", loadImageFromResource("/Characters/ArcherTurn.gif"));
+                imageMap.put("MageTurn", loadImageFromResource("/Characters/MageTurn.gif"));
+                imageMap.put("WarriorTurn", loadImageFromResource("/Characters/WarriorTurn.gif"));
+                imageMap.put("ThiefTurn", loadImageFromResource("/Characters/thiefTurn.gif"));
+                imageMap.put("Monster", loadImageFromResource("/Characters/monster.png"));
+                imageMap.put("Teleport", loadImageFromResource("/PowerUps/teleport.png"));
+                imageMap.put("Double Turn", loadImageFromResource("/PowerUps/double.png"));
+                imageMap.put("Invulnerability", loadImageFromResource("/PowerUps/invincible.png"));
+                imageMap.put("Steal Object", loadImageFromResource("/PowerUps/steal.png"));
                 imageMap.put("Corridor To PowerUp",
-                                loadImageFromResource("/labioopint/resources/PowerUps/corridortopower.png"));
+                                loadImageFromResource("/PowerUps/corridortopower.png"));
         }
 
         @Override
