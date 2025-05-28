@@ -340,6 +340,105 @@ Tra queste ci sono:
 	\label{img:Traduzione Informazioni}
 \end{figure}
 
+\newpage
+\subsection{Andrea Monti}
+\textbf{Movimento del nemico}
+\\
+\\
+\textbf{PROBLEMA}
+Creare un layer di astrazione minimale che permetta di far muovere il nemico alla posizione successiva in base a una certa logica, 
+senza esporre i dettagli implementativi sottostanti.
+\\
+\\
+\textbf{SOLUZIONE}
+Creazione di un’interfaccia EnemyAI con un singolo metodo getNextPosition() che restituisce la 
+prossima posizione del nemico (ogni tipologia specifica di AI avrà ovviamente una diversa implementazione). 
+Di seguito i dettagli relativi a ciascuna delle tre implementazioni:
+\begin{itemize}
+	\item \textbf{SingleStepRandomAI}: effettua un solo passo in una direzione casuale. 
+	\item \textbf{RandomAI}: muove il nemico per un numero casuale di passi (tra 2 e 5), scegliendo ogni volta una 
+	direzione casuale valida e aggiungendo ogni nuova posizione alla lista che viene restituita.
+	\item \textbf{ChaseAI}: è la più complessa e calcola il percorso più breve verso il giocatore.
+	Ciò avviene tramite una BFS, generando tutte le celle raggiungibili dal nemico e cercando tra queste la posizione 
+	di un giocatore. Se esiste un percorso verso tale giocatore, viene restituita la sequenza di coordinate che rappresentano 
+	il cammino verso di lui; se invece non esiste alcun percorso verso nessun giocatore, si limita a restituire la posizione 
+	attuale o si affida a una mossa casuale tramite SingleStepRandomAI.
+\end{itemize}
+\begin{figure}[H]
+	\centering{}
+	\includegraphics[width=14cm]{img/MovimentoNemico.png}
+	\caption{Schema UML del processo per il movimento del nemico}
+	\label{img:Traduzione Informazioni}
+\end{figure}
+\textbf{Difficoltà del nemico}
+\\
+\\
+\textbf{PROBLEMA}
+Occorre creare un sistema in grado di istanziare il nemico con un’AI diversa a seconda della difficoltà di gioco scelta.
+\\
+\\
+\textbf{SOLUZIONE}
+Inizialmente ho pensato di implementare il sistema tramite classi astratte, ma poi l’idea è stata abbandonata in favore 
+dell’utilizzo del pattern Factory, che ha reso più semplice e immediato il processo di creazione delle varie tipologie di nemici.
+Con questo approccio si facilita anche l’estensibilità ed è possibile aggiungere nuovi tipi di nemici senza dover modificare 
+il codice esterno. Inoltre, la classe Enemy è serializzabile, poiché nel gioco è presente un sistema di salvataggio.
+L’interfaccia Enemy include metodi per tenere traccia dell’ultimo giocatore colpito. 
+Finché il nemico non cambia bersaglio o non torna il turno di quel giocatore, 
+potrebbe continuare a colpirlo senza però sottrargli ulteriori PowerUp.
+\begin{figure}[H]
+	\centering{}
+	\includegraphics[width=14cm]{img/DifficoltàNemico.png}
+	\caption{Schema UML del processo per le diverse difficoltà del nemico}
+	\label{img:Traduzione Informazioni}
+\end{figure}
+\textbf{Evitare la duplicazione del codice}
+\\
+\\
+\textbf{PROBLEMA}
+Fornire funzioni di supporto per il movimento dei nemici sulla griglia, favorendo il riuso di codice ed evitando duplicazioni.
+\\
+\\
+\textbf{SOLUZIONE}
+Applicando il principio DRY, ho creato una classe di utility MovementUtilities con metodi statici di supporto 
+per il movimento dei nemici sulla griglia. Questa classe consente il riutilizzo di alcune logiche di movimento 
+da parte delle varie intelligenze artificiali, evitando duplicazioni di codice.
+
+\textbf{Gestione dei turni di gioco}
+\\
+\\
+\textbf{PROBLEMA}
+Creare un sistema in grado di gestire il flusso dei turni di gioco, stabilendo quale giocatore deve agire 
+e quale azione deve compiere in ogni momento.
+\\
+\\
+\textbf{SOLUZIONE}
+Per gestire il flusso di gioco, ho creato una classe TurnManager che determina, per ciascuna fase di gioco, 
+quale giocatore deve agire e quale tipo di azione può compiere. Ciò avviene tenendo traccia del giocatore attivo e 
+dell’azione corrente (ad esempio, posizionamento di blocchi o movimento del giocatore).
+Con questo sistema si garantisce che il gioco proceda in modo ordinato e che le azioni dei vari giocatori avvengano 
+secondo la sequenza stabilita dalle regole.
+
+\textbf{Creazione degli elementi di gioco}
+\\
+\\
+\textbf{PROBLEMA}
+Istanziare i vari elementi di gioco all’inizio della partita.
+\\
+\\
+\textbf{SOLUZIONE}
+Il metodo createMaze() nella classe BuilderImpl crea e restituisce un oggetto Labyrinth, inizializzando tutti i 
+suoi componenti principali in base alle impostazioni fornite.
+In base al numero di giocatori specificato, viene scelta la dimensione del labirinto: se i giocatori sono due, 
+viene creato un labirinto più piccolo, mentre con tre o quattro giocatori si utilizza un labirinto più grande.
+Prima della creazione del labirinto, il Builder utilizza dei metodi privati per generare i giocatori, i PowerUp 
+e l’eventuale nemico (se specificato nelle impostazioni), per poi passarli al labirinto durante la sua inizializzazione.
+\begin{figure}[H]
+	\centering{}
+	\includegraphics[width=14cm]{img/CreazioneElementi.png}
+	\caption{Schema UML del processo per la creazione degli elementi di gioco}
+	\label{img:Traduzione Informazioni}
+\end{figure}
+
 \chapter{Sviluppo}
 \section{Testing automatizzato}
 
@@ -369,6 +468,24 @@ Per verificare il corretto funzionamento delle diverse parti del progetto, sono
 	\end{itemize}
 \end{itemize}
 
+\newpage
+\subsection{Andrea Monti}
+\begin{itemize}
+	\item \textbf{TurnManagerTest}: verifica che le azioni di turno dei giocatori si susseguano nell’ordine corretto, 
+	ovvero prima il posizionamento del blocco e poi il movimento del giocatore. 
+	Inoltre, controlla che il giocatore attivo rimanga lo stesso per l’intera durata del turno (due azioni consecutive) e 
+	che, al termine di queste, il turno passi correttamente al giocatore successivo.
+	\item \textbf{BuilderImplTest}: ha lo scopo di verificare che il costruttore inizializzi correttamente 
+	tutti gli elementi del labirinto. In particolare, viene controllato che vengano generati due giocatori, che il nemico 
+	sia presente e correttamente posizionato, che i PowerUp siano creati nella quantità prevista e che il labirinto venga 
+	generato correttamente, restituendo un oggetto non nullo.
+	\item \textbf{EnemyTest}: si occupa di verificare il comportamento del nemico in relazione alla difficoltà impostata. 
+	In modalità EASY, il nemico si muove solo di una posizione randomica; in modalità MEDIUM, cerca di avvicinarsi ai 
+	giocatori riuscendoci con alcuni tentativi; mentre in modalità HARD, riesce a raggiungere il giocatore più vicino se è 
+	presente una strada percorribile. Inoltre, viene controllato che, in caso di impatto con un giocatore, il nemico provochi 
+	la perdita di un obiettivo raccolto da parte del giocatore colpito.
+\end{itemize}
+
 \section{Note di sviluppo}
 
 \subsection{Enrico Ancarani}
@@ -376,6 +493,12 @@ Per verificare il corretto funzionamento delle diverse parti del progetto, sono
 	\item \textbf{Utilizzo di Optional}: Utilizzato in vari punti, un esempio è: \url{https://github.com/EnricoAncaraniUnibo/OOP24-LabiOOPint/blob/bff4699198b12c8ac5b1b91a798ec85b5443a107/src/main/java/labioopint/model/maze/impl/MazeImpl.java#L46}
 	\item \textbf{Utilizzo di Stream}: Utilizzato in vari punti, un esempio è: \url{https://github.com/EnricoAncaraniUnibo/OOP24-LabiOOPint/blob/bff4699198b12c8ac5b1b91a798ec85b5443a107/src/main/java/labioopint/model/maze/impl/LabyrinthImpl.java#L355}
 	\item \textbf{Utilizzo di Lambda expressions}: Utilizzato nella classe LabyrinthImpl: \url{https://github.com/EnricoAncaraniUnibo/OOP24-LabiOOPint/blob/bff4699198b12c8ac5b1b91a798ec85b5443a107/src/main/java/labioopint/model/maze/impl/LabyrinthImpl.java#L386}
+\end{itemize}
+
+\subsection{Andrea Monti}
+\begin{itemize}
+	\item \textbf{Utilizzo di Optional}: Utilizzato in vari punti, un esempio è: \url{https://github.com/EnricoAncaraniUnibo/OOP24-LabiOOPint/blob/ecece579eb253c22447203ab5b4b3d95ae79cd1d/src/main/java/labioopint/model/enemy/impl/ais/ChaseAI.java#L66}
+	\item \textbf{Utilizzo di Stream}: Utilizzato in vari punti, un esempio è: \url{https://github.com/EnricoAncaraniUnibo/OOP24-LabiOOPint/blob/ecece579eb253c22447203ab5b4b3d95ae79cd1d/src/main/java/labioopint/model/enemy/impl/ais/ChaseAI.java#L68-L70}
 \end{itemize}
 
 \chapter{Commenti finali}
@@ -405,9 +528,22 @@ architetturale MVC, soprattutto nelle prime fasi di sviluppo.
 In conclusione, considero il mio contributo positivo e sono soddisfatto dell’impegno personale e del risultato ottenuto. 
 Se in futuro si decidesse di proseguire con lo sviluppo del progetto, si potrebbe arricchire il gioco introducendo nuovi obiettivi, 
 power-up, scenari alternativi con tessere speciali o strutture della mappa più articolate, al fine di aumentare la varietà e la profondità dell’esperienza di gioco.
+
+\subsection{Andrea Monti}
+Il mio ruolo principale è stato quello di progettare e implementare la logica dei turni e del nemico (compresa 
+l’intelligenza di inseguimento), assicurandomi che il comportamento fosse coerente, sfidante e ben integrato con il 
+resto del sistema. Mi sono occupato anche dell’implementazione del sistema di gestione dei turni, che coordina le azioni 
+tra giocatori, nemici e power-up, e della generazione degli oggetti della partita, tra cui la creazione del labirinto, dei 
+giocatori, dei power-up e del nemico, con comportamenti variabili in base alla difficoltà selezionata.
+Sono molto soddisfatto del lavoro svolto, sia individualmente che in gruppo. Abbiamo completato con successo tutte le 
+funzionalità obbligatorie e alcune opzionali, mantenendo sempre un forte spirito di collaborazione.
+In futuro mi piacerebbe tornare su questo progetto per estendere ulteriormente il comportamento del nemico, 
+magari introducendo un nemico ancora più potente o nuove modalità di gioco. Grazie alla struttura modulare e all’attenzione 
+riposta nella manutenibilità del codice, sono certo che queste e altre modifiche saranno facilmente realizzabili.
 \\
 \\
 \appendix
+
 \chapter{Guida utente}
 
 Capitolo in cui si spiega come utilizzare il software. Nel caso in cui il suo uso sia del tutto
@@ -434,36 +570,15 @@ spaziatrice, o il tasto ``P'', è necessario che gli studenti lo segnalino.
 
 \chapter{Esercitazioni di laboratorio}
 
-In questo capitolo ciascuno studente elenca gli esercizi di laboratorio che ha svolto
-(se ne ha svolti),
-elencando i permalink dei post sul forum dove è avvenuta la consegna.
-%
-Questa sezione potrebbe essere processata da strumenti automatici,
-per cui link a oggetti diversi dal permalink della consegna,
-errori nell'email o nel nome del laboratorio possono portare ad ignorare alcune consegne,
-si raccomanda la massima precisione.
-
-\section*{Esempio}
-
-\subsection{paolino.paperino@studio.unibo.it}
+\subsection{andrea.monti24@studio.unibo.it}
 
 \begin{itemize}
- \item Laboratorio 04: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=12345#p123456}
- \item Laboratorio 06: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=22222#p222222}
- \item Laboratorio 09: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=99999#p999999}
-\end{itemize}
-
-\subsection{paperon.depaperoni@studio.unibo.it}
-
-\begin{itemize}
- \item Laboratorio 04: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=12345#p123456}
- \item Laboratorio 05: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=22222#p222222}
- \item Laboratorio 06: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=99999#p999999}
- \item Laboratorio 07: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=22222#p222222}
- \item Laboratorio 08: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=99999#p999999}
- \item Laboratorio 09: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=22222#p222222}
- \item Laboratorio 10: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=99999#p999999}
- \item Laboratorio 11: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=22222#p222222}
+ \item Laboratorio 06: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=176282#p244949}
+ \item Laboratorio 07: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=177162#p246019}
+ \item Laboratorio 08: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=178723#p247248}
+ \item Laboratorio 09: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=179154#p248230}
+ \item Laboratorio 10: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=180101#p249109}
+ \item Laboratorio 11: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=181206#p250502}
 \end{itemize}
 
 \end{document}
