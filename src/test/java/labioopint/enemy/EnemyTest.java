@@ -137,7 +137,7 @@ class EnemyTest {
 
         @Test
         void testPlayerHit() {
-                final Settings set = new SettingsImpl(1, 2, 3, EnemyDifficulty.HARD);
+                final Settings set = new SettingsImpl(1, 2, 1, EnemyDifficulty.HARD);
                 final GameController gc = new GameControllerImpl(set);
                 final Labyrinth lab = gc.getLabyrinth();
                 final List<Player> players = lab.getPlayers();
