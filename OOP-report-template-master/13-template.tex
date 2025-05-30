@@ -370,7 +370,7 @@ Di seguito i dettagli relativi a ciascuna delle tre implementazioni:
 	\caption{Schema UML del processo per il movimento del nemico}
 	\label{img:Traduzione Informazioni}
 \end{figure}
-\textbf{Difficoltà del nemico}
+\textbf{Gestione dei nemici con il pattern Factory}
 \\
 \\
 \textbf{PROBLEMA}
@@ -402,6 +402,8 @@ Fornire funzioni di supporto per il movimento dei nemici sulla griglia, favorend
 Applicando il principio DRY, ho creato una classe di utility MovementUtilities con metodi statici di supporto 
 per il movimento dei nemici sulla griglia. Questa classe consente il riutilizzo di alcune logiche di movimento 
 da parte delle varie intelligenze artificiali, evitando duplicazioni di codice.
+La classe contiene due metodi statici principali. Il primo calcola la nuova coordinata in base a una posizione iniziale e
+una direzione (su, giù, destra, sinistra), mentre il secondo traduce un intero (da 0 a 3) nella corrispondente direzione. 
 
 \textbf{Gestione dei turni di gioco}
 \\
