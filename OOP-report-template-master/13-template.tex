@@ -368,7 +368,7 @@ Di seguito i dettagli relativi a ciascuna delle tre implementazioni:
 	\centering{}
 	\includegraphics[width=14cm]{img/MovimentoNemico.png}
 	\caption{Schema UML del processo per il movimento del nemico}
-	\label{img:Traduzione Informazioni}
+	\label{img:Movimento Nemico}
 \end{figure}
 \textbf{Gestione dei nemici con il pattern Factory}
 \\
@@ -382,16 +382,15 @@ Inizialmente ho pensato di implementare il sistema tramite classi astratte, ma p
 dell’utilizzo del pattern Factory, che ha reso più semplice e immediato il processo di creazione delle varie tipologie di nemici.
 Con questo approccio si facilita anche l’estensibilità ed è possibile aggiungere nuovi tipi di nemici senza dover modificare 
 il codice esterno. Inoltre, la classe Enemy è serializzabile, poiché nel gioco è presente un sistema di salvataggio.
-L’interfaccia Enemy include metodi per tenere traccia dell’ultimo giocatore colpito. 
-Finché il nemico non cambia bersaglio o non torna il turno di quel giocatore, 
-potrebbe continuare a colpirlo senza però sottrargli ulteriori PowerUp.
+L’interfaccia Enemy include metodi per tenere traccia dell’ultimo giocatore colpito: finché il nemico non cambia bersaglio o 
+non torna il turno di quel giocatore, potrebbe continuare a colpirlo senza però sottrargli ulteriori PowerUp.
 \begin{figure}[H]
 	\centering{}
 	\includegraphics[width=14cm]{img/DifficoltàNemico.png}
 	\caption{Schema UML del processo per le diverse difficoltà del nemico}
-	\label{img:Traduzione Informazioni}
+	\label{img:Pattern Factory}
 \end{figure}
-\textbf{Evitare la duplicazione del codice}
+\noindent\textbf{Evitare la duplicazione del codice}
 \\
 \\
 \textbf{PROBLEMA}
@@ -404,7 +403,8 @@ per il movimento dei nemici sulla griglia. Questa classe consente il riutilizzo 
 da parte delle varie intelligenze artificiali, evitando duplicazioni di codice.
 La classe contiene due metodi statici principali. Il primo calcola la nuova coordinata in base a una posizione iniziale e
 una direzione (su, giù, destra, sinistra), mentre il secondo traduce un intero (da 0 a 3) nella corrispondente direzione. 
-
+\\
+\\
 \textbf{Gestione dei turni di gioco}
 \\
 \\
@@ -419,7 +419,8 @@ quale giocatore deve agire e quale tipo di azione può compiere. Ciò avviene te
 dell’azione corrente (ad esempio, posizionamento di blocchi o movimento del giocatore).
 Con questo sistema si garantisce che il gioco proceda in modo ordinato e che le azioni dei vari giocatori avvengano 
 secondo la sequenza stabilita dalle regole.
-
+\\
+\\
 \textbf{Creazione degli elementi di gioco}
 \\
 \\
@@ -438,7 +439,7 @@ e l’eventuale nemico (se specificato nelle impostazioni), per poi passarli al 
 	\centering{}
 	\includegraphics[width=14cm]{img/CreazioneElementi.png}
 	\caption{Schema UML del processo per la creazione degli elementi di gioco}
-	\label{img:Traduzione Informazioni}
+	\label{img:Creazione Elementi}
 \end{figure}
 
 \chapter{Sviluppo}
@@ -481,9 +482,9 @@ Per verificare il corretto funzionamento delle diverse parti del progetto, sono
 	tutti gli elementi del labirinto. In particolare, viene controllato che vengano generati due giocatori, che il nemico 
 	sia presente e correttamente posizionato, che i PowerUp siano creati nella quantità prevista e che il labirinto venga 
 	generato correttamente, restituendo un oggetto non nullo.
-	\item \textbf{EnemyTest}: si occupa di verificare il comportamento del nemico in relazione alla difficoltà impostata. 
-	In modalità EASY, il nemico si muove solo di una posizione randomica; in modalità MEDIUM, cerca di avvicinarsi ai 
-	giocatori riuscendoci con alcuni tentativi; mentre in modalità HARD, riesce a raggiungere il giocatore più vicino se è 
+	\item \textbf{EnemyTest}: si occupa di verificare il comportamento del nemico in relazione alla difficoltà impostata. In modalità
+	EASY, il nemico si muove solo di una posizione randomica; in modalità MEDIUM, cerca di avvicinarsi ai 
+	giocatori muovendosi per un numero casuale di passi; mentre in modalità HARD, riesce a raggiungere il giocatore più vicino se è 
 	presente una strada percorribile. Inoltre, viene controllato che, in caso di impatto con un giocatore, il nemico provochi 
 	la perdita di un obiettivo raccolto da parte del giocatore colpito.
 \end{itemize}
