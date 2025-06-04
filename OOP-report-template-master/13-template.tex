@@ -341,6 +341,109 @@ Tra queste ci sono:
 \end{figure}
 
 \newpage
+\subsection{Stefano Baiano}
+\textbf{Gestione delle collisioni}
+\\
+\\
+\textbf{PROBLEMA}
+\\
+Quando un personaggio deve muoversi bisogna verificare che ci sia un'apertura nel labirinto dove il personaggio
+desidera muoversi. Inoltre anche il nemico deve poter verificare le stesse condizioni del giocatore.
+\\
+\\
+\textbf{SOLUZIONE}
+\\
+Per riuscire a gestire la verifica di collisioni è stata creata una classe che verificano se esiste un'entrata nella direzione desiderata. 
+Per capire quali caselle sono da controllare viene usata un'altra classe per non sovraccaricare la prima:
+\begin{itemize}
+	\item DirectionCheck - classe che controlla se esiste una entrata in una specifica direzione di una casella. In caso affermativo restituisce true, altrimenti false.
+	\item ActionPredicate - Prende le azioni passate dall'ActionController e capisce quali caselle sono da controllare. In caso l'azione sia fattibile restituisce true, altrimenti false.
+\end{itemize}
+\textbf{PRO}
+\\
+\begin{itemize}
+	\item Facile utilizzo: la classe rimane semplice da utilizzare in quanto con le funzioni intuitive permette di controllare tutte le direzioni
+	in poche semplici parole. Es: playerCanMove(player, direction, labyrinth) checkLeftEntrance(coord, direction)
+\end{itemize}
+\textbf{CONTRO}
+\\
+\begin{itemize}
+	\item Complessa lettura del codice: visto il facile utilizzo i vari processi devono essere effettuati dalla classe principale. 
+	Per questo la lettura del codice risulta non intuitiva.
+\end{itemize}
+\begin{figure}[H]
+	\centering{}
+	\includegraphics[width=10cm]{img/GestioneCollisioni.png}
+	\caption{Schema UML delle due classi per la gestione collisioni}
+	\label{img:GestioneCollisioni}
+\end{figure}
+\textbf{Gestione gioco}
+\\
+\\
+\textbf{PROBLEMA}
+\\
+Bisogna creare una struttura che gestisce gli input dalla gameView e che faccia da tramite per le varie classi che 
+sono state create all'interno del labirinto.
+\\
+\\
+\textbf{SOLUZIONE}
+\\
+Per sistemare a questa problematica è stata creata una classe, ActionController, con l'obiettivo di coordinare le varie informazioni che vengono da 
+altre classi condividendo i dati tra le varie strutture:
+\begin{itemize}
+	\item Controlli delle azioni: Legge le azioni che arrivano dalla view e le traduce. Usa l'ActionPredicate per capire se è fattibile l'azione.
+	\item Cambiamento dei dati: se l'azione è effettuabile vengono cambiati i dati tramite la classe Labyrinth e TurnManager.
+\end{itemize}
+\textbf{PRO}
+\\
+\begin{itemize}
+	\item Gestione subordinata: La gestione delle varie azioni è gestita ognuna da sottoclassi che svolgono poche semplici azioni che permettono una
+	fruibilità del codice elevata.
+	\item Flessibilità: In caso si vogliano aggiungere azioni nuove il codice rimane molto semplice per permettere queste aggiunte.
+\end{itemize}
+\textbf{CONTRO}
+\begin{itemize}
+	\item Nel caso di problemi o errori per sistemarlo bisogna controllare tante classi diverse tra loro che gestiscono diversi dati. E' quindi 
+	molto semplice perdersi nel codice.
+\end{itemize}
+\begin{figure}[H]
+	\centering{}
+	\includegraphics[width=12cm]{img/ActionController.png}
+	\caption{ActionController con la sua funzione che permette di far funzionare le azioni del gioco}
+	\label{img:ActionController}
+\end{figure}
+\textbf{Gestione dei salvataggi}
+\\
+\\
+\textbf{PROBLEMA}
+\\
+Il gioco necessita di un sistema di salvataggio, ed il corrispettivo caricamento, di una partita. Per farlo è entrata la problematica 
+della Serialization che impedisce l'uso dei vari Optional in quanto non sono serializzabili secondo la classe Serialization.
+\\
+\\
+\textbf{SOLUZIONE}
+\\
+Per riuscire a risolvere la problematica sono state rese tutte le classi Serializable e dove comparivano Optional che andavano salvati, ad esempio 
+nella prima versione dell'Enemy, è stata creato un Pair di boolean ed Enemy per poter riconoscere se esiste o meno il nemico.
+Vengono ora implementate due classi, una per il salvataggio, che verrà richiamata dal GameController, e l'altra per il caricamento, che verrà richiamata dal MainMenuController.
+\\
+\\
+\textbf{PRO}
+\begin{itemize}
+	\item Si riesce con molta facilità ad aggiungere nuove classi ai salvataggi/caricamenti aggiungendo Serializable vicino 
+	alla classe e passando al SaveController per poter effettuare il salvataggio.
+\end{itemize}
+\textbf{CONTRO}
+\begin{itemize}
+	\item Non si può utilizzare la classe Optional, utile per molte funzioni che sono più lunghe e complesse per via del Pair creato.
+\end{itemize}
+\begin{figure}[H]
+	\centering{}
+	\includegraphics[width=\textwidth]{img/Saving.png}
+	\caption{Schema UML di salvataggio e caricamento}
+	\label{img:saving}
+\end{figure}
+\newpage
 \subsection{Andrea Monti}
 \textbf{Movimento del nemico}
 \\
@@ -516,6 +619,15 @@ Per verificare il corretto funzionamento delle diverse parti del progetto, sono
 	\end{itemize}
 \end{itemize}
 
+\subsection{Stefano Baiano}
+\begin{itemize}
+	\item \textbf{DirectionCheckTest}: verifica che la classe DirectionCheck funzioni correttamente. Ogni Test controlla la singola 
+	entrata laterale per i tre tipi di blocchi in tutte le quattro direzioni possibili
+	\item \textbf{ActionCheckTest}: verifica se i controlli di movimento del giocatore e del nemico che vengono trattati dall'ActionPredicate
+	funzionino senza intoppi. Prima testa il giocatore con delle situazioni in cui non è possibilitato a muoversi per vedere se il risultato 
+	viene corretto, lo stesso test viene infine riproposto al nemico.
+\end{itemize}
+
 \newpage
 \subsection{Andrea Monti}
 \begin{itemize}
@@ -570,6 +682,12 @@ Per verificare il corretto funzionamento delle diverse parti del progetto, sono
 	\item \textbf{Utilizzo di Lambda expressions}: Utilizzato nella classe LabyrinthImpl: \url{https://github.com/EnricoAncaraniUnibo/OOP24-LabiOOPint/blob/bff4699198b12c8ac5b1b91a798ec85b5443a107/src/main/java/labioopint/model/maze/impl/LabyrinthImpl.java#L386}
 \end{itemize}
 
+\subsection{Stefano Baiano}
+\begin{itemize}
+	\item \textbf{Utilizzo di FileOutputStream}: Utilizzo nella classe SaveControllerImpl: \url{https://github.com/EnricoAncaraniUnibo/OOP24-LabiOOPint/blob/bff4699198b12c8ac5b1b91a798ec85b5443a107/src/main/java/labioopint/controller/impl/SaveControllerImpl.java#L49}
+	\item \textbf{Utilizzo di FileInputStream}: Utilizzo nella classe LoadControllerImpl: \url{https://github.com/EnricoAncaraniUnibo/OOP24-LabiOOPint/blob/bff4699198b12c8ac5b1b91a798ec85b5443a107/src/main/java/labioopint/controller/impl/LoadControllerImpl.java#L80}
+\end{itemize}
+
 \subsection{Andrea Monti}
 \begin{itemize}
 	\item \textbf{Utilizzo di Optional}: Utilizzato in vari punti, un esempio è: \url{https://github.com/EnricoAncaraniUnibo/OOP24-LabiOOPint/blob/ecece579eb253c22447203ab5b4b3d95ae79cd1d/src/main/java/labioopint/model/enemy/impl/ais/ChaseAI.java#L66}
@@ -609,6 +727,16 @@ In conclusione, considero il mio contributo positivo e sono soddisfatto dell’i
 Se in futuro si decidesse di proseguire con lo sviluppo del progetto, si potrebbe arricchire il gioco introducendo nuovi obiettivi, 
 power-up, scenari alternativi con tessere speciali o strutture della mappa più articolate, al fine di aumentare la varietà e la profondità dell’esperienza di gioco.
 
+\subsection{Stefano Baiano}
+Riconosco che il mio ruolo all'interno del progetto è stato non costante data la situazione di lavoro accostato allo studio, motivo per il quale non sono riuscito 
+ad essere sempre reperibile e presente durante tutti gli incontri. Sebbene questo mio punto a sfavore ritengo che la mia presenza durante gli incontri sia stata di 
+aiuto per la costruzione dell'architettura del progetto e per mantenere un po' di leggerezza durante la progettazione per rimanere produttivi anche in sessioni più lunghe. 
+La mia parte di lavoro è stata svolta principalmente da solo, vista la poca presenza, e quindi mi sono occupato di gestire il cuore di scambi di informazioni tra le varie classi 
+create dai miei compagni, quali TurnManager e Labyrinth, una volta finita la loro parte. Inoltre mi sono occupato di gestire una serie di controlli per la gesione delle 
+azioni che vengono effettuate da un utente. Sicuramente la mia parte è stata utile e tranquilla, dimostro una buona resa in poco tempo sebbene ho la tendenza a riempire 
+la mia agenda di cose nuove da fare. Questa esperienza non rappresenta il mio primo lavoro in gruppo, sia per il mio lavoro attuale che per altri progetti tenuti in sede scolastica 
+ho avuto la possibilità di fare grossi progetti che tutt'ora sono in uso e funzionanti.
+
 \subsection{Andrea Monti}
 Il mio ruolo principale è stato quello di progettare e implementare la logica dei turni e del nemico (compresa 
 l’intelligenza di inseguimento), assicurandomi che il comportamento fosse coerente, sfidante e ben integrato con il 
@@ -630,30 +758,38 @@ Il lavoro di gruppo è andato abbastanza bene e siamo riusciti a rispettare le d
 \\
 \\
 \appendix
-
 \chapter{Guida utente}
 
-Capitolo in cui si spiega come utilizzare il software. Nel caso in cui il suo uso sia del tutto
-banale, tale capitolo può essere omesso.
-%
-A tal riguardo, si fa presente agli studenti che i docenti non hanno mai utilizzato il software
-prima, per cui aspetti che sembrano del tutto banali a chi ha sviluppato l'applicazione possono non
-esserlo per chi la usa per la prima volta.
-%
-Se, ad esempio, per cominciare una partita con un videogioco è necessario premere la barra
-spaziatrice, o il tasto ``P'', è necessario che gli studenti lo segnalino.
+All'apertura del sofware il programma presenta un menù per garantire al/agli utente/i di poter scegliere la modalità richiesta. 
+Nel caso non si voglia iniziare una partita con impostazioni standard è importante andare all'interno dell'opzione "Settings" salvando alla fine dei cambiamenti effettuati.
+Appena confermate le impostazioni si può premere il tasto "Start Game" per iniziare la partita con le caratteristiche scelte.
 
-\subsection*{Elementi positivi}
+\subsection*{Come giocare}
+
+Ogni giocatore ha a disposizione due azioni che si svolgono obbligatoriamente con uno specifico ordine.
 
 \begin{itemize}
- \item Si istruisce in modo semplice l'utente sull'uso dell'applicazione, eventualmente facendo uso di schermate e descrizioni.
+ \item Posizionamento del blocco. Si può girare il blocco tramite l'uso delle frecce laterali(rosso nell'immagine), una volta soddisfatti si può piazzare il blocco dove si preferisce cliccando nelle parti esterne del labirinto, escluso gli angoli(blu nell'immagine).
+ \begin{figure}[H]
+	\includegraphics[width=\textwidth]{img/EsempioDiPrimoTurno.png}
+	\caption{Immagine di una partita in att}
+	\label{img:Esempio di primo turno}
+ \end{figure}
+ \item Movimento del giocatore. Il giocatore potrà muoversi liberamente all'interno del labirinto, senza passare le pareti, usando le frecce laterali. Per terminare il suo turno e passarlo a quello successivo dovrà premere in basso a destra il tasto "End Turn".
 \end{itemize}
 
-\subsection*{Elementi negativi}
-\begin{itemize}
- \item Si descrivono in modo eccessivamente minuzioso tutte le caratteristiche, anche minori, del software in oggetto.
- \item Manca una descrizione che consenta ad un utente qualunque di utilizzare almeno le funzionalità primarie dell'applicativo.
-\end{itemize}
+\subsection*{Nemico}
+
+All'interno del gioco ci sarà un nemico che cercherà di prendervi alla fine del vostro turno. Se si viene presi vi verrà sottriatto un powerUp e rimesso nel campo di gioco.
+
+\subsection*{PowerUp}
+
+All'interno del gioco si possono collezionare powerUp passandoci sopra col proprio personaggio. Questi powerUp si possono utilizzare durante il 
+proprio turno tramite il menù a tendina in passo a destra, una volta selezionato il powerUp desiderato bisogna premere il tasto "Usa powerUp" subito sotto
+
+\subsection*{Obiettivo}
+
+Per poter vincere bisogna avere più powerUp degli altri quando l'ultimo powerUp del labirinto è stato preso.
 
 \chapter{Esercitazioni di laboratorio}
 
