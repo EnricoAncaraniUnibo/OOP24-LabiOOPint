@@ -764,13 +764,36 @@ riposta nella manutenibilità del codice, sono certo che queste e altre modifich
 \appendix
 \chapter{Guida utente}
 
-All'apertura del sofware il programma presenta un menù per garantire al/agli utente/i di poter scegliere la modalità richiesta. 
-Nel caso non si voglia iniziare una partita con impostazioni standard è importante andare all'interno dell'opzione "Settings" salvando alla fine dei cambiamenti effettuati.
-Appena confermate le impostazioni si può premere il tasto "Start Game" per iniziare la partita con le caratteristiche scelte.
+\subsection*{Avvio}
+Il gioco presentato mostrerà in apertura una schermata con la scelta delle varie opzioni per poter giocare. Anzitutto si potrà iniziare 
+una partita standard (4 giocatori, 1 nemico, 6 powerUp e difficoltà "MEDIUM") cliccando sul tasto \texttt{"Start Game"} in alto. Se l'ultima partita non è finita e si vuole riprendere basterà premere su 
+\texttt{"Load Game"} per poter caricare l'ultimo salvataggio. Se si volessero cambiare le impostazioni di gioco, bisogna andare su \texttt{"Settings"} per accedere alla 
+schermata per il cambio dei vari paramentri di gioco. 
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{img/HomePage.png}
+	\caption{Schermata di avvio gioco}
+	\label{img:HomePage}
+\end{figure}
+\subsection*{Impostazioni}
+Si possono scegliere da cambiare:
+\begin{itemize} 
+	\item Difficoltà del nemico: determina quanti passi fa al turno e se i suoi passi sono calcolati per cercare di prendere un giocatore o meno.
+	\item Numero dei giocatori: questo determina anche la dimensione della mappa (7x7 nel caso di 3/4 giocatori, 5x5 nel caso di 2)
+	\item Numero di powerUp: Oggeti attivabili durante la partita che danno benefici all'utilizzatore, inoltre determina il numero di obiettivi all'interno della mappa
+	\item Presenza del nemico: si sceglie se il nemico sarà presente o meno all'interno del gioco
+\end{itemize}
+\texttt{Importante} è salvare alla fine del cambiamento dei parametri così che una volta aperto il gioco con "Start Game" si possa 
+utilizzare correttamente il programma.
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{img/SettingsMenu.png}
+	\caption{Schermata di cambio impostazioni aperta}
+	\label{img:Settings}
+\end{figure}
+\subsection*{Come funziona il gioco}
 
-\subsection*{Come giocare}
-
-Ogni giocatore ha a disposizione due azioni che si svolgono obbligatoriamente con uno specifico ordine.
+Quando il gioco sarà avviato
 
 \begin{itemize}
  \item Posizionamento del blocco. Si può girare il blocco tramite l'uso delle frecce laterali(rosso nell'immagine), una volta soddisfatti si può piazzare il blocco dove si preferisce cliccando nelle parti esterne del labirinto, escluso gli angoli(blu nell'immagine).

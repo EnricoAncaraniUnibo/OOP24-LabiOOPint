@@ -60,6 +60,7 @@ class DirectionCheckTest {
         final Coordinate blockCoordinate = new CoordinateImpl(0, 0);
         lab.setBlock(b, blockCoordinate);
         assertFalse(directionCheck.checkLeftEntrance(blockCoordinate, lab));
+        b = new BlockImpl(BlockType.CORRIDOR, 0);
         b.setRotation(Rotation.NINETY);
         lab.setBlock(b, blockCoordinate);
         assertTrue(directionCheck.checkLeftEntrance(blockCoordinate, lab));
