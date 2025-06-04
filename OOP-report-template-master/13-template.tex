@@ -769,7 +769,7 @@ Il gioco presentato mostrerà in apertura una schermata con la scelta delle vari
 una partita standard (4 giocatori, 1 nemico, 6 powerUp e difficoltà "MEDIUM") cliccando sul tasto \texttt{"Start Game"} in alto. Se l'ultima partita non è finita e si vuole riprendere basterà premere su 
 \texttt{"Load Game"} per poter caricare l'ultimo salvataggio. Se si volessero cambiare le impostazioni di gioco, bisogna andare su \texttt{"Settings"} per accedere alla 
 schermata per il cambio dei vari paramentri di gioco. 
-\begin{figure}
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{img/HomePage.png}
 	\caption{Schermata di avvio gioco}
@@ -785,38 +785,74 @@ Si possono scegliere da cambiare:
 \end{itemize}
 \texttt{Importante} è salvare alla fine del cambiamento dei parametri così che una volta aperto il gioco con "Start Game" si possa 
 utilizzare correttamente il programma.
-\begin{figure}
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{img/SettingsMenu.png}
 	\caption{Schermata di cambio impostazioni aperta}
 	\label{img:Settings}
 \end{figure}
-\subsection*{Come funziona il gioco}
+\subsection*{Partita di gioco}
 
-Quando il gioco sarà avviato
+La partita è competitiva tra i giocatori, ognugno nel suo turno dovrà compiere due azioni per riuscire a raccogliere 
+il maggior numero di obiettivi prima che questi finiscano. Una volta raccolti tutti gli obiettivi il giocatore con più obiettivi avrà vinto. 
+Ma attenzione, se il nemico colpirà il giocatore perderà un'obiettivo ed il corrispettivo powerUp ottenuto insieme a quello.
 
+\subsection*{Mosse}
 \begin{itemize}
- \item Posizionamento del blocco. Si può girare il blocco tramite l'uso delle frecce laterali(rosso nell'immagine), una volta soddisfatti si può piazzare il blocco dove si preferisce cliccando nelle parti esterne del labirinto, escluso gli angoli(blu nell'immagine).
- \begin{figure}[H]
-	\includegraphics[width=\textwidth]{img/EsempioDiPrimoTurno.png}
-	\caption{Immagine di una partita in att}
-	\label{img:Esempio di primo turno}
- \end{figure}
- \item Movimento del giocatore. Il giocatore potrà muoversi liberamente all'interno del labirinto, senza passare le pareti, usando le frecce laterali. Per terminare il suo turno e passarlo a quello successivo dovrà premere in basso a destra il tasto "End Turn".
+	\item Posizionamento del blocco: Si può girare il blocco di novanta gradi tramite l'uso delle frecce laterali(rosso nella Figura A.3), 
+	una volta soddisfatti si può piazzare il blocco dove si preferisce cliccando nelle parti esterne del labirinto, esclusi gli angoli(blu nella Figura A.3).
+	Una volta posizionato il blocco tutta la riga/colonna selezionata verrà shiftata con a capo la tessera esterna. La nuova tessera esterna sarà quella che 
+	esce dal labirinto alla fine dello shift.
+	\begin{figure}[H]
+		\includegraphics[width=\textwidth]{img/EsempioDiPrimoTurno.png}
+		\caption{Immagine di una partita in atto nel momento di inserimento blocco}
+		\label{img:Esempio di primo turno}
+	\end{figure}
+	\item Movimento del giocatore: Il giocatore potrà muoversi liberamente all'interno del labirinto, senza passare le pareti, usando le frecce laterali. 
+	Per terminare il suo turno e passarlo a quello successivo dovrà premere in basso a destra il tasto "End Turn".
+	Alla fine del proprio turno, se presente, il nemico farà la sua mossa.
+	\begin{figure}[H]
+		\includegraphics[width=\textwidth]{img/PartitaInAtto.png}
+		\caption{Immagine di una partita in atto nel momento di movimento giocatore}
+		\label{img:Partita in atto}
+	\end{figure}
+	\item Usare un PowerUp: Il giocatore può usare i PowerUp che ha collezionato dagli obiettivi all'interno della mappa di gioco in qualsiasi momento del proprio 
+	turno. Per fare ciò bisogna premere sul menù a tendina in basso a destra, selezionare il PowerUp che si desidera usare, e premere su "Use PowerUp". Una volta fatto ciò 
+	l'effetto verrà attivato subito ed il PowerUp rimosso dalla propria lista.
+	\begin{figure}[H]
+		\includegraphics[width=\textwidth]{img/PowerUpMenu.png}
+		\caption{Immagine di una partita in atto nel momento di selezione PowerUp}
+		\label{img:Power Up Menu}
+	\end{figure}
 \end{itemize}
 
-\subsection*{Nemico}
+\subsection*{Informazioni dettagliate}
 
-All'interno del gioco ci sarà un nemico che cercherà di prendervi alla fine del vostro turno. Se si viene presi vi verrà sottriatto un powerUp e rimesso nel campo di gioco.
+\subsubsection*{PowerUps}
 
-\subsection*{PowerUp}
+\begin{itemize}
+	\item \includegraphics[width=0.5cm]{img/PowerUps/CorridorToPower.png} \texttt{CorridorToPower}: 
+	\item \includegraphics[width=0.5cm]{img/PowerUps/Double.png} \texttt{DoubleTurn}: Si effettuano due turni consecutivi
+	\item \includegraphics[width=0.5cm]{img/PowerUps/Invincible.png} \texttt{Invincible}: Si diventa immuni al mostro per il turno
+	\item \includegraphics[width=0.5cm]{img/PowerUps/Steal.png} \texttt{Steal}: Viene rubato un obiettivo da un'altro giocatore
+	\item \includegraphics[width=0.5cm]{img/PowerUps/Teleport.png} \texttt{Teleport}: Ci si scambia di posto con un giocatore a caso
+\end{itemize}
 
-All'interno del gioco si possono collezionare powerUp passandoci sopra col proprio personaggio. Questi powerUp si possono utilizzare durante il 
-proprio turno tramite il menù a tendina in passo a destra, una volta selezionato il powerUp desiderato bisogna premere il tasto "Usa powerUp" subito sotto
+\subsubsection*{Difficoltà Nemici}
 
-\subsection*{Obiettivo}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=5cm]{img/Nemico.png}
+	\caption{Nemico}
+	\label{img:Nemico}
+\end{figure}
 
-Per poter vincere bisogna avere più powerUp degli altri quando l'ultimo powerUp del labirinto è stato preso.
+\begin{itemize}
+	\item \texttt{EASY}: il nemico farà un singolo passo a csao tra le caselle attorno a sè.
+	\item \texttt{MEDIUM}: il nemico potrà compiere più passi nel suo turno ma in maniera casuale.
+	\item \texttt{HARD}: il nemico potrà compiere più passi e cercherà di prendere il giocatore più vicino a sè
+	in caso non ci sia una strada per un giocatore eseguirà un passo in maniera casuale.
+\end{itemize}
 
 \chapter{Esercitazioni di laboratorio}
 
